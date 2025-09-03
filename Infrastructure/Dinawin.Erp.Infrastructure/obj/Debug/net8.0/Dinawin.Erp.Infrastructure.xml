@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dinawin.Erp.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:Dinawin.Erp.Infrastructure.DependencyInjection">
+            <summary>
+            تزریق وابستگی‌های لایه Infrastructure
+            Infrastructure layer dependency injection
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Infrastructure.DependencyInjection.AddInfrastructureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            افزودن سرویس‌های لایه Infrastructure
+            Add infrastructure layer services
+            </summary>
+            <param name="services">مجموعه سرویس‌ها</param>
+            <param name="configuration">پیکربندی</param>
+            <returns>مجموعه سرویس‌ها</returns>
+        </member>
+    </members>
+</doc>

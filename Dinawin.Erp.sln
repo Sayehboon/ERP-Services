@@ -1,0 +1,45 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.Domain", "Core\Dinawin.Erp.Domain\Dinawin.Erp.Domain.csproj", "{F1234567-8901-2345-6789-ABCDEF123456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.Application", "Application\Dinawin.Erp.Application\Dinawin.Erp.Application.csproj", "{F2345678-9012-3456-789A-BCDEF1234567}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.Infrastructure", "Infrastructure\Dinawin.Erp.Infrastructure\Dinawin.Erp.Infrastructure.csproj", "{F3456789-0123-4567-89AB-CDEF12345678}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.Persistence", "Infrastructure\Dinawin.Erp.Persistence\Dinawin.Erp.Persistence.csproj", "{F4567890-1234-5678-9ABC-DEF123456789}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.WebApi", "Presentation\Dinawin.Erp.WebApi\Dinawin.Erp.WebApi.csproj", "{F5678901-2345-6789-ABCD-EF1234567890}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1234567-8901-2345-6789-ABCDEF123456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1234567-8901-2345-6789-ABCDEF123456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1234567-8901-2345-6789-ABCDEF123456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1234567-8901-2345-6789-ABCDEF123456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2345678-9012-3456-789A-BCDEF1234567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2345678-9012-3456-789A-BCDEF1234567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2345678-9012-3456-789A-BCDEF1234567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2345678-9012-3456-789A-BCDEF1234567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3456789-0123-4567-89AB-CDEF12345678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3456789-0123-4567-89AB-CDEF12345678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3456789-0123-4567-89AB-CDEF12345678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3456789-0123-4567-89AB-CDEF12345678}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4567890-1234-5678-9ABC-DEF123456789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4567890-1234-5678-9ABC-DEF123456789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4567890-1234-5678-9ABC-DEF123456789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4567890-1234-5678-9ABC-DEF123456789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5678901-2345-6789-ABCD-EF1234567890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5678901-2345-6789-ABCD-EF1234567890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5678901-2345-6789-ABCD-EF1234567890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5678901-2345-6789-ABCD-EF1234567890}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

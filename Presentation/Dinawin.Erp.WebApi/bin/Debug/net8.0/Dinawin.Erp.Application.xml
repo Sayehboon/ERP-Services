@@ -1,0 +1,2032 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dinawin.Erp.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Dinawin.Erp.Application.Common.Behaviors.LoggingBehavior`2">
+            <summary>
+            رفتار لاگ‌گیری برای CQRS
+            Logging behavior for CQRS
+            </summary>
+            <typeparam name="TRequest">نوع درخواست</typeparam>
+            <typeparam name="TResponse">نوع پاسخ</typeparam>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Common.Behaviors.LoggingBehavior`2.#ctor(Microsoft.Extensions.Logging.ILogger{Dinawin.Erp.Application.Common.Behaviors.LoggingBehavior{`0,`1}})">
+            <summary>
+            سازنده رفتار لاگ‌گیری
+            Logging behavior constructor
+            </summary>
+            <param name="logger">لاگر</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Common.Behaviors.LoggingBehavior`2.Handle(`0,MediatR.RequestHandlerDelegate{`1},System.Threading.CancellationToken)">
+            <summary>
+            اجرای رفتار لاگ‌گیری
+            Execute logging behavior
+            </summary>
+            <param name="request">درخواست</param>
+            <param name="next">عمل بعدی</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>پاسخ</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Common.Behaviors.PerformanceBehavior`2">
+            <summary>
+            رفتار نظارت بر عملکرد برای CQRS
+            Performance monitoring behavior for CQRS
+            </summary>
+            <typeparam name="TRequest">نوع درخواست</typeparam>
+            <typeparam name="TResponse">نوع پاسخ</typeparam>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Common.Behaviors.PerformanceBehavior`2.#ctor(Microsoft.Extensions.Logging.ILogger{Dinawin.Erp.Application.Common.Behaviors.PerformanceBehavior{`0,`1}})">
+            <summary>
+            سازنده رفتار نظارت بر عملکرد
+            Performance behavior constructor
+            </summary>
+            <param name="logger">لاگر</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Common.Behaviors.PerformanceBehavior`2.Handle(`0,MediatR.RequestHandlerDelegate{`1},System.Threading.CancellationToken)">
+            <summary>
+            اجرای رفتار نظارت بر عملکرد
+            Execute performance monitoring behavior
+            </summary>
+            <param name="request">درخواست</param>
+            <param name="next">عمل بعدی</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>پاسخ</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Common.Behaviors.ValidationBehavior`2">
+            <summary>
+            رفتار اعتبارسنجی برای CQRS
+            Validation behavior for CQRS
+            </summary>
+            <typeparam name="TRequest">نوع درخواست</typeparam>
+            <typeparam name="TResponse">نوع پاسخ</typeparam>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Common.Behaviors.ValidationBehavior`2.#ctor(System.Collections.Generic.IEnumerable{FluentValidation.IValidator{`0}})">
+            <summary>
+            سازنده رفتار اعتبارسنجی
+            Validation behavior constructor
+            </summary>
+            <param name="validators">اعتبارسنج‌ها</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Common.Behaviors.ValidationBehavior`2.Handle(`0,MediatR.RequestHandlerDelegate{`1},System.Threading.CancellationToken)">
+            <summary>
+            اجرای رفتار اعتبارسنجی
+            Execute validation behavior
+            </summary>
+            <param name="request">درخواست</param>
+            <param name="next">عمل بعدی</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>پاسخ</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext">
+            <summary>
+            واسط دیتابیس برنامه
+            Application database context interface
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            ذخیره تغییرات
+            Save changes
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Common.Mappings.MappingProfile">
+            <summary>
+            پروفایل نگاشت AutoMapper
+            AutoMapper mapping profile
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Common.Mappings.MappingProfile.#ctor">
+            <summary>
+            سازنده پروفایل نگاشت
+            Mapping profile constructor
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.DependencyInjection">
+            <summary>
+            تزریق وابستگی‌های لایه Application
+            Application layer dependency injection
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.DependencyInjection.AddApplicationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            افزودن سرویس‌های لایه Application
+            Add application layer services
+            </summary>
+            <param name="services">مجموعه سرویس‌ها</param>
+            <returns>مجموعه سرویس‌ها</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos.AccountDto">
+            <summary>
+            DTO حساب
+            Account DTO
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos.AccountDto.Id">
+            <summary>
+            شناسه
+            Id
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos.AccountDto.Code">
+            <summary>
+            کد
+            Code
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos.AccountDto.Name">
+            <summary>
+            نام
+            Name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos.AccountDto.IsActive">
+            <summary>
+            فعال است؟
+            Is active?
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos.AccountDto.Description">
+            <summary>
+            شرح
+            Description
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos.AccountDto.ParentId">
+            <summary>
+            شناسه حساب والد
+            Parent account ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos.AccountDto.BusinessId">
+            <summary>
+            شناسه کسب‌وکار
+            Business ID
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.GetAllAccounts.GetAllAccountsQuery">
+            <summary>
+            کوئری دریافت حساب‌ها
+            Query to get accounts
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.GetAllAccounts.GetAllAccountsQuery.#ctor(System.String)">
+            <summary>
+            کوئری دریافت حساب‌ها
+            Query to get accounts
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.GetAllAccounts.GetAllAccountsQueryHandler">
+            <summary>
+            هندلر کوئری دریافت حساب‌ها
+            Handler for GetAllAccountsQuery
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Accounting.Customers.Queries.Dtos.CustomerDto">
+            <summary>
+            DTO مشتری
+            Customer DTO
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Customers.Queries.Dtos.CustomerDto.Id">
+            <summary>
+            شناسه
+            Id
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Customers.Queries.Dtos.CustomerDto.Code">
+            <summary>
+            کد
+            Code
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Accounting.Customers.Queries.Dtos.CustomerDto.Name">
+            <summary>
+            نام
+            Name
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Accounting.Customers.Queries.GetAllCustomers.GetAllCustomersQuery">
+            <summary>
+            کوئری دریافت مشتریان
+            Query to get customers
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Accounting.Customers.Queries.GetAllCustomers.GetAllCustomersQuery.#ctor(System.String)">
+            <summary>
+            کوئری دریافت مشتریان
+            Query to get customers
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Accounting.Customers.Queries.GetAllCustomers.GetAllCustomersQueryHandler">
+            <summary>
+            هندلر کوئری دریافت مشتریان
+            Handler for GetAllCustomersQuery
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQuery">
+            <summary>
+            پرس‌وجو لیست برندها
+            Query for getting all brands
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQuery.SearchTerm">
+            <summary>
+            عبارت جستجو
+            Search term
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQuery.IsActive">
+            <summary>
+            فقط برندهای فعال
+            Only active brands
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQuery.Page">
+            <summary>
+            شماره صفحه
+            Page number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQuery.PageSize">
+            <summary>
+            تعداد آیتم در هر صفحه
+            Items per page
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQueryHandler">
+            <summary>
+            پردازش‌کننده پرس‌وجو لیست برندها
+            Get all brands query handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQueryHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext,AutoMapper.IMapper)">
+            <summary>
+            سازنده پردازش‌کننده پرس‌وجو لیست برندها
+            Get all brands query handler constructor
+            </summary>
+            <param name="context">کنتکست دیتابیس</param>
+            <param name="mapper">نگاشت‌کننده</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQueryHandler.Handle(Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.GetAllBrandsQuery,System.Threading.CancellationToken)">
+            <summary>
+            پردازش پرس‌وجو لیست برندها
+            Handle get all brands query
+            </summary>
+            <param name="request">درخواست لیست برندها</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>لیست برندها</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories.GetAllCategoriesQuery">
+            <summary>
+            پرس‌وجو لیست دسته‌بندی‌ها
+            Query for getting all categories
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories.GetAllCategoriesQuery.SearchTerm">
+            <summary>
+            عبارت جستجو
+            Search term
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories.GetAllCategoriesQuery.ParentCategoryId">
+            <summary>
+            شناسه دسته‌بندی والد
+            Parent category ID filter
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories.GetAllCategoriesQuery.IsActive">
+            <summary>
+            فقط دسته‌بندی‌های فعال
+            Only active categories
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories.GetAllCategoriesQuery.Page">
+            <summary>
+            شماره صفحه
+            Page number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories.GetAllCategoriesQuery.PageSize">
+            <summary>
+            تعداد آیتم در هر صفحه
+            Items per page
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Movements.Queries.GetMovementsByProduct.InventoryMovementDto">
+            <summary>
+            DTO حرکت انبار برای محصول
+            Inventory movement DTO for product
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Movements.Queries.GetMovementsByProduct.GetMovementsByProductQuery">
+            <summary>
+            کوئری حرکات انبار برای محصول
+            Query for inventory movements by product id
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Inventory.Movements.Queries.GetMovementsByProduct.GetMovementsByProductQuery.#ctor(System.Guid)">
+            <summary>
+            کوئری حرکات انبار برای محصول
+            Query for inventory movements by product id
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Movements.Queries.GetMovementsByProduct.GetMovementsByProductQueryHandler">
+            <summary>
+            هندلر کوئری
+            Handler
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto">
+            <summary>
+            DTO موجودی انبار
+            Inventory Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.Id">
+            <summary>
+            شناسه موجودی
+            Inventory ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.ProductId">
+            <summary>
+            شناسه کالا
+            Product ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.ProductName">
+            <summary>
+            نام کالا
+            Product name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.ProductSku">
+            <summary>
+            کد SKU کالا
+            Product SKU
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.WarehouseId">
+            <summary>
+            شناسه انبار
+            Warehouse ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.WarehouseName">
+            <summary>
+            نام انبار
+            Warehouse name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.Quantity">
+            <summary>
+            مقدار موجودی
+            Current quantity
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.ReservedQuantity">
+            <summary>
+            مقدار رزروی
+            Reserved quantity
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.AvailableQuantity">
+            <summary>
+            موجودی قابل فروش
+            Available quantity for sale
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.AvgCost">
+            <summary>
+            میانگین موزون بهای تمام شده
+            Weighted average cost
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.LastPurchaseCost">
+            <summary>
+            آخرین قیمت خرید
+            Last purchase cost
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.MinStockAlert">
+            <summary>
+            حداقل موجودی هشدار
+            Minimum stock alert level
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.MaxStockLevel">
+            <summary>
+            حداکثر موجودی
+            Maximum stock level
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.ReorderPoint">
+            <summary>
+            نقطه سفارش مجدد
+            Reorder point
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.SafetyStock">
+            <summary>
+            موجودی ایمن
+            Safety stock
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.IsLowStock">
+            <summary>
+            آیا در وضعیت کمبود موجودی است
+            Is in low stock status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.NeedsReorder">
+            <summary>
+            آیا نیاز به سفارش مجدد دارد
+            Needs reorder
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.LastMovementDate">
+            <summary>
+            تاریخ آخرین حرکت موجودی
+            Last inventory movement date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryDto.UpdatedAt">
+            <summary>
+            تاریخ بروزرسانی
+            Last update date
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto">
+            <summary>
+            DTO انبار
+            Warehouse Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.Id">
+            <summary>
+            شناسه انبار
+            Warehouse ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.Code">
+            <summary>
+            کد انبار
+            Warehouse code
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.Name">
+            <summary>
+            نام انبار
+            Warehouse name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.Description">
+            <summary>
+            توضیحات انبار
+            Warehouse description
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.Type">
+            <summary>
+            نوع انبار
+            Warehouse type
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.Capacity">
+            <summary>
+            ظرفیت انبار (متر مربع)
+            Warehouse capacity (square meters)
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.IsActive">
+            <summary>
+            وضعیت فعال/غیرفعال
+            Active status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.IsMainWarehouse">
+            <summary>
+            آیا انبار اصلی است
+            Is main warehouse
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.WarehouseDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Creation date
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto">
+            <summary>
+            DTO حرکت موجودی
+            Inventory movement Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.Id">
+            <summary>
+            شناسه حرکت
+            Movement ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.ProductName">
+            <summary>
+            نام کالا
+            Product name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.WarehouseName">
+            <summary>
+            نام انبار
+            Warehouse name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.Type">
+            <summary>
+            نوع حرکت
+            Movement type
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.Quantity">
+            <summary>
+            مقدار حرکت
+            Movement quantity
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.UnitCost">
+            <summary>
+            قیمت واحد
+            Unit cost
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.TotalValue">
+            <summary>
+            مجموع ارزش حرکت
+            Total movement value
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.BalanceBefore">
+            <summary>
+            موجودی قبل از حرکت
+            Balance before movement
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.BalanceAfter">
+            <summary>
+            موجودی بعد از حرکت
+            Balance after movement
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.ReferenceNumber">
+            <summary>
+            شماره مرجع
+            Reference number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.Reason">
+            <summary>
+            دلیل حرکت
+            Movement reason
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.Notes">
+            <summary>
+            یادداشت
+            Notes
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.MovementDate">
+            <summary>
+            تاریخ حرکت
+            Movement date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.Dtos.InventoryMovementDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Creation date
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Queries.GetInventoryOverview.GetInventoryOverviewQuery">
+            <summary>
+            پرس‌وجو نمای کلی موجودی
+            Query for getting inventory overview
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.GetInventoryOverview.GetInventoryOverviewQuery.WarehouseId">
+            <summary>
+            شناسه انبار
+            Warehouse ID filter
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.GetInventoryOverview.GetInventoryOverviewQuery.ProductId">
+            <summary>
+            شناسه کالا
+            Product ID filter
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.GetInventoryOverview.GetInventoryOverviewQuery.LowStockOnly">
+            <summary>
+            فقط موجودی‌های کم
+            Only low stock items
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.GetInventoryOverview.GetInventoryOverviewQuery.ReorderOnly">
+            <summary>
+            فقط موجودی‌های نیازمند سفارش مجدد
+            Only items needing reorder
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.GetInventoryOverview.GetInventoryOverviewQuery.Page">
+            <summary>
+            شماره صفحه
+            Page number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Queries.GetInventoryOverview.GetInventoryOverviewQuery.PageSize">
+            <summary>
+            تعداد آیتم در هر صفحه
+            Items per page
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses.GetAllWarehousesQuery">
+            <summary>
+            کوئری دریافت انبارها
+            Query to get warehouses
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses.GetAllWarehousesQuery.#ctor">
+            <summary>
+            کوئری دریافت انبارها
+            Query to get warehouses
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses.WarehouseListItemDto">
+            <summary>
+            DTO لیست انبار
+            Warehouse list DTO
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses.WarehouseListItemDto.Id">
+            <summary>شناسه</summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses.WarehouseListItemDto.Name">
+            <summary>نام</summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses.WarehouseListItemDto.Code">
+            <summary>کد</summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses.WarehouseListItemDto.BusinessId">
+            <summary>شناسه کسب‌وکار</summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses.GetAllWarehousesQueryHandler">
+            <summary>
+            هندلر دریافت انبارها
+            Handler for GetAllWarehousesQuery
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand">
+            <summary>
+            فرمان ایجاد کالای جدید
+            Command for creating a new product
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.Sku">
+            <summary>
+            کد SKU کالا
+            Product SKU code
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.Name">
+            <summary>
+            نام کالا
+            Product name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.Description">
+            <summary>
+            توضیحات کالا
+            Product description
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.BrandId">
+            <summary>
+            شناسه برند
+            Brand ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.CategoryId">
+            <summary>
+            شناسه دسته‌بندی
+            Category ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.BaseUomId">
+            <summary>
+            شناسه واحد پایه
+            Base unit of measure ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.PriceBuy">
+            <summary>
+            قیمت خرید
+            Purchase price
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.PriceSell">
+            <summary>
+            قیمت فروش
+            Selling price
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.MinStockLevel">
+            <summary>
+            حداقل موجودی
+            Minimum stock level
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.MaxStockLevel">
+            <summary>
+            حداکثر موجودی
+            Maximum stock level
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand.ReorderPoint">
+            <summary>
+            نقطه سفارش مجدد
+            Reorder point
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandHandler">
+            <summary>
+            پردازش‌کننده فرمان ایجاد کالای جدید
+            Create product command handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            سازنده پردازش‌کننده فرمان ایجاد کالا
+            Create product command handler constructor
+            </summary>
+            <param name="context">کنتکست دیتابیس</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandHandler.Handle(Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand,System.Threading.CancellationToken)">
+            <summary>
+            پردازش فرمان ایجاد کالا
+            Handle create product command
+            </summary>
+            <param name="request">درخواست ایجاد کالا</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>شناسه کالای ایجاد شده</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandValidator">
+            <summary>
+            اعتبارسنج فرمان ایجاد کالای جدید
+            Create product command validator
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandValidator.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            سازنده اعتبارسنج فرمان ایجاد کالا
+            Create product command validator constructor
+            </summary>
+            <param name="context">کنتکست دیتابیس</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandValidator.BeUniqueSku(System.String,System.Threading.CancellationToken)">
+            <summary>
+            بررسی یکتا بودن کد SKU
+            Check SKU uniqueness
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandValidator.BeValidBrand(System.Nullable{System.Guid},System.Threading.CancellationToken)">
+            <summary>
+            بررسی معتبر بودن برند
+            Check brand validity
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandValidator.BeValidCategory(System.Nullable{System.Guid},System.Threading.CancellationToken)">
+            <summary>
+            بررسی معتبر بودن دسته‌بندی
+            Check category validity
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommandValidator.BeValidUom(System.Nullable{System.Guid},System.Threading.CancellationToken)">
+            <summary>
+            بررسی معتبر بودن واحد اندازه‌گیری
+            Check unit of measure validity
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand">
+            <summary>
+            فرمان ویرایش کالا
+            Command for updating a product
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.Id">
+            <summary>
+            شناسه کالا
+            Product ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.Sku">
+            <summary>
+            کد SKU کالا
+            Product SKU code
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.Name">
+            <summary>
+            نام کالا
+            Product name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.Description">
+            <summary>
+            توضیحات کالا
+            Product description
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.BrandId">
+            <summary>
+            شناسه برند
+            Brand ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.CategoryId">
+            <summary>
+            شناسه دسته‌بندی
+            Category ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.BaseUomId">
+            <summary>
+            شناسه واحد پایه
+            Base unit of measure ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.PriceBuy">
+            <summary>
+            قیمت خرید
+            Purchase price
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.PriceSell">
+            <summary>
+            قیمت فروش
+            Selling price
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.MinStockLevel">
+            <summary>
+            حداقل موجودی
+            Minimum stock level
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.MaxStockLevel">
+            <summary>
+            حداکثر موجودی
+            Maximum stock level
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.ReorderPoint">
+            <summary>
+            نقطه سفارش مجدد
+            Reorder point
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand.IsActive">
+            <summary>
+            وضعیت فعال/غیرفعال
+            Active status
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommandHandler">
+            <summary>
+            پردازش‌کننده فرمان ویرایش کالا
+            Update product command handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommandHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            سازنده پردازش‌کننده فرمان ویرایش کالا
+            Update product command handler constructor
+            </summary>
+            <param name="context">کنتکست دیتابیس</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommandHandler.Handle(Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand,System.Threading.CancellationToken)">
+            <summary>
+            پردازش فرمان ویرایش کالا
+            Handle update product command
+            </summary>
+            <param name="request">درخواست ویرایش کالا</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>نتیجه ویرایش</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto">
+            <summary>
+            DTO کالا
+            Product Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.Id">
+            <summary>
+            شناسه کالا
+            Product ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.Sku">
+            <summary>
+            کد SKU کالا
+            Product SKU code
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.Name">
+            <summary>
+            نام کالا
+            Product name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.Description">
+            <summary>
+            توضیحات کالا
+            Product description
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.BrandId">
+            <summary>
+            شناسه برند
+            Brand ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.BrandName">
+            <summary>
+            نام برند
+            Brand name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.CategoryId">
+            <summary>
+            شناسه دسته‌بندی
+            Category ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.CategoryName">
+            <summary>
+            نام دسته‌بندی
+            Category name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.BaseUomId">
+            <summary>
+            شناسه واحد پایه
+            Base unit of measure ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.BaseUomName">
+            <summary>
+            نام واحد پایه
+            Base unit of measure name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.PriceBuy">
+            <summary>
+            قیمت خرید
+            Purchase price
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.PriceSell">
+            <summary>
+            قیمت فروش
+            Selling price
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.StockQuantity">
+            <summary>
+            موجودی کل
+            Total stock quantity
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.MinStockLevel">
+            <summary>
+            حداقل موجودی
+            Minimum stock level
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.MaxStockLevel">
+            <summary>
+            حداکثر موجودی
+            Maximum stock level
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.ReorderPoint">
+            <summary>
+            نقطه سفارش مجدد
+            Reorder point
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.IsActive">
+            <summary>
+            وضعیت فعال/غیرفعال
+            Active status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Creation date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.ProductDto.UpdatedAt">
+            <summary>
+            تاریخ بروزرسانی
+            Last update date
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Queries.Dtos.BrandDto">
+            <summary>
+            DTO برند
+            Brand Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.BrandDto.Id">
+            <summary>
+            شناسه برند
+            Brand ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.BrandDto.Name">
+            <summary>
+            نام برند
+            Brand name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.BrandDto.Description">
+            <summary>
+            توضیحات برند
+            Brand description
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.BrandDto.IsActive">
+            <summary>
+            وضعیت فعال/غیرفعال
+            Active status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.BrandDto.ProductCount">
+            <summary>
+            تعداد کالاهای مرتبط
+            Number of related products
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.BrandDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Creation date
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto">
+            <summary>
+            DTO دسته‌بندی
+            Category Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.Id">
+            <summary>
+            شناسه دسته‌بندی
+            Category ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.Name">
+            <summary>
+            نام دسته‌بندی
+            Category name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.Description">
+            <summary>
+            توضیحات دسته‌بندی
+            Category description
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.ParentCategoryId">
+            <summary>
+            شناسه دسته‌بندی والد
+            Parent category ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.ParentCategoryName">
+            <summary>
+            نام دسته‌بندی والد
+            Parent category name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.IsActive">
+            <summary>
+            وضعیت فعال/غیرفعال
+            Active status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.SortOrder">
+            <summary>
+            ترتیب نمایش
+            Display order
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.ProductCount">
+            <summary>
+            تعداد کالاهای مرتبط
+            Number of related products
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.SubcategoryCount">
+            <summary>
+            تعداد زیردسته‌ها
+            Number of subcategories
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.Dtos.CategoryDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Creation date
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQuery">
+            <summary>
+            پرس‌وجو لیست کالاها
+            Query for getting all products
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQuery.SearchTerm">
+            <summary>
+            عبارت جستجو
+            Search term
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQuery.BrandId">
+            <summary>
+            شناسه برند
+            Brand ID filter
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQuery.CategoryId">
+            <summary>
+            شناسه دسته‌بندی
+            Category ID filter
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQuery.IsActive">
+            <summary>
+            فقط کالاهای فعال
+            Only active products
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQuery.Page">
+            <summary>
+            شماره صفحه
+            Page number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQuery.PageSize">
+            <summary>
+            تعداد آیتم در هر صفحه
+            Items per page
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQueryHandler">
+            <summary>
+            پردازش‌کننده پرس‌وجو لیست کالاها
+            Get all products query handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQueryHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext,AutoMapper.IMapper)">
+            <summary>
+            سازنده پردازش‌کننده پرس‌وجو لیست کالاها
+            Get all products query handler constructor
+            </summary>
+            <param name="context">کنتکست دیتابیس</param>
+            <param name="mapper">نگاشت‌کننده</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQueryHandler.Handle(Dinawin.Erp.Application.Features.Products.Queries.GetAllProducts.GetAllProductsQuery,System.Threading.CancellationToken)">
+            <summary>
+            پردازش پرس‌وجو لیست کالاها
+            Handle get all products query
+            </summary>
+            <param name="request">درخواست لیست کالاها</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>لیست کالاها</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Queries.GetProductById.GetProductByIdQuery">
+            <summary>
+            پرس‌وجو دریافت کالا با شناسه
+            Query for getting product by ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Products.Queries.GetProductById.GetProductByIdQuery.Id">
+            <summary>
+            شناسه کالا
+            Product ID
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Queries.GetProductById.GetProductByIdQueryHandler">
+            <summary>
+            پردازش‌کننده پرس‌وجو دریافت کالا با شناسه
+            Get product by ID query handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Queries.GetProductById.GetProductByIdQueryHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext,AutoMapper.IMapper)">
+            <summary>
+            سازنده پردازش‌کننده پرس‌وجو دریافت کالا
+            Get product by ID query handler constructor
+            </summary>
+            <param name="context">کنتکست دیتابیس</param>
+            <param name="mapper">نگاشت‌کننده</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Queries.GetProductById.GetProductByIdQueryHandler.Handle(Dinawin.Erp.Application.Features.Products.Queries.GetProductById.GetProductByIdQuery,System.Threading.CancellationToken)">
+            <summary>
+            پردازش پرس‌وجو دریافت کالا با شناسه
+            Handle get product by ID query
+            </summary>
+            <param name="request">درخواست دریافت کالا</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>اطلاعات کالا</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Commands.DeleteUom.DeleteUomCommand">
+            <summary>
+            فرمان حذف واحد
+            Command to delete UOM
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Uoms.Commands.DeleteUom.DeleteUomCommand.#ctor(System.Guid)">
+            <summary>
+            فرمان حذف واحد
+            Command to delete UOM
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Commands.DeleteUom.DeleteUomCommandHandler">
+            <summary>
+            هندلر حذف واحد
+            Handler
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Commands.UpsertUom.UpsertUomCommand">
+            <summary>
+            فرمان ایجاد/ویرایش واحد
+            Command to create or update UOM
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Uoms.Commands.UpsertUom.UpsertUomCommand.#ctor(System.Nullable{System.Guid},System.String,System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            فرمان ایجاد/ویرایش واحد
+            Command to create or update UOM
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Commands.UpsertUom.UpsertUomCommandHandler">
+            <summary>
+            هندلر ایجاد/ویرایش واحد
+            Handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Uoms.Commands.UpsertUom.UpsertUomCommandHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            هندلر ایجاد/ویرایش واحد
+            Handler
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Conversions.Commands.DeleteUomConversion.DeleteUomConversionCommand">
+            <summary>
+            فرمان حذف تبدیل واحد
+            Delete UOM conversion
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Uoms.Conversions.Commands.DeleteUomConversion.DeleteUomConversionCommand.#ctor(System.Guid)">
+            <summary>
+            فرمان حذف تبدیل واحد
+            Delete UOM conversion
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Conversions.Commands.UpsertUomConversion.UpsertUomConversionCommand">
+            <summary>
+            فرمان ایجاد/ویرایش تبدیل واحد
+            Upsert UOM conversion
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Uoms.Conversions.Commands.UpsertUomConversion.UpsertUomConversionCommand.#ctor(System.Nullable{System.Guid},System.Guid,System.Guid,System.Decimal)">
+            <summary>
+            فرمان ایجاد/ویرایش تبدیل واحد
+            Upsert UOM conversion
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Conversions.Queries.GetConversions.UomConversionDto">
+            <summary>
+            DTO تبدیل واحد
+            UOM conversion DTO
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Conversions.Queries.GetConversions.GetUomConversionsQuery">
+            <summary>
+            کوئری دریافت تبدیل‌ها
+            Query
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Conversions.Queries.GetConversions.GetUomConversionsQueryHandler">
+            <summary>
+            هندلر دریافت تبدیل‌ها
+            Handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Uoms.Conversions.Queries.GetConversions.GetUomConversionsQueryHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            هندلر دریافت تبدیل‌ها
+            Handler
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Queries.GetAllUoms.UomDto">
+            <summary>
+            DTO واحد
+            UOM DTO
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Queries.GetAllUoms.GetAllUomsQuery">
+            <summary>
+            کوئری لیست واحدها
+            Query get all uoms
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Products.Uoms.Queries.GetAllUoms.GetAllUomsQuery.#ctor(System.String)">
+            <summary>
+            کوئری لیست واحدها
+            Query get all uoms
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Products.Uoms.Queries.GetAllUoms.GetAllUomsQueryHandler">
+            <summary>
+            هندلر دریافت واحدها
+            Handler
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceCommand">
+            <summary>
+            فرمان ایجاد فاکتور فروش
+            Command to create sales invoice
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceCommand.#ctor(System.Guid,System.DateTime,System.String,System.Collections.Generic.IReadOnlyList{Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceLineDto})">
+            <summary>
+            فرمان ایجاد فاکتور فروش
+            Command to create sales invoice
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceLineDto">
+            <summary>
+            DTO سطر فاکتور برای ایجاد
+            Line item DTO for creation
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceLineDto.#ctor(System.Guid,System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.String)">
+            <summary>
+            DTO سطر فاکتور برای ایجاد
+            Line item DTO for creation
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceCommandHandler">
+            <summary>
+            هندلر ایجاد فاکتور فروش
+            Handler to create sales invoice
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceCommandHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            سازنده
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceCommandHandler.Handle(Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceCommand,System.Threading.CancellationToken)">
+            <summary>
+            اجرا
+            Handle
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.DeleteSalesInvoice.DeleteSalesInvoiceCommand">
+            <summary>
+            فرمان حذف فاکتور فروش
+            Command to delete sales invoice
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.DeleteSalesInvoice.DeleteSalesInvoiceCommand.#ctor(System.Guid)">
+            <summary>
+            فرمان حذف فاکتور فروش
+            Command to delete sales invoice
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.DeleteSalesInvoice.DeleteSalesInvoiceCommandHandler">
+            <summary>
+            هندلر حذف فاکتور فروش
+            Handler for DeleteSalesInvoiceCommand
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.PostSalesInvoice.PostSalesInvoiceCommand">
+            <summary>
+            فرمان ثبت فاکتور فروش
+            Command to post sales invoice
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.PostSalesInvoice.PostSalesInvoiceCommand.#ctor(System.Guid)">
+            <summary>
+            فرمان ثبت فاکتور فروش
+            Command to post sales invoice
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.PostSalesInvoice.PostSalesInvoiceCommandHandler">
+            <summary>
+            هندلر ثبت فاکتور فروش
+            Handler for PostSalesInvoiceCommand
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.PostSalesInvoice.PostSalesInvoiceCommandHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            سازنده
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.PostSalesInvoice.PostSalesInvoiceCommandHandler.Handle(Dinawin.Erp.Application.Features.SalesInvoices.Commands.PostSalesInvoice.PostSalesInvoiceCommand,System.Threading.CancellationToken)">
+            <summary>
+            اجرا
+            Handle
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.UpdateSalesInvoice.UpdateSalesInvoiceCommand">
+            <summary>
+            فرمان ویرایش فاکتور فروش
+            Command to update sales invoice
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.UpdateSalesInvoice.UpdateSalesInvoiceCommand.#ctor(System.Guid,System.Guid,System.DateTime,System.String,System.Collections.Generic.IReadOnlyList{Dinawin.Erp.Application.Features.SalesInvoices.Commands.UpdateSalesInvoice.UpdateSalesInvoiceLineDto})">
+            <summary>
+            فرمان ویرایش فاکتور فروش
+            Command to update sales invoice
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.UpdateSalesInvoice.UpdateSalesInvoiceLineDto">
+            <summary>
+            DTO سطر فاکتور برای ویرایش
+            Line item DTO for update
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Commands.UpdateSalesInvoice.UpdateSalesInvoiceLineDto.#ctor(System.Guid,System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.Decimal,System.String)">
+            <summary>
+            DTO سطر فاکتور برای ویرایش
+            Line item DTO for update
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Commands.UpdateSalesInvoice.UpdateSalesInvoiceCommandHandler">
+            <summary>
+            هندلر ویرایش فاکتور فروش
+            Handler for UpdateSalesInvoiceCommand
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto">
+            <summary>
+            DTO فاکتور فروش
+            Sales invoice Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.Id">
+            <summary>
+            شناسه فاکتور
+            Invoice ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.Number">
+            <summary>
+            شماره فاکتور
+            Invoice number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.InvoiceDate">
+            <summary>
+            تاریخ فاکتور
+            Invoice date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.CustomerId">
+            <summary>
+            شناسه مشتری
+            Customer ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.CustomerName">
+            <summary>
+            نام مشتری
+            Customer name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.Total">
+            <summary>
+            مجموع کل فاکتور
+            Total amount
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.Tax">
+            <summary>
+            مالیات
+            Tax amount
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.Discount">
+            <summary>
+            تخفیف
+            Discount amount
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.Notes">
+            <summary>
+            یادداشت
+            Notes
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.Status">
+            <summary>
+            وضعیت فاکتور
+            Invoice status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Creation date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.UpdatedAt">
+            <summary>
+            تاریخ بروزرسانی
+            Last update date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.IsPosted">
+            <summary>
+            آیا فاکتور ثبت شده است
+            Is invoice posted
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.SalesInvoices.Queries.Dtos.SalesInvoiceDto.IsDraft">
+            <summary>
+            آیا فاکتور پیش‌نویس است
+            Is invoice draft
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetAllSalesInvoices.GetAllSalesInvoicesQuery">
+            <summary>
+            کوئری دریافت فاکتورهای فروش
+            Query to get sales invoices
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetAllSalesInvoices.GetAllSalesInvoicesQuery.#ctor(System.Nullable{System.Guid},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Int32,System.Int32)">
+            <summary>
+            کوئری دریافت فاکتورهای فروش
+            Query to get sales invoices
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetAllSalesInvoices.GetAllSalesInvoicesQueryHandler">
+            <summary>
+            هندلر کوئری دریافت فاکتورهای فروش
+            Handler for GetAllSalesInvoicesQuery
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetAllSalesInvoices.GetAllSalesInvoicesQueryHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            سازنده
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetAllSalesInvoices.GetAllSalesInvoicesQueryHandler.Handle(Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetAllSalesInvoices.GetAllSalesInvoicesQuery,System.Threading.CancellationToken)">
+            <summary>
+            اجرا
+            Handle
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetSalesInvoiceById.GetSalesInvoiceByIdQuery">
+            <summary>
+            کوئری دریافت فاکتور فروش با شناسه
+            Query to get sales invoice by id
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetSalesInvoiceById.GetSalesInvoiceByIdQuery.#ctor(System.Guid)">
+            <summary>
+            کوئری دریافت فاکتور فروش با شناسه
+            Query to get sales invoice by id
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetSalesInvoiceById.GetSalesInvoiceByIdQueryHandler">
+            <summary>
+            هندلر کوئری دریافت فاکتور فروش با شناسه
+            Handler for GetSalesInvoiceByIdQuery
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetSalesInvoiceById.GetSalesInvoiceByIdQueryHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            سازنده
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetSalesInvoiceById.GetSalesInvoiceByIdQueryHandler.Handle(Dinawin.Erp.Application.Features.SalesInvoices.Queries.GetSalesInvoiceById.GetSalesInvoiceByIdQuery,System.Threading.CancellationToken)">
+            <summary>
+            اجرا
+            Handle
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto">
+            <summary>
+            DTO حساب بانکی
+            Bank account DTO
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto.Id">
+            <summary>
+            شناسه
+            Id
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto.Name">
+            <summary>
+            نام
+            Name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto.Iban">
+            <summary>
+            شماره IBAN
+            IBAN number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto.Currency">
+            <summary>
+            ارز
+            Currency
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto.ControlAccountId">
+            <summary>
+            شناسه حساب کنترل
+            Control account ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto.BusinessId">
+            <summary>
+            شناسه کسب‌وکار
+            Business ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto.IsActive">
+            <summary>
+            فعال است؟
+            Is active?
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.BankAccounts.Queries.Dtos.BankAccountDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Created at
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Treasury.CashBoxes.Queries.Dtos.CashBoxDto">
+            <summary>
+            DTO صندوق نقدی
+            Cash box DTO
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashBoxes.Queries.Dtos.CashBoxDto.Id">
+            <summary>
+            شناسه
+            Id
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashBoxes.Queries.Dtos.CashBoxDto.Name">
+            <summary>
+            نام
+            Name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashBoxes.Queries.Dtos.CashBoxDto.Location">
+            <summary>
+            مکان
+            Location
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashBoxes.Queries.Dtos.CashBoxDto.BusinessId">
+            <summary>
+            شناسه کسب‌وکار
+            Business ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashBoxes.Queries.Dtos.CashBoxDto.IsActive">
+            <summary>
+            فعال است؟
+            Is active?
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto">
+            <summary>
+            DTO تراکنش نقدی
+            Cash transaction DTO
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.Id">
+            <summary>
+            شناسه
+            Id
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.CashBoxId">
+            <summary>
+            شناسه صندوق نقدی
+            Cash box ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.CashBoxName">
+            <summary>
+            نام صندوق نقدی
+            Cash box name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.TransactionDate">
+            <summary>
+            تاریخ تراکنش
+            Transaction date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.Type">
+            <summary>
+            نوع تراکنش
+            Transaction type
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.Amount">
+            <summary>
+            مبلغ
+            Amount
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.Currency">
+            <summary>
+            ارز
+            Currency
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.Description">
+            <summary>
+            شرح
+            Description
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.Status">
+            <summary>
+            وضعیت
+            Status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.IsPosted">
+            <summary>
+            آیا پست شده است؟
+            Is posted?
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Treasury.CashTransactions.Queries.Dtos.CashTransactionDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Created at
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Users.Commands.ToggleUserStatus.ToggleUserStatusCommand">
+            <summary>
+            فرمان تغییر وضعیت کاربر
+            Command for toggling user status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Commands.ToggleUserStatus.ToggleUserStatusCommand.UserId">
+            <summary>
+            شناسه کاربر
+            User ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Commands.ToggleUserStatus.ToggleUserStatusCommand.CurrentStatus">
+            <summary>
+            وضعیت فعلی کاربر
+            Current user status
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Users.Commands.ToggleUserStatus.ToggleUserStatusCommandHandler">
+            <summary>
+            پردازش‌کننده فرمان تغییر وضعیت کاربر
+            Toggle user status command handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Users.Commands.ToggleUserStatus.ToggleUserStatusCommandHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext)">
+            <summary>
+            سازنده پردازش‌کننده فرمان تغییر وضعیت کاربر
+            Toggle user status command handler constructor
+            </summary>
+            <param name="context">کنتکست دیتابیس</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Users.Commands.ToggleUserStatus.ToggleUserStatusCommandHandler.Handle(Dinawin.Erp.Application.Features.Users.Commands.ToggleUserStatus.ToggleUserStatusCommand,System.Threading.CancellationToken)">
+            <summary>
+            پردازش فرمان تغییر وضعیت کاربر
+            Handle toggle user status command
+            </summary>
+            <param name="request">درخواست تغییر وضعیت کاربر</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>نتیجه تغییر وضعیت</returns>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto">
+            <summary>
+            DTO پروفایل کاربر
+            User profile Data Transfer Object
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.Id">
+            <summary>
+            شناسه کاربر
+            User ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.FirstName">
+            <summary>
+            نام
+            First name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.LastName">
+            <summary>
+            نام خانوادگی
+            Last name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.FullName">
+            <summary>
+            نام کامل
+            Full name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.Username">
+            <summary>
+            نام کاربری
+            Username
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.Email">
+            <summary>
+            ایمیل
+            Email address
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.PhoneNumber">
+            <summary>
+            شماره تلفن
+            Phone number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.AvatarUrl">
+            <summary>
+            آدرس آواتار
+            Avatar URL
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.IsActive">
+            <summary>
+            وضعیت فعال/غیرفعال
+            Active status
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.IsEmailVerified">
+            <summary>
+            آیا ایمیل تایید شده است
+            Is email verified
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.IsPhoneVerified">
+            <summary>
+            آیا شماره تلفن تایید شده است
+            Is phone verified
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.LastLoginAt">
+            <summary>
+            تاریخ آخرین ورود
+            Last login date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.CompanyId">
+            <summary>
+            شناسه شرکت
+            Company ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.CompanyName">
+            <summary>
+            نام شرکت
+            Company name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.DepartmentId">
+            <summary>
+            شناسه بخش
+            Department ID
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.DepartmentName">
+            <summary>
+            نام بخش
+            Department name
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.RoleName">
+            <summary>
+            نقش اصلی کاربر
+            Primary user role
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.CreatedAt">
+            <summary>
+            تاریخ ایجاد
+            Creation date
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.Dtos.UserProfileDto.UpdatedAt">
+            <summary>
+            تاریخ بروزرسانی
+            Last update date
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery">
+            <summary>
+            پرس‌وجو لیست کاربران
+            Query for getting all users
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery.SearchTerm">
+            <summary>
+            عبارت جستجو
+            Search term
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery.CompanyId">
+            <summary>
+            شناسه شرکت
+            Company ID filter
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery.DepartmentId">
+            <summary>
+            شناسه بخش
+            Department ID filter
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery.RoleId">
+            <summary>
+            شناسه نقش
+            Role ID filter
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery.IsActive">
+            <summary>
+            فقط کاربران فعال
+            Only active users
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery.Page">
+            <summary>
+            شماره صفحه
+            Page number
+            </summary>
+        </member>
+        <member name="P:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery.PageSize">
+            <summary>
+            تعداد آیتم در هر صفحه
+            Items per page
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQueryHandler">
+            <summary>
+            پردازش‌کننده پرس‌وجو لیست کاربران
+            Get all users query handler
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQueryHandler.#ctor(Dinawin.Erp.Application.Common.Interfaces.IApplicationDbContext,AutoMapper.IMapper)">
+            <summary>
+            سازنده پردازش‌کننده پرس‌وجو لیست کاربران
+            Get all users query handler constructor
+            </summary>
+            <param name="context">کنتکست دیتابیس</param>
+            <param name="mapper">نگاشت‌کننده</param>
+        </member>
+        <member name="M:Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQueryHandler.Handle(Dinawin.Erp.Application.Features.Users.Queries.GetAllUsers.GetAllUsersQuery,System.Threading.CancellationToken)">
+            <summary>
+            پردازش پرس‌وجو لیست کاربران
+            Handle get all users query
+            </summary>
+            <param name="request">درخواست لیست کاربران</param>
+            <param name="cancellationToken">توکن لغو</param>
+            <returns>لیست کاربران</returns>
+        </member>
+    </members>
+</doc>

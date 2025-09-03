@@ -1,0 +1,525 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dinawin.Erp.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.AccountsController">
+            <summary>
+            کنترلر حساب‌های دفتر کل (GL)
+            GL Accounts controller
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.AccountsController.#ctor(MediatR.IMediator)">
+            <summary>
+            سازنده کنترلر
+            Controller constructor
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.AccountsController.Get(System.String)">
+            <summary>
+            لیست حساب‌های فعال
+            Get active accounts
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.AccountsController.GetByBusiness(System.String)">
+            <summary>
+            لیست حساب‌های کسب‌وکار
+            Get accounts by business
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.AccountsController.Create(Dinawin.Erp.Application.Features.Accounting.Accounts.Commands.CreateAccount.CreateAccountCommand)">
+            <summary>
+            ایجاد حساب جدید
+            Create new account
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.AccountsController.UpdateStatus(System.Guid,System.Boolean)">
+            <summary>
+            به‌روزرسانی وضعیت حساب
+            Update account status
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.BrandsController">
+            <summary>
+            کنترلر مدیریت برندها
+            Controller for managing brands
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.BrandsController.#ctor(MediatR.IMediator)">
+            <summary>
+            سازنده کنترلر برندها
+            Brands controller constructor
+            </summary>
+            <param name="mediator">واسط میدیاتور</param>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.BrandsController.GetAllBrands(System.String,System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            دریافت لیست تمام برندها
+            Gets all brands with optional filtering
+            </summary>
+            <param name="searchTerm">عبارت جستجو</param>
+            <param name="isActive">وضعیت فعال/غیرفعال</param>
+            <param name="page">شماره صفحه</param>
+            <param name="pageSize">تعداد آیتم در هر صفحه</param>
+            <returns>لیست برندها</returns>
+            <response code="200">لیست برندها با موفقیت بازگردانده شد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.BrandsController.GetBrand(System.Guid)">
+            <summary>
+            دریافت برند با شناسه
+            Gets a brand by ID
+            </summary>
+            <param name="id">شناسه برند</param>
+            <returns>اطلاعات برند</returns>
+            <response code="200">برند پیدا شد</response>
+            <response code="404">برند پیدا نشد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.BrandsController.CreateBrand">
+            <summary>
+            ایجاد برند جدید
+            Creates a new brand
+            </summary>
+            <returns>شناسه برند ایجاد شده</returns>
+            <response code="201">برند با موفقیت ایجاد شد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.BrandsController.UpdateBrand(System.Guid)">
+            <summary>
+            ویرایش برند
+            Updates an existing brand
+            </summary>
+            <param name="id">شناسه برند</param>
+            <returns>نتیجه ویرایش</returns>
+            <response code="200">برند با موفقیت ویرایش شد</response>
+            <response code="404">برند پیدا نشد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.BrandsController.DeleteBrand(System.Guid)">
+            <summary>
+            حذف برند
+            Deletes a brand
+            </summary>
+            <param name="id">شناسه برند</param>
+            <returns>نتیجه حذف</returns>
+            <response code="204">برند با موفقیت حذف شد</response>
+            <response code="404">برند پیدا نشد</response>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.CategoriesController">
+            <summary>
+            کنترلر مدیریت دسته‌بندی‌ها
+            Controller for managing categories
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.CategoriesController.#ctor(MediatR.IMediator)">
+            <summary>
+            سازنده کنترلر دسته‌بندی‌ها
+            Categories controller constructor
+            </summary>
+            <param name="mediator">واسط میدیاتور</param>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.CategoriesController.GetAllCategories(System.String,System.Nullable{System.Guid},System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            دریافت لیست تمام دسته‌بندی‌ها
+            Gets all categories with optional filtering
+            </summary>
+            <param name="searchTerm">عبارت جستجو</param>
+            <param name="parentCategoryId">شناسه دسته‌بندی والد</param>
+            <param name="isActive">وضعیت فعال/غیرفعال</param>
+            <param name="page">شماره صفحه</param>
+            <param name="pageSize">تعداد آیتم در هر صفحه</param>
+            <returns>لیست دسته‌بندی‌ها</returns>
+            <response code="200">لیست دسته‌بندی‌ها با موفقیت بازگردانده شد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.CategoriesController.GetCategory(System.Guid)">
+            <summary>
+            دریافت دسته‌بندی با شناسه
+            Gets a category by ID
+            </summary>
+            <param name="id">شناسه دسته‌بندی</param>
+            <returns>اطلاعات دسته‌بندی</returns>
+            <response code="200">دسته‌بندی پیدا شد</response>
+            <response code="404">دسته‌بندی پیدا نشد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.CategoriesController.CreateCategory">
+            <summary>
+            ایجاد دسته‌بندی جدید
+            Creates a new category
+            </summary>
+            <returns>شناسه دسته‌بندی ایجاد شده</returns>
+            <response code="201">دسته‌بندی با موفقیت ایجاد شد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.CategoriesController.UpdateCategory(System.Guid)">
+            <summary>
+            ویرایش دسته‌بندی
+            Updates an existing category
+            </summary>
+            <param name="id">شناسه دسته‌بندی</param>
+            <returns>نتیجه ویرایش</returns>
+            <response code="200">دسته‌بندی با موفقیت ویرایش شد</response>
+            <response code="404">دسته‌بندی پیدا نشد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.CategoriesController.DeleteCategory(System.Guid)">
+            <summary>
+            حذف دسته‌بندی
+            Deletes a category
+            </summary>
+            <param name="id">شناسه دسته‌بندی</param>
+            <returns>نتیجه حذف</returns>
+            <response code="204">دسته‌بندی با موفقیت حذف شد</response>
+            <response code="404">دسته‌بندی پیدا نشد</response>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.CustomersController">
+            <summary>
+            کنترلر مشتریان دریافتنی (AR)
+            AR Customers controller
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.CustomersController.#ctor(MediatR.IMediator)">
+            <summary>
+            سازنده کنترلر
+            Controller constructor
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.CustomersController.Get(System.String)">
+            <summary>
+            لیست مشتریان فعال
+            Get active customers
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.InventoryController">
+            <summary>
+            کنترلر مدیریت موجودی
+            Controller for managing inventory
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.InventoryController.#ctor(MediatR.IMediator)">
+            <summary>
+            سازنده کنترلر موجودی
+            Inventory controller constructor
+            </summary>
+            <param name="mediator">واسط میدیاتور</param>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.InventoryController.GetInventoryOverview(System.Nullable{System.Guid},System.Nullable{System.Guid},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            دریافت نمای کلی موجودی
+            Gets inventory overview with optional filtering
+            </summary>
+            <param name="warehouseId">شناسه انبار</param>
+            <param name="productId">شناسه کالا</param>
+            <param name="lowStockOnly">فقط موجودی‌های کم</param>
+            <param name="reorderOnly">فقط موجودی‌های نیازمند سفارش مجدد</param>
+            <param name="page">شماره صفحه</param>
+            <param name="pageSize">تعداد آیتم در هر صفحه</param>
+            <returns>لیست موجودی‌ها</returns>
+            <response code="200">نمای کلی موجودی با موفقیت بازگردانده شد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.InventoryController.GetWarehouses">
+            <summary>
+            دریافت لیست انبارها
+            Gets list of warehouses
+            </summary>
+            <returns>لیست انبارها</returns>
+            <response code="200">لیست انبارها با موفقیت بازگردانده شد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.InventoryController.UpdateStockAlert(System.Guid,System.Decimal)">
+            <summary>
+            بروزرسانی حداقل موجودی هشدار
+            Updates minimum stock alert level
+            </summary>
+            <param name="inventoryId">شناسه موجودی</param>
+            <param name="minStockAlert">حداقل موجودی جدید</param>
+            <returns>نتیجه بروزرسانی</returns>
+            <response code="200">حداقل موجودی با موفقیت بروزرسانی شد</response>
+            <response code="404">موجودی پیدا نشد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.InventoryController.GetInventoryMovements(System.Nullable{System.Guid},System.Nullable{System.Guid},System.Int32,System.Int32)">
+            <summary>
+            دریافت حرکات موجودی
+            Gets inventory movements
+            </summary>
+            <param name="productId">شناسه کالا</param>
+            <param name="warehouseId">شناسه انبار</param>
+            <param name="page">شماره صفحه</param>
+            <param name="pageSize">تعداد آیتم در هر صفحه</param>
+            <returns>لیست حرکات موجودی</returns>
+            <response code="200">لیست حرکات موجودی با موفقیت بازگردانده شد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.InventoryController.CreateInventoryMovement">
+            <summary>
+            ایجاد حرکت موجودی جدید
+            Creates a new inventory movement
+            </summary>
+            <returns>شناسه حرکت موجودی ایجاد شده</returns>
+            <response code="201">حرکت موجودی با موفقیت ایجاد شد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.InventoryMovementsController">
+            <summary>
+            کنترلر حرکات انبار
+            Inventory movements controller
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.InventoryMovementsController.Get(System.Guid)">
+            <summary>
+            دریافت حرکات انبار برای یک کالا
+            Get movements by product id
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.ProductsController">
+            <summary>
+            کنترلر مدیریت کالاها
+            Controller for managing products
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.ProductsController.#ctor(MediatR.IMediator)">
+            <summary>
+            سازنده کنترلر کالاها
+            Products controller constructor
+            </summary>
+            <param name="mediator">واسط میدیاتور</param>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.ProductsController.GetAllProducts(System.String,System.Nullable{System.Guid},System.Nullable{System.Guid},System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            دریافت لیست تمام کالاها
+            Gets all products with optional filtering
+            </summary>
+            <param name="searchTerm">عبارت جستجو</param>
+            <param name="brandId">شناسه برند</param>
+            <param name="categoryId">شناسه دسته‌بندی</param>
+            <param name="isActive">وضعیت فعال/غیرفعال</param>
+            <param name="page">شماره صفحه</param>
+            <param name="pageSize">تعداد آیتم در هر صفحه</param>
+            <returns>لیست کالاها</returns>
+            <response code="200">لیست کالاها با موفقیت بازگردانده شد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.ProductsController.GetProduct(System.Guid)">
+            <summary>
+            دریافت کالا با شناسه
+            Gets a product by ID
+            </summary>
+            <param name="id">شناسه کالا</param>
+            <returns>اطلاعات کالا</returns>
+            <response code="200">کالا پیدا شد</response>
+            <response code="404">کالا پیدا نشد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.ProductsController.CreateProduct(Dinawin.Erp.Application.Features.Products.Commands.CreateProduct.CreateProductCommand)">
+            <summary>
+            ایجاد کالای جدید
+            Creates a new product
+            </summary>
+            <param name="command">اطلاعات کالای جدید</param>
+            <returns>شناسه کالای ایجاد شده</returns>
+            <response code="201">کالا با موفقیت ایجاد شد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.ProductsController.UpdateProduct(System.Guid,Dinawin.Erp.Application.Features.Products.Commands.UpdateProduct.UpdateProductCommand)">
+            <summary>
+            ویرایش کالا
+            Updates an existing product
+            </summary>
+            <param name="id">شناسه کالا</param>
+            <returns>نتیجه ویرایش</returns>
+            <response code="200">کالا با موفقیت ویرایش شد</response>
+            <response code="404">کالا پیدا نشد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.ProductsController.DeleteProduct(System.Guid)">
+            <summary>
+            حذف کالا
+            Deletes a product
+            </summary>
+            <param name="id">شناسه کالا</param>
+            <returns>نتیجه حذف</returns>
+            <response code="204">کالا با موفقیت حذف شد</response>
+            <response code="404">کالا پیدا نشد</response>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.SalesInvoicesController">
+            <summary>
+            کنترلر مدیریت فاکتورهای فروش
+            Controller for managing sales invoices
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.SalesInvoicesController.#ctor(MediatR.IMediator)">
+            <summary>
+            سازنده کنترلر فاکتورهای فروش
+            Sales invoices controller constructor
+            </summary>
+            <param name="mediator">واسط میدیاتور</param>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.SalesInvoicesController.GetAllSalesInvoices(System.Nullable{System.Guid},System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Int32,System.Int32)">
+            <summary>
+            دریافت لیست تمام فاکتورهای فروش
+            Gets all sales invoices with optional filtering
+            </summary>
+            <param name="customerId">شناسه مشتری</param>
+            <param name="status">وضعیت فاکتور</param>
+            <param name="fromDate">از تاریخ</param>
+            <param name="toDate">تا تاریخ</param>
+            <param name="page">شماره صفحه</param>
+            <param name="pageSize">تعداد آیتم در هر صفحه</param>
+            <returns>لیست فاکتورهای فروش</returns>
+            <response code="200">لیست فاکتورهای فروش با موفقیت بازگردانده شد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.SalesInvoicesController.GetSalesInvoice(System.Guid)">
+            <summary>
+            دریافت فاکتور فروش با شناسه
+            Gets a sales invoice by ID
+            </summary>
+            <param name="id">شناسه فاکتور</param>
+            <returns>اطلاعات فاکتور فروش</returns>
+            <response code="200">فاکتور پیدا شد</response>
+            <response code="404">فاکتور پیدا نشد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.SalesInvoicesController.CreateSalesInvoice(Dinawin.Erp.Application.Features.SalesInvoices.Commands.CreateSalesInvoice.CreateSalesInvoiceCommand)">
+            <summary>
+            ایجاد فاکتور فروش جدید
+            Creates a new sales invoice
+            </summary>
+            <returns>شناسه فاکتور ایجاد شده</returns>
+            <response code="201">فاکتور با موفقیت ایجاد شد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.SalesInvoicesController.UpdateSalesInvoice(System.Guid,Dinawin.Erp.Application.Features.SalesInvoices.Commands.UpdateSalesInvoice.UpdateSalesInvoiceCommand)">
+            <summary>
+            ویرایش فاکتور فروش
+            Updates an existing sales invoice
+            </summary>
+            <param name="id">شناسه فاکتور</param>
+            <returns>نتیجه ویرایش</returns>
+            <response code="200">فاکتور با موفقیت ویرایش شد</response>
+            <response code="404">فاکتور پیدا نشد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.SalesInvoicesController.PostSalesInvoice(System.Guid)">
+            <summary>
+            ثبت فاکتور فروش در دفتر کل
+            Posts a sales invoice to general ledger
+            </summary>
+            <param name="id">شناسه فاکتور</param>
+            <returns>نتیجه ثبت</returns>
+            <response code="200">فاکتور با موفقیت ثبت شد</response>
+            <response code="404">فاکتور پیدا نشد</response>
+            <response code="400">فاکتور قابل ثبت نیست</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.SalesInvoicesController.DeleteSalesInvoice(System.Guid)">
+            <summary>
+            حذف فاکتور فروش
+            Deletes a sales invoice
+            </summary>
+            <param name="id">شناسه فاکتور</param>
+            <returns>نتیجه حذف</returns>
+            <response code="204">فاکتور با موفقیت حذف شد</response>
+            <response code="404">فاکتور پیدا نشد</response>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.UomsController">
+            <summary>
+            کنترلر واحدهای اندازه‌گیری
+            UOMs controller
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.UomsController.Get(System.String)">
+            <summary>
+            لیست واحدها
+            Get UOMs
+            </summary>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.UsersController">
+            <summary>
+            کنترلر مدیریت کاربران
+            Controller for managing users
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.UsersController.#ctor(MediatR.IMediator)">
+            <summary>
+            سازنده کنترلر کاربران
+            Users controller constructor
+            </summary>
+            <param name="mediator">واسط میدیاتور</param>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.UsersController.GetAllUsers(System.String,System.Nullable{System.Guid},System.Nullable{System.Guid},System.Nullable{System.Guid},System.Nullable{System.Boolean},System.Int32,System.Int32)">
+            <summary>
+            دریافت لیست تمام کاربران
+            Gets all users with optional filtering
+            </summary>
+            <param name="searchTerm">عبارت جستجو</param>
+            <param name="companyId">شناسه شرکت</param>
+            <param name="departmentId">شناسه بخش</param>
+            <param name="roleId">شناسه نقش</param>
+            <param name="isActive">وضعیت فعال/غیرفعال</param>
+            <param name="page">شماره صفحه</param>
+            <param name="pageSize">تعداد آیتم در هر صفحه</param>
+            <returns>لیست کاربران</returns>
+            <response code="200">لیست کاربران با موفقیت بازگردانده شد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.UsersController.GetUser(System.Guid)">
+            <summary>
+            دریافت کاربر با شناسه
+            Gets a user by ID
+            </summary>
+            <param name="id">شناسه کاربر</param>
+            <returns>اطلاعات کاربر</returns>
+            <response code="200">کاربر پیدا شد</response>
+            <response code="404">کاربر پیدا نشد</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.UsersController.ToggleUserStatus(System.Guid,System.Boolean)">
+            <summary>
+            تغییر وضعیت کاربر
+            Toggle user status (active/inactive)
+            </summary>
+            <param name="id">شناسه کاربر</param>
+            <param name="currentStatus">وضعیت فعلی کاربر</param>
+            <returns>نتیجه تغییر وضعیت</returns>
+            <response code="200">وضعیت کاربر با موفقیت تغییر کرد</response>
+            <response code="404">کاربر پیدا نشد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.UsersController.CreateUser">
+            <summary>
+            ایجاد کاربر جدید
+            Creates a new user
+            </summary>
+            <returns>شناسه کاربر ایجاد شده</returns>
+            <response code="201">کاربر با موفقیت ایجاد شد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.UsersController.UpdateUser(System.Guid)">
+            <summary>
+            ویرایش کاربر
+            Updates an existing user
+            </summary>
+            <param name="id">شناسه کاربر</param>
+            <returns>نتیجه ویرایش</returns>
+            <response code="200">کاربر با موفقیت ویرایش شد</response>
+            <response code="404">کاربر پیدا نشد</response>
+            <response code="400">اطلاعات ارسالی نامعتبر است</response>
+        </member>
+        <member name="T:Dinawin.Erp.WebApi.Controllers.WarehousesController">
+            <summary>
+            کنترلر انبارها
+            Warehouses controller
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.WarehousesController.Get">
+            <summary>
+            لیست انبارها
+            Get warehouses
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.WarehousesController.Create(Dinawin.Erp.Application.Features.Inventory.Warehouses.Commands.CreateWarehouse.CreateWarehouseCommand)">
+            <summary>
+            ایجاد انبار جدید
+            Create new warehouse
+            </summary>
+        </member>
+        <member name="M:Dinawin.Erp.WebApi.Controllers.WarehousesController.Update(System.Guid,Dinawin.Erp.Application.Features.Inventory.Warehouses.Commands.UpdateWarehouse.UpdateWarehouseCommand)">
+            <summary>
+            به‌روزرسانی انبار
+            Update warehouse
+            </summary>
+        </member>
+    </members>
+</doc>

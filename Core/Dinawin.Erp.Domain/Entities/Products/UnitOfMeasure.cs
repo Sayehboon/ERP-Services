@@ -1,0 +1,125 @@
+using Dinawin.Erp.Domain.Common;
+
+namespace Dinawin.Erp.Domain.Entities.Products;
+
+/// <summary>
+/// موجودیت واحد اندازه‌گیری
+/// Unit of Measure entity
+/// </summary>
+public class UnitOfMeasure : BaseEntity, IAggregateRoot
+{
+    /// <summary>
+    /// کد واحد
+    /// Unit code
+    /// </summary>
+    public string Code { get; set; } = string.Empty;
+
+    /// <summary>
+    /// نام واحد
+    /// Unit name
+    /// </summary>
+    public required string Name { get; set; }
+
+    /// <summary>
+    /// نماد واحد
+    /// Unit symbol
+    /// </summary>
+    public string? Symbol { get; set; }
+
+    /// <summary>
+    /// توضیحات واحد
+    /// Unit description
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// نوع واحد
+    /// Unit type
+    /// </summary>
+    public UnitType Type { get; set; }
+
+    /// <summary>
+    /// شناسه واحد پایه
+    /// Base unit ID
+    /// </summary>
+    public Guid? BaseUnitId { get; set; }
+
+    /// <summary>
+    /// واحد پایه
+    /// Base unit
+    /// </summary>
+    public UnitOfMeasure? BaseUnit { get; set; }
+
+    /// <summary>
+    /// ضریب تبدیل به واحد پایه
+    /// Conversion factor to base unit
+    /// </summary>
+    public decimal ConversionFactor { get; set; } = 1;
+
+    /// <summary>
+    /// دقت اعشار
+    /// Decimal precision
+    /// </summary>
+    public int Precision { get; set; }
+
+    /// <summary>
+    /// وضعیت فعال/غیرفعال
+    /// Active status
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
+    /// <summary>
+    /// آیا واحد پیش‌فرض سیستم است
+    /// Is system default unit
+    /// </summary>
+    public bool IsSystemDefault { get; set; }
+
+    /// <summary>
+    /// کالاهایی که از این واحد استفاده می‌کنند
+    /// Products using this unit
+    /// </summary>
+    public ICollection<Product> Products { get; set; } = new List<Product>();
+}
+
+/// <summary>
+/// انواع واحد اندازه‌گیری
+/// Unit of measure types
+/// </summary>
+public enum UnitType
+{
+    /// <summary>
+    /// طول
+    /// Length
+    /// </summary>
+    Length = 1,
+
+    /// <summary>
+    /// وزن
+    /// Weight
+    /// </summary>
+    Weight = 2,
+
+    /// <summary>
+    /// حجم
+    /// Volume
+    /// </summary>
+    Volume = 3,
+
+    /// <summary>
+    /// مساحت
+    /// Area
+    /// </summary>
+    Area = 4,
+
+    /// <summary>
+    /// تعداد
+    /// Count
+    /// </summary>
+    Count = 5,
+
+    /// <summary>
+    /// زمان
+    /// Time
+    /// </summary>
+    Time = 6
+}
