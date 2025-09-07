@@ -77,3 +77,12 @@ logs
 *.tmp
 *.temp
 
+.vs/Dinawin.Erp/CopilotIndices/17.14.995.13737/CodeChunks.db
+.vs/Dinawin.Erp/CopilotIndices/17.14.995.13737/SemanticSymbols.db
+.vs/Dinawin.Erp/v17/.futdcache.v2
+.vs/Dinawin.Erp/v17/.suo
+.vs/Dinawin.Erp/v17/DocumentLayout.backup.json
+.vs/Dinawin.Erp/v17/DocumentLayout.json
+.vs/ProjectEvaluation/dinawin.erp.metadata.v9.bin
+.vs/ProjectEvaluation/dinawin.erp.projects.v9.bin
+.vs/ProjectEvaluation/dinawin.erp.strings.v9.bin
