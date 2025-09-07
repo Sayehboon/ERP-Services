@@ -1,6 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Product.Years.Queries.GetAllYears;
+using Dinawin.Erp.Application.Features.Product.Years.Queries.GetYearById;
+using Dinawin.Erp.Application.Features.Product.Years.Commands.CreateYear;
+using Dinawin.Erp.Application.Features.Product.Years.Commands.UpdateYear;
+using Dinawin.Erp.Application.Features.Product.Years.Commands.DeleteYear;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -21,21 +26,31 @@ public class YearsController : BaseController
     /// <summary>
     /// دریافت تمام سال‌ها
     /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="isActive">آیا فقط سال‌های فعال</param>
+    /// <param name="page">شماره صفحه</param>
+    /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام سال‌ها</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<YearDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllYears()
+    public async Task<ActionResult> GetAllYears(
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25)
     {
         try
         {
-            // TODO: پیاده‌سازی GetYearsQuery
-            var years = new List<object>
+            var query = new GetAllYearsQuery
             {
-                new { Id = Guid.NewGuid(), Year = 1403, IsActive = true },
-                new { Id = Guid.NewGuid(), Year = 1402, IsActive = true },
-                new { Id = Guid.NewGuid(), Year = 1401, IsActive = false }
+                SearchTerm = searchTerm,
+                IsActive = isActive,
+                Page = page,
+                PageSize = pageSize
             };
+
+            var years = await _mediator.Send(query);
             return Success(years);
         }
         catch (Exception ex)
@@ -50,14 +65,20 @@ public class YearsController : BaseController
     /// <param name="id">شناسه سال</param>
     /// <returns>اطلاعات سال</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(typeof(YearDto), 200)]
     [ProducesResponseType(404)]
     public async Task<ActionResult> GetYear(Guid id)
     {
         try
         {
-            // TODO: پیاده‌سازی GetYearByIdQuery
-            var year = new { Id = id, Year = 1403, IsActive = true };
+            var query = new GetYearByIdQuery { Id = id };
+            var year = await _mediator.Send(query);
+            
+            if (year == null)
+            {
+                return NotFound($"سال با شناسه {id} یافت نشد");
+            }
+            
             return Success(year);
         }
         catch (Exception ex)
@@ -71,18 +92,14 @@ public class YearsController : BaseController
     /// </summary>
     /// <returns>لیست سال‌های فعال</returns>
     [HttpGet("active")]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<YearDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult> GetActiveYears()
     {
         try
         {
-            // TODO: پیاده‌سازی GetActiveYearsQuery
-            var years = new List<object>
-            {
-                new { Id = Guid.NewGuid(), Year = 1403, IsActive = true },
-                new { Id = Guid.NewGuid(), Year = 1402, IsActive = true }
-            };
+            var query = new GetAllYearsQuery { IsActive = true };
+            var years = await _mediator.Send(query);
             return Success(years);
         }
         catch (Exception ex)
@@ -99,12 +116,11 @@ public class YearsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateYear([FromBody] object command)
+    public async Task<ActionResult> CreateYear([FromBody] CreateYearCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateYearCommand
-            var yearId = Guid.NewGuid();
+            var yearId = await _mediator.Send(command);
             return Created(yearId, "سال با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -123,11 +139,12 @@ public class YearsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateYear(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateYear(Guid id, [FromBody] UpdateYearCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateYearCommand
+            command.Id = id;
+            await _mediator.Send(command);
             return Success("سال با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -148,7 +165,8 @@ public class YearsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteYearCommand
+            var command = new DeleteYearCommand { Id = id };
+            await _mediator.Send(command);
             return Success("سال با موفقیت حذف شد");
         }
         catch (Exception ex)

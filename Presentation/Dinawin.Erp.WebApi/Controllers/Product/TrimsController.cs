@@ -1,6 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Product.Trims.Queries.GetAllTrims;
+using Dinawin.Erp.Application.Features.Product.Trims.Queries.GetTrimById;
+using Dinawin.Erp.Application.Features.Product.Trims.Commands.CreateTrim;
+using Dinawin.Erp.Application.Features.Product.Trims.Commands.UpdateTrim;
+using Dinawin.Erp.Application.Features.Product.Trims.Commands.DeleteTrim;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -21,21 +26,34 @@ public class TrimsController : BaseController
     /// <summary>
     /// دریافت تمام تریم‌ها
     /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="modelId">شناسه مدل</param>
+    /// <param name="isActive">آیا فقط تریم‌های فعال</param>
+    /// <param name="page">شماره صفحه</param>
+    /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام تریم‌ها</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<TrimDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllTrims()
+    public async Task<ActionResult> GetAllTrims(
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] Guid? modelId = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25)
     {
         try
         {
-            // TODO: پیاده‌سازی GetTrimsQuery
-            var trims = new List<object>
+            var query = new GetAllTrimsQuery
             {
-                new { Id = Guid.NewGuid(), Name = "پایه", ModelId = Guid.NewGuid(), ModelName = "کامری" },
-                new { Id = Guid.NewGuid(), Name = "تک", ModelId = Guid.NewGuid(), ModelName = "کامری" },
-                new { Id = Guid.NewGuid(), Name = "دوتک", ModelId = Guid.NewGuid(), ModelName = "کامری" }
+                SearchTerm = searchTerm,
+                ModelId = modelId,
+                IsActive = isActive,
+                Page = page,
+                PageSize = pageSize
             };
+
+            var trims = await _mediator.Send(query);
             return Success(trims);
         }
         catch (Exception ex)
@@ -50,14 +68,20 @@ public class TrimsController : BaseController
     /// <param name="id">شناسه تریم</param>
     /// <returns>اطلاعات تریم</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(typeof(TrimDto), 200)]
     [ProducesResponseType(404)]
     public async Task<ActionResult> GetTrim(Guid id)
     {
         try
         {
-            // TODO: پیاده‌سازی GetTrimByIdQuery
-            var trim = new { Id = id, Name = "پایه", ModelId = Guid.NewGuid(), ModelName = "کامری" };
+            var query = new GetTrimByIdQuery { Id = id };
+            var trim = await _mediator.Send(query);
+            
+            if (trim == null)
+            {
+                return NotFound($"تریم با شناسه {id} یافت نشد");
+            }
+            
             return Success(trim);
         }
         catch (Exception ex)
@@ -72,18 +96,14 @@ public class TrimsController : BaseController
     /// <param name="modelId">شناسه مدل</param>
     /// <returns>لیست تریم‌های مدل</returns>
     [HttpGet("by-model/{modelId}")]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<TrimDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult> GetTrimsByModel(Guid modelId)
     {
         try
         {
-            // TODO: پیاده‌سازی GetTrimsByModelQuery
-            var trims = new List<object>
-            {
-                new { Id = Guid.NewGuid(), Name = "پایه", ModelId = modelId },
-                new { Id = Guid.NewGuid(), Name = "تک", ModelId = modelId }
-            };
+            var query = new GetAllTrimsQuery { ModelId = modelId };
+            var trims = await _mediator.Send(query);
             return Success(trims);
         }
         catch (Exception ex)
@@ -100,12 +120,11 @@ public class TrimsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateTrim([FromBody] object command)
+    public async Task<ActionResult> CreateTrim([FromBody] CreateTrimCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateTrimCommand
-            var trimId = Guid.NewGuid();
+            var trimId = await _mediator.Send(command);
             return Created(trimId, "تریم با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -124,11 +143,12 @@ public class TrimsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateTrim(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateTrim(Guid id, [FromBody] UpdateTrimCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateTrimCommand
+            command.Id = id;
+            await _mediator.Send(command);
             return Success("تریم با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -149,7 +169,8 @@ public class TrimsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteTrimCommand
+            var command = new DeleteTrimCommand { Id = id };
+            await _mediator.Send(command);
             return Success("تریم با موفقیت حذف شد");
         }
         catch (Exception ex)

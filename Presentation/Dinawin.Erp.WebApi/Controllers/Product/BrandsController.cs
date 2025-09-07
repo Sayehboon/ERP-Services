@@ -1,6 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Product.Brands.Queries.GetAllBrands;
+using Dinawin.Erp.Application.Features.Product.Brands.Queries.GetBrandById;
+using Dinawin.Erp.Application.Features.Product.Brands.Commands.CreateBrand;
+using Dinawin.Erp.Application.Features.Product.Brands.Commands.UpdateBrand;
+using Dinawin.Erp.Application.Features.Product.Brands.Commands.DeleteBrand;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -21,21 +26,31 @@ public class BrandsController : BaseController
     /// <summary>
     /// دریافت تمام برندها
     /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="isActive">آیا فقط برندهای فعال</param>
+    /// <param name="page">شماره صفحه</param>
+    /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام برندها</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<BrandDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllBrands()
+    public async Task<ActionResult> GetAllBrands(
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25)
     {
         try
         {
-            // TODO: پیاده‌سازی GetBrandsQuery
-            var brands = new List<object>
+            var query = new GetAllBrandsQuery
             {
-                new { Id = Guid.NewGuid(), Name = "تویوتا", Description = "برند خودروهای ژاپنی" },
-                new { Id = Guid.NewGuid(), Name = "هیوندای", Description = "برند خودروهای کره‌ای" },
-                new { Id = Guid.NewGuid(), Name = "پژو", Description = "برند خودروهای فرانسوی" }
+                SearchTerm = searchTerm,
+                IsActive = isActive,
+                Page = page,
+                PageSize = pageSize
             };
+
+            var brands = await _mediator.Send(query);
             return Success(brands);
         }
         catch (Exception ex)
@@ -50,14 +65,20 @@ public class BrandsController : BaseController
     /// <param name="id">شناسه برند</param>
     /// <returns>اطلاعات برند</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(typeof(BrandDto), 200)]
     [ProducesResponseType(404)]
     public async Task<ActionResult> GetBrand(Guid id)
     {
         try
         {
-            // TODO: پیاده‌سازی GetBrandByIdQuery
-            var brand = new { Id = id, Name = "تویوتا", Description = "برند خودروهای ژاپنی" };
+            var query = new GetBrandByIdQuery { Id = id };
+            var brand = await _mediator.Send(query);
+            
+            if (brand == null)
+            {
+                return NotFound($"برند با شناسه {id} یافت نشد");
+            }
+            
             return Success(brand);
         }
         catch (Exception ex)
@@ -74,12 +95,11 @@ public class BrandsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateBrand([FromBody] object command)
+    public async Task<ActionResult> CreateBrand([FromBody] CreateBrandCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateBrandCommand
-            var brandId = Guid.NewGuid();
+            var brandId = await _mediator.Send(command);
             return Created(brandId, "برند با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -98,11 +118,12 @@ public class BrandsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateBrand(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateBrand(Guid id, [FromBody] UpdateBrandCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateBrandCommand
+            command.Id = id;
+            await _mediator.Send(command);
             return Success("برند با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -123,7 +144,8 @@ public class BrandsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteBrandCommand
+            var command = new DeleteBrandCommand { Id = id };
+            await _mediator.Send(command);
             return Success("برند با موفقیت حذف شد");
         }
         catch (Exception ex)

@@ -3,7 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetAllTasks;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetTaskById;
+using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.SearchTasks;
+using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.CreateTask;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTask;
+using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTaskProgress;
+using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTaskStatus;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.DeleteTask;
 
 namespace Dinawin.Erp.WebApi.Controllers.TaskManagement;
@@ -158,23 +162,39 @@ public class TasksController : BaseController
     /// جستجوی وظایف
     /// </summary>
     /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="projectId">شناسه پروژه</param>
+    /// <param name="assignedToUserId">شناسه کاربر مسئول</param>
+    /// <param name="priority">اولویت</param>
+    /// <param name="status">وضعیت</param>
+    /// <param name="taskType">نوع وظیفه</param>
+    /// <param name="maxResults">حداکثر تعداد نتایج</param>
     /// <returns>لیست وظایف مطابق جستجو</returns>
     [HttpGet("search")]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<TaskSearchDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> SearchTasks([FromQuery] string searchTerm)
+    public async Task<ActionResult> SearchTasks(
+        [FromQuery] string searchTerm,
+        [FromQuery] Guid? projectId = null,
+        [FromQuery] Guid? assignedToUserId = null,
+        [FromQuery] string? priority = null,
+        [FromQuery] string? status = null,
+        [FromQuery] string? taskType = null,
+        [FromQuery] int maxResults = 20)
     {
         try
         {
-            // TODO: پیاده‌سازی SearchTasksQuery
-            var tasks = new List<object>
+            var query = new SearchTasksQuery
             {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Title = "طراحی رابط کاربری داشبورد",
-                    Description = "طراحی و پیاده‌سازی رابط کاربری داشبورد مدیریت"
-                }
+                SearchTerm = searchTerm,
+                ProjectId = projectId,
+                AssignedToUserId = assignedToUserId,
+                Priority = priority,
+                Status = status,
+                TaskType = taskType,
+                MaxResults = maxResults
             };
+
+            var tasks = await _mediator.Send(query);
             return Success(tasks);
         }
         catch (Exception ex)
@@ -191,12 +211,11 @@ public class TasksController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateTask([FromBody] object command)
+    public async Task<ActionResult> CreateTask([FromBody] CreateTaskCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateTaskCommand
-            var taskId = Guid.NewGuid();
+            var taskId = await _mediator.Send(command);
             return Created(taskId, "وظیفه با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -233,18 +252,19 @@ public class TasksController : BaseController
     /// به‌روزرسانی پیشرفت وظیفه
     /// </summary>
     /// <param name="id">شناسه وظیفه</param>
-    /// <param name="progress">درصد پیشرفت</param>
+    /// <param name="command">دستور به‌روزرسانی پیشرفت</param>
     /// <returns>نتیجه به‌روزرسانی</returns>
     [HttpPatch("{id}/progress")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateTaskProgress(Guid id, [FromBody] int progress)
+    public async Task<ActionResult> UpdateTaskProgress(Guid id, [FromBody] UpdateTaskProgressCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateTaskProgressCommand
-            return Success($"پیشرفت وظیفه به {progress}% به‌روزرسانی شد");
+            command.Id = id;
+            await _mediator.Send(command);
+            return Success($"پیشرفت وظیفه به {command.Progress}% به‌روزرسانی شد");
         }
         catch (Exception ex)
         {
@@ -256,18 +276,19 @@ public class TasksController : BaseController
     /// تغییر وضعیت وظیفه
     /// </summary>
     /// <param name="id">شناسه وظیفه</param>
-    /// <param name="status">وضعیت جدید</param>
+    /// <param name="command">دستور تغییر وضعیت</param>
     /// <returns>نتیجه تغییر وضعیت</returns>
     [HttpPatch("{id}/status")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateTaskStatus(Guid id, [FromBody] string status)
+    public async Task<ActionResult> UpdateTaskStatus(Guid id, [FromBody] UpdateTaskStatusCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateTaskStatusCommand
-            return Success($"وضعیت وظیفه به {status} تغییر یافت");
+            command.Id = id;
+            await _mediator.Send(command);
+            return Success($"وضعیت وظیفه به {command.Status} تغییر یافت");
         }
         catch (Exception ex)
         {

@@ -130,24 +130,33 @@ public class EmployeesController : BaseController
     /// جستجوی کارمندان
     /// </summary>
     /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="departmentId">شناسه بخش</param>
+    /// <param name="companyId">شناسه شرکت</param>
+    /// <param name="isActive">آیا فقط کارمندان فعال</param>
+    /// <param name="maxResults">حداکثر تعداد نتایج</param>
     /// <returns>لیست کارمندان مطابق جستجو</returns>
     [HttpGet("search")]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<EmployeeSearchDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> SearchEmployees([FromQuery] string searchTerm)
+    public async Task<ActionResult> SearchEmployees(
+        [FromQuery] string searchTerm,
+        [FromQuery] Guid? departmentId = null,
+        [FromQuery] Guid? companyId = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int maxResults = 20)
     {
         try
         {
-            // TODO: پیاده‌سازی SearchEmployeesQuery
-            var employees = new List<object>
+            var query = new SearchEmployeesQuery
             {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    EmployeeCode = "EMP001",
-                    FirstName = "احمد",
-                    LastName = "محمدی"
-                }
+                SearchTerm = searchTerm,
+                DepartmentId = departmentId,
+                CompanyId = companyId,
+                IsActive = isActive,
+                MaxResults = maxResults
             };
+
+            var employees = await _mediator.Send(query);
             return Success(employees);
         }
         catch (Exception ex)
@@ -164,12 +173,11 @@ public class EmployeesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateEmployee([FromBody] object command)
+    public async Task<ActionResult> CreateEmployee([FromBody] CreateEmployeeCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateEmployeeCommand
-            var employeeId = Guid.NewGuid();
+            var employeeId = await _mediator.Send(command);
             return Created(employeeId, "کارمند با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -188,11 +196,12 @@ public class EmployeesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateEmployee(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateEmployee(Guid id, [FromBody] UpdateEmployeeCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateEmployeeCommand
+            command.Id = id;
+            await _mediator.Send(command);
             return Success("کارمند با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -213,7 +222,8 @@ public class EmployeesController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteEmployeeCommand
+            var command = new DeleteEmployeeCommand { Id = id };
+            await _mediator.Send(command);
             return Success("کارمند با موفقیت حذف شد");
         }
         catch (Exception ex)

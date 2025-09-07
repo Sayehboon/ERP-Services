@@ -1,6 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Product.Units.Queries.GetAllUnits;
+using Dinawin.Erp.Application.Features.Product.Units.Queries.GetUnitById;
+using Dinawin.Erp.Application.Features.Product.Units.Commands.CreateUnit;
+using Dinawin.Erp.Application.Features.Product.Units.Commands.UpdateUnit;
+using Dinawin.Erp.Application.Features.Product.Units.Commands.DeleteUnit;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -21,22 +26,31 @@ public class UnitsController : BaseController
     /// <summary>
     /// دریافت تمام واحدها
     /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="isActive">آیا فقط واحدهای فعال</param>
+    /// <param name="page">شماره صفحه</param>
+    /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام واحدها</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<UnitDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllUnits()
+    public async Task<ActionResult> GetAllUnits(
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25)
     {
         try
         {
-            // TODO: پیاده‌سازی GetUnitsQuery
-            var units = new List<object>
+            var query = new GetAllUnitsQuery
             {
-                new { Id = Guid.NewGuid(), Name = "عدد", Symbol = "عدد", IsActive = true },
-                new { Id = Guid.NewGuid(), Name = "کیلوگرم", Symbol = "kg", IsActive = true },
-                new { Id = Guid.NewGuid(), Name = "لیتر", Symbol = "L", IsActive = true },
-                new { Id = Guid.NewGuid(), Name = "متر", Symbol = "m", IsActive = true }
+                SearchTerm = searchTerm,
+                IsActive = isActive,
+                Page = page,
+                PageSize = pageSize
             };
+
+            var units = await _mediator.Send(query);
             return Success(units);
         }
         catch (Exception ex)
@@ -51,14 +65,20 @@ public class UnitsController : BaseController
     /// <param name="id">شناسه واحد</param>
     /// <returns>اطلاعات واحد</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(typeof(UnitDto), 200)]
     [ProducesResponseType(404)]
     public async Task<ActionResult> GetUnit(Guid id)
     {
         try
         {
-            // TODO: پیاده‌سازی GetUnitByIdQuery
-            var unit = new { Id = id, Name = "عدد", Symbol = "عدد", IsActive = true };
+            var query = new GetUnitByIdQuery { Id = id };
+            var unit = await _mediator.Send(query);
+            
+            if (unit == null)
+            {
+                return NotFound($"واحد با شناسه {id} یافت نشد");
+            }
+            
             return Success(unit);
         }
         catch (Exception ex)
@@ -72,18 +92,14 @@ public class UnitsController : BaseController
     /// </summary>
     /// <returns>لیست واحدهای فعال</returns>
     [HttpGet("active")]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<UnitDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult> GetActiveUnits()
     {
         try
         {
-            // TODO: پیاده‌سازی GetActiveUnitsQuery
-            var units = new List<object>
-            {
-                new { Id = Guid.NewGuid(), Name = "عدد", Symbol = "عدد", IsActive = true },
-                new { Id = Guid.NewGuid(), Name = "کیلوگرم", Symbol = "kg", IsActive = true }
-            };
+            var query = new GetAllUnitsQuery { IsActive = true };
+            var units = await _mediator.Send(query);
             return Success(units);
         }
         catch (Exception ex)
@@ -100,12 +116,11 @@ public class UnitsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateUnit([FromBody] object command)
+    public async Task<ActionResult> CreateUnit([FromBody] CreateUnitCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateUnitCommand
-            var unitId = Guid.NewGuid();
+            var unitId = await _mediator.Send(command);
             return Created(unitId, "واحد با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -124,11 +139,12 @@ public class UnitsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateUnit(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateUnit(Guid id, [FromBody] UpdateUnitCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateUnitCommand
+            command.Id = id;
+            await _mediator.Send(command);
             return Success("واحد با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -149,7 +165,8 @@ public class UnitsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteUnitCommand
+            var command = new DeleteUnitCommand { Id = id };
+            await _mediator.Send(command);
             return Success("واحد با موفقیت حذف شد");
         }
         catch (Exception ex)

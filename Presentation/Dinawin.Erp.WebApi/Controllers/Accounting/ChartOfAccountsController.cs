@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetAllChartOfAccounts;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetChartOfAccountById;
+using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.CreateChartOfAccount;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.UpdateChartOfAccount;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.DeleteChartOfAccount;
 
@@ -150,12 +151,11 @@ public class ChartOfAccountsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateAccount([FromBody] object command)
+    public async Task<ActionResult> CreateAccount([FromBody] CreateChartOfAccountCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateAccountCommand
-            var accountId = Guid.NewGuid();
+            var accountId = await _mediator.Send(command);
             return Created(accountId, "حساب با موفقیت ایجاد شد");
         }
         catch (Exception ex)

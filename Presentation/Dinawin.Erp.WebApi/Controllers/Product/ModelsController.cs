@@ -1,6 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Product.Models.Queries.GetAllModels;
+using Dinawin.Erp.Application.Features.Product.Models.Queries.GetModelById;
+using Dinawin.Erp.Application.Features.Product.Models.Commands.CreateModel;
+using Dinawin.Erp.Application.Features.Product.Models.Commands.UpdateModel;
+using Dinawin.Erp.Application.Features.Product.Models.Commands.DeleteModel;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -21,21 +26,34 @@ public class ModelsController : BaseController
     /// <summary>
     /// دریافت تمام مدل‌ها
     /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="brandId">شناسه برند</param>
+    /// <param name="isActive">آیا فقط مدل‌های فعال</param>
+    /// <param name="page">شماره صفحه</param>
+    /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام مدل‌ها</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<ModelDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllModels()
+    public async Task<ActionResult> GetAllModels(
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] Guid? brandId = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25)
     {
         try
         {
-            // TODO: پیاده‌سازی GetModelsQuery
-            var models = new List<object>
+            var query = new GetAllModelsQuery
             {
-                new { Id = Guid.NewGuid(), Name = "کامری", BrandId = Guid.NewGuid(), BrandName = "تویوتا" },
-                new { Id = Guid.NewGuid(), Name = "سانتافه", BrandId = Guid.NewGuid(), BrandName = "هیوندای" },
-                new { Id = Guid.NewGuid(), Name = "۲۰۶", BrandId = Guid.NewGuid(), BrandName = "پژو" }
+                SearchTerm = searchTerm,
+                BrandId = brandId,
+                IsActive = isActive,
+                Page = page,
+                PageSize = pageSize
             };
+
+            var models = await _mediator.Send(query);
             return Success(models);
         }
         catch (Exception ex)
@@ -50,14 +68,20 @@ public class ModelsController : BaseController
     /// <param name="id">شناسه مدل</param>
     /// <returns>اطلاعات مدل</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(typeof(ModelDto), 200)]
     [ProducesResponseType(404)]
     public async Task<ActionResult> GetModel(Guid id)
     {
         try
         {
-            // TODO: پیاده‌سازی GetModelByIdQuery
-            var model = new { Id = id, Name = "کامری", BrandId = Guid.NewGuid(), BrandName = "تویوتا" };
+            var query = new GetModelByIdQuery { Id = id };
+            var model = await _mediator.Send(query);
+            
+            if (model == null)
+            {
+                return NotFound($"مدل با شناسه {id} یافت نشد");
+            }
+            
             return Success(model);
         }
         catch (Exception ex)
@@ -72,18 +96,14 @@ public class ModelsController : BaseController
     /// <param name="brandId">شناسه برند</param>
     /// <returns>لیست مدل‌های برند</returns>
     [HttpGet("by-brand/{brandId}")]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<ModelDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult> GetModelsByBrand(Guid brandId)
     {
         try
         {
-            // TODO: پیاده‌سازی GetModelsByBrandQuery
-            var models = new List<object>
-            {
-                new { Id = Guid.NewGuid(), Name = "کامری", BrandId = brandId },
-                new { Id = Guid.NewGuid(), Name = "کورولا", BrandId = brandId }
-            };
+            var query = new GetAllModelsQuery { BrandId = brandId };
+            var models = await _mediator.Send(query);
             return Success(models);
         }
         catch (Exception ex)
@@ -100,12 +120,11 @@ public class ModelsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateModel([FromBody] object command)
+    public async Task<ActionResult> CreateModel([FromBody] CreateModelCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateModelCommand
-            var modelId = Guid.NewGuid();
+            var modelId = await _mediator.Send(command);
             return Created(modelId, "مدل با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -124,11 +143,12 @@ public class ModelsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateModel(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateModel(Guid id, [FromBody] UpdateModelCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateModelCommand
+            command.Id = id;
+            await _mediator.Send(command);
             return Success("مدل با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -149,7 +169,8 @@ public class ModelsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteModelCommand
+            var command = new DeleteModelCommand { Id = id };
+            await _mediator.Send(command);
             return Success("مدل با موفقیت حذف شد");
         }
         catch (Exception ex)

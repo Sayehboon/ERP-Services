@@ -1,6 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetAllCashBoxes;
+using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetCashBoxById;
+using Dinawin.Erp.Application.Features.Financial.CashBoxes.Commands.CreateCashBox;
 
 namespace Dinawin.Erp.WebApi.Controllers.Financial;
 
@@ -21,30 +24,34 @@ public class CashBoxesController : BaseController
     /// <summary>
     /// دریافت تمام صندوق‌های نقدی
     /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="responsiblePersonId">شناسه مسئول صندوق</param>
+    /// <param name="isActive">آیا فقط صندوق‌های فعال</param>
+    /// <param name="page">شماره صفحه</param>
+    /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام صندوق‌های نقدی</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<CashBoxDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllCashBoxes()
+    public async Task<ActionResult> GetAllCashBoxes(
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] Guid? responsiblePersonId = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25)
     {
         try
         {
-            // TODO: پیاده‌سازی GetCashBoxesQuery
-            var cashBoxes = new List<object>
+            var query = new GetAllCashBoxesQuery
             {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Name = "صندوق اصلی",
-                    Code = "CASH001",
-                    Location = "دفتر مرکزی",
-                    ResponsiblePersonId = Guid.NewGuid(),
-                    ResponsiblePersonName = "احمد محمدی",
-                    CurrentBalance = 50000000,
-                    Currency = "IRR",
-                    IsActive = true,
-                    CreatedAt = DateTime.Now.AddMonths(-6)
-                }
+                SearchTerm = searchTerm,
+                ResponsiblePersonId = responsiblePersonId,
+                IsActive = isActive,
+                Page = page,
+                PageSize = pageSize
             };
+
+            var cashBoxes = await _mediator.Send(query);
             return Success(cashBoxes);
         }
         catch (Exception ex)
@@ -59,19 +66,20 @@ public class CashBoxesController : BaseController
     /// <param name="id">شناسه صندوق نقدی</param>
     /// <returns>اطلاعات صندوق نقدی</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(typeof(CashBoxDto), 200)]
     [ProducesResponseType(404)]
     public async Task<ActionResult> GetCashBox(Guid id)
     {
         try
         {
-            // TODO: پیاده‌سازی GetCashBoxByIdQuery
-            var cashBox = new { 
-                Id = id, 
-                Name = "صندوق اصلی",
-                Code = "CASH001",
-                Location = "دفتر مرکزی"
-            };
+            var query = new GetCashBoxByIdQuery { Id = id };
+            var cashBox = await _mediator.Send(query);
+            
+            if (cashBox == null)
+            {
+                return NotFound($"صندوق نقدی با شناسه {id} یافت نشد");
+            }
+            
             return Success(cashBox);
         }
         catch (Exception ex)
@@ -177,12 +185,11 @@ public class CashBoxesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateCashBox([FromBody] object command)
+    public async Task<ActionResult> CreateCashBox([FromBody] CreateCashBoxCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateCashBoxCommand
-            var cashBoxId = Guid.NewGuid();
+            var cashBoxId = await _mediator.Send(command);
             return Created(cashBoxId, "صندوق نقدی با موفقیت ایجاد شد");
         }
         catch (Exception ex)

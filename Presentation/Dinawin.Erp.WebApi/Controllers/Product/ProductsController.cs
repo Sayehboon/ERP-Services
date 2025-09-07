@@ -1,6 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Product.Products.Queries.GetAllProducts;
+using Dinawin.Erp.Application.Features.Product.Products.Queries.GetProductById;
+using Dinawin.Erp.Application.Features.Product.Products.Commands.CreateProduct;
+using Dinawin.Erp.Application.Features.Product.Products.Commands.UpdateProduct;
+using Dinawin.Erp.Application.Features.Product.Products.Commands.DeleteProduct;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -21,37 +26,40 @@ public class ProductsController : BaseController
     /// <summary>
     /// دریافت تمام محصولات
     /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="categoryId">شناسه دسته‌بندی</param>
+    /// <param name="brandId">شناسه برند</param>
+    /// <param name="modelId">شناسه مدل</param>
+    /// <param name="isActive">آیا فقط محصولات فعال</param>
+    /// <param name="page">شماره صفحه</param>
+    /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام محصولات</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<ProductDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllProducts()
+    public async Task<ActionResult> GetAllProducts(
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] Guid? categoryId = null,
+        [FromQuery] Guid? brandId = null,
+        [FromQuery] Guid? modelId = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25)
     {
         try
         {
-            // TODO: پیاده‌سازی GetProductsQuery
-            var products = new List<object>
+            var query = new GetAllProductsQuery
             {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Name = "تویوتا کامری ۱۴۰۳", 
-                    Code = "TC1403",
-                    CategoryId = Guid.NewGuid(),
-                    CategoryName = "خودرو",
-                    BrandId = Guid.NewGuid(),
-                    BrandName = "تویوتا",
-                    ModelId = Guid.NewGuid(),
-                    ModelName = "کامری",
-                    TrimId = Guid.NewGuid(),
-                    TrimName = "پایه",
-                    YearId = Guid.NewGuid(),
-                    Year = 1403,
-                    UnitId = Guid.NewGuid(),
-                    UnitName = "عدد",
-                    Price = 500000000,
-                    IsActive = true
-                }
+                SearchTerm = searchTerm,
+                CategoryId = categoryId,
+                BrandId = brandId,
+                ModelId = modelId,
+                IsActive = isActive,
+                Page = page,
+                PageSize = pageSize
             };
+
+            var products = await _mediator.Send(query);
             return Success(products);
         }
         catch (Exception ex)
@@ -66,20 +74,20 @@ public class ProductsController : BaseController
     /// <param name="id">شناسه محصول</param>
     /// <returns>اطلاعات محصول</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(typeof(ProductDto), 200)]
     [ProducesResponseType(404)]
     public async Task<ActionResult> GetProduct(Guid id)
     {
         try
         {
-            // TODO: پیاده‌سازی GetProductByIdQuery
-            var product = new { 
-                Id = id, 
-                Name = "تویوتا کامری ۱۴۰۳", 
-                Code = "TC1403",
-                CategoryId = Guid.NewGuid(),
-                CategoryName = "خودرو"
-            };
+            var query = new GetProductByIdQuery { Id = id };
+            var product = await _mediator.Send(query);
+            
+            if (product == null)
+            {
+                return NotFound($"محصول با شناسه {id} یافت نشد");
+            }
+            
             return Success(product);
         }
         catch (Exception ex)
@@ -155,12 +163,11 @@ public class ProductsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateProduct([FromBody] object command)
+    public async Task<ActionResult> CreateProduct([FromBody] CreateProductCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateProductCommand
-            var productId = Guid.NewGuid();
+            var productId = await _mediator.Send(command);
             return Created(productId, "محصول با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -179,11 +186,12 @@ public class ProductsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateProduct(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateProduct(Guid id, [FromBody] UpdateProductCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateProductCommand
+            command.Id = id;
+            await _mediator.Send(command);
             return Success("محصول با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -204,7 +212,8 @@ public class ProductsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteProductCommand
+            var command = new DeleteProductCommand { Id = id };
+            await _mediator.Send(command);
             return Success("محصول با موفقیت حذف شد");
         }
         catch (Exception ex)

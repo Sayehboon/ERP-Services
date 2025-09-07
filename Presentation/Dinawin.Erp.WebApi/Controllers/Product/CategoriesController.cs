@@ -1,7 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.Categories.Commands.CreateCategory;
+using Dinawin.Erp.Application.Features.Categories.Commands.UpdateCategory;
+using Dinawin.Erp.Application.Features.Categories.Commands.DeleteCategory;
 using Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories;
+using Dinawin.Erp.Application.Features.Categories.Queries.GetCategoryById;
 using Dinawin.Erp.Application.Features.Categories.DTOs;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
@@ -59,16 +63,19 @@ public class CategoriesController : BaseController
     {
         try
         {
-            var validationResult = ValidateId(id);
-            if (validationResult != null) return validationResult;
-
-            // TODO: Implement GetCategoryByIdQuery
-            await Task.CompletedTask;
-            return Error("دسته‌بندی با شناسه مشخص شده پیدا نشد", 404);
+            var query = new GetCategoryByIdQuery { Id = id };
+            var category = await _mediator.Send(query);
+            
+            if (category == null)
+            {
+                return NotFound($"دسته‌بندی با شناسه {id} یافت نشد");
+            }
+            
+            return Success(category, "دسته‌بندی با موفقیت یافت شد");
         }
         catch (Exception ex)
         {
-            return HandleError(ex);
+            return HandleError(ex, "خطا در دریافت اطلاعات دسته‌بندی");
         }
     }
 
@@ -114,16 +121,13 @@ public class CategoriesController : BaseController
     {
         try
         {
-            var validationResult = ValidateId(id);
-            if (validationResult != null) return validationResult;
-
-            // TODO: Implement UpdateCategoryCommand
-            await Task.CompletedTask;
-            return Updated("دسته‌بندی با موفقیت ویرایش شد");
+            command.Id = id;
+            await _mediator.Send(command);
+            return Success("دسته‌بندی با موفقیت ویرایش شد");
         }
         catch (Exception ex)
         {
-            return HandleError(ex);
+            return HandleError(ex, "خطا در ویرایش دسته‌بندی");
         }
     }
 
@@ -142,16 +146,13 @@ public class CategoriesController : BaseController
     {
         try
         {
-            var validationResult = ValidateId(id);
-            if (validationResult != null) return validationResult;
-
-            // TODO: Implement DeleteCategoryCommand
-            await Task.CompletedTask;
-            return Deleted("دسته‌بندی با موفقیت حذف شد");
+            var command = new DeleteCategoryCommand { Id = id };
+            await _mediator.Send(command);
+            return Success("دسته‌بندی با موفقیت حذف شد");
         }
         catch (Exception ex)
         {
-            return HandleError(ex);
+            return HandleError(ex, "خطا در حذف دسته‌بندی");
         }
     }
 
