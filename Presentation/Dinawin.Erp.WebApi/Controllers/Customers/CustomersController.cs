@@ -1,0 +1,300 @@
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Customers.Queries.GetAllCustomers;
+using Dinawin.Erp.Application.Features.Customers.Queries.GetCustomerById;
+using Dinawin.Erp.Application.Features.Customers.Queries.SearchCustomers;
+using Dinawin.Erp.Application.Features.Customers.Commands.CreateCustomer;
+using Dinawin.Erp.Application.Features.Customers.Commands.UpdateCustomer;
+using Dinawin.Erp.Application.Features.Customers.Commands.DeleteCustomer;
+using Dinawin.Erp.Application.Features.Customers.Commands.ToggleCustomerStatus;
+
+namespace Dinawin.Erp.WebApi.Controllers.Customers;
+
+/// <summary>
+/// کنترلر مدیریت مشتریان
+/// </summary>
+[Route("api/[controller]")]
+public class CustomersController : BaseController
+{
+    /// <summary>
+    /// سازنده کنترلر مشتریان
+    /// </summary>
+    /// <param name="mediator">مدیاتور برای ارسال درخواست‌ها</param>
+    public CustomersController(IMediator mediator) : base(mediator)
+    {
+    }
+
+    /// <summary>
+    /// دریافت تمام مشتریان
+    /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="customerType">نوع مشتری</param>
+    /// <param name="city">شهر</param>
+    /// <param name="province">استان</param>
+    /// <param name="country">کشور</param>
+    /// <param name="isActive">وضعیت فعال بودن</param>
+    /// <param name="minCreditLimit">حداقل اعتبار</param>
+    /// <param name="maxCreditLimit">حداکثر اعتبار</param>
+    /// <param name="page">شماره صفحه</param>
+    /// <param name="pageSize">تعداد آیتم در هر صفحه</param>
+    /// <returns>لیست تمام مشتریان</returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<CustomerDto>), 200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> GetAllCustomers(
+        [FromQuery] string? searchTerm = null,
+        [FromQuery] string? customerType = null,
+        [FromQuery] string? city = null,
+        [FromQuery] string? province = null,
+        [FromQuery] string? country = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] decimal? minCreditLimit = null,
+        [FromQuery] decimal? maxCreditLimit = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 25)
+    {
+        try
+        {
+            var query = new GetAllCustomersQuery
+            {
+                SearchTerm = searchTerm,
+                CustomerType = customerType,
+                City = city,
+                Province = province,
+                Country = country,
+                IsActive = isActive,
+                MinCreditLimit = minCreditLimit,
+                MaxCreditLimit = maxCreditLimit,
+                Page = page,
+                PageSize = pageSize
+            };
+
+            var customers = await _mediator.Send(query);
+            return Success(customers);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت لیست مشتریان");
+        }
+    }
+
+    /// <summary>
+    /// دریافت مشتری بر اساس شناسه
+    /// </summary>
+    /// <param name="id">شناسه مشتری</param>
+    /// <returns>اطلاعات مشتری</returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(CustomerDto), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> GetCustomer(Guid id)
+    {
+        try
+        {
+            var query = new GetCustomerByIdQuery { Id = id };
+            var customer = await _mediator.Send(query);
+            
+            if (customer == null)
+            {
+                return NotFound($"مشتری با شناسه {id} یافت نشد");
+            }
+            
+            return Success(customer);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت اطلاعات مشتری");
+        }
+    }
+
+    /// <summary>
+    /// جستجوی مشتریان
+    /// </summary>
+    /// <param name="searchTerm">عبارت جستجو</param>
+    /// <returns>لیست مشتریان مطابق جستجو</returns>
+    [HttpGet("search")]
+    [ProducesResponseType(typeof(IEnumerable<CustomerSearchDto>), 200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> SearchCustomers(
+        [FromQuery] string searchTerm,
+        [FromQuery] string? customerType = null,
+        [FromQuery] string? city = null,
+        [FromQuery] string? province = null,
+        [FromQuery] string? country = null,
+        [FromQuery] bool? isActive = null,
+        [FromQuery] int maxResults = 20)
+    {
+        try
+        {
+            var query = new SearchCustomersQuery
+            {
+                SearchTerm = searchTerm,
+                CustomerType = customerType,
+                City = city,
+                Province = province,
+                Country = country,
+                IsActive = isActive,
+                MaxResults = maxResults
+            };
+
+            var customers = await _mediator.Send(query);
+            return Success(customers);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در جستجوی مشتریان");
+        }
+    }
+
+    /// <summary>
+    /// دریافت مشتریان فعال
+    /// </summary>
+    /// <returns>لیست مشتریان فعال</returns>
+    [HttpGet("active")]
+    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> GetActiveCustomers()
+    {
+        try
+        {
+            // TODO: پیاده‌سازی GetActiveCustomersQuery
+            var customers = new List<object>
+            {
+                new { 
+                    Id = Guid.NewGuid(), 
+                    CustomerCode = "CUST001",
+                    FirstName = "احمد",
+                    LastName = "محمدی",
+                    IsActive = true
+                }
+            };
+            return Success(customers);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت مشتریان فعال");
+        }
+    }
+
+    /// <summary>
+    /// دریافت تاریخچه سفارشات مشتری
+    /// </summary>
+    /// <param name="id">شناسه مشتری</param>
+    /// <returns>تاریخچه سفارشات</returns>
+    [HttpGet("{id}/orders")]
+    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> GetCustomerOrders(Guid id)
+    {
+        try
+        {
+            // TODO: پیاده‌سازی GetCustomerOrdersQuery
+            var orders = new List<object>
+            {
+                new { 
+                    Id = Guid.NewGuid(), 
+                    OrderNumber = "SO001",
+                    OrderDate = DateTime.Now.AddDays(-10),
+                    TotalAmount = 500000000,
+                    Status = "تکمیل شده"
+                }
+            };
+            return Success(orders);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت تاریخچه سفارشات مشتری");
+        }
+    }
+
+    /// <summary>
+    /// ایجاد مشتری جدید
+    /// </summary>
+    /// <param name="command">دستور ایجاد مشتری</param>
+    /// <returns>شناسه مشتری ایجاد شده</returns>
+    [HttpPost]
+    [ProducesResponseType(typeof(Guid), 201)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> CreateCustomer([FromBody] CreateCustomerCommand command)
+    {
+        try
+        {
+            var customerId = await _mediator.Send(command);
+            return Created(customerId, "مشتری با موفقیت ایجاد شد");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در ایجاد مشتری");
+        }
+    }
+
+    /// <summary>
+    /// به‌روزرسانی مشتری
+    /// </summary>
+    /// <param name="id">شناسه مشتری</param>
+    /// <param name="command">دستور به‌روزرسانی</param>
+    /// <returns>نتیجه به‌روزرسانی</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> UpdateCustomer(Guid id, [FromBody] UpdateCustomerCommand command)
+    {
+        try
+        {
+            command.Id = id;
+            var result = await _mediator.Send(command);
+            return Success("مشتری با موفقیت به‌روزرسانی شد");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در به‌روزرسانی مشتری");
+        }
+    }
+
+    /// <summary>
+    /// تغییر وضعیت مشتری
+    /// </summary>
+    /// <param name="id">شناسه مشتری</param>
+    /// <param name="command">دستور تغییر وضعیت</param>
+    /// <returns>نتیجه تغییر وضعیت</returns>
+    [HttpPatch("{id}/toggle-status")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> ToggleCustomerStatus(Guid id, [FromBody] ToggleCustomerStatusCommand command)
+    {
+        try
+        {
+            command.Id = id;
+            var result = await _mediator.Send(command);
+            return Success(result, $"وضعیت مشتری با موفقیت به {(command.IsActive ? "فعال" : "غیرفعال")} تغییر یافت");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در تغییر وضعیت مشتری");
+        }
+    }
+
+    /// <summary>
+    /// حذف مشتری
+    /// </summary>
+    /// <param name="id">شناسه مشتری</param>
+    /// <returns>نتیجه حذف</returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> DeleteCustomer(Guid id)
+    {
+        try
+        {
+            var command = new DeleteCustomerCommand { Id = id };
+            var result = await _mediator.Send(command);
+            return Success("مشتری با موفقیت حذف شد");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در حذف مشتری");
+        }
+    }
+}

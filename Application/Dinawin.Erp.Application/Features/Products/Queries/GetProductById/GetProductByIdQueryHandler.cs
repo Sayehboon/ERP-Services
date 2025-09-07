@@ -10,7 +10,7 @@ namespace Dinawin.Erp.Application.Features.Products.Queries.GetProductById;
 /// پردازش‌کننده پرس‌وجو دریافت کالا با شناسه
 /// Get product by ID query handler
 /// </summary>
-public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto?>
+public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;

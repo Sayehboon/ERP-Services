@@ -1,0 +1,45 @@
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Dinawin.Erp.Application.Common.Interfaces;
+
+namespace Dinawin.Erp.Application.Features.Years.Commands.DeleteYear;
+
+/// <summary>
+/// مدیریت‌کننده دستور حذف سال
+/// </summary>
+public sealed class DeleteYearCommandHandler : IRequestHandler<DeleteYearCommand, bool>
+{
+    private readonly IApplicationDbContext _context;
+
+    /// <summary>
+    /// سازنده مدیریت‌کننده دستور حذف سال
+    /// </summary>
+    /// <param name="context">کنتکست دیتابیس</param>
+    public DeleteYearCommandHandler(IApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    /// <summary>
+    /// اجرای دستور حذف سال
+    /// </summary>
+    public async Task<bool> Handle(DeleteYearCommand request, CancellationToken cancellationToken)
+    {
+        var year = await _context.Years.FirstOrDefaultAsync(y => y.Id == request.Id, cancellationToken);
+        if (year == null)
+        {
+            throw new ArgumentException($"سال با شناسه {request.Id} یافت نشد");
+        }
+
+        // بررسی وجود محصولات مرتبط
+        var hasProducts = await _context.Products.AnyAsync(p => p.YearId == request.Id, cancellationToken);
+        if (hasProducts)
+        {
+            throw new InvalidOperationException("امکان حذف سال وجود ندارد زیرا به کالاها مرتبط است");
+        }
+
+        _context.Years.Remove(year);
+        await _context.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+}

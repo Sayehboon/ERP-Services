@@ -1,37 +1,94 @@
+using MediatR;
+using System.ComponentModel.DataAnnotations;
+
 namespace Dinawin.Erp.Application.Features.Inventory.Bins.Commands.UpdateBin;
 
-using Dinawin.Erp.Application.Common.Interfaces;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-
-public record UpdateBinCommand(
-    Guid Id,
-    string? Code = null,
-    string? Name = null,
-    string? Description = null,
-    string? Aisle = null,
-    string? Shelf = null,
-    bool? IsActive = null
-) : IRequest<bool>;
-
-public class UpdateBinCommandHandler : IRequestHandler<UpdateBinCommand, bool>
+/// <summary>
+/// دستور به‌روزرسانی مکان
+/// </summary>
+public sealed class UpdateBinCommand : IRequest<Guid>
 {
-    private readonly IApplicationDbContext _db;
-    public UpdateBinCommandHandler(IApplicationDbContext db) { _db = db; }
+    /// <summary>
+    /// شناسه مکان
+    /// </summary>
+    [Required(ErrorMessage = "شناسه مکان الزامی است")]
+    public Guid Id { get; set; }
 
-    public async Task<bool> Handle(UpdateBinCommand request, CancellationToken cancellationToken)
-    {
-        var bin = await _db.Bins.FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
-        if (bin == null) return false;
+    /// <summary>
+    /// نام مکان
+    /// </summary>
+    [Required(ErrorMessage = "نام مکان الزامی است")]
+    [StringLength(100, ErrorMessage = "نام مکان نمی‌تواند بیش از 100 کاراکتر باشد")]
+    public string Name { get; set; } = string.Empty;
 
-        if (request.Code != null) bin.Code = request.Code;
-        if (request.Name != null) bin.Name = request.Name;
-        if (request.Description != null) bin.Description = request.Description;
-        if (request.Aisle != null) bin.Aisle = request.Aisle;
-        if (request.Shelf != null) bin.Shelf = request.Shelf;
-        if (request.IsActive.HasValue) bin.IsActive = request.IsActive.Value;
+    /// <summary>
+    /// کد مکان
+    /// </summary>
+    [Required(ErrorMessage = "کد مکان الزامی است")]
+    [StringLength(50, ErrorMessage = "کد مکان نمی‌تواند بیش از 50 کاراکتر باشد")]
+    public string Code { get; set; } = string.Empty;
 
-        await _db.SaveChangesAsync(cancellationToken);
-        return true;
-    }
+    /// <summary>
+    /// شناسه انبار
+    /// </summary>
+    [Required(ErrorMessage = "شناسه انبار الزامی است")]
+    public Guid WarehouseId { get; set; }
+
+    /// <summary>
+    /// نوع مکان
+    /// </summary>
+    [StringLength(50, ErrorMessage = "نوع مکان نمی‌تواند بیش از 50 کاراکتر باشد")]
+    public string? BinType { get; set; }
+
+    /// <summary>
+    /// ظرفیت مکان
+    /// </summary>
+    [Range(0, double.MaxValue, ErrorMessage = "ظرفیت مکان نمی‌تواند منفی باشد")]
+    public decimal? Capacity { get; set; }
+
+    /// <summary>
+    /// واحد ظرفیت
+    /// </summary>
+    [StringLength(20, ErrorMessage = "واحد ظرفیت نمی‌تواند بیش از 20 کاراکتر باشد")]
+    public string? CapacityUnit { get; set; }
+
+    /// <summary>
+    /// عرض مکان (متر)
+    /// </summary>
+    [Range(0, double.MaxValue, ErrorMessage = "عرض مکان نمی‌تواند منفی باشد")]
+    public decimal? Width { get; set; }
+
+    /// <summary>
+    /// طول مکان (متر)
+    /// </summary>
+    [Range(0, double.MaxValue, ErrorMessage = "طول مکان نمی‌تواند منفی باشد")]
+    public decimal? Length { get; set; }
+
+    /// <summary>
+    /// ارتفاع مکان (متر)
+    /// </summary>
+    [Range(0, double.MaxValue, ErrorMessage = "ارتفاع مکان نمی‌تواند منفی باشد")]
+    public decimal? Height { get; set; }
+
+    /// <summary>
+    /// موقعیت مکان در انبار
+    /// </summary>
+    [StringLength(100, ErrorMessage = "موقعیت مکان نمی‌تواند بیش از 100 کاراکتر باشد")]
+    public string? Location { get; set; }
+
+    /// <summary>
+    /// توضیحات
+    /// </summary>
+    [StringLength(500, ErrorMessage = "توضیحات نمی‌تواند بیش از 500 کاراکتر باشد")]
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// آیا فعال است
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
+    /// <summary>
+    /// شناسه کاربر به‌روزرسانی کننده
+    /// </summary>
+    public Guid? UpdatedBy { get; set; }
 }

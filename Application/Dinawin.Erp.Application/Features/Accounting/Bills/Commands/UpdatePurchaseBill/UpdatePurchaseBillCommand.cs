@@ -23,8 +23,16 @@ public class UpdatePurchaseBillCommandHandler : IRequestHandler<UpdatePurchaseBi
         {
             bill.LineItems.Add(new PurchaseBillLine
             {
-                Id = Guid.NewGuid(), PurchaseBillId = bill.Id, AccountId = l.AccountId, Quantity = l.Quantity, UnitPrice = l.UnitPrice,
-                LineDiscount = l.LineDiscount, TaxRate = l.TaxRate, TaxAmount = l.TaxAmount, LineTotal = Math.Round(l.Quantity * l.UnitPrice - l.LineDiscount, 2), Description = l.Description
+                Id = Guid.NewGuid(),
+                PurchaseBillId = bill.Id,
+                AccountId = l.AccountId,
+                Quantity = l.Quantity,
+                UnitPrice = l.UnitPrice,
+                LineDiscount = l.LineDiscount,
+                TaxRate = l.TaxRate,
+                TaxAmount = l.TaxAmount,
+                LineTotal = Math.Round(l.Quantity * l.UnitPrice - l.LineDiscount, 2),
+                Description = l.Description
             });
         }
         await _db.SaveChangesAsync(cancellationToken);

@@ -56,6 +56,9 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
 
+// Add sample data service
+builder.Services.AddScoped<Dinawin.Erp.Application.Services.SampleDataService>();
+
 // Add CORS
 builder.Services.AddCors(options =>
 {

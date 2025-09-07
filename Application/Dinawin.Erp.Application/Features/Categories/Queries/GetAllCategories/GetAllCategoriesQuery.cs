@@ -1,41 +1,17 @@
 using MediatR;
-using Dinawin.Erp.Application.Features.Products.Queries.Dtos;
+using Dinawin.Erp.Application.Features.Categories.DTOs;
 
 namespace Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories;
 
 /// <summary>
-/// پرس‌وجو لیست دسته‌بندی‌ها
-/// Query for getting all categories
+/// Query for getting all categories with optional filtering
 /// </summary>
-public record GetAllCategoriesQuery : IRequest<IEnumerable<CategoryDto>>
+public class GetAllCategoriesQuery : IRequest<List<CategoryDto>>
 {
-    /// <summary>
-    /// عبارت جستجو
-    /// Search term
-    /// </summary>
-    public string? SearchTerm { get; init; }
-
-    /// <summary>
-    /// شناسه دسته‌بندی والد
-    /// Parent category ID filter
-    /// </summary>
-    public Guid? ParentCategoryId { get; init; }
-
-    /// <summary>
-    /// فقط دسته‌بندی‌های فعال
-    /// Only active categories
-    /// </summary>
-    public bool? IsActive { get; init; }
-
-    /// <summary>
-    /// شماره صفحه
-    /// Page number
-    /// </summary>
-    public int Page { get; init; } = 1;
-
-    /// <summary>
-    /// تعداد آیتم در هر صفحه
-    /// Items per page
-    /// </summary>
-    public int PageSize { get; init; } = 25;
+    public string? SearchTerm { get; set; }
+    public Guid? ParentId { get; set; }
+    public bool? IsActive { get; set; } = true;
+    public bool IncludeChildren { get; set; } = false;
+    public int PageNumber { get; set; } = 1;
+    public int PageSize { get; set; } = 50;
 }

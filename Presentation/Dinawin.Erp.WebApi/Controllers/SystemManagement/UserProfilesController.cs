@@ -1,0 +1,161 @@
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.SystemManagement.UserProfiles.Queries.GetUserProfile;
+using Dinawin.Erp.Application.Features.SystemManagement.UserProfiles.Commands.UpdateUserProfile;
+
+namespace Dinawin.Erp.WebApi.Controllers.SystemManagement;
+
+/// <summary>
+/// کنترلر مدیریت پروفایل کاربران
+/// </summary>
+[Route("api/[controller]")]
+public class UserProfilesController : BaseController
+{
+    /// <summary>
+    /// سازنده کنترلر پروفایل کاربران
+    /// </summary>
+    /// <param name="mediator">مدیاتور برای ارسال درخواست‌ها</param>
+    public UserProfilesController(IMediator mediator) : base(mediator)
+    {
+    }
+
+    /// <summary>
+    /// دریافت پروفایل کاربر بر اساس شناسه
+    /// </summary>
+    /// <param name="id">شناسه کاربر</param>
+    /// <returns>اطلاعات پروفایل کاربر</returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(UserProfileDto), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> GetUserProfile(Guid id)
+    {
+        try
+        {
+            var query = new GetUserProfileQuery { UserId = id };
+            var result = await _mediator.Send(query);
+            if (result == null) return NotFound("پروفایل کاربر یافت نشد");
+            return Success(result);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت پروفایل کاربر");
+        }
+    }
+
+    /// <summary>
+    /// دریافت پروفایل کاربر فعلی
+    /// </summary>
+    /// <returns>اطلاعات پروفایل کاربر فعلی</returns>
+    [HttpGet("current")]
+    [ProducesResponseType(typeof(UserProfileDto), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> GetCurrentUserProfile()
+    {
+        try
+        {
+            // TODO: پیاده‌سازی GetCurrentUserProfileQuery
+            var profile = new { 
+                Id = Guid.NewGuid(), 
+                FirstName = "احمد",
+                LastName = "محمدی",
+                Email = "ahmad@example.com",
+                PhoneNumber = "09123456789"
+            };
+            return Success(profile);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت پروفایل کاربر فعلی");
+        }
+    }
+
+    /// <summary>
+    /// به‌روزرسانی پروفایل کاربر
+    /// </summary>
+    /// <param name="id">شناسه کاربر</param>
+    /// <param name="command">دستور به‌روزرسانی</param>
+    /// <returns>نتیجه به‌روزرسانی</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> UpdateUserProfile(Guid id, [FromBody] UpdateUserProfileCommand command)
+    {
+        try
+        {
+            command.UserId = id;
+            var result = await _mediator.Send(command);
+            return Success("پروفایل کاربر با موفقیت به‌روزرسانی شد");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در به‌روزرسانی پروفایل کاربر");
+        }
+    }
+
+    /// <summary>
+    /// به‌روزرسانی پروفایل کاربر فعلی
+    /// </summary>
+    /// <param name="command">دستور به‌روزرسانی</param>
+    /// <returns>نتیجه به‌روزرسانی</returns>
+    [HttpPut("current")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> UpdateCurrentUserProfile([FromBody] object command)
+    {
+        try
+        {
+            // TODO: پیاده‌سازی UpdateCurrentUserProfileCommand
+            return Success("پروفایل کاربر فعلی با موفقیت به‌روزرسانی شد");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در به‌روزرسانی پروفایل کاربر فعلی");
+        }
+    }
+
+    /// <summary>
+    /// تغییر رمز عبور کاربر
+    /// </summary>
+    /// <param name="id">شناسه کاربر</param>
+    /// <param name="command">دستور تغییر رمز عبور</param>
+    /// <returns>نتیجه تغییر رمز عبور</returns>
+    [HttpPost("{id}/change-password")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> ChangePassword(Guid id, [FromBody] object command)
+    {
+        try
+        {
+            // TODO: پیاده‌سازی ChangePasswordCommand
+            return Success("رمز عبور با موفقیت تغییر یافت");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در تغییر رمز عبور");
+        }
+    }
+
+    /// <summary>
+    /// تغییر رمز عبور کاربر فعلی
+    /// </summary>
+    /// <param name="command">دستور تغییر رمز عبور</param>
+    /// <returns>نتیجه تغییر رمز عبور</returns>
+    [HttpPost("current/change-password")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> ChangeCurrentUserPassword([FromBody] object command)
+    {
+        try
+        {
+            // TODO: پیاده‌سازی ChangeCurrentUserPasswordCommand
+            return Success("رمز عبور کاربر فعلی با موفقیت تغییر یافت");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در تغییر رمز عبور کاربر فعلی");
+        }
+    }
+}

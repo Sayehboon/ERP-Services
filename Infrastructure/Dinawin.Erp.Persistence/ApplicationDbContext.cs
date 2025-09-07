@@ -9,6 +9,10 @@ using Dinawin.Erp.Domain.Entities.Inventories;
 using Dinawin.Erp.Domain.Entities.Accounting;
 using Dinawin.Erp.Domain.Entities.Treasury;
 using Dinawin.Erp.Domain.Entities.Systems;
+using Dinawin.Erp.Infrastructure.Data.Entities.Crm;
+using Dinawin.Erp.Infrastructure.Data.Entities.Product;
+using Dinawin.Erp.Infrastructure.Data.Entities.Sales;
+using Dinawin.Erp.Infrastructure.Data.Entities.Purchase;
 
 namespace Dinawin.Erp.Persistence;
 
@@ -75,6 +79,27 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<SystemSetting> SystemSettings => Set<SystemSetting>();
 
     public DbSet<UomConversion> UomConversions => Set<UomConversion>();
+
+    // CRM entities
+    public DbSet<Activity> Activities => Set<Activity>();
+    public DbSet<Contact> Contacts => Set<Contact>();
+    public DbSet<Account> CrmAccounts => Set<Account>();
+    public DbSet<Lead> Leads => Set<Lead>();
+    public DbSet<Opportunity> Opportunities => Set<Opportunity>();
+    public DbSet<Ticket> Tickets => Set<Ticket>();
+
+    // Product entities (new)
+    public DbSet<Model> Models => Set<Model>();
+    public DbSet<Trim> Trims => Set<Trim>();
+    public DbSet<Year> Years => Set<Year>();
+
+    // Sales entities
+    public DbSet<SalesOrder> SalesOrders => Set<SalesOrder>();
+    public DbSet<SalesOrderItem> SalesOrderItems => Set<SalesOrderItem>();
+
+    // Purchase entities
+    public DbSet<PurchaseOrder> PurchaseOrders => Set<PurchaseOrder>();
+    public DbSet<PurchaseOrderItem> PurchaseOrderItems => Set<PurchaseOrderItem>();
 
     /// <summary>
     /// پیکربندی مدل دیتابیس
