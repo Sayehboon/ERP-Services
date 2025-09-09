@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -39,4 +41,24 @@ public class UserActivityLog : BaseEntity, IAggregateRoot
     public string? UserAgent { get; set; }
 }
 
+/// <summary>
+/// پیکربندی موجودیت لاگ فعالیت کاربر
+/// User Activity Log entity configuration
+/// </summary>
+public class UserActivityLogConfiguration : IEntityTypeConfiguration<UserActivityLog>
+{
+    public void Configure(EntityTypeBuilder<UserActivityLog> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.ActivityType).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.ActivityDataJson).HasMaxLength(4000);
+        builder.Property(e => e.IpAddress).HasMaxLength(45);
+        builder.Property(e => e.UserAgent).HasMaxLength(500);
+
+        builder.HasIndex(e => e.UserId);
+        builder.HasIndex(e => e.ActivityType);
+        builder.HasIndex(e => e.CreatedAt);
+    }
+}
 

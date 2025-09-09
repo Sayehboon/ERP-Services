@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -61,4 +63,27 @@ public class EmployeeAttendance : BaseEntity
     /// Attendance notes
     /// </summary>
     public string? Notes { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت حضور و غیاب کارمند
+/// Employee Attendance entity configuration
+/// </summary>
+public class EmployeeAttendanceConfiguration : IEntityTypeConfiguration<EmployeeAttendance>
+{
+    public void Configure(EntityTypeBuilder<EmployeeAttendance> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+
+        builder.Property(e => e.WorkingHours).HasColumnType("decimal(5,2)");
+        builder.Property(e => e.OvertimeHours).HasColumnType("decimal(5,2)");
+
+        builder.HasIndex(e => e.EmployeeId);
+        builder.HasIndex(e => e.AttendanceDate);
+        builder.HasIndex(e => e.Status);
+    }
 }

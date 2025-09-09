@@ -2,6 +2,8 @@ namespace Dinawin.Erp.Domain.Entities.Treasury;
 
 using Dinawin.Erp.Domain.Common;
 using Dinawin.Erp.Domain.Entities.Accounting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت حساب بانکی
@@ -76,4 +78,45 @@ public class BankAccount : BaseEntity, IAggregateRoot
     /// Purchase payments from this bank account
     /// </summary>
     public ICollection<Dinawin.Erp.Domain.Entities.Accounting.PurchasePayment> PurchasePayments { get; set; } = new List<Dinawin.Erp.Domain.Entities.Accounting.PurchasePayment>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت حساب بانکی
+/// Bank Account entity configuration
+/// </summary>
+public class BankAccountConfiguration : IEntityTypeConfiguration<BankAccount>
+{
+    public void Configure(EntityTypeBuilder<BankAccount> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.AccountName).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Iban).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.BusinessId).HasMaxLength(100);
+        builder.Property(e => e.BankName).HasMaxLength(200);
+        builder.Property(e => e.AccountNumber).HasMaxLength(50);
+        builder.Property(e => e.AccountType).HasMaxLength(50);
+        builder.Property(e => e.BranchName).HasMaxLength(200);
+        builder.Property(e => e.BranchCode).HasMaxLength(50);
+        builder.Property(e => e.BranchAddress).HasMaxLength(500);
+        builder.Property(e => e.BranchPhone).HasMaxLength(20);
+        builder.Property(e => e.CardNumber).HasMaxLength(50);
+        builder.Property(e => e.Notes).HasMaxLength(1000);
+        builder.Property(e => e.BankCode).HasMaxLength(50);
+        builder.Property(e => e.AccountHolderName).HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.CurrentBalance).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.InitialBalance).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.ControlAccount)
+            .WithMany()
+            .HasForeignKey(e => e.ControlAccountId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Iban).IsUnique(false);
+        builder.HasIndex(e => e.AccountNumber).IsUnique(false);
+        builder.HasIndex(e => e.BusinessId);
+    }
 }

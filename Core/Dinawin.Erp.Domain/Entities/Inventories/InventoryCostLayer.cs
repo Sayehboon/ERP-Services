@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -74,4 +76,38 @@ public class InventoryCostLayer : BaseEntity, IAggregateRoot
     /// Related warehouse
     /// </summary>
     public Warehouse Warehouse { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت لایه هزینه موجودی
+/// Inventory Cost Layer entity configuration
+/// </summary>
+public class InventoryCostLayerConfiguration : IEntityTypeConfiguration<InventoryCostLayer>
+{
+    public void Configure(EntityTypeBuilder<InventoryCostLayer> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.LayerType).HasMaxLength(50);
+        builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.UnitCost).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TotalCost).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Product)
+            .WithMany()
+            .HasForeignKey(e => e.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Warehouse)
+            .WithMany()
+            .HasForeignKey(e => e.WarehouseId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => e.ProductId);
+        builder.HasIndex(e => e.WarehouseId);
+        builder.HasIndex(e => e.LayerDate);
+    }
 }

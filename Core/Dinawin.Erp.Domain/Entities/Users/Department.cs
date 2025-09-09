@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -103,4 +105,47 @@ public class Department : BaseEntity, IAggregateRoot
     public decimal? Budget { get; set; }
     public string? Address { get; set; }
     public string? Email { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت بخش
+/// Department entity configuration
+/// </summary>
+public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
+{
+    public void Configure(EntityTypeBuilder<Department> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Path).HasMaxLength(500);
+        builder.Property(e => e.HierarchyPath).HasMaxLength(500);
+        builder.Property(e => e.DepartmentType).HasMaxLength(100);
+        builder.Property(e => e.Phone).HasMaxLength(20);
+        builder.Property(e => e.Address).HasMaxLength(500);
+        builder.Property(e => e.Email).HasMaxLength(100);
+
+        builder.Property(e => e.Budget).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Company)
+            .WithMany(c => c.Departments)
+            .HasForeignKey(e => e.CompanyId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.ParentDepartment)
+            .WithMany(d => d.SubDepartments)
+            .HasForeignKey(e => e.ParentDepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.Manager)
+            .WithMany()
+            .HasForeignKey(e => e.ManagerId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.Name);
+        builder.HasIndex(e => e.ParentDepartmentId);
+    }
 }

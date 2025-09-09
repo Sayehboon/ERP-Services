@@ -1,5 +1,7 @@
 using Dinawin.Erp.Domain.Common;
 using Dinawin.Erp.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -117,4 +119,27 @@ public enum CompanyType
     /// Limited liability company
     /// </summary>
     Limited = 4
+}
+
+/// <summary>
+/// پیکربندی موجودیت شرکت
+/// Company entity configuration
+/// </summary>
+public class CompanyConfiguration : IEntityTypeConfiguration<Company>
+{
+    public void Configure(EntityTypeBuilder<Company> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.TradeName).HasMaxLength(200);
+        builder.Property(e => e.NationalId).HasMaxLength(50);
+        builder.Property(e => e.RegistrationNumber).HasMaxLength(50);
+        builder.Property(e => e.EconomicCode).HasMaxLength(50);
+        builder.Property(e => e.Website).HasMaxLength(200);
+
+        builder.HasIndex(e => e.NationalId).IsUnique(false);
+        builder.HasIndex(e => e.RegistrationNumber).IsUnique(false);
+        builder.HasIndex(e => e.Name);
+    }
 }

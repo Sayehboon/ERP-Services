@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -17,4 +19,32 @@ public class InventoryIssueLine : BaseEntity
     public Products.Product Product { get; set; } = null!;
 }
 
+/// <summary>
+/// پیکربندی موجودیت خط یادداشت خروج موجودی
+/// Inventory Issue Line entity configuration
+/// </summary>
+public class InventoryIssueLineConfiguration : IEntityTypeConfiguration<InventoryIssueLine>
+{
+    public void Configure(EntityTypeBuilder<InventoryIssueLine> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.UnitCost).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Note)
+            .WithMany(n => n.Lines)
+            .HasForeignKey(e => e.NoteId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Product)
+            .WithMany()
+            .HasForeignKey(e => e.ProductId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.NoteId);
+        builder.HasIndex(e => e.LineNo);
+    }
+}
 

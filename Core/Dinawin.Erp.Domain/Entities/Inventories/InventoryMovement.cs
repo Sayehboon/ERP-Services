@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -96,4 +98,44 @@ public class InventoryMovement : BaseEntity, IAggregateRoot
     public decimal? UnitPrice { get; set; }
     public string? ReferenceType { get; set; }
     public Guid? ReferenceId { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت حرکت موجودی
+/// Inventory Movement entity configuration
+/// </summary>
+public class InventoryMovementConfiguration : IEntityTypeConfiguration<InventoryMovement>
+{
+    public void Configure(EntityTypeBuilder<InventoryMovement> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Direction).HasMaxLength(10);
+        builder.Property(e => e.MovementType).HasMaxLength(50);
+        builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.ReferenceType).HasMaxLength(50);
+
+        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.UnitCost).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TotalCost).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.BalanceQuantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.BalanceAverageCost).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Product)
+            .WithMany(p => p.InventoryMovements)
+            .HasForeignKey(e => e.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Warehouse)
+            .WithMany(w => w.InventoryMovements)
+            .HasForeignKey(e => e.WarehouseId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => e.ProductId);
+        builder.HasIndex(e => e.WarehouseId);
+        builder.HasIndex(e => e.MovementDate);
+        builder.HasIndex(e => e.MovementType);
+    }
 }

@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Treasury;
 
@@ -86,4 +88,38 @@ public class BankTransaction : BaseEntity, IAggregateRoot
     /// Related bank account
     /// </summary>
     public BankAccount BankAccount { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت تراکنش بانکی
+/// Bank Transaction entity configuration
+/// </summary>
+public class BankTransactionConfiguration : IEntityTypeConfiguration<BankTransaction>
+{
+    public void Configure(EntityTypeBuilder<BankTransaction> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.TransactionType).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Status).HasMaxLength(50);
+
+        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.AmountInBaseCurrency).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.BalanceBefore).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.BalanceAfter).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.BankAccount)
+            .WithMany()
+            .HasForeignKey(e => e.BankAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.BankAccountId);
+        builder.HasIndex(e => e.TransactionDate);
+        builder.HasIndex(e => e.TransactionType);
+        builder.HasIndex(e => e.ReferenceNumber);
+    }
 }

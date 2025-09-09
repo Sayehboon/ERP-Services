@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Crm;
 
@@ -131,4 +133,47 @@ public class Lead : BaseEntity
     /// </summary>
     public ICollection<Activity> Activities { get; set; } = new List<Activity>();
     public int Score { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت سرنخ CRM
+/// CRM Lead entity configuration
+/// </summary>
+public class LeadConfiguration : IEntityTypeConfiguration<Lead>
+{
+    public void Configure(EntityTypeBuilder<Lead> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.LastName).HasMaxLength(200);
+        builder.Property(e => e.Email).HasMaxLength(200);
+        builder.Property(e => e.Phone).HasMaxLength(20);
+        builder.Property(e => e.Mobile).HasMaxLength(20);
+        builder.Property(e => e.CompanyName).HasMaxLength(200);
+        builder.Property(e => e.Position).HasMaxLength(100);
+        builder.Property(e => e.Source).HasMaxLength(100);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Priority).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(2000);
+        builder.Property(e => e.Notes).HasMaxLength(4000);
+        builder.Property(e => e.Address).HasMaxLength(500);
+        builder.Property(e => e.City).HasMaxLength(100);
+        builder.Property(e => e.Province).HasMaxLength(100);
+        builder.Property(e => e.PostalCode).HasMaxLength(20);
+        builder.Property(e => e.LeadSource).HasMaxLength(100);
+
+        builder.Property(e => e.EstimatedValue).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.AssignedToUser)
+            .WithMany()
+            .HasForeignKey(e => e.AssignedTo)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Email).IsUnique(false);
+        builder.HasIndex(e => e.Phone).IsUnique(false);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.AssignedTo);
+    }
 }

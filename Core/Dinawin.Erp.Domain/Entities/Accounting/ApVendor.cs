@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -50,4 +52,24 @@ public class ApVendor : BaseEntity, IAggregateRoot
     /// Vendor payments
     /// </summary>
     public ICollection<ApPayment> Payments { get; set; } = new List<ApPayment>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت تامین‌کننده حساب‌های پرداختنی
+/// Accounts Payable Vendor entity configuration
+/// </summary>
+public class ApVendorConfiguration : IEntityTypeConfiguration<ApVendor>
+{
+    public void Configure(EntityTypeBuilder<ApVendor> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Code).HasMaxLength(50);
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.TaxId).HasMaxLength(50);
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.Name);
+        builder.HasIndex(e => e.BusinessId);
+    }
 }

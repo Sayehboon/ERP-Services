@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -110,4 +112,35 @@ public class Employee : BaseEntity
     /// Leaves
     /// </summary>
     public ICollection<Leave> Leaves { get; set; } = new List<Leave>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت کارمند
+/// Employee entity configuration
+/// </summary>
+public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
+{
+    public void Configure(EntityTypeBuilder<Employee> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).HasMaxLength(100);
+        builder.Property(e => e.LastName).HasMaxLength(100);
+        builder.Property(e => e.NationalCode).HasMaxLength(20);
+        builder.Property(e => e.PersonnelNumber).HasMaxLength(50);
+        builder.Property(e => e.Position).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Phone).HasMaxLength(20);
+        builder.Property(e => e.Email).HasMaxLength(100);
+        builder.Property(e => e.Address).HasMaxLength(500);
+
+        builder.HasOne(e => e.Department)
+            .WithMany()
+            .HasForeignKey(e => e.DepartmentId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.PersonnelNumber).IsUnique(false);
+        builder.HasIndex(e => e.NationalCode).IsUnique(false);
+        builder.HasIndex(e => e.Status);
+    }
 }

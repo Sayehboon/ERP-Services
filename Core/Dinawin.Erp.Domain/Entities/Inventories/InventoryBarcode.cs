@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -44,4 +46,28 @@ public class InventoryBarcode : BaseEntity, IAggregateRoot
     /// Related product
     /// </summary>
     public Products.Product Product { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت بارکد موجودی
+/// Inventory Barcode entity configuration
+/// </summary>
+public class InventoryBarcodeConfiguration : IEntityTypeConfiguration<InventoryBarcode>
+{
+    public void Configure(EntityTypeBuilder<InventoryBarcode> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Barcode).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.BarcodeType).HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(500);
+
+        builder.HasOne(e => e.Product)
+            .WithMany()
+            .HasForeignKey(e => e.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => e.Barcode).IsUnique();
+        builder.HasIndex(e => e.ProductId);
+    }
 }

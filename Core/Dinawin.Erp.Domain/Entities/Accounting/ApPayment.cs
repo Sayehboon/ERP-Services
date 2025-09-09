@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -104,4 +106,42 @@ public class ApPayment : BaseEntity, IAggregateRoot
     /// Payment settlements
     /// </summary>
     public ICollection<ApSettlement> Settlements { get; set; } = new List<ApSettlement>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت پرداخت حساب‌های پرداختنی
+/// Accounts Payable Payment entity configuration
+/// </summary>
+public class ApPaymentConfiguration : IEntityTypeConfiguration<ApPayment>
+{
+    public void Configure(EntityTypeBuilder<ApPayment> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Method).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Status).HasMaxLength(50);
+
+        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Vendor)
+            .WithMany(v => v.Payments)
+            .HasForeignKey(e => e.VendorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.BankAccount)
+            .WithMany()
+            .HasForeignKey(e => e.BankAccountId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.CashBox)
+            .WithMany()
+            .HasForeignKey(e => e.CashBoxId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.PaymentDate);
+        builder.HasIndex(e => e.VendorId);
+        builder.HasIndex(e => e.Status);
+    }
 }

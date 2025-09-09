@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Crm;
 
@@ -139,4 +141,54 @@ public class Opportunity : BaseEntity
     public string ContactName { get; set; }
     public DateTime CloseDate { get; set; }
     public string Owner { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت فرصت CRM
+/// CRM Opportunity entity configuration
+/// </summary>
+public class OpportunityConfiguration : IEntityTypeConfiguration<Opportunity>
+{
+    public void Configure(EntityTypeBuilder<Opportunity> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(2000);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Stage).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Type).HasMaxLength(50);
+        builder.Property(e => e.Source).HasMaxLength(100);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Notes).HasMaxLength(4000);
+        builder.Property(e => e.OpportunityType).HasMaxLength(50);
+        builder.Property(e => e.Priority).HasMaxLength(50);
+        builder.Property(e => e.AccountName).HasMaxLength(200);
+        builder.Property(e => e.ContactName).HasMaxLength(200);
+        builder.Property(e => e.Owner).HasMaxLength(200);
+
+        builder.Property(e => e.Value).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.EstimatedValue).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Lead)
+            .WithMany()
+            .HasForeignKey(e => e.LeadId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.Contact)
+            .WithMany()
+            .HasForeignKey(e => e.ContactId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.Customer)
+            .WithMany()
+            .HasForeignKey(e => e.CustomerId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Stage);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.ExpectedCloseDate);
+        builder.HasIndex(e => e.AssignedTo);
+    }
 }

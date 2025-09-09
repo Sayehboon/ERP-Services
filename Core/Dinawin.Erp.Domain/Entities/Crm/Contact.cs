@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Crm;
 
@@ -114,4 +116,41 @@ public class Contact : BaseEntity
     /// Related activities
     /// </summary>
     public ICollection<Activity> Activities { get; set; } = new List<Activity>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت مخاطب CRM
+/// CRM Contact entity configuration
+/// </summary>
+public class ContactConfiguration : IEntityTypeConfiguration<Contact>
+{
+    public void Configure(EntityTypeBuilder<Contact> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.LastName).HasMaxLength(200);
+        builder.Property(e => e.Email).HasMaxLength(200);
+        builder.Property(e => e.Phone).HasMaxLength(20);
+        builder.Property(e => e.Mobile).HasMaxLength(20);
+        builder.Property(e => e.Address).HasMaxLength(500);
+        builder.Property(e => e.City).HasMaxLength(100);
+        builder.Property(e => e.Province).HasMaxLength(100);
+        builder.Property(e => e.PostalCode).HasMaxLength(20);
+        builder.Property(e => e.Country).HasMaxLength(100);
+        builder.Property(e => e.CompanyName).HasMaxLength(200);
+        builder.Property(e => e.Position).HasMaxLength(100);
+        builder.Property(e => e.ContactType).HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(2000);
+        builder.Property(e => e.Company).HasMaxLength(200);
+        builder.Property(e => e.FirstName).HasMaxLength(200);
+        builder.Property(e => e.Notes).HasMaxLength(4000);
+        builder.Property(e => e.Source).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+
+        builder.HasIndex(e => e.Email).IsUnique(false);
+        builder.HasIndex(e => e.Phone).IsUnique(false);
+        builder.HasIndex(e => e.Mobile).IsUnique(false);
+        builder.HasIndex(e => e.CompanyName);
+    }
 }

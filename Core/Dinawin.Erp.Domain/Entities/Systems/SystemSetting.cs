@@ -1,6 +1,8 @@
 namespace Dinawin.Erp.Domain.Entities.Systems;
 
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت تنظیمات سیستم
@@ -37,4 +39,24 @@ public class SystemSetting : BaseEntity, IAggregateRoot
     ///// Updated by user ID
     ///// </summary>
     //public Guid? UpdatedBy { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت تنظیمات سیستم
+/// System Setting entity configuration
+/// </summary>
+public class SystemSettingConfiguration : IEntityTypeConfiguration<SystemSetting>
+{
+    public void Configure(EntityTypeBuilder<SystemSetting> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Category).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.Key).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Value).HasMaxLength(4000);
+        builder.Property(e => e.BusinessId).HasMaxLength(100);
+
+        builder.HasIndex(e => new { e.Category, e.Key, e.BusinessId }).IsUnique();
+        builder.HasIndex(e => e.Category);
+    }
 }

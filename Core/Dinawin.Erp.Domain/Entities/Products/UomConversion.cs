@@ -1,6 +1,8 @@
 namespace Dinawin.Erp.Domain.Entities.Products;
 
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت تبدیل واحد
@@ -57,4 +59,32 @@ public class UomConversion : BaseEntity
     public bool IsActive { get; set; } = true;
 }
 
+/// <summary>
+/// پیکربندی موجودیت تبدیل واحد
+/// Unit of Measure Conversion entity configuration
+/// </summary>
+public class UomConversionConfiguration : IEntityTypeConfiguration<UomConversion>
+{
+    public void Configure(EntityTypeBuilder<UomConversion> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.ConversionFactor).HasColumnType("decimal(18,6)");
+
+        builder.HasOne(e => e.FromUom)
+            .WithMany()
+            .HasForeignKey(e => e.FromUomId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.ToUom)
+            .WithMany()
+            .HasForeignKey(e => e.ToUomId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => new { e.FromUomId, e.ToUomId }).IsUnique();
+    }
+}
 

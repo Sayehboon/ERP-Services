@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Products;
 
@@ -82,6 +84,36 @@ public class UnitOfMeasure : BaseEntity, IAggregateRoot
     public string UomType { get; set; } = string.Empty;
     public string? UnitType { get; set; }
     public int SortOrder { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت واحد اندازه‌گیری
+/// Unit of Measure entity configuration
+/// </summary>
+public class UnitOfMeasureConfiguration : IEntityTypeConfiguration<UnitOfMeasure>
+{
+    public void Configure(EntityTypeBuilder<UnitOfMeasure> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Symbol).HasMaxLength(20);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.UomType).HasMaxLength(50);
+        builder.Property(e => e.UnitType).HasMaxLength(50);
+
+        builder.Property(e => e.ConversionFactor).HasColumnType("decimal(18,6)");
+
+        builder.HasOne(e => e.BaseUnit)
+            .WithMany()
+            .HasForeignKey(e => e.BaseUnitId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.Name);
+        builder.HasIndex(e => e.Type);
+    }
 }
 
 /// <summary>

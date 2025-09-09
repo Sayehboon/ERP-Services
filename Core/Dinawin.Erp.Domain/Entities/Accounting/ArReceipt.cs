@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -104,4 +106,42 @@ public class ArReceipt : BaseEntity, IAggregateRoot
     /// Receipt settlements
     /// </summary>
     public ICollection<ArSettlement> Settlements { get; set; } = new List<ArSettlement>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت دریافت حساب‌های دریافتنی
+/// Accounts Receivable Receipt entity configuration
+/// </summary>
+public class ArReceiptConfiguration : IEntityTypeConfiguration<ArReceipt>
+{
+    public void Configure(EntityTypeBuilder<ArReceipt> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Method).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Status).HasMaxLength(50);
+
+        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Customer)
+            .WithMany(c => c.Receipts)
+            .HasForeignKey(e => e.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.BankAccount)
+            .WithMany()
+            .HasForeignKey(e => e.BankAccountId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.CashBox)
+            .WithMany()
+            .HasForeignKey(e => e.CashBoxId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.ReceiptDate);
+        builder.HasIndex(e => e.CustomerId);
+        builder.HasIndex(e => e.Status);
+    }
 }

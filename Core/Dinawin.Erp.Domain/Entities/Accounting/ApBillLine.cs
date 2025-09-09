@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -86,4 +88,42 @@ public class ApBillLine : BaseEntity
     /// Related account
     /// </summary>
     public Account Account { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت خط فاکتور حساب‌های پرداختنی
+/// Accounts Payable Bill Line entity configuration
+/// </summary>
+public class ApBillLineConfiguration : IEntityTypeConfiguration<ApBillLine>
+{
+    public void Configure(EntityTypeBuilder<ApBillLine> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TaxRate).HasColumnType("decimal(5,2)");
+        builder.Property(e => e.TaxAmount).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Bill)
+            .WithMany(b => b.Lines)
+            .HasForeignKey(e => e.BillId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Product)
+            .WithMany()
+            .HasForeignKey(e => e.ProductId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.Account)
+            .WithMany()
+            .HasForeignKey(e => e.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.BillId);
+        builder.HasIndex(e => e.LineNo);
+    }
 }

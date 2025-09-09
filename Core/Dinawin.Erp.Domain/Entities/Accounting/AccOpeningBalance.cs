@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -116,4 +118,47 @@ public class AccOpeningBalance : BaseEntity, IAggregateRoot
     /// Approved By User
     /// </summary>
     public virtual User? ApprovedByUser { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت موجودی افتتاحیه
+/// Opening Balance entity configuration
+/// </summary>
+public class AccOpeningBalanceConfiguration : IEntityTypeConfiguration<AccOpeningBalance>
+{
+    public void Configure(EntityTypeBuilder<AccOpeningBalance> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.DebitBalance).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.CreditBalance).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.DebitBalanceBase).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.CreditBalanceBase).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Account)
+            .WithMany()
+            .HasForeignKey(e => e.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.FiscalPeriod)
+            .WithMany()
+            .HasForeignKey(e => e.FiscalPeriodId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.RegisteredByUser)
+            .WithMany()
+            .HasForeignKey(e => e.RegisteredByUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.ApprovedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.ApprovedByUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => new { e.AccountId, e.FiscalPeriodId }).IsUnique();
+    }
 }

@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -44,4 +46,31 @@ public class InventoryBin : BaseEntity, IAggregateRoot
     /// Related bin
     /// </summary>
     public Bin Bin { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت بین موجودی
+/// Inventory Bin entity configuration
+/// </summary>
+public class InventoryBinConfiguration : IEntityTypeConfiguration<InventoryBin>
+{
+    public void Configure(EntityTypeBuilder<InventoryBin> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+
+        builder.HasOne(e => e.Product)
+            .WithMany()
+            .HasForeignKey(e => e.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Bin)
+            .WithMany()
+            .HasForeignKey(e => e.BinId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => new { e.ProductId, e.BinId }).IsUnique();
+        builder.HasIndex(e => e.LastUpdated);
+    }
 }

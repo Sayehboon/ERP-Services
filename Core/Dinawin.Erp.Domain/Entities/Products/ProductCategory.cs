@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Products;
 
@@ -49,4 +51,25 @@ public class ProductCategory : BaseEntity
     /// Category active status
     /// </summary>
     public bool IsActive { get; set; } = true;
+}
+
+/// <summary>
+/// پیکربندی موجودیت دسته‌بندی محصول
+/// Product Category entity configuration
+/// </summary>
+public class ProductCategoryConfiguration : IEntityTypeConfiguration<ProductCategory>
+{
+    public void Configure(EntityTypeBuilder<ProductCategory> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Path).HasMaxLength(500);
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.Name);
+        builder.HasIndex(e => e.ParentId);
+    }
 }

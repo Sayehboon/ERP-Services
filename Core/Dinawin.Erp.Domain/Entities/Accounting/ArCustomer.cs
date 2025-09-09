@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -56,4 +58,26 @@ public class ArCustomer : BaseEntity, IAggregateRoot
     /// Customer receipts
     /// </summary>
     public ICollection<ArReceipt> Receipts { get; set; } = new List<ArReceipt>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت مشتری حساب‌های دریافتنی
+/// Accounts Receivable Customer entity configuration
+/// </summary>
+public class ArCustomerConfiguration : IEntityTypeConfiguration<ArCustomer>
+{
+    public void Configure(EntityTypeBuilder<ArCustomer> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Code).HasMaxLength(50);
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.TaxId).HasMaxLength(50);
+
+        builder.Property(e => e.CreditLimit).HasColumnType("decimal(18,2)");
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.Name);
+        builder.HasIndex(e => e.BusinessId);
+    }
 }

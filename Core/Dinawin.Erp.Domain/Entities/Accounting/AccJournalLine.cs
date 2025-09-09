@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -206,4 +208,40 @@ public class AccJournalLine : BaseEntity, IAggregateRoot
     /// Dimension 5 Value
     /// </summary>
     public virtual AccDimensionValue? Dimension5Value { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت سطر سند حسابداری
+/// Journal Line entity configuration
+/// </summary>
+public class AccJournalLineConfiguration : IEntityTypeConfiguration<AccJournalLine>
+{
+    public void Configure(EntityTypeBuilder<AccJournalLine> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Reference).HasMaxLength(200);
+
+        builder.Property(e => e.DebitAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.CreditAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.DebitAmountBase).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.CreditAmountBase).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.JournalVoucher)
+            .WithMany(jv => jv.JournalLines)
+            .HasForeignKey(e => e.JournalVoucherId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Account)
+            .WithMany()
+            .HasForeignKey(e => e.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.JournalVoucherId);
+        builder.HasIndex(e => e.AccountId);
+        builder.HasIndex(e => e.LineNumber);
+    }
 }

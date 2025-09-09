@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -44,4 +46,32 @@ public class ApSettlement : BaseEntity
     /// Related payment
     /// </summary>
     public ApPayment Payment { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت تسویه حساب‌های پرداختنی
+/// Accounts Payable Settlement entity configuration
+/// </summary>
+public class ApSettlementConfiguration : IEntityTypeConfiguration<ApSettlement>
+{
+    public void Configure(EntityTypeBuilder<ApSettlement> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Bill)
+            .WithMany(b => b.Settlements)
+            .HasForeignKey(e => e.BillId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Payment)
+            .WithMany(p => p.Settlements)
+            .HasForeignKey(e => e.PaymentId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => e.BillId);
+        builder.HasIndex(e => e.PaymentId);
+        builder.HasIndex(e => e.SettledAt);
+    }
 }

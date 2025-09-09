@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -85,4 +87,31 @@ public class UserSettings : BaseEntity
     /// Additional settings (JSON)
     /// </summary>
     public string? AdditionalSettings { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت تنظیمات کاربر
+/// User Settings entity configuration
+/// </summary>
+public class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
+{
+    public void Configure(EntityTypeBuilder<UserSettings> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Language).HasMaxLength(10);
+        builder.Property(e => e.Timezone).HasMaxLength(50);
+        builder.Property(e => e.DateFormat).HasMaxLength(20);
+        builder.Property(e => e.TimeFormat).HasMaxLength(20);
+        builder.Property(e => e.DefaultCurrency).HasMaxLength(10);
+        builder.Property(e => e.Theme).HasMaxLength(20);
+        builder.Property(e => e.AdditionalSettings).HasMaxLength(4000);
+
+        builder.HasOne(e => e.User)
+            .WithOne()
+            .HasForeignKey<UserSettings>(e => e.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => e.UserId).IsUnique();
+    }
 }

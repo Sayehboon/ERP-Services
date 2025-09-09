@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -80,4 +82,26 @@ public class Project : BaseEntity
     /// </summary>
     public bool IsActive { get; set; } = true;
     public Guid ManagerId { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت پروژه
+/// Project entity configuration
+/// </summary>
+public class ProjectConfiguration : IEntityTypeConfiguration<Project>
+{
+    public void Configure(EntityTypeBuilder<Project> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Priority).HasMaxLength(50);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+
+        builder.HasIndex(e => e.Name);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.StartDate);
+    }
 }

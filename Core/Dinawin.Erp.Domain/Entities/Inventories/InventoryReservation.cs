@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -68,5 +70,30 @@ public class InventoryReservation : BaseEntity
     /// شناسه کاربر ایجادکننده
     /// Created by user ID
     /// </summary>
+}
 
+/// <summary>
+/// پیکربندی موجودیت رزرو موجودی
+/// Inventory Reservation entity configuration
+/// </summary>
+public class InventoryReservationConfiguration : IEntityTypeConfiguration<InventoryReservation>
+{
+    public void Configure(EntityTypeBuilder<InventoryReservation> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Type).HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
+        builder.Property(e => e.ReferenceType).HasMaxLength(50);
+
+        builder.Property(e => e.ReservedQuantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+
+        builder.HasIndex(e => e.ProductId);
+        builder.HasIndex(e => e.WarehouseId);
+        builder.HasIndex(e => e.ReservationDate);
+        builder.HasIndex(e => e.Status);
+    }
 }

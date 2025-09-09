@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -44,4 +46,32 @@ public class ArSettlement : BaseEntity
     /// Related receipt
     /// </summary>
     public ArReceipt Receipt { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت تسویه حساب‌های دریافتنی
+/// Accounts Receivable Settlement entity configuration
+/// </summary>
+public class ArSettlementConfiguration : IEntityTypeConfiguration<ArSettlement>
+{
+    public void Configure(EntityTypeBuilder<ArSettlement> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Invoice)
+            .WithMany(i => i.Settlements)
+            .HasForeignKey(e => e.InvoiceId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Receipt)
+            .WithMany(r => r.Settlements)
+            .HasForeignKey(e => e.ReceiptId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => e.InvoiceId);
+        builder.HasIndex(e => e.ReceiptId);
+        builder.HasIndex(e => e.SettledAt);
+    }
 }

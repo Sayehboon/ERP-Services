@@ -1,5 +1,7 @@
 using Dinawin.Erp.Domain.Common;
 using Dinawin.Erp.Domain.Entities.Products;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -57,4 +59,33 @@ public class InventoryLevel : BaseEntity, IAggregateRoot
     /// Warehouse
     /// </summary>
     public Warehouse Warehouse { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت سطوح موجودی انبار
+/// Inventory Level entity configuration
+/// </summary>
+public class InventoryLevelConfiguration : IEntityTypeConfiguration<InventoryLevel>
+{
+    public void Configure(EntityTypeBuilder<InventoryLevel> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.MinQty).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.MaxQty).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.ReorderPoint).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.SafetyStock).HasColumnType("decimal(18,4)");
+
+        builder.HasOne(e => e.Product)
+            .WithMany()
+            .HasForeignKey(e => e.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Warehouse)
+            .WithMany()
+            .HasForeignKey(e => e.WarehouseId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => new { e.ProductId, e.WarehouseId }).IsUnique();
+    }
 }

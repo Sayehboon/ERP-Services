@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -85,4 +87,35 @@ public class Leave : BaseEntity
     /// Approver user
     /// </summary>
     public User? ProcessedByUser { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت مرخصی
+/// Leave entity configuration
+/// </summary>
+public class LeaveConfiguration : IEntityTypeConfiguration<Leave>
+{
+    public void Configure(EntityTypeBuilder<Leave> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.LeaveType).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Reason).HasMaxLength(1000);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.ProcessedComments).HasMaxLength(2000);
+
+        builder.HasOne(e => e.Employee)
+            .WithMany(emp => emp.Leaves)
+            .HasForeignKey(e => e.EmployeeId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.ProcessedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.ProcessedBy)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.EmployeeId);
+        builder.HasIndex(e => e.StartDate);
+        builder.HasIndex(e => e.Status);
+    }
 }

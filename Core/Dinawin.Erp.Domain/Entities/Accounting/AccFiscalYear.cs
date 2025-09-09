@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -116,4 +118,35 @@ public class AccFiscalYear : BaseEntity, IAggregateRoot
     /// Fiscal Periods
     /// </summary>
     public virtual ICollection<AccFiscalPeriod> FiscalPeriods { get; set; } = new List<AccFiscalPeriod>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت سال مالی
+/// Fiscal Year entity configuration
+/// </summary>
+public class AccFiscalYearConfiguration : IEntityTypeConfiguration<AccFiscalYear>
+{
+    public void Configure(EntityTypeBuilder<AccFiscalYear> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.FiscalYearName).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.BaseCurrency).HasMaxLength(10);
+        builder.Property(e => e.PeriodType).HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.HasOne(e => e.ClosedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.ClosedByUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.LockedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.LockedByUserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Year).IsUnique(false);
+        builder.HasIndex(e => e.Status);
+    }
 }

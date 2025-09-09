@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -146,4 +148,48 @@ public class ApBill : BaseEntity, IAggregateRoot
     /// Fiscal year
     /// </summary>
     public FiscalYear? FiscalYear { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت فاکتور حساب‌های پرداختنی
+/// Accounts Payable Bill entity configuration
+/// </summary>
+public class ApBillConfiguration : IEntityTypeConfiguration<ApBill>
+{
+    public void Configure(EntityTypeBuilder<ApBill> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Number).HasMaxLength(100);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.ApprovalStatus).HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.Subtotal).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TaxAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.DiscountAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Total).HasColumnType("decimal(18,2)");
+
+        builder.HasOne(e => e.Vendor)
+            .WithMany()
+            .HasForeignKey(e => e.VendorId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.FiscalPeriod)
+            .WithMany()
+            .HasForeignKey(e => e.FiscalPeriodId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.FiscalYear)
+            .WithMany()
+            .HasForeignKey(e => e.FiscalYearId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Number).IsUnique(false);
+        builder.HasIndex(e => e.BillDate);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.VendorId);
+    }
 }

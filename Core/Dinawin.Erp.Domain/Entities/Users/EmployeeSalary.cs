@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -91,4 +93,32 @@ public class EmployeeSalary : BaseEntity
     /// Salary notes
     /// </summary>
     public string? Notes { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت حقوق کارمند
+/// Employee Salary entity configuration
+/// </summary>
+public class EmployeeSalaryConfiguration : IEntityTypeConfiguration<EmployeeSalary>
+{
+    public void Configure(EntityTypeBuilder<EmployeeSalary> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Period).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.PaymentStatus).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+
+        builder.Property(e => e.BaseSalary).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.OvertimePay).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Bonus).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Deductions).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.FinalSalary).HasColumnType("decimal(18,2)");
+
+        builder.HasIndex(e => e.EmployeeId);
+        builder.HasIndex(e => e.PeriodStartDate);
+        builder.HasIndex(e => e.PaymentStatus);
+    }
 }

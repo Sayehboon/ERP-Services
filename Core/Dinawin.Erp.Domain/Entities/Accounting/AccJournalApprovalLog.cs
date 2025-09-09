@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -80,4 +82,34 @@ public class AccJournalApprovalLog : BaseEntity, IAggregateRoot
     /// Approver User
     /// </summary>
     public virtual User? ApproverUser { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت لاگ تایید اسناد حسابداری
+/// Journal Approval Log entity configuration
+/// </summary>
+public class AccJournalApprovalLogConfiguration : IEntityTypeConfiguration<AccJournalApprovalLog>
+{
+    public void Configure(EntityTypeBuilder<AccJournalApprovalLog> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.ApprovalStatus).HasMaxLength(50);
+        builder.Property(e => e.ApproverComments).HasMaxLength(2000);
+        builder.Property(e => e.ApprovalType).HasMaxLength(100);
+
+        builder.HasOne(e => e.JournalVoucher)
+            .WithMany(jv => jv.ApprovalLogs)
+            .HasForeignKey(e => e.JournalVoucherId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.ApproverUser)
+            .WithMany()
+            .HasForeignKey(e => e.ApproverUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.JournalVoucherId);
+        builder.HasIndex(e => e.ApprovalDate);
+        builder.HasIndex(e => e.ApprovalStatus);
+    }
 }
