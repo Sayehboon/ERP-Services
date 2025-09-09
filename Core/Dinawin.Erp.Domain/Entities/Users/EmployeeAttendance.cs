@@ -79,8 +79,8 @@ public class EmployeeAttendanceConfiguration : IEntityTypeConfiguration<Employee
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Notes).HasMaxLength(2000);
 
-        builder.Property(e => e.WorkingHours).HasColumnType("decimal(5,2)");
-        builder.Property(e => e.OvertimeHours).HasColumnType("decimal(5,2)");
+        builder.Property(e => e.WorkingHours).HasPrecision(5, 2);
+        builder.Property(e => e.OvertimeHours).HasPrecision(5, 2);
 
         builder.HasIndex(e => e.EmployeeId);
         builder.HasIndex(e => e.AttendanceDate);

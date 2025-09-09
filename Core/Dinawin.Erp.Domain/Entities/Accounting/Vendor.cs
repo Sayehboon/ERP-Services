@@ -97,9 +97,9 @@ public class VendorConfiguration : IEntityTypeConfiguration<Vendor>
         builder.Property(e => e.ContactName).HasMaxLength(200);
         builder.Property(e => e.Notes).HasMaxLength(2000);
 
-        builder.Property(e => e.CreditLimit).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.AccountBalance).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.DiscountRate).HasColumnType("decimal(5,2)");
+        builder.Property(e => e.CreditLimit).HasPrecision(18, 2);
+        builder.Property(e => e.AccountBalance).HasPrecision(18, 2);
+        builder.Property(e => e.DiscountRate).HasPrecision(5, 2);
 
         builder.HasIndex(e => e.Code).IsUnique(false);
         builder.HasIndex(e => e.Name);

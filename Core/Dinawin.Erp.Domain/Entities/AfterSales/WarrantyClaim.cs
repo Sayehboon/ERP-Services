@@ -173,10 +173,10 @@ public class WarrantyClaimConfiguration : IEntityTypeConfiguration<WarrantyClaim
             .HasMaxLength(2000);
 
         builder.Property(e => e.RepairCost)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.AcceptableCost)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.HasOne(e => e.Warranty)
             .WithMany()

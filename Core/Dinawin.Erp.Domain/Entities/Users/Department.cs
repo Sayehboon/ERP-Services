@@ -127,7 +127,7 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
         builder.Property(e => e.Address).HasMaxLength(500);
         builder.Property(e => e.Email).HasMaxLength(100);
 
-        builder.Property(e => e.Budget).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Budget).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Company)
             .WithMany(c => c.Departments)

@@ -12,6 +12,7 @@ using Dinawin.Erp.Domain.Entities.AfterSales;
 using Dinawin.Erp.Domain.Entities.Maintenance;
 using Dinawin.Erp.Domain.Entities.FixedAssets;
 using TaskEntity = Dinawin.Erp.Domain.Entities.Users.WorkTask;
+using Console = Dinawin.Erp.Domain.Entities.Systems.Console;
 
 namespace Dinawin.Erp.Application.Common.Interfaces;
 

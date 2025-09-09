@@ -92,7 +92,7 @@ public class ChartOfAccountConfiguration : IEntityTypeConfiguration<ChartOfAccou
         builder.Property(e => e.BalanceType).HasMaxLength(50);
         builder.Property(e => e.NormalBalance).HasMaxLength(50);
 
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
 
         builder.HasIndex(e => e.AccountCode).IsUnique(false);
         builder.HasIndex(e => e.AccountName);

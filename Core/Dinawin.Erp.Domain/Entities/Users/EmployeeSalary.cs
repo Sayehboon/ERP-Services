@@ -111,11 +111,11 @@ public class EmployeeSalaryConfiguration : IEntityTypeConfiguration<EmployeeSala
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Notes).HasMaxLength(2000);
 
-        builder.Property(e => e.BaseSalary).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.OvertimePay).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.Bonus).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.Deductions).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.FinalSalary).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.BaseSalary).HasPrecision(18, 2);
+        builder.Property(e => e.OvertimePay).HasPrecision(18, 2);
+        builder.Property(e => e.Bonus).HasPrecision(18, 2);
+        builder.Property(e => e.Deductions).HasPrecision(18, 2);
+        builder.Property(e => e.FinalSalary).HasPrecision(18, 2);
 
         builder.HasIndex(e => e.EmployeeId);
         builder.HasIndex(e => e.PeriodStartDate);

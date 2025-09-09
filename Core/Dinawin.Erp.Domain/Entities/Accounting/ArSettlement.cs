@@ -58,7 +58,7 @@ public class ArSettlementConfiguration : IEntityTypeConfiguration<ArSettlement>
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Invoice)
             .WithMany(i => i.Settlements)

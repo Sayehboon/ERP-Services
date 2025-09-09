@@ -1,6 +1,8 @@
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت سند حسابداری
@@ -134,4 +136,67 @@ public class JournalLine : BaseEntity
     /// Related account
     /// </summary>
     public Account? Account { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت سند حسابداری
+/// Journal Voucher entity configuration
+/// </summary>
+public class JournalVoucherConfiguration : IEntityTypeConfiguration<JournalVoucher>
+{
+    public void Configure(EntityTypeBuilder<JournalVoucher> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Number).HasMaxLength(100);
+        builder.Property(e => e.Type).IsRequired().HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.ApprovalStatus).HasMaxLength(50);
+
+        builder.HasOne(e => e.FiscalYear)
+            .WithMany()
+            .HasForeignKey(e => e.FiscalYearId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.FiscalPeriod)
+            .WithMany()
+            .HasForeignKey(e => e.FiscalPeriodId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.Number).IsUnique(false);
+        builder.HasIndex(e => e.VoucherDate);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.Type);
+    }
+}
+
+/// <summary>
+/// پیکربندی موجودیت ردیف سند حسابداری
+/// Journal Line entity configuration
+/// </summary>
+public class JournalLineConfiguration : IEntityTypeConfiguration<JournalLine>
+{
+    public void Configure(EntityTypeBuilder<JournalLine> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.Debit).HasPrecision(18, 2);
+        builder.Property(e => e.Credit).HasPrecision(18, 2);
+
+        builder.HasOne(e => e.Voucher)
+            .WithMany(v => v.Lines)
+            .HasForeignKey(e => e.VoucherId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Account)
+            .WithMany()
+            .HasForeignKey(e => e.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.VoucherId);
+        builder.HasIndex(e => e.AccountId);
+    }
 }

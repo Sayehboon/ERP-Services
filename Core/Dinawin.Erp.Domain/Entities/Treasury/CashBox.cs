@@ -1,6 +1,8 @@
 namespace Dinawin.Erp.Domain.Entities.Treasury;
 
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت صندوق نقدی
@@ -85,4 +87,36 @@ public class CashBox : BaseEntity, IAggregateRoot
     public Guid ResponsiblePersonId { get; set; }
     public decimal CurrentBalance { get; set; }
     public string Currency { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت صندوق نقدی
+/// Cash Box entity configuration
+/// </summary>
+public class CashBoxConfiguration : IEntityTypeConfiguration<CashBox>
+{
+    public void Configure(EntityTypeBuilder<CashBox> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Location).HasMaxLength(200);
+        builder.Property(e => e.Code).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+
+        builder.Property(e => e.CurrentBalance).HasPrecision(18, 2);
+
+        builder.HasOne(e => e.Business)
+            .WithMany()
+            .HasForeignKey(e => e.BusinessId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.ControlAccount)
+            .WithMany()
+            .HasForeignKey(e => e.ControlAccountId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.BusinessId);
+    }
 }

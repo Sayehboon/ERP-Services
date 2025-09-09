@@ -74,7 +74,7 @@ public class ArCustomerConfiguration : IEntityTypeConfiguration<ArCustomer>
         builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
         builder.Property(e => e.TaxId).HasMaxLength(50);
 
-        builder.Property(e => e.CreditLimit).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.CreditLimit).HasPrecision(18, 2);
 
         builder.HasIndex(e => e.Code).IsUnique(false);
         builder.HasIndex(e => e.Name);

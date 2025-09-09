@@ -224,11 +224,11 @@ public class AccJournalLineConfiguration : IEntityTypeConfiguration<AccJournalLi
         builder.Property(e => e.Currency).HasMaxLength(10);
         builder.Property(e => e.Reference).HasMaxLength(200);
 
-        builder.Property(e => e.DebitAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.CreditAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
-        builder.Property(e => e.DebitAmountBase).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.CreditAmountBase).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.DebitAmount).HasPrecision(18, 2);
+        builder.Property(e => e.CreditAmount).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.DebitAmountBase).HasPrecision(18, 2);
+        builder.Property(e => e.CreditAmountBase).HasPrecision(18, 2);
 
         builder.HasOne(e => e.JournalVoucher)
             .WithMany(jv => jv.JournalLines)

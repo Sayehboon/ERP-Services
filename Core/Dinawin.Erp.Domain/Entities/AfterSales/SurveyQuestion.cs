@@ -116,7 +116,7 @@ public class SurveyQuestionConfiguration : IEntityTypeConfiguration<SurveyQuesti
             .HasMaxLength(1000);
 
         builder.Property(e => e.Weight)
-            .HasColumnType("decimal(18,4)");
+            .HasPrecision(18, 4);
 
         builder.HasIndex(e => e.BusinessId);
         builder.HasIndex(e => e.DisplayOrder);

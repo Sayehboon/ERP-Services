@@ -70,8 +70,8 @@ public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.MinStockAlert).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.Quantity).HasPrecision(18, 4);
+        builder.Property(e => e.MinStockAlert).HasPrecision(18, 4);
 
         builder.HasOne(e => e.Product)
             .WithMany(p => p.Inventories)

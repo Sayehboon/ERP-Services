@@ -92,9 +92,9 @@ public class InventoryCostLayerConfiguration : IEntityTypeConfiguration<Inventor
         builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
         builder.Property(e => e.Description).HasMaxLength(1000);
 
-        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.UnitCost).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TotalCost).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Quantity).HasPrecision(18, 4);
+        builder.Property(e => e.UnitCost).HasPrecision(18, 2);
+        builder.Property(e => e.TotalCost).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Product)
             .WithMany()

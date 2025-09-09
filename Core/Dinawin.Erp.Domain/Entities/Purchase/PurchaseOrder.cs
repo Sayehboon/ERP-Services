@@ -150,11 +150,11 @@ public class PurchaseOrderConfiguration : IEntityTypeConfiguration<PurchaseOrder
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Notes).HasMaxLength(2000);
 
-        builder.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.DiscountPercentage).HasColumnType("decimal(5,2)");
-        builder.Property(e => e.DiscountAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TaxAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.FinalAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+        builder.Property(e => e.DiscountPercentage).HasPrecision(5, 2);
+        builder.Property(e => e.DiscountAmount).HasPrecision(18, 2);
+        builder.Property(e => e.TaxAmount).HasPrecision(18, 2);
+        builder.Property(e => e.FinalAmount).HasPrecision(18, 2);
 
         builder.HasIndex(e => e.OrderNumber).IsUnique(false);
         builder.HasIndex(e => e.VendorId);

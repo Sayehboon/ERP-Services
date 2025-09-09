@@ -73,9 +73,9 @@ public class BankReconciliationConfiguration : IEntityTypeConfiguration<BankReco
         builder.Property(e => e.Status).HasMaxLength(50);
         builder.Property(e => e.Description).HasMaxLength(1000);
 
-        builder.Property(e => e.BookBalance).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.BankBalance).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.Difference).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.BookBalance).HasPrecision(18, 2);
+        builder.Property(e => e.BankBalance).HasPrecision(18, 2);
+        builder.Property(e => e.Difference).HasPrecision(18, 2);
 
         builder.HasOne(e => e.BankAccount)
             .WithMany()

@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Treasury;
 
@@ -86,4 +88,40 @@ public class CashBoxTransaction : BaseEntity
     public string TransactionType { get; set; }
     public decimal? ExchangeRate { get; set; }
     public decimal? AmountInBaseCurrency { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت تراکنش صندوق نقدی
+/// Cash Box Transaction entity configuration
+/// </summary>
+public class CashBoxTransactionConfiguration : IEntityTypeConfiguration<CashBoxTransaction>
+{
+    public void Configure(EntityTypeBuilder<CashBoxTransaction> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Type).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.TransactionType).HasMaxLength(50);
+
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
+        builder.Property(e => e.BalanceBefore).HasPrecision(18, 2);
+        builder.Property(e => e.BalanceAfter).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.AmountInBaseCurrency).HasPrecision(18, 2);
+
+        builder.HasOne(e => e.CashBox)
+            .WithMany(cb => cb.BoxTransactions)
+            .HasForeignKey(e => e.CashBoxId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.CashBoxId);
+        builder.HasIndex(e => e.TransactionDate);
+        builder.HasIndex(e => e.Type);
+        builder.HasIndex(e => e.Status);
+    }
 }

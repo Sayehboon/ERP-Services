@@ -85,10 +85,10 @@ public class AccSettingConfiguration : IEntityTypeConfiguration<AccSetting>
             .HasMaxLength(10);
 
         builder.Property(e => e.VatRate)
-            .HasColumnType("decimal(6,4)");
+            .HasPrecision(6, 4);
 
         builder.Property(e => e.WithholdingRate)
-            .HasColumnType("decimal(6,4)");
+            .HasPrecision(6, 4);
 
         builder.Property(e => e.VatAccountCode).HasMaxLength(100);
         builder.Property(e => e.WithholdingAccountCode).HasMaxLength(100);

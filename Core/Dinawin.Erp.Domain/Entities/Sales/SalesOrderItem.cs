@@ -87,11 +87,11 @@ public class SalesOrderItemConfiguration : IEntityTypeConfiguration<SalesOrderIt
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.DiscountPercentage).HasColumnType("decimal(5,2)");
-        builder.Property(e => e.DiscountAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Quantity).HasPrecision(18, 4);
+        builder.Property(e => e.UnitPrice).HasPrecision(18, 2);
+        builder.Property(e => e.DiscountPercentage).HasPrecision(5, 2);
+        builder.Property(e => e.DiscountAmount).HasPrecision(18, 2);
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Notes).HasMaxLength(2000);
 

@@ -47,8 +47,8 @@ public class MaintenanceRequestConfiguration : IEntityTypeConfiguration<Maintena
         builder.Property(e => e.ProblemDescription).IsRequired().HasMaxLength(2000);
         builder.Property(e => e.WorkPerformed).HasMaxLength(2000);
         builder.Property(e => e.SafetyRequirements).HasMaxLength(1000);
-        builder.Property(e => e.CostEstimate).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.ActualCost).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.CostEstimate).HasPrecision(18, 2);
+        builder.Property(e => e.ActualCost).HasPrecision(18, 2);
 
         builder.HasIndex(e => new { e.BusinessId, e.RequestNumber }).IsUnique();
         builder.HasIndex(e => e.EquipmentId);

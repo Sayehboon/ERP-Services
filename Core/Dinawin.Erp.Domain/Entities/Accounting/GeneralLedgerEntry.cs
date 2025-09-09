@@ -1,6 +1,8 @@
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت ردیف دفتر کل (General Ledger)
@@ -90,4 +92,41 @@ public class GeneralLedgerEntry : BaseEntity
     public JournalVoucher? Voucher { get; set; }
 }
 
+/// <summary>
+/// پیکربندی موجودیت ردیف دفتر کل
+/// General Ledger Entry entity configuration
+/// </summary>
+public class GeneralLedgerEntryConfiguration : IEntityTypeConfiguration<GeneralLedgerEntry>
+{
+    public void Configure(EntityTypeBuilder<GeneralLedgerEntry> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Number).HasMaxLength(100);
+        builder.Property(e => e.AccountCode).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.AccountName).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Type).IsRequired().HasMaxLength(50);
+
+        builder.Property(e => e.Debit).HasPrecision(18, 2);
+        builder.Property(e => e.Credit).HasPrecision(18, 2);
+        builder.Property(e => e.DebitAmount).HasPrecision(18, 2);
+        builder.Property(e => e.CreditAmount).HasPrecision(18, 2);
+
+        builder.HasOne(e => e.Account)
+            .WithMany()
+            .HasForeignKey(e => e.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.Voucher)
+            .WithMany()
+            .HasForeignKey(e => e.VoucherId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => e.VoucherId);
+        builder.HasIndex(e => e.VoucherDate);
+        builder.HasIndex(e => e.AccountId);
+        builder.HasIndex(e => e.TransactionDate);
+    }
+}
 

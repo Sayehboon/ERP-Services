@@ -71,10 +71,10 @@ public class InventoryLevelConfiguration : IEntityTypeConfiguration<InventoryLev
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.MinQty).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.MaxQty).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.ReorderPoint).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.SafetyStock).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.MinQty).HasPrecision(18, 4);
+        builder.Property(e => e.MaxQty).HasPrecision(18, 4);
+        builder.Property(e => e.ReorderPoint).HasPrecision(18, 4);
+        builder.Property(e => e.SafetyStock).HasPrecision(18, 4);
 
         builder.HasOne(e => e.Product)
             .WithMany()

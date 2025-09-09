@@ -133,11 +133,11 @@ public class AccOpeningBalanceConfiguration : IEntityTypeConfiguration<AccOpenin
         builder.Property(e => e.Currency).HasMaxLength(10);
         builder.Property(e => e.Description).HasMaxLength(1000);
 
-        builder.Property(e => e.DebitBalance).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.CreditBalance).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
-        builder.Property(e => e.DebitBalanceBase).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.CreditBalanceBase).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.DebitBalance).HasPrecision(18, 2);
+        builder.Property(e => e.CreditBalance).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.DebitBalanceBase).HasPrecision(18, 2);
+        builder.Property(e => e.CreditBalanceBase).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Account)
             .WithMany()

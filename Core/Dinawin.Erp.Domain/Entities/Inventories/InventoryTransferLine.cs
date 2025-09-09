@@ -29,8 +29,8 @@ public class InventoryTransferLineConfiguration : IEntityTypeConfiguration<Inven
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Quantity).HasPrecision(18, 4);
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Note)
             .WithMany(n => n.Lines)

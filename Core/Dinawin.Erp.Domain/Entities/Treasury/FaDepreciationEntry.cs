@@ -1,4 +1,7 @@
 using Dinawin.Erp.Domain.Common;
+using Dinawin.Erp.Domain.Entities.Accounting;
+using Dinawin.Erp.Domain.Entities.FixedAssets;
+using Dinawin.Erp.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -196,28 +199,28 @@ public class FaDepreciationEntryConfiguration : IEntityTypeConfiguration<FaDepre
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.DepreciationAmount)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.AccumulatedDepreciation)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.BookValue)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.DepreciationAmountBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.AccumulatedDepreciationBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.BookValueBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.Currency)
             .HasMaxLength(10);
 
         builder.Property(e => e.ExchangeRate)
-            .HasColumnType("decimal(18,6)");
+            .HasPrecision(18, 6);
 
         builder.Property(e => e.EntryStatus)
             .HasMaxLength(50);

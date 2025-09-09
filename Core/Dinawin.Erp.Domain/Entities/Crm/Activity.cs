@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Crm;
 
@@ -138,4 +140,49 @@ public class Activity : BaseEntity
     /// Assigned user
     /// </summary>
     public Dinawin.Erp.Domain.Entities.Users.User? AssignedUser { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت فعالیت CRM
+/// CRM Activity entity configuration
+/// </summary>
+public class ActivityConfiguration : IEntityTypeConfiguration<Activity>
+{
+    public void Configure(EntityTypeBuilder<Activity> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Title).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(2000);
+        builder.Property(e => e.ActivityType).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Priority).HasMaxLength(50);
+        builder.Property(e => e.Result).HasMaxLength(1000);
+        builder.Property(e => e.Notes).HasMaxLength(4000);
+        builder.Property(e => e.Code).HasMaxLength(50);
+        builder.Property(e => e.Type).HasMaxLength(50);
+        builder.Property(e => e.ContactName).HasMaxLength(200);
+        builder.Property(e => e.AccountName).HasMaxLength(200);
+        builder.Property(e => e.Subject).HasMaxLength(200);
+
+        builder.HasOne(e => e.Contact)
+            .WithMany(c => c.Activities)
+            .HasForeignKey(e => e.ContactId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.Lead)
+            .WithMany(l => l.Activities)
+            .HasForeignKey(e => e.LeadId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.Opportunity)
+            .WithMany(o => o.Activities)
+            .HasForeignKey(e => e.OpportunityId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.ActivityType);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.StartDate);
+        builder.HasIndex(e => e.AssignedTo);
+    }
 }

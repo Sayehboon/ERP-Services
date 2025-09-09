@@ -34,7 +34,7 @@ public class InventoryTransferNoteConfiguration : IEntityTypeConfiguration<Inven
         builder.Property(e => e.Status).HasMaxLength(50);
         builder.Property(e => e.Number).HasMaxLength(100);
 
-        builder.Property(e => e.Total).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Total).HasPrecision(18, 2);
 
         builder.HasOne(e => e.FromWarehouse)
             .WithMany()

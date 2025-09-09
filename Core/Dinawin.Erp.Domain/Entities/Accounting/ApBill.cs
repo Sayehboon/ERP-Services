@@ -166,11 +166,11 @@ public class ApBillConfiguration : IEntityTypeConfiguration<ApBill>
         builder.Property(e => e.ApprovalStatus).HasMaxLength(50);
         builder.Property(e => e.Description).HasMaxLength(1000);
 
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
-        builder.Property(e => e.Subtotal).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TaxAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.DiscountAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.Total).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.Subtotal).HasPrecision(18, 2);
+        builder.Property(e => e.TaxAmount).HasPrecision(18, 2);
+        builder.Property(e => e.DiscountAmount).HasPrecision(18, 2);
+        builder.Property(e => e.Total).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Vendor)
             .WithMany()

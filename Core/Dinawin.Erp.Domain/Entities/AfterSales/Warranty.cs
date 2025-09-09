@@ -136,7 +136,7 @@ public class WarrantyConfiguration : IEntityTypeConfiguration<Warranty>
             .HasMaxLength(1000);
 
         builder.Property(e => e.WarrantyCost)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.HasOne(e => e.Product)
             .WithMany()

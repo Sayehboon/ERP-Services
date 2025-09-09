@@ -42,8 +42,8 @@ public class MaintenanceWorkOrderConfiguration : IEntityTypeConfiguration<Mainte
         builder.Property(e => e.WorkDescription).IsRequired().HasMaxLength(2000);
         builder.Property(e => e.CompletionNotes).HasMaxLength(2000);
         builder.Property(e => e.PartsUsedJson).HasMaxLength(4000);
-        builder.Property(e => e.LaborHours).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TotalCost).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.LaborHours).HasPrecision(18, 2);
+        builder.Property(e => e.TotalCost).HasPrecision(18, 2);
 
         builder.HasIndex(e => new { e.BusinessId, e.WorkOrderNumber }).IsUnique();
         builder.HasIndex(e => e.EquipmentId);

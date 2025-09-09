@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Dinawin.Erp.Domain.Entities.Accounting;
+using Dinawin.Erp.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -268,29 +270,29 @@ public class BudgetLineConfiguration : IEntityTypeConfiguration<BudgetLine>
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.BudgetAmount)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.SpentAmount)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.RemainingAmount)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.Currency)
             .IsRequired()
             .HasMaxLength(10);
 
         builder.Property(e => e.ExchangeRate)
-            .HasColumnType("decimal(18,6)");
+            .HasPrecision(18, 6);
 
         builder.Property(e => e.BudgetAmountBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.SpentAmountBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.RemainingAmountBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.HasOne(e => e.Budget)
             .WithMany(e => e.BudgetLines)

@@ -122,8 +122,8 @@ public class ArReceiptConfiguration : IEntityTypeConfiguration<ArReceipt>
         builder.Property(e => e.Currency).HasMaxLength(10);
         builder.Property(e => e.Status).HasMaxLength(50);
 
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
-        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Customer)
             .WithMany(c => c.Receipts)

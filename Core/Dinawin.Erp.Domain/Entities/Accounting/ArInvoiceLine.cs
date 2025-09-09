@@ -102,11 +102,11 @@ public class ArInvoiceLineConfiguration : IEntityTypeConfiguration<ArInvoiceLine
 
         builder.Property(e => e.Description).HasMaxLength(1000);
 
-        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TaxRate).HasColumnType("decimal(5,2)");
-        builder.Property(e => e.TaxAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Quantity).HasPrecision(18, 4);
+        builder.Property(e => e.UnitPrice).HasPrecision(18, 2);
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
+        builder.Property(e => e.TaxRate).HasPrecision(5, 2);
+        builder.Property(e => e.TaxAmount).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Invoice)
             .WithMany(i => i.Lines)

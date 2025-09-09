@@ -222,13 +222,13 @@ public class PoOrderConfiguration : IEntityTypeConfiguration<PoOrder>
         builder.Property(e => e.Currency).HasMaxLength(10);
         builder.Property(e => e.AdditionalNotes).HasMaxLength(2000);
 
-        builder.Property(e => e.OrderTotal).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TaxTotal).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.GrandTotal).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
-        builder.Property(e => e.OrderTotalBase).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TaxTotalBase).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.GrandTotalBase).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.OrderTotal).HasPrecision(18, 2);
+        builder.Property(e => e.TaxTotal).HasPrecision(18, 2);
+        builder.Property(e => e.GrandTotal).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.OrderTotalBase).HasPrecision(18, 2);
+        builder.Property(e => e.TaxTotalBase).HasPrecision(18, 2);
+        builder.Property(e => e.GrandTotalBase).HasPrecision(18, 2);
 
         builder.HasIndex(e => e.OrderNumber).IsUnique(false);
         builder.HasIndex(e => e.VendorId);

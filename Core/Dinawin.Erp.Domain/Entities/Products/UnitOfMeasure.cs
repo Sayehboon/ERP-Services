@@ -103,7 +103,7 @@ public class UnitOfMeasureConfiguration : IEntityTypeConfiguration<UnitOfMeasure
         builder.Property(e => e.UomType).HasMaxLength(50);
         builder.Property(e => e.UnitType).HasMaxLength(50);
 
-        builder.Property(e => e.ConversionFactor).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.ConversionFactor).HasPrecision(18, 6);
 
         builder.HasOne(e => e.BaseUnit)
             .WithMany()

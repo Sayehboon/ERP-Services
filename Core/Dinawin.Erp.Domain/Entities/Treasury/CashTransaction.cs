@@ -2,6 +2,8 @@ namespace Dinawin.Erp.Domain.Entities.Treasury;
 
 using Dinawin.Erp.Domain.Common;
 using Dinawin.Erp.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت تراکنش نقدی
@@ -60,6 +62,32 @@ public class CashTransaction : BaseEntity, IAggregateRoot
     public string TransactionType { get; set; }
     public Guid? ReferenceId { get; set; }
     public string? ReferenceType { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت تراکنش نقدی
+/// Cash Transaction entity configuration
+/// </summary>
+public class CashTransactionConfiguration : IEntityTypeConfiguration<CashTransaction>
+{
+    public void Configure(EntityTypeBuilder<CashTransaction> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.TransactionType).HasMaxLength(50);
+        builder.Property(e => e.ReferenceType).HasMaxLength(50);
+
+        builder.HasOne(e => e.CashBox)
+            .WithMany(cb => cb.CashTransactions)
+            .HasForeignKey(e => e.CashBoxId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.CashBoxId);
+        builder.HasIndex(e => e.TransactionDate);
+        builder.HasIndex(e => e.Type);
+        builder.HasIndex(e => e.Status);
+    }
 }
 
 /// <summary>

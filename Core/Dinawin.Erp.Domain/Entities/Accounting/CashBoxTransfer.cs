@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -87,4 +89,40 @@ public class CashBoxTransfer : BaseEntity, IAggregateRoot
     /// کاربر تاییدکننده
     /// </summary>
     public Users.User? ApprovedByUser { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت انتقال بین صندوق‌ها
+/// Cash Box Transfer entity configuration
+/// </summary>
+public class CashBoxTransferConfiguration : IEntityTypeConfiguration<CashBoxTransfer>
+{
+    public void Configure(EntityTypeBuilder<CashBoxTransfer> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.AmountInBaseCurrency).HasPrecision(18, 2);
+
+        builder.HasOne(e => e.SourceCashBox)
+            .WithMany(cb => cb.OutgoingTransfers)
+            .HasForeignKey(e => e.SourceCashBoxId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(e => e.TargetCashBox)
+            .WithMany(cb => cb.IncomingTransfers)
+            .HasForeignKey(e => e.TargetCashBoxId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.TransferDate);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.SourceCashBoxId);
+        builder.HasIndex(e => e.TargetCashBoxId);
+    }
 }

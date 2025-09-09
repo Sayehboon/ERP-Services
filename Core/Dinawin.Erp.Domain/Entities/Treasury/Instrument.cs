@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Treasury;
 
@@ -104,4 +106,45 @@ public class Instrument : BaseEntity, IAggregateRoot
     /// Instrument flows
     /// </summary>
     public ICollection<InstrumentFlow> Flows { get; set; } = new List<InstrumentFlow>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت ابزار مالی
+/// Financial Instrument entity configuration
+/// </summary>
+public class InstrumentConfiguration : IEntityTypeConfiguration<Instrument>
+{
+    public void Configure(EntityTypeBuilder<Instrument> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.InstrumentType).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.InstrumentNumber).HasMaxLength(100);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
+
+        builder.HasOne(e => e.BankAccount)
+            .WithMany()
+            .HasForeignKey(e => e.BankAccountId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.DebitAccount)
+            .WithMany()
+            .HasForeignKey(e => e.DebitAccountId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.CreditAccount)
+            .WithMany()
+            .HasForeignKey(e => e.CreditAccountId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.InstrumentNumber).IsUnique(false);
+        builder.HasIndex(e => e.InstrumentType);
+        builder.HasIndex(e => e.IssueDate);
+        builder.HasIndex(e => e.DueDate);
+        builder.HasIndex(e => e.Status);
+    }
 }

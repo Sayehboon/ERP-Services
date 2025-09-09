@@ -88,8 +88,8 @@ public class InventoryReservationConfiguration : IEntityTypeConfiguration<Invent
         builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
         builder.Property(e => e.ReferenceType).HasMaxLength(50);
 
-        builder.Property(e => e.ReservedQuantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.ReservedQuantity).HasPrecision(18, 4);
+        builder.Property(e => e.Quantity).HasPrecision(18, 4);
 
         builder.HasIndex(e => e.ProductId);
         builder.HasIndex(e => e.WarehouseId);

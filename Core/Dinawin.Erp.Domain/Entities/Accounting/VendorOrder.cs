@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -54,5 +56,28 @@ public class VendorOrder : BaseEntity
     /// شناسه کاربر ایجادکننده
     /// Created by user ID
     /// </summary>
-    
+}
+
+/// <summary>
+/// پیکربندی موجودیت سفارش تامین‌کننده
+/// Vendor Order entity configuration
+/// </summary>
+public class VendorOrderConfiguration : IEntityTypeConfiguration<VendorOrder>
+{
+    public void Configure(EntityTypeBuilder<VendorOrder> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.OrderNumber).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+
+        builder.HasIndex(e => e.OrderNumber).IsUnique(false);
+        builder.HasIndex(e => e.OrderDate);
+        builder.HasIndex(e => e.VendorId);
+        builder.HasIndex(e => e.Status);
+    }
 }

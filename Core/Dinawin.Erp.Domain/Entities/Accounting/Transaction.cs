@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -61,4 +63,29 @@ public class Transaction : BaseEntity
     /// Transaction notes
     /// </summary>
     public string? Notes { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت تراکنش حسابداری
+/// Accounting Transaction entity configuration
+/// </summary>
+public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
+{
+    public void Configure(EntityTypeBuilder<Transaction> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.TransactionNumber).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.Type).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.ReferenceNumber).HasMaxLength(100);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
+
+        builder.HasIndex(e => e.TransactionNumber).IsUnique(false);
+        builder.HasIndex(e => e.TransactionDate);
+        builder.HasIndex(e => e.Type);
+    }
 }

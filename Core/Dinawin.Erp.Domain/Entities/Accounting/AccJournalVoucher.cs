@@ -194,19 +194,19 @@ public class AccJournalVoucherConfiguration : IEntityTypeConfiguration<AccJourna
             .HasMaxLength(10);
 
         builder.Property(e => e.TotalDebit)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.TotalCredit)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.ExchangeRate)
-            .HasColumnType("decimal(18,6)");
+            .HasPrecision(18, 6);
 
         builder.Property(e => e.TotalDebitBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.TotalCreditBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.HasOne(e => e.FiscalPeriod)
             .WithMany()

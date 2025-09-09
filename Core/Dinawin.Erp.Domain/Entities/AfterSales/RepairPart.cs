@@ -101,13 +101,13 @@ public class RepairPartConfiguration : IEntityTypeConfiguration<RepairPart>
             .HasMaxLength(1000);
 
         builder.Property(e => e.RequiredQuantity)
-            .HasColumnType("decimal(18,4)");
+            .HasPrecision(18, 4);
 
         builder.Property(e => e.UnitPrice)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.TotalPrice)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.HasOne(e => e.Product)
             .WithMany()

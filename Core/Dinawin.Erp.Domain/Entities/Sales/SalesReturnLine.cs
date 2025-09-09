@@ -76,9 +76,9 @@ public class SalesReturnLineConfiguration : IEntityTypeConfiguration<SalesReturn
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.ReturnedQuantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.ReturnedQuantity).HasPrecision(18, 4);
+        builder.Property(e => e.UnitPrice).HasPrecision(18, 2);
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
         builder.Property(e => e.Description).HasMaxLength(1000);
 
         builder.HasIndex(e => e.ReturnId);

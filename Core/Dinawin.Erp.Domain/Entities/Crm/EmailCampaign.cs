@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Crm;
 
@@ -158,4 +160,61 @@ public class EmailResponse : BaseEntity
     /// Contact
     /// </summary>
     public Contact? Contact { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت کمپین ایمیل
+/// Email Campaign entity configuration
+/// </summary>
+public class EmailCampaignConfiguration : IEntityTypeConfiguration<EmailCampaign>
+{
+    public void Configure(EntityTypeBuilder<EmailCampaign> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Subject).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Content).IsRequired().HasMaxLength(10000);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Template).HasMaxLength(100);
+
+        builder.Property(e => e.OpenRate).HasPrecision(5, 2);
+        builder.Property(e => e.ClickRate).HasPrecision(5, 2);
+
+        builder.HasOne(e => e.CreatedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.CreatedBy)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.SentDate);
+        builder.HasIndex(e => e.CreatedBy);
+    }
+}
+
+/// <summary>
+/// پیکربندی موجودیت پاسخ ایمیل
+/// Email Response entity configuration
+/// </summary>
+public class EmailResponseConfiguration : IEntityTypeConfiguration<EmailResponse>
+{
+    public void Configure(EntityTypeBuilder<EmailResponse> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.HasOne(e => e.EmailCampaign)
+            .WithMany(ec => ec.Responses)
+            .HasForeignKey(e => e.EmailCampaignId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Contact)
+            .WithMany()
+            .HasForeignKey(e => e.ContactId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.EmailCampaignId);
+        builder.HasIndex(e => e.ContactId);
+        builder.HasIndex(e => e.OpenedDate);
+        builder.HasIndex(e => e.ClickedDate);
+    }
 }

@@ -126,7 +126,7 @@ public class RepairServiceConfiguration : IEntityTypeConfiguration<RepairService
             .HasMaxLength(500);
 
         builder.Property(e => e.BaseCost)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.HasIndex(e => e.ServiceCode)
             .IsUnique();

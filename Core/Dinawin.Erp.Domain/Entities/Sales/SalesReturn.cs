@@ -124,8 +124,8 @@ public class SalesReturnConfiguration : IEntityTypeConfiguration<SalesReturn>
         builder.Property(e => e.ReturnReason).HasMaxLength(500);
         builder.Property(e => e.Description).HasMaxLength(1000);
 
-        builder.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
 
         builder.HasIndex(e => e.ReturnNumber).IsUnique(false);
         builder.HasIndex(e => e.CustomerId);

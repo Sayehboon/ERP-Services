@@ -1,6 +1,8 @@
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت سال مالی
@@ -86,4 +88,46 @@ public class FiscalPeriod : BaseEntity
     /// Related fiscal year
     /// </summary>
     public FiscalYear? FiscalYear { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت سال مالی
+/// Fiscal Year entity configuration
+/// </summary>
+public class FiscalYearConfiguration : IEntityTypeConfiguration<FiscalYear>
+{
+    public void Configure(EntityTypeBuilder<FiscalYear> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.YearStart);
+        builder.HasIndex(e => e.YearEnd);
+    }
+}
+
+/// <summary>
+/// پیکربندی موجودیت دوره مالی
+/// Fiscal Period entity configuration
+/// </summary>
+public class FiscalPeriodConfiguration : IEntityTypeConfiguration<FiscalPeriod>
+{
+    public void Configure(EntityTypeBuilder<FiscalPeriod> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+
+        builder.HasOne(e => e.FiscalYear)
+            .WithMany(fy => fy.Periods)
+            .HasForeignKey(e => e.FiscalYearId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => new { e.FiscalYearId, e.PeriodNo }).IsUnique();
+        builder.HasIndex(e => e.StartDate);
+        builder.HasIndex(e => e.EndDate);
+    }
 }

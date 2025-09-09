@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.AfterSales;
 
@@ -105,4 +107,30 @@ public class CustomerSurvey : BaseEntity, IAggregateRoot
     public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 }
 
+/// <summary>
+/// پیکربندی موجودیت نظرسنجی رضایت مشتری
+/// Customer Survey entity configuration
+/// </summary>
+public class CustomerSurveyConfiguration : IEntityTypeConfiguration<CustomerSurvey>
+{
+    public void Configure(EntityTypeBuilder<CustomerSurvey> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.SurveyNumber).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.CustomerName).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.CustomerPhone).IsRequired().HasMaxLength(20);
+        builder.Property(e => e.CustomerEmail).HasMaxLength(200);
+        builder.Property(e => e.ServiceType).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.ServiceId).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.Feedback).HasMaxLength(2000);
+        builder.Property(e => e.Status).HasMaxLength(50);
+
+        builder.HasIndex(e => e.SurveyNumber).IsUnique();
+        builder.HasIndex(e => e.CustomerPhone);
+        builder.HasIndex(e => e.ServiceType);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.SubmittedAt);
+    }
+}
 

@@ -107,8 +107,8 @@ public class BankAccountConfiguration : IEntityTypeConfiguration<BankAccount>
         builder.Property(e => e.AccountHolderName).HasMaxLength(200);
         builder.Property(e => e.Description).HasMaxLength(1000);
 
-        builder.Property(e => e.CurrentBalance).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.InitialBalance).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.CurrentBalance).HasPrecision(18, 2);
+        builder.Property(e => e.InitialBalance).HasPrecision(18, 2);
 
         builder.HasOne(e => e.ControlAccount)
             .WithMany()

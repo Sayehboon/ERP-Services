@@ -167,9 +167,9 @@ public class OpportunityConfiguration : IEntityTypeConfiguration<Opportunity>
         builder.Property(e => e.ContactName).HasMaxLength(200);
         builder.Property(e => e.Owner).HasMaxLength(200);
 
-        builder.Property(e => e.Value).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.EstimatedValue).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Value).HasPrecision(18, 2);
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
+        builder.Property(e => e.EstimatedValue).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Lead)
             .WithMany()

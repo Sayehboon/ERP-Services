@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Systems;
 
@@ -62,4 +64,33 @@ public class SecurityAudit : BaseEntity, IAggregateRoot
     /// Related user
     /// </summary>
     public Users.User? User { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت حسابرسی امنیتی
+/// Security Audit entity configuration
+/// </summary>
+public class SecurityAuditConfiguration : IEntityTypeConfiguration<SecurityAudit>
+{
+    public void Configure(EntityTypeBuilder<SecurityAudit> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.EventType).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.EventDescription).IsRequired().HasMaxLength(1000);
+        builder.Property(e => e.IpAddress).HasMaxLength(45);
+        builder.Property(e => e.UserAgent).HasMaxLength(500);
+        builder.Property(e => e.EventResult).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.AdditionalDetails).HasMaxLength(4000);
+
+        builder.HasOne(e => e.User)
+            .WithMany()
+            .HasForeignKey(e => e.UserId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.UserId);
+        builder.HasIndex(e => e.EventType);
+        builder.HasIndex(e => e.EventDate);
+        builder.HasIndex(e => e.IpAddress);
+    }
 }

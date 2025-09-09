@@ -116,12 +116,12 @@ public class InventoryMovementConfiguration : IEntityTypeConfiguration<Inventory
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.ReferenceType).HasMaxLength(50);
 
-        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.UnitCost).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TotalCost).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.BalanceQuantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.BalanceAverageCost).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Quantity).HasPrecision(18, 4);
+        builder.Property(e => e.UnitCost).HasPrecision(18, 2);
+        builder.Property(e => e.TotalCost).HasPrecision(18, 2);
+        builder.Property(e => e.BalanceQuantity).HasPrecision(18, 4);
+        builder.Property(e => e.BalanceAverageCost).HasPrecision(18, 2);
+        builder.Property(e => e.UnitPrice).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Product)
             .WithMany(p => p.InventoryMovements)

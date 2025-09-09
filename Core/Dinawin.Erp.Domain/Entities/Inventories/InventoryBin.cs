@@ -58,7 +58,7 @@ public class InventoryBinConfiguration : IEntityTypeConfiguration<InventoryBin>
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.Quantity).HasPrecision(18, 4);
 
         builder.HasOne(e => e.Product)
             .WithMany()

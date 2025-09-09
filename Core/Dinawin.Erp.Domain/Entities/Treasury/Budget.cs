@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Dinawin.Erp.Domain.Entities.Accounting;
+using Dinawin.Erp.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -255,25 +257,25 @@ public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
             .HasMaxLength(10);
 
         builder.Property(e => e.ExchangeRate)
-            .HasColumnType("decimal(18,6)");
+            .HasPrecision(18, 6);
 
         builder.Property(e => e.BudgetTotal)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.SpentTotal)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.RemainingTotal)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.BudgetTotalBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.SpentTotalBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.Property(e => e.RemainingTotalBase)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.HasOne(e => e.FiscalYear)
             .WithMany()

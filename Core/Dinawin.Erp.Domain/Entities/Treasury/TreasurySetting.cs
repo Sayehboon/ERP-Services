@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Treasury;
 
@@ -17,4 +19,26 @@ public class TreasurySetting : BaseEntity, IAggregateRoot
     public string ExchangeRateSource { get; set; } = "central_bank";
 }
 
+/// <summary>
+/// پیکربندی موجودیت تنظیمات خزانه
+/// Treasury Setting entity configuration
+/// </summary>
+public class TreasurySettingConfiguration : IEntityTypeConfiguration<TreasurySetting>
+{
+    public void Configure(EntityTypeBuilder<TreasurySetting> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.DefaultCurrency).HasMaxLength(10);
+        builder.Property(e => e.CashCountingFrequency).HasMaxLength(50);
+        builder.Property(e => e.BackupFrequency).HasMaxLength(50);
+        builder.Property(e => e.ReceiptTemplate).HasMaxLength(100);
+        builder.Property(e => e.ExchangeRateSource).HasMaxLength(100);
+
+        builder.Property(e => e.MaxCashLimit).HasPrecision(18, 2);
+        builder.Property(e => e.RequireApprovalAbove).HasPrecision(18, 2);
+
+        builder.HasIndex(e => e.BusinessId).IsUnique();
+    }
+}
 

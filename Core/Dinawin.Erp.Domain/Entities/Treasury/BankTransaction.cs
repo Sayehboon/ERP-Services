@@ -106,11 +106,11 @@ public class BankTransactionConfiguration : IEntityTypeConfiguration<BankTransac
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Status).HasMaxLength(50);
 
-        builder.Property(e => e.Amount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
-        builder.Property(e => e.AmountInBaseCurrency).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.BalanceBefore).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.BalanceAfter).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Amount).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.AmountInBaseCurrency).HasPrecision(18, 2);
+        builder.Property(e => e.BalanceBefore).HasPrecision(18, 2);
+        builder.Property(e => e.BalanceAfter).HasPrecision(18, 2);
 
         builder.HasOne(e => e.BankAccount)
             .WithMany()

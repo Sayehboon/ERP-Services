@@ -31,9 +31,9 @@ public class FaAssetConfiguration : IEntityTypeConfiguration<FaAsset>
         builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
         builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
         builder.Property(e => e.Status).HasMaxLength(50);
-        builder.Property(e => e.AcquisitionCost).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.ResidualValue).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.AccumulatedDepreciation).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.AcquisitionCost).HasPrecision(18, 2);
+        builder.Property(e => e.ResidualValue).HasPrecision(18, 2);
+        builder.Property(e => e.AccumulatedDepreciation).HasPrecision(18, 2);
 
         builder.HasIndex(e => new { e.BusinessId, e.Code }).IsUnique();
         builder.HasIndex(e => e.CategoryId);

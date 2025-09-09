@@ -72,7 +72,7 @@ public class UomConversionConfiguration : IEntityTypeConfiguration<UomConversion
         builder.Property(e => e.Name).HasMaxLength(200);
         builder.Property(e => e.Description).HasMaxLength(1000);
 
-        builder.Property(e => e.ConversionFactor).HasColumnType("decimal(18,6)");
+        builder.Property(e => e.ConversionFactor).HasPrecision(18, 6);
 
         builder.HasOne(e => e.FromUom)
             .WithMany()

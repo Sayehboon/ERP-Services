@@ -190,26 +190,26 @@ public class PoOrderLineConfiguration : IEntityTypeConfiguration<PoOrderLine>
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.OrderedQuantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.ReceivedQuantity).HasColumnType("decimal(18,4)");
-        builder.Property(e => e.RemainingQuantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.OrderedQuantity).HasPrecision(18, 4);
+        builder.Property(e => e.ReceivedQuantity).HasPrecision(18, 4);
+        builder.Property(e => e.RemainingQuantity).HasPrecision(18, 4);
         builder.Property(e => e.UnitOfMeasure).HasMaxLength(50);
-        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TotalPrice).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.DiscountPercentage).HasColumnType("decimal(5,2)");
-        builder.Property(e => e.DiscountAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.PriceAfterDiscount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TaxPercentage).HasColumnType("decimal(5,2)");
-        builder.Property(e => e.TaxAmount).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.FinalPrice).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.UnitPrice).HasPrecision(18, 2);
+        builder.Property(e => e.TotalPrice).HasPrecision(18, 2);
+        builder.Property(e => e.DiscountPercentage).HasPrecision(5, 2);
+        builder.Property(e => e.DiscountAmount).HasPrecision(18, 2);
+        builder.Property(e => e.PriceAfterDiscount).HasPrecision(18, 2);
+        builder.Property(e => e.TaxPercentage).HasPrecision(5, 2);
+        builder.Property(e => e.TaxAmount).HasPrecision(18, 2);
+        builder.Property(e => e.FinalPrice).HasPrecision(18, 2);
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Currency).HasMaxLength(10);
-        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
-        builder.Property(e => e.UnitPriceBase).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TotalPriceBase).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.DiscountAmountBase).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.TaxAmountBase).HasColumnType("decimal(18,2)");
-        builder.Property(e => e.FinalPriceBase).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.UnitPriceBase).HasPrecision(18, 2);
+        builder.Property(e => e.TotalPriceBase).HasPrecision(18, 2);
+        builder.Property(e => e.DiscountAmountBase).HasPrecision(18, 2);
+        builder.Property(e => e.TaxAmountBase).HasPrecision(18, 2);
+        builder.Property(e => e.FinalPriceBase).HasPrecision(18, 2);
         builder.Property(e => e.AdditionalNotes).HasMaxLength(2000);
 
         builder.HasIndex(e => e.PoOrderId);

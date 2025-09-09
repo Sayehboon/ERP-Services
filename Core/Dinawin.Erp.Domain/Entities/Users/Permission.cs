@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -79,4 +81,29 @@ public class Permission : BaseEntity, IAggregateRoot
     /// Users that have this permission directly
     /// </summary>
     public ICollection<UserPermission> UserPermissions { get; set; } = new List<UserPermission>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت مجوز
+/// Permission entity configuration
+/// </summary>
+public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
+{
+    public void Configure(EntityTypeBuilder<Permission> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.DisplayName).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Group).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.Controller).HasMaxLength(100);
+        builder.Property(e => e.Action).HasMaxLength(100);
+        builder.Property(e => e.Resource).HasMaxLength(200);
+
+        builder.HasIndex(e => e.Name).IsUnique();
+        builder.HasIndex(e => e.Group);
+        builder.HasIndex(e => e.Controller);
+        builder.HasIndex(e => e.Action);
+    }
 }

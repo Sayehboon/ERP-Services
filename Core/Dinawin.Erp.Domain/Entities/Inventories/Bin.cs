@@ -1,6 +1,8 @@
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 /// <summary>
 /// موجودیت محل/بین انبار
@@ -68,4 +70,38 @@ public class Bin : BaseEntity, IAggregateRoot
     public decimal? Length { get; set; }
     public decimal? Height { get; set; }
     public string? Location { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت محل/بین انبار
+/// Inventory Bin entity configuration
+/// </summary>
+public class BinConfiguration : IEntityTypeConfiguration<Bin>
+{
+    public void Configure(EntityTypeBuilder<Bin> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Name).HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Aisle).HasMaxLength(50);
+        builder.Property(e => e.Shelf).HasMaxLength(50);
+        builder.Property(e => e.BinType).HasMaxLength(50);
+        builder.Property(e => e.CapacityUnit).HasMaxLength(20);
+        builder.Property(e => e.Location).HasMaxLength(200);
+
+        builder.Property(e => e.Capacity).HasPrecision(18, 4);
+        builder.Property(e => e.Width).HasPrecision(18, 4);
+        builder.Property(e => e.Length).HasPrecision(18, 4);
+        builder.Property(e => e.Height).HasPrecision(18, 4);
+
+        builder.HasOne(e => e.Warehouse)
+            .WithMany()
+            .HasForeignKey(e => e.WarehouseId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => new { e.WarehouseId, e.Code }).IsUnique();
+        builder.HasIndex(e => e.Code);
+    }
 }

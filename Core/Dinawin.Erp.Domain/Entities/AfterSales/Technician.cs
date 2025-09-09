@@ -164,7 +164,7 @@ public class TechnicianConfiguration : IEntityTypeConfiguration<Technician>
             .HasMaxLength(1000);
 
         builder.Property(e => e.HourlyRate)
-            .HasColumnType("decimal(18,2)");
+            .HasPrecision(18, 2);
 
         builder.HasOne(e => e.User)
             .WithMany()

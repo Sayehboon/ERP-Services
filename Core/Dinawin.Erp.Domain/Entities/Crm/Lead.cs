@@ -164,7 +164,7 @@ public class LeadConfiguration : IEntityTypeConfiguration<Lead>
         builder.Property(e => e.PostalCode).HasMaxLength(20);
         builder.Property(e => e.LeadSource).HasMaxLength(100);
 
-        builder.Property(e => e.EstimatedValue).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.EstimatedValue).HasPrecision(18, 2);
 
         builder.HasOne(e => e.AssignedToUser)
             .WithMany()
