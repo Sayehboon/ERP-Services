@@ -1,0 +1,94 @@
+using Dinawin.Erp.Domain.Common;
+
+namespace Dinawin.Erp.Domain.Entities.Users;
+
+/// <summary>
+/// موجودیت حقوق کارمند
+/// Employee Salary entity
+/// </summary>
+public class EmployeeSalary : BaseEntity
+{
+    /// <summary>
+    /// شناسه کارمند
+    /// Employee ID
+    /// </summary>
+    public Guid EmployeeId { get; set; }
+
+    /// <summary>
+    /// حقوق پایه
+    /// Base salary
+    /// </summary>
+    public decimal BaseSalary { get; set; }
+
+    /// <summary>
+    /// اضافه کار
+    /// Overtime pay
+    /// </summary>
+    public decimal OvertimePay { get; set; }
+
+    /// <summary>
+    /// پاداش
+    /// Bonus
+    /// </summary>
+    public decimal Bonus { get; set; }
+
+    /// <summary>
+    /// کسر
+    /// Deductions
+    /// </summary>
+    public decimal Deductions { get; set; }
+
+    /// <summary>
+    /// حقوق نهایی
+    /// Final salary
+    /// </summary>
+    public decimal FinalSalary { get; set; }
+
+    /// <summary>
+    /// ارز حقوق
+    /// Salary currency
+    /// </summary>
+    public string Currency { get; set; } = "IRR";
+
+    /// <summary>
+    /// دوره حقوق
+    /// Salary period
+    /// </summary>
+    public string Period { get; set; } = string.Empty;
+
+    /// <summary>
+    /// تاریخ شروع دوره
+    /// Period start date
+    /// </summary>
+    public DateTime PeriodStartDate { get; set; }
+
+    /// <summary>
+    /// تاریخ پایان دوره
+    /// Period end date
+    /// </summary>
+    public DateTime PeriodEndDate { get; set; }
+
+    /// <summary>
+    /// وضعیت پرداخت
+    /// Payment status
+    /// </summary>
+    public string PaymentStatus { get; set; } = string.Empty;
+
+    /// <summary>
+    /// تاریخ پرداخت
+    /// Payment date
+    /// </summary>
+    public DateTime? PaymentDate { get; set; }
+
+    /// <summary>
+    /// توضیحات حقوق
+    /// Salary description
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// یادداشت‌های حقوق
+    /// Salary notes
+    /// </summary>
+    public string? Notes { get; set; }
+}

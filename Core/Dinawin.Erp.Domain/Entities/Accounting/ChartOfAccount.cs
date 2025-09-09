@@ -1,0 +1,70 @@
+using Dinawin.Erp.Domain.Common;
+
+namespace Dinawin.Erp.Domain.Entities.Accounting;
+
+/// <summary>
+/// موجودیت حساب کل
+/// Chart of Account entity
+/// </summary>
+public class ChartOfAccount : BaseEntity
+{
+    /// <summary>
+    /// کد حساب
+    /// Account code
+    /// </summary>
+    public string AccountCode { get; set; } = string.Empty;
+
+    /// <summary>
+    /// نام حساب
+    /// Account name
+    /// </summary>
+    public string AccountName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// توضیحات حساب
+    /// Account description
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// نوع حساب
+    /// Account type
+    /// </summary>
+    public string AccountType { get; set; } = string.Empty;
+
+    /// <summary>
+    /// سطح حساب
+    /// Account level
+    /// </summary>
+    public int Level { get; set; }
+
+    /// <summary>
+    /// شناسه حساب والد
+    /// Parent account ID
+    /// </summary>
+    public Guid? ParentId { get; set; }
+
+    /// <summary>
+    /// مسیر حساب
+    /// Account path
+    /// </summary>
+    public string? Path { get; set; }
+
+    /// <summary>
+    /// وضعیت فعال بودن حساب
+    /// Account active status
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+    public string? AccountCategory { get; set; }
+    public Guid? ParentAccountId { get; set; }
+    public string Currency { get; set; } = string.Empty;
+    public decimal? ExchangeRate { get; set; }
+    public string? AccountNameEn { get; set; }
+    public string BalanceType { get; set; } = string.Empty;
+    public bool IsEditable { get; set; }
+    public bool IsDeletable { get; set; }
+    public int DisplayOrder { get; set; }
+    public Guid CreatedByUserId { get; set; }
+    public string NormalBalance { get; set; }
+    public bool IsPostable { get; set; }
+}

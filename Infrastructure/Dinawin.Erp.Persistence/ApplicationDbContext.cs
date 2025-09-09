@@ -53,6 +53,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<InventoryTransferLine> InventoryTransferLines => Set<InventoryTransferLine>();
     public DbSet<GrnReceipt> GrnReceipts => Set<GrnReceipt>();
     public DbSet<GrnLine> GrnLines => Set<GrnLine>();
+    public DbSet<InventoryLevel> InventoryLevels => Set<InventoryLevel>();
+    public DbSet<InventoryBin> InventoryBins => Set<InventoryBin>();
+    public DbSet<InventoryBarcode> InventoryBarcodes => Set<InventoryBarcode>();
+    public DbSet<InventoryCostLayer> InventoryCostLayers => Set<InventoryCostLayer>();
+    public DbSet<PriceHistory> PriceHistories => Set<PriceHistory>();
+    public DbSet<PriceChange> PriceChanges => Set<PriceChange>();
 
     // User entities
     public DbSet<User> Users => Set<User>();
@@ -90,6 +96,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<FiscalPeriod> FiscalPeriods => Set<FiscalPeriod>();
     public DbSet<JournalVoucher> JournalVouchers => Set<JournalVoucher>();
     public DbSet<JournalLine> JournalLines => Set<JournalLine>();
+    public DbSet<Budget> Budgets => Set<Budget>();
+    public DbSet<BudgetLine> BudgetLines => Set<BudgetLine>();
+    public DbSet<ClosingRun> ClosingRuns => Set<ClosingRun>();
 
     // Treasury entities
     public DbSet<CashBox> CashBoxes => Set<CashBox>();
@@ -102,6 +111,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<BankReconciliation> BankReconciliations => Set<BankReconciliation>();
     public DbSet<Instrument> Instruments => Set<Instrument>();
     public DbSet<InstrumentFlow> InstrumentFlows => Set<InstrumentFlow>();
+    public DbSet<TreasurySetting> TreasurySettings => Set<TreasurySetting>();
 
     // System entities
     public DbSet<SystemSetting> SystemSettings => Set<SystemSetting>();
@@ -117,6 +127,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Lead> Leads => Set<Lead>();
     public DbSet<Opportunity> Opportunities => Set<Opportunity>();
     public DbSet<Ticket> Tickets => Set<Ticket>();
+    public DbSet<ApprovalWorkflow> ApprovalWorkflows => Set<ApprovalWorkflow>();
+    public DbSet<ApprovalStage> ApprovalStages => Set<ApprovalStage>();
+    public DbSet<JournalApprovalLog> JournalApprovalLogs => Set<JournalApprovalLog>();
+    public DbSet<RateLimit> RateLimits => Set<RateLimit>();
 
     // Sales entities
     public DbSet<SalesOrder> SalesOrders => Set<SalesOrder>();
@@ -144,10 +158,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<EmployeeAttendance> EmployeeAttendance => Set<EmployeeAttendance>();
     
     // Inventory entities
-    public DbSet<InventoryLevel> InventoryLevels => Set<InventoryLevel>();
-    public DbSet<InventoryBin> InventoryBins => Set<InventoryBin>();
-    public DbSet<InventoryBarcode> InventoryBarcodes => Set<InventoryBarcode>();
-    public DbSet<InventoryCostLayer> InventoryCostLayers => Set<InventoryCostLayer>();
+    public DbSet<AccDimension> AccDimensions => Set<AccDimension>();
+    public DbSet<AccDimensionValue> AccDimensionValues => Set<AccDimensionValue>();
+    public DbSet<AccPostingRule> AccPostingRules => Set<AccPostingRule>();
     
     // AR/AP entities
     public DbSet<ArCustomer> ArCustomers => Set<ArCustomer>();
