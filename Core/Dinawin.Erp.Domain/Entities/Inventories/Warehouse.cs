@@ -1,5 +1,7 @@
 using Dinawin.Erp.Domain.Common;
 using Dinawin.Erp.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -32,6 +34,12 @@ public class Warehouse : BaseEntity, IAggregateRoot
     /// Warehouse address
     /// </summary>
     public string? Address { get; set; }
+
+    /// <summary>
+    /// موقعیت/لوکیشن (مطابق Supabase: location)
+    /// Location (Supabase column: location)
+    /// </summary>
+    public string? Location { get; set; }
 
     /// <summary>
     /// نوع انبار
@@ -138,4 +146,40 @@ public enum WarehouseType
     /// Returns warehouse
     /// </summary>
     Returns = 6
+}
+
+/// <summary>
+/// پیکربندی موجودیت انبار
+/// Warehouse entity configuration
+/// </summary>
+public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
+{
+    /// <summary>
+    /// پیکربندی موجودیت
+    /// Configure entity
+    /// </summary>
+    /// <param name="builder">سازنده موجودیت</param>
+    public void Configure(EntityTypeBuilder<Warehouse> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Code)
+            .IsRequired()
+            .HasMaxLength(50);
+
+        builder.Property(e => e.Name)
+            .IsRequired()
+            .HasMaxLength(200);
+
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Address).HasMaxLength(500);
+        builder.Property(e => e.Location).HasMaxLength(200);
+        builder.Property(e => e.PhoneNumber).HasMaxLength(20);
+        builder.Property(e => e.Email).HasMaxLength(100);
+        builder.Property(e => e.ManagerName).HasMaxLength(150);
+        builder.Property(e => e.CapacityUnit).HasMaxLength(20);
+        builder.Property(e => e.WarehouseType).HasMaxLength(50);
+
+        builder.HasIndex(e => e.Code).IsUnique();
+    }
 }

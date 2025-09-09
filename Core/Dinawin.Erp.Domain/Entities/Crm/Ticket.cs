@@ -1,10 +1,12 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Crm;
 
 /// <summary>
-/// موجودیت تیکت CRM
-/// CRM Ticket entity
+/// موجودیت تیکت CRM مطابق Supabase: public.tickets
+/// CRM Ticket entity aligned with Supabase
 /// </summary>
 public class Ticket : BaseEntity
 {
@@ -13,6 +15,12 @@ public class Ticket : BaseEntity
     /// Ticket title
     /// </summary>
     public string Title { get; set; } = string.Empty;
+
+    /// <summary>
+    /// شماره تیکت (Supabase: ticket_number)
+    /// Ticket number
+    /// </summary>
+    public string? TicketNumber { get; set; }
 
     /// <summary>
     /// توضیحات تیکت
@@ -53,6 +61,18 @@ public class Ticket : BaseEntity
     public Guid? AssignedTo { get; set; }
 
     /// <summary>
+    /// ایجاد شده توسط (Supabase: created_by)
+    /// Created by user id
+    /// </summary>
+    public Guid? CreatedBy { get; set; }
+
+    /// <summary>
+    /// شناسه بیزینس (Supabase: business_id)
+    /// Business id
+    /// </summary>
+    public Guid? BusinessId { get; set; }
+
+    /// <summary>
     /// تاریخ حل شدن
     /// Resolution date
     /// </summary>
@@ -87,21 +107,63 @@ public class Ticket : BaseEntity
     /// Assigned user
     /// </summary>
     public Dinawin.Erp.Domain.Entities.Users.User? AssignedUser { get; set; }
-    public string TicketType { get; set; }
-    public Guid? CustomerId { get; set; }
-    public Guid? CreatedById { get; set; }
-    public Guid? AssignedToId { get; set; }
-    public Guid? ProductId { get; set; }
-    public Guid? SalesOrderId { get; set; }
-    public Guid? OpportunityId { get; set; }
-    public DateTime? DueDate { get; set; }
-    public DateTime? ClosedDate { get; set; }
-    public string? CloseReason { get; set; }
-    public string? Tags { get; set; }
-    public string Category { get; set; }
-    public string ContactName { get; set; }
-    public string CustomerName { get; set; }
-    public string Subject { get; set; }
-    public string Number { get; set; }
-    public int ResponseCount { get; set; }
+
+    /// <summary>
+    /// دسته‌بندی تیکت (Supabase: category)
+    /// Ticket category
+    /// </summary>
+    public string Category { get; set; } = "general";
+
+    /// <summary>
+    /// نام/ایمیل/تلفن مشتری (Supabase: customer_*)
+    /// Customer info
+    /// </summary>
+    public string? CustomerName { get; set; }
+    public string? CustomerEmail { get; set; }
+    public string? CustomerPhone { get; set; }
+
+    /// <summary>
+    /// موضوع (Supabase: subject)
+    /// Subject
+    /// </summary>
+    public string Subject { get; set; } = string.Empty;
+
+    /// <summary>
+    /// تاریخ بسته شدن (Supabase: closed_at)
+    /// Closed at
+    /// </summary>
+    public DateTime? ClosedAt { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت تیکت CRM
+/// CRM Ticket entity configuration
+/// </summary>
+public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
+{
+    /// <summary>
+    /// پیکربندی موجودیت
+    /// Configure entity
+    /// </summary>
+    /// <param name="builder">سازنده موجودیت</param>
+    public void Configure(EntityTypeBuilder<Ticket> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Title).HasMaxLength(250);
+        builder.Property(e => e.TicketNumber).HasMaxLength(100);
+        builder.Property(e => e.Description).HasMaxLength(2000);
+        builder.Property(e => e.Type).HasMaxLength(100);
+        builder.Property(e => e.Priority).HasMaxLength(50);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Category).HasMaxLength(100);
+        builder.Property(e => e.CustomerName).HasMaxLength(200);
+        builder.Property(e => e.CustomerEmail).HasMaxLength(200);
+        builder.Property(e => e.CustomerPhone).HasMaxLength(50);
+        builder.Property(e => e.Subject).HasMaxLength(250);
+
+        builder.HasIndex(e => e.TicketNumber).IsUnique(false);
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.CreatedAt);
+    }
 }

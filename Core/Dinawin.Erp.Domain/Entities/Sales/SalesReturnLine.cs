@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Sales;
 
@@ -62,4 +64,24 @@ public class SalesReturnLine : BaseEntity
     /// Related product
     /// </summary>
     public Products.Product Product { get; set; } = null!;
+}
+
+/// <summary>
+/// پیکربندی موجودیت خط برگشت فروش
+/// Sales Return Line entity configuration
+/// </summary>
+public class SalesReturnLineConfiguration : IEntityTypeConfiguration<SalesReturnLine>
+{
+    public void Configure(EntityTypeBuilder<SalesReturnLine> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.ReturnedQuantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        builder.HasIndex(e => e.ReturnId);
+        builder.HasIndex(e => e.ProductId);
+    }
 }

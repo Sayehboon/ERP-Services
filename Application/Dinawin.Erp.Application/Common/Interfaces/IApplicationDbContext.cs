@@ -8,6 +8,9 @@ using Dinawin.Erp.Domain.Entities.Systems;
 using Dinawin.Erp.Domain.Entities.Crm;
 using Dinawin.Erp.Domain.Entities.Sales;
 using Dinawin.Erp.Domain.Entities.Purchase;
+using Dinawin.Erp.Domain.Entities.AfterSales;
+using Dinawin.Erp.Domain.Entities.Maintenance;
+using Dinawin.Erp.Domain.Entities.FixedAssets;
 using TaskEntity = Dinawin.Erp.Domain.Entities.Users.WorkTask;
 
 namespace Dinawin.Erp.Application.Common.Interfaces;
@@ -21,10 +24,13 @@ public interface IApplicationDbContext
     // Users and Authentication
     DbSet<User> Users { get; }
     DbSet<Company> Companies { get; }
+    DbSet<Business> Businesses { get; }
     DbSet<Role> Roles { get; }
     DbSet<Permission> Permissions { get; }
     DbSet<UserRole> UserRoles { get; }
     DbSet<RolePermission> RolePermissions { get; }
+    DbSet<UserProfile> UserProfiles { get; }
+    DbSet<UserActivityLog> UserActivityLogs { get; }
 
     // Product Management
     DbSet<Product> Products { get; }
@@ -36,6 +42,10 @@ public interface IApplicationDbContext
     DbSet<UnitOfMeasure> UnitsOfMeasures { get; }
     DbSet<UomConversion> UomConversions { get; }
     DbSet<ProductCategory> ProductCategories { get; }
+    DbSet<ProductAttribute> ProductAttributes { get; }
+    DbSet<ProductImage> ProductImages { get; }
+    DbSet<ProductFile> ProductFiles { get; }
+    DbSet<VehicleCompatibility> VehicleCompatibilities { get; }
 
     // Inventory Management
     DbSet<Inventory> Inventory { get; }
@@ -53,10 +63,12 @@ public interface IApplicationDbContext
     DbSet<InventoryTransferLine> InventoryTransferLines { get; }
     DbSet<GrnReceipt> GrnReceipts { get; }
     DbSet<GrnLine> GrnLines { get; }
+    
 
     // Pricing/History
     DbSet<PriceHistory> PriceHistories { get; }
     DbSet<PriceChange> PriceChanges { get; }
+    
 
     // Financial Management
     DbSet<CashBox> CashBoxes { get; }
@@ -86,10 +98,17 @@ public interface IApplicationDbContext
     DbSet<Instrument> Instruments { get; }
     DbSet<InstrumentFlow> InstrumentFlows { get; }
     DbSet<TreasurySetting> TreasurySettings { get; }
+    DbSet<AccSetting> AccSettings { get; }
 
     // GL master data
     DbSet<FiscalYear> FiscalYears { get; }
     DbSet<FiscalPeriod> FiscalPeriods { get; }
+    DbSet<AccFiscalYear> AccFiscalYears { get; }
+    DbSet<AccFiscalPeriod> AccFiscalPeriods { get; }
+    DbSet<AccJournalVoucher> AccJournalVouchers { get; }
+    DbSet<AccJournalLine> AccJournalLines { get; }
+    DbSet<AccJournalApprovalLog> AccJournalApprovalLogs { get; }
+    DbSet<AccOpeningBalance> AccOpeningBalances { get; }
 
     // Sales & Purchase Orders
     DbSet<SalesOrder> SalesOrders { get; }
@@ -100,6 +119,8 @@ public interface IApplicationDbContext
     DbSet<PurchaseReceiptLine> PurchaseReceiptLines { get; }
     DbSet<PurchaseReturn> PurchaseReturns { get; }
     DbSet<PurchaseReturnLine> PurchaseReturnLines { get; }
+    DbSet<PoOrder> PoOrders { get; }
+    DbSet<PoOrderLine> PoOrderLines { get; }
 
     // Customer and Vendor Management
     DbSet<Customer> Customers { get; }
@@ -126,6 +147,7 @@ public interface IApplicationDbContext
     DbSet<Employee> Employees { get; }
     DbSet<EmployeeAttendance> EmployeeAttendance { get; }
     DbSet<EmployeeSalary> EmployeeSalaries { get; }
+    DbSet<Leave> Leaves { get; }
 
     // Task Management
     DbSet<TaskEntity> Tasks { get; }
@@ -142,6 +164,14 @@ public interface IApplicationDbContext
     DbSet<Lead> Leads { get; }
     DbSet<Opportunity> Opportunities { get; }
     DbSet<Ticket> Tickets { get; }
+    DbSet<TicketResponse> TicketResponses { get; }
+    DbSet<TicketCategory> TicketCategories { get; }
+    DbSet<EmailCampaign> EmailCampaigns { get; }
+    DbSet<EmailResponse> EmailResponses { get; }
+    DbSet<Survey> Surveys { get; }
+    DbSet<SurveyQuestion> SurveyQuestions { get; }
+    DbSet<SurveyResponse> SurveyResponses { get; }
+    DbSet<SurveyQuestionResponse> SurveyQuestionResponses { get; }
     DbSet<ApprovalWorkflow> ApprovalWorkflows { get; }
     DbSet<ApprovalStage> ApprovalStages { get; }
     DbSet<JournalApprovalLog> JournalApprovalLogs { get; }
@@ -157,6 +187,36 @@ public interface IApplicationDbContext
     DbSet<ExchangeRate> ExchangeRates { get; }
     DbSet<SecurityAudit> SecurityAudits { get; }
     DbSet<SmsLog> SmsLogs { get; }
+    DbSet<Console> Consoles { get; }
+    DbSet<Operation> Operations { get; }
+    DbSet<RoleOperation> RoleOperations { get; }
+    DbSet<Branch> Branches { get; }
+    DbSet<OrgUnit> OrgUnits { get; }
+    DbSet<UserOrgUnit> UserOrgUnits { get; }
+    DbSet<SessionAudit> SessionAudits { get; }
+    DbSet<PasswordPolicy> PasswordPolicies { get; }
+    DbSet<LoginPolicy> LoginPolicies { get; }
+
+    // After-sales
+    DbSet<CustomerSurvey> CustomerSurveys { get; }
+    DbSet<RepairService> RepairServices { get; }
+    DbSet<RepairPart> RepairParts { get; }
+    DbSet<Warranty> Warranties { get; }
+    DbSet<WarrantyClaim> WarrantyClaims { get; }
+    DbSet<SurveyQuestion> SurveyQuestions { get; }
+    DbSet<Technician> Technicians { get; }
+
+    // Maintenance
+    DbSet<MaintenanceEquipment> MaintenanceEquipment { get; }
+    DbSet<MaintenanceRequest> MaintenanceRequests { get; }
+    DbSet<MaintenanceSchedule> MaintenanceSchedules { get; }
+    DbSet<MaintenanceWorkOrder> MaintenanceWorkOrders { get; }
+
+    // Fixed Assets
+    DbSet<FaCategory> FaCategories { get; }
+    DbSet<FaAsset> FaAssets { get; }
+    DbSet<FaDepreciationRun> FaDepreciationRuns { get; }
+    DbSet<FaDepreciationEntry> FaDepreciationEntries { get; }
 
     /// <summary>
     /// ذخیره تغییرات

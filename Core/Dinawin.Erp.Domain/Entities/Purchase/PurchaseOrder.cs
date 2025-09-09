@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Purchase;
 
@@ -129,4 +131,33 @@ public class PurchaseOrder : BaseEntity
     /// Order payments
     /// </summary>
     public ICollection<Dinawin.Erp.Domain.Entities.Accounting.PurchasePayment> Payments { get; set; } = new List<Dinawin.Erp.Domain.Entities.Accounting.PurchasePayment>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت سفارش خرید
+/// Purchase Order entity configuration
+/// </summary>
+public class PurchaseOrderConfiguration : IEntityTypeConfiguration<PurchaseOrder>
+{
+    public void Configure(EntityTypeBuilder<PurchaseOrder> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.OrderNumber).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Type).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+
+        builder.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.DiscountPercentage).HasColumnType("decimal(5,2)");
+        builder.Property(e => e.DiscountAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TaxAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.FinalAmount).HasColumnType("decimal(18,2)");
+
+        builder.HasIndex(e => e.OrderNumber).IsUnique(false);
+        builder.HasIndex(e => e.VendorId);
+        builder.HasIndex(e => e.Status);
+    }
 }

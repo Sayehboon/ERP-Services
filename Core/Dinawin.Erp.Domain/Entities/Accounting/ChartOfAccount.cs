@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Accounting;
 
@@ -67,4 +69,32 @@ public class ChartOfAccount : BaseEntity
     public Guid CreatedByUserId { get; set; }
     public string NormalBalance { get; set; }
     public bool IsPostable { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت حساب کل
+/// Chart of Account entity configuration
+/// </summary>
+public class ChartOfAccountConfiguration : IEntityTypeConfiguration<ChartOfAccount>
+{
+    public void Configure(EntityTypeBuilder<ChartOfAccount> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.AccountCode).HasMaxLength(50);
+        builder.Property(e => e.AccountName).HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.AccountType).HasMaxLength(100);
+        builder.Property(e => e.Path).HasMaxLength(500);
+        builder.Property(e => e.AccountCategory).HasMaxLength(100);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.AccountNameEn).HasMaxLength(200);
+        builder.Property(e => e.BalanceType).HasMaxLength(50);
+        builder.Property(e => e.NormalBalance).HasMaxLength(50);
+
+        builder.Property(e => e.ExchangeRate).HasColumnType("decimal(18,6)");
+
+        builder.HasIndex(e => e.AccountCode).IsUnique(false);
+        builder.HasIndex(e => e.AccountName);
+    }
 }

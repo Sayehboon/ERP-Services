@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Sales;
 
@@ -73,4 +75,27 @@ public class SalesOrderItem : BaseEntity
     /// Related product
     /// </summary>
     public Dinawin.Erp.Domain.Entities.Products.Product? Product { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت آیتم سفارش فروش
+/// Sales Order Item entity configuration
+/// </summary>
+public class SalesOrderItemConfiguration : IEntityTypeConfiguration<SalesOrderItem>
+{
+    public void Configure(EntityTypeBuilder<SalesOrderItem> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Quantity).HasColumnType("decimal(18,4)");
+        builder.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.DiscountPercentage).HasColumnType("decimal(5,2)");
+        builder.Property(e => e.DiscountAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+
+        builder.HasIndex(e => e.SalesOrderId);
+        builder.HasIndex(e => e.ProductId);
+    }
 }

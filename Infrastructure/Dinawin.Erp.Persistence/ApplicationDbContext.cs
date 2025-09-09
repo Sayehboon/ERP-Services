@@ -13,6 +13,9 @@ using Dinawin.Erp.Domain.Entities.Systems;
 using Dinawin.Erp.Domain.Entities.Crm;
 using Dinawin.Erp.Domain.Entities.Sales;
 using Dinawin.Erp.Domain.Entities.Purchase;
+using Dinawin.Erp.Domain.Entities.AfterSales;
+using Dinawin.Erp.Domain.Entities.Maintenance;
+using Dinawin.Erp.Domain.Entities.FixedAssets;
 
 namespace Dinawin.Erp.Persistence;
 
@@ -40,6 +43,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Trim> Trims => Set<Trim>();
     public DbSet<Year> Years => Set<Year>();
     public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
+    public DbSet<ProductAttribute> ProductAttributes => Set<ProductAttribute>();
+    public DbSet<ProductImage> ProductImages => Set<ProductImage>();
+    public DbSet<ProductFile> ProductFiles => Set<ProductFile>();
+    public DbSet<VehicleCompatibility> VehicleCompatibilities => Set<VehicleCompatibility>();
 
     // Inventory entities
     public DbSet<Inventory> Inventory => Set<Inventory>();
@@ -59,16 +66,21 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<InventoryCostLayer> InventoryCostLayers => Set<InventoryCostLayer>();
     public DbSet<PriceHistory> PriceHistories => Set<PriceHistory>();
     public DbSet<PriceChange> PriceChanges => Set<PriceChange>();
+    
 
     // User entities
     public DbSet<User> Users => Set<User>();
+    public DbSet<Business> Businesses => Set<Business>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<UserRole> UserRoles => Set<UserRole>();
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
+    public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
+    public DbSet<UserActivityLog> UserActivityLogs => Set<UserActivityLog>();
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<EmployeeAttendance> EmployeeAttendances => Set<EmployeeAttendance>();
     public DbSet<EmployeeSalary> EmployeeSalaries => Set<EmployeeSalary>();
+    public DbSet<Leave> Leaves => Set<Leave>();
     public DbSet<TaskEntity> Tasks => Set<TaskEntity>();
     public DbSet<SubTask> SubTasks => Set<SubTask>();
     public DbSet<Project> Projects => Set<Project>();
@@ -99,6 +111,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Budget> Budgets => Set<Budget>();
     public DbSet<BudgetLine> BudgetLines => Set<BudgetLine>();
     public DbSet<ClosingRun> ClosingRuns => Set<ClosingRun>();
+    public DbSet<AccFiscalYear> AccFiscalYears => Set<AccFiscalYear>();
+    public DbSet<AccFiscalPeriod> AccFiscalPeriods => Set<AccFiscalPeriod>();
+    public DbSet<AccJournalVoucher> AccJournalVouchers => Set<AccJournalVoucher>();
+    public DbSet<AccJournalLine> AccJournalLines => Set<AccJournalLine>();
+    public DbSet<AccJournalApprovalLog> AccJournalApprovalLogs => Set<AccJournalApprovalLog>();
+    public DbSet<AccOpeningBalance> AccOpeningBalances => Set<AccOpeningBalance>();
 
     // Treasury entities
     public DbSet<CashBox> CashBoxes => Set<CashBox>();
@@ -112,12 +130,36 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Instrument> Instruments => Set<Instrument>();
     public DbSet<InstrumentFlow> InstrumentFlows => Set<InstrumentFlow>();
     public DbSet<TreasurySetting> TreasurySettings => Set<TreasurySetting>();
+    public DbSet<AccSetting> AccSettings => Set<AccSetting>();
 
     // System entities
     public DbSet<SystemSetting> SystemSettings => Set<SystemSetting>();
     public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
     public DbSet<SecurityAudit> SecurityAudits => Set<SecurityAudit>();
     public DbSet<SmsLog> SmsLogs => Set<SmsLog>();
+    public DbSet<Console> Consoles => Set<Console>();
+    public DbSet<Operation> Operations => Set<Operation>();
+    public DbSet<RoleOperation> RoleOperations => Set<RoleOperation>();
+    public DbSet<Branch> Branches => Set<Branch>();
+    public DbSet<OrgUnit> OrgUnits => Set<OrgUnit>();
+    public DbSet<UserOrgUnit> UserOrgUnits => Set<UserOrgUnit>();
+    public DbSet<SessionAudit> SessionAudits => Set<SessionAudit>();
+    public DbSet<PasswordPolicy> PasswordPolicies => Set<PasswordPolicy>();
+    public DbSet<LoginPolicy> LoginPolicies => Set<LoginPolicy>();
+    public DbSet<CustomerSurvey> CustomerSurveys => Set<CustomerSurvey>();
+    public DbSet<RepairService> RepairServices => Set<RepairService>();
+    public DbSet<RepairPart> RepairParts => Set<RepairPart>();
+    public DbSet<Warranty> Warranties => Set<Warranty>();
+    public DbSet<WarrantyClaim> WarrantyClaims => Set<WarrantyClaim>();
+    public DbSet<Technician> Technicians => Set<Technician>();
+    public DbSet<MaintenanceEquipment> MaintenanceEquipment => Set<MaintenanceEquipment>();
+    public DbSet<MaintenanceRequest> MaintenanceRequests => Set<MaintenanceRequest>();
+    public DbSet<MaintenanceSchedule> MaintenanceSchedules => Set<MaintenanceSchedule>();
+    public DbSet<MaintenanceWorkOrder> MaintenanceWorkOrders => Set<MaintenanceWorkOrder>();
+    public DbSet<FaCategory> FaCategories => Set<FaCategory>();
+    public DbSet<FaAsset> FaAssets => Set<FaAsset>();
+    public DbSet<FaDepreciationRun> FaDepreciationRuns => Set<FaDepreciationRun>();
+    public DbSet<FaDepreciationEntry> FaDepreciationEntries => Set<FaDepreciationEntry>();
 
     public DbSet<UomConversion> UomConversions => Set<UomConversion>();
 
@@ -127,6 +169,14 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Lead> Leads => Set<Lead>();
     public DbSet<Opportunity> Opportunities => Set<Opportunity>();
     public DbSet<Ticket> Tickets => Set<Ticket>();
+    public DbSet<TicketResponse> TicketResponses => Set<TicketResponse>();
+    public DbSet<TicketCategory> TicketCategories => Set<TicketCategory>();
+    public DbSet<EmailCampaign> EmailCampaigns => Set<EmailCampaign>();
+    public DbSet<EmailResponse> EmailResponses => Set<EmailResponse>();
+    public DbSet<Survey> Surveys => Set<Survey>();
+    public DbSet<SurveyQuestion> SurveyQuestions => Set<SurveyQuestion>();
+    public DbSet<SurveyResponse> SurveyResponses => Set<SurveyResponse>();
+    public DbSet<SurveyQuestionResponse> SurveyQuestionResponses => Set<SurveyQuestionResponse>();
     public DbSet<ApprovalWorkflow> ApprovalWorkflows => Set<ApprovalWorkflow>();
     public DbSet<ApprovalStage> ApprovalStages => Set<ApprovalStage>();
     public DbSet<JournalApprovalLog> JournalApprovalLogs => Set<JournalApprovalLog>();
@@ -145,6 +195,8 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<PurchaseReceiptLine> PurchaseReceiptLines => Set<PurchaseReceiptLine>();
     public DbSet<PurchaseReturn> PurchaseReturns => Set<PurchaseReturn>();
     public DbSet<PurchaseReturnLine> PurchaseReturnLines => Set<PurchaseReturnLine>();
+    public DbSet<PoOrder> PoOrders => Set<PoOrder>();
+    public DbSet<PoOrderLine> PoOrderLines => Set<PoOrderLine>();
     public DbSet<JournalEntry> JournalEntries => Set<JournalEntry>();
     public DbSet<JournalEntryLine> JournalEntryLines => Set<JournalEntryLine>();
 

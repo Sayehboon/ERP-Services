@@ -1,6 +1,8 @@
 using Dinawin.Erp.Domain.Common;
 using Dinawin.Erp.Domain.Entities.Inventories;
 using Dinawin.Erp.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Products;
 
@@ -90,6 +92,12 @@ public class Product : BaseEntity, IAggregateRoot
     public UnitOfMeasure? BaseUom { get; set; }
 
     /// <summary>
+    /// واحد پیش‌فرض (Supabase: default_unit)
+    /// Default unit (Supabase: default_unit)
+    /// </summary>
+    public string? DefaultUnit { get; set; }
+
+    /// <summary>
     /// قیمت خرید
     /// Purchase price
     /// </summary>
@@ -150,6 +158,30 @@ public class Product : BaseEntity, IAggregateRoot
     public ICollection<Inventory> Inventories { get; set; } = [];
 
     /// <summary>
+    /// ویژگی‌های کالا (Supabase: product_attributes)
+    /// Product attributes
+    /// </summary>
+    public ICollection<ProductAttribute> Attributes { get; set; } = new List<ProductAttribute>();
+
+    /// <summary>
+    /// تصاویر کالا (Supabase: product_images)
+    /// Product images
+    /// </summary>
+    public ICollection<ProductImage> Images { get; set; } = new List<ProductImage>();
+
+    /// <summary>
+    /// فایل‌های پیوست کالا (Supabase: product_files)
+    /// Product files
+    /// </summary>
+    public ICollection<ProductFile> Files { get; set; } = new List<ProductFile>();
+
+    /// <summary>
+    /// سازگاری با خودروها (Supabase: vehicle_compatibility)
+    /// Vehicle compatibilities
+    /// </summary>
+    public ICollection<VehicleCompatibility> VehicleCompatibilities { get; set; } = new List<VehicleCompatibility>();
+
+    /// <summary>
     /// حرکات موجودی کالا
     /// Product inventory movements
     /// </summary>
@@ -168,4 +200,58 @@ public class Product : BaseEntity, IAggregateRoot
     public decimal WholesalePrice { get; set; }
     public decimal SalePrice { get; set; }
     public bool IsManufacturable { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت کالا
+/// Product entity configuration
+/// </summary>
+public class ProductConfiguration : IEntityTypeConfiguration<Product>
+{
+    /// <summary>
+    /// پیکربندی موجودیت
+    /// Configure entity
+    /// </summary>
+    /// <param name="builder">سازنده موجودیت</param>
+    public void Configure(EntityTypeBuilder<Product> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Sku)
+            .IsRequired()
+            .HasMaxLength(100);
+
+        builder.Property(e => e.Name)
+            .IsRequired()
+            .HasMaxLength(250);
+
+        builder.Property(e => e.Description)
+            .HasMaxLength(2000);
+
+        builder.Property(e => e.DefaultUnit)
+            .HasMaxLength(50);
+
+        builder.Property(e => e.Code).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.ProductType).HasMaxLength(50);
+        builder.Property(e => e.Color).HasMaxLength(50);
+
+        builder.HasOne(e => e.Brand)
+            .WithMany(b => b.Products)
+            .HasForeignKey(e => e.BrandId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.Category)
+            .WithMany(c => c.Products)
+            .HasForeignKey(e => e.CategoryId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.BaseUom)
+            .WithMany()
+            .HasForeignKey(e => e.BaseUomId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasIndex(e => e.Sku).IsUnique();
+        builder.HasIndex(e => e.Name);
+    }
 }

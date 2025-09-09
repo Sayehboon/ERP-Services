@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -67,4 +69,30 @@ public class UserRole : BaseEntity
     /// Notes
     /// </summary>
     public string? Notes { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت رابطه کاربر و نقش
+/// User-Role relationship entity configuration
+/// </summary>
+public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
+{
+    public void Configure(EntityTypeBuilder<UserRole> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Notes).HasMaxLength(500);
+
+        builder.HasOne(e => e.User)
+            .WithMany(u => u.UserRoles)
+            .HasForeignKey(e => e.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Role)
+            .WithMany(r => r.UserRoles)
+            .HasForeignKey(e => e.RoleId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => new { e.UserId, e.RoleId }).IsUnique();
+    }
 }

@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -51,6 +53,24 @@ public class Role : BaseEntity, IAggregateRoot
     public string? Color { get; set; }
 
     /// <summary>
+    /// نقش والد (مطابق Supabase: parent_role_id)
+    /// Parent role
+    /// </summary>
+    public Guid? ParentRoleId { get; set; }
+
+    /// <summary>
+    /// ناوبری نقش والد
+    /// Parent role navigation
+    /// </summary>
+    public Role? ParentRole { get; set; }
+
+    /// <summary>
+    /// نقش‌های زیرمجموعه
+    /// Child roles
+    /// </summary>
+    public ICollection<Role> Children { get; set; } = new List<Role>();
+
+    /// <summary>
     /// کاربران دارای این نقش
     /// Users with this role
     /// </summary>
@@ -61,4 +81,29 @@ public class Role : BaseEntity, IAggregateRoot
     /// Role permissions
     /// </summary>
     public ICollection<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت نقش
+/// Role entity configuration
+/// </summary>
+public class RoleConfiguration : IEntityTypeConfiguration<Role>
+{
+    public void Configure(EntityTypeBuilder<Role> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.DisplayName).IsRequired().HasMaxLength(150);
+        builder.Property(e => e.Description).HasMaxLength(500);
+        builder.Property(e => e.Color).HasMaxLength(20);
+
+        builder.HasOne(e => e.ParentRole)
+            .WithMany(e => e.Children)
+            .HasForeignKey(e => e.ParentRoleId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.Name).IsUnique();
+        builder.HasIndex(e => e.DisplayName);
+    }
 }

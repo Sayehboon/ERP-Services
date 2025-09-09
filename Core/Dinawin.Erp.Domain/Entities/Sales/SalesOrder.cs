@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Sales;
 
@@ -136,4 +138,33 @@ public class SalesOrder : BaseEntity
     public ICollection<Dinawin.Erp.Domain.Entities.Accounting.SalePayment> Payments { get; set; } = new List<Dinawin.Erp.Domain.Entities.Accounting.SalePayment>();
 
     public Guid SalesPersonId { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت سفارش فروش
+/// Sales Order entity configuration
+/// </summary>
+public class SalesOrderConfiguration : IEntityTypeConfiguration<SalesOrder>
+{
+    public void Configure(EntityTypeBuilder<SalesOrder> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.OrderNumber).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Type).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+
+        builder.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.DiscountPercentage).HasColumnType("decimal(5,2)");
+        builder.Property(e => e.DiscountAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.TaxAmount).HasColumnType("decimal(18,2)");
+        builder.Property(e => e.FinalAmount).HasColumnType("decimal(18,2)");
+
+        builder.HasIndex(e => e.OrderNumber).IsUnique(false);
+        builder.HasIndex(e => e.CustomerId);
+        builder.HasIndex(e => e.Status);
+    }
 }

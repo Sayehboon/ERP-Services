@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Products;
 
@@ -52,4 +54,34 @@ public class Brand : BaseEntity, IAggregateRoot
     public string Code { get; set; }
     public string? Country { get; set; }
     public Guid? CategoryId { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت برند
+/// Brand entity configuration
+/// </summary>
+public class BrandConfiguration : IEntityTypeConfiguration<Brand>
+{
+    /// <summary>
+    /// پیکربندی موجودیت
+    /// Configure entity
+    /// </summary>
+    /// <param name="builder">سازنده موجودیت</param>
+    public void Configure(EntityTypeBuilder<Brand> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name)
+            .IsRequired()
+            .HasMaxLength(200);
+
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.LogoUrl).HasMaxLength(1000);
+        builder.Property(e => e.Website).HasMaxLength(200);
+        builder.Property(e => e.Code).HasMaxLength(100);
+        builder.Property(e => e.Country).HasMaxLength(100);
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.Name);
+    }
 }

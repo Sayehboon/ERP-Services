@@ -85,9 +85,29 @@ public class Employee : BaseEntity
     /// Employee active status
     /// </summary>
     public bool IsActive { get; set; } = true;
-    public object EmployeeCode { get; set; }
-    public string FirstName { get; set; }
-    public object HireDate { get; set; }
-    public object Salary { get; set; }
-    public bool IsLocked { get; set; }
+
+    // Navigation properties
+    /// <summary>
+    /// بخش
+    /// Department
+    /// </summary>
+    public Department? Department { get; set; }
+
+    /// <summary>
+    /// حقوق‌ها
+    /// Salaries
+    /// </summary>
+    public ICollection<EmployeeSalary> Salaries { get; set; } = new List<EmployeeSalary>();
+
+    /// <summary>
+    /// حضور و غیاب‌ها
+    /// Attendances
+    /// </summary>
+    public ICollection<EmployeeAttendance> Attendances { get; set; } = new List<EmployeeAttendance>();
+
+    /// <summary>
+    /// مرخصی‌ها
+    /// Leaves
+    /// </summary>
+    public ICollection<Leave> Leaves { get; set; } = new List<Leave>();
 }

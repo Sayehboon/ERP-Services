@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Products;
 
@@ -76,4 +78,41 @@ public class Category : BaseEntity, IAggregateRoot
     public string? Icon { get; set; }
     public string? Color { get; set; }
     public string Code { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت دسته‌بندی
+/// Category entity configuration
+/// </summary>
+public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+{
+    /// <summary>
+    /// پیکربندی موجودیت
+    /// Configure entity
+    /// </summary>
+    /// <param name="builder">سازنده موجودیت</param>
+    public void Configure(EntityTypeBuilder<Category> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Name)
+            .IsRequired()
+            .HasMaxLength(200);
+
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.ImageUrl).HasMaxLength(1000);
+        builder.Property(e => e.Path).HasMaxLength(1000);
+        builder.Property(e => e.Icon).HasMaxLength(100);
+        builder.Property(e => e.Color).HasMaxLength(50);
+        builder.Property(e => e.Code).HasMaxLength(100);
+
+        builder.HasOne(e => e.ParentCategory)
+            .WithMany(e => e.SubCategories)
+            .HasForeignKey(e => e.ParentCategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(e => e.Code).IsUnique(false);
+        builder.HasIndex(e => e.Name);
+        builder.HasIndex(e => e.ParentCategoryId);
+    }
 }

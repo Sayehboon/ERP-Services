@@ -12,4 +12,30 @@
     <PackageReference Include="MediatR" Version="12.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Attendance\" />
+    <Folder Include="Entities\Budget\" />
+    <Folder Include="Entities\BI\" />
+    <Folder Include="Entities\Contracts\" />
+    <Folder Include="Entities\Documents\" />
+    <Folder Include="Entities\Ecommerce\" />
+    <Folder Include="Entities\Garage\" />
+    <Folder Include="Entities\HR\" />
+    <Folder Include="Entities\Insurance\" />
+    <Folder Include="Entities\Knowledge\" />
+    <Folder Include="Entities\Leaves\" />
+    <Folder Include="Entities\Logistics\" />
+    <Folder Include="Entities\Manufacturing\" />
+    <Folder Include="Entities\MRP\" />
+    <Folder Include="Entities\Workflow\" />
+    <Folder Include="Entities\Training\" />
+    <Folder Include="Entities\Ticketing\" />
+    <Folder Include="Entities\Tax\" />
+    <Folder Include="Entities\TaskManager\" />
+    <Folder Include="Entities\SupplyChain\" />
+    <Folder Include="Entities\Risks\" />
+    <Folder Include="Entities\Quality\" />
+    <Folder Include="Entities\Projects\" />
+  </ItemGroup>
+
 </Project>
