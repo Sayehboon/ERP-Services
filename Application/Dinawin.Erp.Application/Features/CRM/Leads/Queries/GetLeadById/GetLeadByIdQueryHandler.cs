@@ -37,7 +37,7 @@ public sealed class GetLeadByIdQueryHandler : IRequestHandler<GetLeadByIdQuery, 
         }
 
         var dto = _mapper.Map<LeadDto>(lead);
-        dto.AssignedToName = lead.AssignedTo != null ? $"{lead.AssignedTo.FirstName} {lead.AssignedTo.LastName}" : null;
+        dto.AssignedToName = lead.AssignedTo != null ? $"{lead.AssignedToUser?.FirstName} {lead.AssignedToUser?.LastName}" : null;
         return dto;
     }
 }

@@ -1,7 +1,7 @@
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Crm;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Domain.Entities;
 
 namespace Dinawin.Erp.Application.Features.CRM.Opportunities.Commands.CreateOpportunity;
 
@@ -86,7 +86,7 @@ public sealed class CreateOpportunityCommandHandler : IRequestHandler<CreateOppo
             ActualCloseDate = request.ActualCloseDate,
             OpportunityType = request.OpportunityType,
             Source = request.Source,
-            AssignedToId = request.AssignedToId,
+            AssignedTo = request.AssignedToId,
             Priority = request.Priority,
             Notes = request.Notes,
             CreatedBy = request.CreatedBy,

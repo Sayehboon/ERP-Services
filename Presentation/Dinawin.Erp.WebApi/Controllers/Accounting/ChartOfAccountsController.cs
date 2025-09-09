@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetAllChartOfAccounts;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetChartOfAccountById;
+using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetAccountBalance;
+using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetTrialBalance;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.CreateChartOfAccount;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.UpdateChartOfAccount;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.DeleteChartOfAccount;
@@ -38,7 +40,7 @@ public class ChartOfAccountsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<ChartOfAccountDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllAccounts(
+    public async Task<ActionResult<IEnumerable<ChartOfAccountDto>>> GetAllAccounts(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? parentAccountId = null,
         [FromQuery] string? accountType = null,
@@ -79,7 +81,7 @@ public class ChartOfAccountsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ChartOfAccountDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetAccount(Guid id)
+    public async Task<ActionResult<ChartOfAccountDto>> GetAccount(Guid id)
     {
         try
         {
@@ -107,7 +109,7 @@ public class ChartOfAccountsController : BaseController
     [HttpGet("by-type/{accountType}")]
     [ProducesResponseType(typeof(IEnumerable<ChartOfAccountDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAccountsByType(string accountType)
+    public async Task<ActionResult<IEnumerable<ChartOfAccountDto>>> GetAccountsByType(string accountType)
     {
         try
         {
@@ -129,7 +131,7 @@ public class ChartOfAccountsController : BaseController
     [HttpGet("children/{parentId}")]
     [ProducesResponseType(typeof(IEnumerable<ChartOfAccountDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetChildAccounts(Guid parentId)
+    public async Task<ActionResult<IEnumerable<ChartOfAccountDto>>> GetChildAccounts(Guid parentId)
     {
         try
         {
@@ -151,7 +153,7 @@ public class ChartOfAccountsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateAccount([FromBody] CreateChartOfAccountCommand command)
+    public async Task<ActionResult<Guid>> CreateAccount([FromBody] CreateChartOfAccountCommand command)
     {
         try
         {
@@ -207,6 +209,93 @@ public class ChartOfAccountsController : BaseController
         catch (Exception ex)
         {
             return HandleError(ex, "خطا در حذف حساب");
+        }
+    }
+
+    /// <summary>
+    /// دریافت مانده حساب
+    /// </summary>
+    /// <param name="id">شناسه حساب</param>
+    /// <param name="fromDate">تاریخ شروع (اختیاری)</param>
+    /// <param name="toDate">تاریخ پایان (اختیاری)</param>
+    /// <param name="includeChildren">آیا شامل حساب‌های فرزند باشد</param>
+    /// <returns>مانده حساب</returns>
+    [HttpGet("{id}/balance")]
+    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult<AccountBalanceDto>> GetAccountBalance(
+        Guid id,
+        [FromQuery] DateTime? fromDate = null,
+        [FromQuery] DateTime? toDate = null,
+        [FromQuery] bool includeChildren = false)
+    {
+        try
+        {
+            var query = new GetAccountBalanceQuery
+            {
+                AccountId = id,
+                FromDate = fromDate,
+                ToDate = toDate,
+                IncludeChildren = includeChildren
+            };
+
+            var balance = await _mediator.Send(query);
+            
+            if (balance == null)
+            {
+                return NotFound("حساب یافت نشد");
+            }
+
+            return Success(balance);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت مانده حساب");
+        }
+    }
+
+    /// <summary>
+    /// دریافت تراز آزمایشی
+    /// </summary>
+    /// <param name="fromDate">تاریخ شروع (اختیاری)</param>
+    /// <param name="toDate">تاریخ پایان (اختیاری)</param>
+    /// <param name="accountType">نوع حساب (اختیاری)</param>
+    /// <param name="accountCategory">دسته‌بندی حساب (اختیاری)</param>
+    /// <param name="level">سطح حساب (اختیاری)</param>
+    /// <param name="onlyNonZeroBalances">آیا فقط حساب‌های با مانده غیر صفر را نمایش دهد</param>
+    /// <param name="includeInactiveAccounts">آیا شامل حساب‌های غیرفعال باشد</param>
+    /// <returns>تراز آزمایشی</returns>
+    [HttpGet("trial-balance")]
+    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult<TrialBalanceDto>> GetTrialBalance(
+        [FromQuery] DateTime? fromDate = null,
+        [FromQuery] DateTime? toDate = null,
+        [FromQuery] string? accountType = null,
+        [FromQuery] string? accountCategory = null,
+        [FromQuery] int? level = null,
+        [FromQuery] bool onlyNonZeroBalances = false,
+        [FromQuery] bool includeInactiveAccounts = false)
+    {
+        try
+        {
+            var query = new GetTrialBalanceQuery
+            {
+                FromDate = fromDate,
+                ToDate = toDate,
+                AccountType = accountType,
+                AccountCategory = accountCategory,
+                Level = level,
+                OnlyNonZeroBalances = onlyNonZeroBalances,
+                IncludeInactiveAccounts = includeInactiveAccounts
+            };
+
+            var trialBalance = await _mediator.Send(query);
+            return Success(trialBalance);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت تراز آزمایشی");
         }
     }
 }

@@ -80,4 +80,10 @@ public class FiscalPeriod : BaseEntity
     /// Fiscal year ID
     /// </summary>
     public Guid FiscalYearId { get; set; }
+
+    /// <summary>
+    /// سال مالی مرتبط
+    /// Related fiscal year
+    /// </summary>
+    public FiscalYear? FiscalYear { get; set; }
 }

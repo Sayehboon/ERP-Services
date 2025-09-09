@@ -1,10 +1,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetAllWarehouses;
-using Dinawin.Erp.Application.Features.Inventory.Warehouses.Queries.GetWarehouseById;
-using Dinawin.Erp.Application.Features.Inventory.Warehouses.Commands.UpdateWarehouse;
-using Dinawin.Erp.Application.Features.Inventory.Warehouses.Commands.DeleteWarehouse;
+using Dinawin.Erp.Application.Features.Inventories.Warehouses.Queries.GetAllWarehouses;
+using Dinawin.Erp.Application.Features.Inventories.Warehouses.Queries.GetWarehouseById;
+using Dinawin.Erp.Application.Features.Inventories.Warehouses.Commands.UpdateWarehouse;
+using Dinawin.Erp.Application.Features.Inventories.Warehouses.Commands.DeleteWarehouse;
 
 namespace Dinawin.Erp.WebApi.Controllers.Inventory;
 

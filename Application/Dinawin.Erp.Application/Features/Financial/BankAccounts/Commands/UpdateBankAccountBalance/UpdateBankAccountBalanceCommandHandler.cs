@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Treasury;
 
 namespace Dinawin.Erp.Application.Features.Financial.BankAccounts.Commands.UpdateBankAccountBalance;
 
@@ -48,12 +49,12 @@ public sealed class UpdateBankAccountBalanceCommandHandler : IRequestHandler<Upd
         // ثبت تراکنش در صورت وجود تغییر
         if (balanceChange != 0)
         {
-            var cashTransaction = new Dinawin.Erp.Infrastructure.Data.Entities.Financial.CashTransaction
+            var cashTransaction = new CashTransaction
             {
                 Id = Guid.NewGuid(),
                 BankAccountId = request.Id,
                 TransactionType = request.TransactionType,
-                Amount = Math.Abs(balanceChange),
+                Amount = new Domain.ValueObjects.Money(Math.Abs(balanceChange), "IRR"),
                 Description = request.TransactionDescription ?? $"به‌روزرسانی موجودی حساب {bankAccount.AccountName}",
                 ReferenceId = request.ReferenceId,
                 ReferenceType = request.ReferenceType,

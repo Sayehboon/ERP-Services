@@ -64,31 +64,31 @@ public sealed class UpdateVendorCommandHandler : IRequestHandler<UpdateVendorCom
             }
         }
 
-        vendor.Name = request.Name;
-        vendor.LastName = request.LastName;
-        vendor.CompanyName = request.CompanyName;
-        vendor.VendorType = request.VendorType;
-        vendor.NationalId = request.NationalId;
-        vendor.EconomicCode = request.EconomicCode;
-        vendor.RegistrationNumber = request.RegistrationNumber;
-        vendor.Phone = request.Phone;
-        vendor.Mobile = request.Mobile;
-        vendor.Email = request.Email;
-        vendor.Address = request.Address;
-        vendor.City = request.City;
-        vendor.Province = request.Province;
-        vendor.PostalCode = request.PostalCode;
-        vendor.Country = request.Country;
-        vendor.Website = request.Website;
-        vendor.BirthDate = request.BirthDate;
-        vendor.Gender = request.Gender;
-        vendor.JobTitle = request.JobTitle;
-        vendor.CreditLimit = request.CreditLimit;
-        vendor.AccountBalance = request.AccountBalance;
-        vendor.PaymentTerms = request.PaymentTerms;
-        vendor.PreferredCurrency = request.PreferredCurrency;
+        vendor.Name = request.Name ?? vendor.Name;
+        vendor.LastName = request.LastName ?? vendor.LastName;
+        vendor.CompanyName = request.CompanyName ?? vendor.CompanyName;
+        vendor.VendorType = request.VendorType ?? vendor.VendorType;
+        vendor.NationalId = request.NationalId ?? vendor.NationalId;
+        vendor.EconomicCode = request.EconomicCode ?? vendor.EconomicCode;
+        vendor.RegistrationNumber = request.RegistrationNumber ?? vendor.RegistrationNumber;
+        vendor.Phone = request.Phone ?? vendor.Phone;
+        vendor.Mobile = request.Mobile ?? vendor.Mobile;
+        vendor.Email = request.Email ?? vendor.Email;
+        vendor.Address = request.Address ?? vendor.Address;
+        vendor.City = request.City ?? vendor.City;
+        vendor.Province = request.Province ?? vendor.Province;
+        vendor.PostalCode = request.PostalCode ?? vendor.PostalCode;
+        vendor.Country = request.Country ?? vendor.Country;
+        vendor.Website = request.Website ?? vendor.Website;
+        vendor.BirthDate = request.BirthDate ?? vendor.BirthDate;
+        vendor.Gender = request.Gender ?? vendor.Gender;
+        vendor.JobTitle = request.JobTitle ?? vendor.JobTitle;
+        vendor.CreditLimit = request.CreditLimit ?? vendor.CreditLimit;
+        vendor.AccountBalance = request.AccountBalance ?? vendor.AccountBalance;
+        vendor.PaymentTerms = request.PaymentTerms ?? vendor.PaymentTerms;
+        vendor.PreferredCurrency = request.PreferredCurrency ?? vendor.PreferredCurrency;
         vendor.IsActive = request.IsActive;
-        vendor.Description = request.Description;
+        vendor.Description = request.Description ?? vendor.Description;
         vendor.UpdatedBy = request.UpdatedBy;
         vendor.UpdatedAt = DateTime.UtcNow;
 

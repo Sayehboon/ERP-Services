@@ -8,9 +8,7 @@ namespace Dinawin.Erp.Application.Features.PurchaseOrders.Commands.CreatePurchas
 public class CreatePurchaseOrderCommand : IRequest<Guid>
 {
     public string Number { get; set; } = string.Empty;
-    public string VendorName { get; set; } = string.Empty;
-    public string? VendorEmail { get; set; }
-    public string? VendorPhone { get; set; }
+    public Guid VendorId { get; set; }
     public DateTime OrderDate { get; set; } = DateTime.UtcNow;
     public DateTime? ExpectedDeliveryDate { get; set; }
     public decimal TotalAmount { get; set; }

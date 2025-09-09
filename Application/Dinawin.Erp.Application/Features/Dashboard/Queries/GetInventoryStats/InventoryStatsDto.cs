@@ -15,10 +15,7 @@ public sealed class InventoryStatsDto
     /// </summary>
     public int InStockProducts { get; set; }
 
-    /// <summary>
-    /// تعداد محصولات با موجودی کم
-    /// </summary>
-    public int LowStockProducts { get; set; }
+    // Removed duplicate LowStockProducts int; list is authoritative
 
     /// <summary>
     /// تعداد محصولات بدون موجودی

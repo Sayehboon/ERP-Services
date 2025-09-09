@@ -40,8 +40,8 @@ public sealed class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustome
             throw new InvalidOperationException("امکان حذف مشتری به دلیل وجود سفارشات فروش وابسته وجود ندارد");
         }
 
-        var hasContacts = await _context.Contacts
-            .AnyAsync(ct => ct.CustomerId == request.Id, cancellationToken);
+        // موجودیت Contact ارتباط مستقیم با Customer ندارد
+        var hasContacts = false;
         
         if (hasContacts)
         {

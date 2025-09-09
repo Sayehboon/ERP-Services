@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.SystemManagement.Roles.Queries.GetAllRoles;
 using Dinawin.Erp.Application.Features.SystemManagement.Roles.Queries.GetRoleById;
+using Dinawin.Erp.Application.Features.SystemManagement.Roles.Queries.GetRolePermissions;
 using Dinawin.Erp.Application.Features.SystemManagement.Roles.Commands.CreateRole;
 using Dinawin.Erp.Application.Features.SystemManagement.Roles.Commands.UpdateRole;
 using Dinawin.Erp.Application.Features.SystemManagement.Roles.Commands.DeleteRole;
+using Dinawin.Erp.Application.Features.SystemManagement.Roles.Commands.AssignPermission;
 
 namespace Dinawin.Erp.WebApi.Controllers.SystemManagement;
 
@@ -120,20 +122,8 @@ public class RolesController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetRolePermissionsQuery
-            var permissions = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Name = "Users.Read",
-                    Description = "مشاهده کاربران"
-                },
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Name = "Users.Create",
-                    Description = "ایجاد کاربر"
-                }
-            };
+            var query = new GetRolePermissionsQuery { RoleId = id };
+            var permissions = await _mediator.Send(query);
             return Success(permissions);
         }
         catch (Exception ex)
@@ -207,6 +197,36 @@ public class RolesController : BaseController
         catch (Exception ex)
         {
             return HandleError(ex, "خطا در اختصاص مجوز");
+        }
+    }
+
+    /// <summary>
+    /// تخصیص مجوز به نقش
+    /// </summary>
+    /// <param name="id">شناسه نقش</param>
+    /// <param name="command">دستور تخصیص مجوز</param>
+    /// <returns>نتیجه تخصیص</returns>
+    [HttpPost("{id}/permissions")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> AssignPermission(Guid id, [FromBody] AssignPermissionCommand command)
+    {
+        try
+        {
+            command.RoleId = id;
+            var result = await _mediator.Send(command);
+            
+            if (result)
+            {
+                return Success("مجوز با موفقیت به نقش تخصیص داده شد");
+            }
+            
+            return BadRequest("خطا در تخصیص مجوز");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در تخصیص مجوز به نقش");
         }
     }
 

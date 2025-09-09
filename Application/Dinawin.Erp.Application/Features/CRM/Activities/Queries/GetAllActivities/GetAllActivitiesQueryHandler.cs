@@ -1,5 +1,5 @@
+using Dinawin.Erp.Application.Common.Interfaces;
 using MediatR;
-using Dinawin.Erp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetAllActivities;
@@ -9,13 +9,13 @@ namespace Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetAllActiviti
 /// </summary>
 public class GetAllActivitiesQueryHandler : IRequestHandler<GetAllActivitiesQuery, IEnumerable<ActivityDto>>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر
     /// </summary>
     /// <param name="context">کانتکست پایگاه داده</param>
-    public GetAllActivitiesQueryHandler(ApplicationDbContext context)
+    public GetAllActivitiesQueryHandler(IApplicationDbContext context)
     {
         _context = context;
     }
@@ -41,7 +41,7 @@ public class GetAllActivitiesQueryHandler : IRequestHandler<GetAllActivitiesQuer
             query = query.Where(a => a.OpportunityId == request.OpportunityId.Value);
 
         if (request.AssignedToUserId.HasValue)
-            query = query.Where(a => a.AssignedToUserId == request.AssignedToUserId.Value);
+            query = query.Where(a => a.AssignedTo == request.AssignedToUserId.Value);
 
         if (!string.IsNullOrEmpty(request.Status))
             query = query.Where(a => a.Status == request.Status);
@@ -71,16 +71,21 @@ public class GetAllActivitiesQueryHandler : IRequestHandler<GetAllActivitiesQuer
                 Priority = a.Priority,
                 StartDate = a.StartDate,
                 EndDate = a.EndDate,
+                ReminderDate = a.ReminderDate,
                 ContactId = a.ContactId,
-                ContactName = a.Contact != null ? $"{a.Contact.FirstName} {a.Contact.LastName}" : null,
+                ContactName = null,
                 LeadId = a.LeadId,
-                LeadName = a.Lead != null ? $"{a.Lead.FirstName} {a.Lead.LastName}" : null,
+                LeadName = null,
                 OpportunityId = a.OpportunityId,
-                OpportunityName = a.Opportunity != null ? a.Opportunity.Name : null,
-                AssignedToUserId = a.AssignedToUserId,
-                AssignedToUserName = a.AssignedToUser != null ? $"{a.AssignedToUser.FirstName} {a.AssignedToUser.LastName}" : null,
-                CreatedByUserId = a.CreatedByUserId,
-                CreatedByUserName = a.CreatedByUser != null ? $"{a.CreatedByUser.FirstName} {a.CreatedByUser.LastName}" : string.Empty,
+                OpportunityName = null,
+                CreatedBy = a.CreatedBy,
+                CreatedByName = null,
+                AssignedTo = a.AssignedTo,
+                AssignedToName = null,
+                Result = a.Result,
+                Notes = a.Notes,
+                IsCompleted = a.IsCompleted,
+                CompletedAt = a.CompletedAt,
                 CreatedAt = a.CreatedAt,
                 UpdatedAt = a.UpdatedAt
             })

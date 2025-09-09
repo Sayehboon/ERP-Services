@@ -22,7 +22,7 @@ public class UpdateBankAccountCommandHandler : IRequestHandler<UpdateBankAccount
         var bankAccount = await _db.BankAccounts.FirstOrDefaultAsync(ba => ba.Id == request.Id, cancellationToken);
         if (bankAccount == null) return false;
 
-        if (request.Name != null) bankAccount.Name = request.Name;
+        if (request.Name != null) bankAccount.AccountName = request.Name;
         if (request.Iban != null) bankAccount.Iban = request.Iban;
         if (request.Currency != null) bankAccount.Currency = request.Currency;
         if (request.ControlAccountId != null) bankAccount.ControlAccountId = request.ControlAccountId;

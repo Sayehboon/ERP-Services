@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Dinawin.Erp.Application.Features.Contacts.Commands.CreateContact;
-using Dinawin.Erp.Application.Features.Contacts.Queries.GetAllContacts;
-using Dinawin.Erp.Application.Features.Contacts.DTOs;
+using Dinawin.Erp.Application.Features.CRM.Contacts.Commands.CreateContact;
+using Dinawin.Erp.Application.Features.CRM.Contacts.Queries.GetAllContacts;
+using Dinawin.Erp.Application.Features.CRM.Contacts.DTOs;
 
 namespace Dinawin.Erp.WebApi.Controllers.CRM;
 

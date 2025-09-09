@@ -79,6 +79,9 @@ public class UnitOfMeasure : BaseEntity, IAggregateRoot
     /// Products using this unit
     /// </summary>
     public ICollection<Product> Products { get; set; } = new List<Product>();
+    public string UomType { get; set; } = string.Empty;
+    public string? UnitType { get; set; }
+    public int SortOrder { get; set; }
 }
 
 /// <summary>

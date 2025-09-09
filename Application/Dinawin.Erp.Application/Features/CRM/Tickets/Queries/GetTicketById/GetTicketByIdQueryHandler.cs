@@ -28,12 +28,8 @@ public sealed class GetTicketByIdQueryHandler : IRequestHandler<GetTicketByIdQue
     public async Task<TicketDto?> Handle(GetTicketByIdQuery request, CancellationToken cancellationToken)
     {
         var ticket = await _context.Tickets
-            .Include(t => t.Customer)
-            .Include(t => t.CreatedByUser)
-            .Include(t => t.AssignedTo)
-            .Include(t => t.Product)
-            .Include(t => t.SalesOrder)
-            .Include(t => t.Opportunity)
+            .Include(t => t.Contact)
+            .Include(t => t.AssignedUser)
             .FirstOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
 
         if (ticket == null)
@@ -42,12 +38,12 @@ public sealed class GetTicketByIdQueryHandler : IRequestHandler<GetTicketByIdQue
         }
 
         var dto = _mapper.Map<TicketDto>(ticket);
-        dto.CustomerName = ticket.Customer?.Name;
-        dto.CreatedByName = ticket.CreatedByUser != null ? $"{ticket.CreatedByUser.FirstName} {ticket.CreatedByUser.LastName}" : null;
-        dto.AssignedToName = ticket.AssignedTo != null ? $"{ticket.AssignedTo.FirstName} {ticket.AssignedTo.LastName}" : null;
-        dto.ProductName = ticket.Product?.Name;
-        dto.SalesOrderNumber = ticket.SalesOrder?.OrderNumber;
-        dto.OpportunityName = ticket.Opportunity?.Name;
+        dto.CustomerName = null;
+        dto.CreatedByName = null;
+        dto.AssignedToName = ticket.AssignedUser != null ? $"{ticket.AssignedUser.FirstName} {ticket.AssignedUser.LastName}" : null;
+        dto.ProductName = null;
+        dto.SalesOrderNumber = null;
+        dto.OpportunityName = null;
         return dto;
     }
 }

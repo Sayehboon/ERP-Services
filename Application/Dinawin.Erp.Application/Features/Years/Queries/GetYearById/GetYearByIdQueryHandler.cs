@@ -28,7 +28,6 @@ public sealed class GetYearByIdQueryHandler : IRequestHandler<GetYearByIdQuery, 
     public async Task<YearDto?> Handle(GetYearByIdQuery request, CancellationToken cancellationToken)
     {
         var year = await _context.Years
-            .Include(y => y.Products)
             .FirstOrDefaultAsync(y => y.Id == request.Id, cancellationToken);
 
         if (year == null)
@@ -37,7 +36,7 @@ public sealed class GetYearByIdQueryHandler : IRequestHandler<GetYearByIdQuery, 
         }
 
         var dto = _mapper.Map<YearDto>(year);
-        dto.ProductCount = year.Products?.Count ?? 0;
+        dto.ProductCount = 0;
         return dto;
     }
 }

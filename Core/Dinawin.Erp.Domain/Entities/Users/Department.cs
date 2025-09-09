@@ -30,7 +30,7 @@ public class Department : BaseEntity, IAggregateRoot
     /// شناسه شرکت
     /// Company ID
     /// </summary>
-    public required Guid CompanyId { get; set; }
+    public Guid? CompanyId { get; set; }
 
     /// <summary>
     /// شرکت
@@ -97,4 +97,10 @@ public class Department : BaseEntity, IAggregateRoot
     /// Department users
     /// </summary>
     public ICollection<User> Users { get; set; } = new List<User>();
+    public string? Phone { get; set; }
+    public string? HierarchyPath { get; set; }
+    public string? DepartmentType { get; set; }
+    public decimal? Budget { get; set; }
+    public string? Address { get; set; }
+    public string? Email { get; set; }
 }

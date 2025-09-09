@@ -94,7 +94,7 @@ public sealed class GetDashboardOverviewQueryHandler : IRequestHandler<GetDashbo
             .Where(so => so.OrderDate.Month == lastMonth && so.OrderDate.Year == lastMonthYear)
             .SumAsync(so => so.TotalAmount, cancellationToken);
 
-        var salesGrowthPercentage = lastMonthSales > 0 ? ((monthlySales - lastMonthSales) / lastMonthSales) * 100 : 0;
+        var salesGrowthPercentage = lastMonthSales > 0 ? (decimal)((monthlySales - lastMonthSales) / lastMonthSales) * 100m : 0m;
 
         return new SalesOverviewDto
         {
@@ -122,7 +122,7 @@ public sealed class GetDashboardOverviewQueryHandler : IRequestHandler<GetDashbo
             .Where(po => po.OrderDate.Month == lastMonth && po.OrderDate.Year == lastMonthYear)
             .SumAsync(po => po.TotalAmount, cancellationToken);
 
-        var purchaseGrowthPercentage = lastMonthPurchases > 0 ? ((monthlyPurchases - lastMonthPurchases) / lastMonthPurchases) * 100 : 0;
+        var purchaseGrowthPercentage = lastMonthPurchases > 0 ? (decimal)((monthlyPurchases - lastMonthPurchases) / lastMonthPurchases) * 100m : 0m;
 
         return new PurchaseOverviewDto
         {
@@ -138,9 +138,11 @@ public sealed class GetDashboardOverviewQueryHandler : IRequestHandler<GetDashbo
     private async Task<InventoryOverviewDto> GetInventoryOverviewAsync(CancellationToken cancellationToken)
     {
         var totalProducts = await _context.Products.CountAsync(cancellationToken);
-        var lowStockProducts = await _context.Inventory.CountAsync(i => i.Quantity <= i.ReorderLevel, cancellationToken);
-        var outOfStockProducts = await _context.Inventory.CountAsync(i => i.Quantity == 0, cancellationToken);
-        var totalInventoryValue = await _context.Inventory.SumAsync(i => i.Quantity * i.UnitCost, cancellationToken);
+        var lowStockProducts = await _context.Inventory.CountAsync(i => i.AvailableQuantity <= i.MinStockAlert, cancellationToken);
+        var outOfStockProducts = await _context.Inventory.CountAsync(i => i.AvailableQuantity <= 0, cancellationToken);
+        var totalInventoryValue = await _context.Inventory
+            .Where(i => i.AverageCost != null)
+            .SumAsync(i => i.Quantity * i.AverageCost!.Amount, cancellationToken);
         var totalWarehouses = await _context.Warehouses.CountAsync(cancellationToken);
         var totalBins = await _context.Bins.CountAsync(cancellationToken);
 
@@ -206,119 +208,63 @@ public sealed class GetDashboardOverviewQueryHandler : IRequestHandler<GetDashbo
         var newVendorsThisMonth = await _context.Vendors
             .CountAsync(v => v.CreatedAt.Month == currentMonth && v.CreatedAt.Year == currentYear, cancellationToken);
         
-        var averageOrderValue = await _context.PurchaseOrders
-            .GroupBy(po => po.VendorId)
-            .Select(g => g.Average(po => po.TotalAmount))
-            .DefaultIfEmpty(0)
-            .AverageAsync(cancellationToken);
-
         return new VendorOverviewDto
         {
             TotalVendors = totalVendors,
             ActiveVendors = activeVendors,
-            NewVendorsThisMonth = newVendorsThisMonth,
-            AverageOrderValue = averageOrderValue
+            NewVendorsThisMonth = newVendorsThisMonth
         };
     }
 
     private async Task<TaskOverviewDto> GetTaskOverviewAsync(CancellationToken cancellationToken)
     {
         var totalTasks = await _context.Tasks.CountAsync(cancellationToken);
-        var inProgressTasks = await _context.Tasks.CountAsync(t => t.Status == "در حال انجام", cancellationToken);
-        var completedTasks = await _context.Tasks.CountAsync(t => t.Status == "تکمیل شده", cancellationToken);
-        var pendingTasks = await _context.Tasks.CountAsync(t => t.Status == "در انتظار", cancellationToken);
-        var highPriorityTasks = await _context.Tasks.CountAsync(t => t.Priority == "بالا", cancellationToken);
-        var overdueTasks = await _context.Tasks.CountAsync(t => t.PlannedEndDate < DateTime.UtcNow && t.Status != "تکمیل شده", cancellationToken);
-
+        var activeTasks = await _context.Tasks.CountAsync(t => t.Status != "Completed" && t.Status != "Cancelled", cancellationToken);
+        var completedTasks = await _context.Tasks.CountAsync(t => t.Status == "Completed", cancellationToken);
         return new TaskOverviewDto
         {
             TotalTasks = totalTasks,
-            InProgressTasks = inProgressTasks,
-            CompletedTasks = completedTasks,
-            PendingTasks = pendingTasks,
-            HighPriorityTasks = highPriorityTasks,
-            OverdueTasks = overdueTasks
+            ActiveTasks = activeTasks,
+            CompletedTasks = completedTasks
         };
     }
 
-    private async Task<List<MonthlyChartDataDto>> GetMonthlySalesChartAsync(DateTime fromDate, DateTime toDate, CancellationToken cancellationToken)
+    private async Task<List<MonthlyValueDto>> GetMonthlySalesChartAsync(DateTime fromDate, DateTime toDate, CancellationToken cancellationToken)
     {
-        var monthlyData = await _context.SalesOrders
+        return await _context.SalesOrders
             .Where(so => so.OrderDate >= fromDate && so.OrderDate <= toDate)
             .GroupBy(so => new { so.OrderDate.Year, so.OrderDate.Month })
-            .Select(g => new MonthlyChartDataDto
-            {
-                Year = g.Key.Year,
-                Month = g.Key.Month.ToString(),
-                Value = g.Sum(so => so.TotalAmount),
-                Count = g.Count()
-            })
-            .OrderBy(x => x.Year)
-            .ThenBy(x => x.Month)
+            .Select(g => new MonthlyValueDto { Year = g.Key.Year, Month = g.Key.Month, Value = g.Sum(so => so.TotalAmount) })
+            .OrderBy(x => x.Year).ThenBy(x => x.Month)
             .ToListAsync(cancellationToken);
-
-        return monthlyData;
     }
 
-    private async Task<List<MonthlyChartDataDto>> GetMonthlyPurchaseChartAsync(DateTime fromDate, DateTime toDate, CancellationToken cancellationToken)
+    private async Task<List<MonthlyValueDto>> GetMonthlyPurchaseChartAsync(DateTime fromDate, DateTime toDate, CancellationToken cancellationToken)
     {
-        var monthlyData = await _context.PurchaseOrders
+        return await _context.PurchaseOrders
             .Where(po => po.OrderDate >= fromDate && po.OrderDate <= toDate)
             .GroupBy(po => new { po.OrderDate.Year, po.OrderDate.Month })
-            .Select(g => new MonthlyChartDataDto
-            {
-                Year = g.Key.Year,
-                Month = g.Key.Month.ToString(),
-                Value = g.Sum(po => po.TotalAmount),
-                Count = g.Count()
-            })
-            .OrderBy(x => x.Year)
-            .ThenBy(x => x.Month)
+            .Select(g => new MonthlyValueDto { Year = g.Key.Year, Month = g.Key.Month, Value = g.Sum(po => po.TotalAmount) })
+            .OrderBy(x => x.Year).ThenBy(x => x.Month)
             .ToListAsync(cancellationToken);
-
-        return monthlyData;
     }
 
-    private async Task<List<CategoryChartDataDto>> GetInventoryByCategoryChartAsync(CancellationToken cancellationToken)
+    private async Task<List<CategoryValueDto>> GetInventoryByCategoryChartAsync(CancellationToken cancellationToken)
     {
-        var categoryData = await _context.Inventory
-            .Include(i => i.Product)
-            .ThenInclude(p => p.Category)
-            .GroupBy(i => i.Product.Category.Name)
-            .Select(g => new CategoryChartDataDto
-            {
-                CategoryName = g.Key,
-                ProductCount = g.Count(),
-                InventoryValue = g.Sum(i => i.Quantity * i.UnitCost)
-            })
+        return await _context.Inventory
+            .GroupBy(i => i.Product.CategoryId)
+            .Select(g => new CategoryValueDto { CategoryId = g.Key, Value = g.Sum(i => i.Quantity) })
+            .OrderByDescending(x => x.Value)
+            .Take(10)
             .ToListAsync(cancellationToken);
-
-        var totalValue = categoryData.Sum(c => c.InventoryValue);
-        foreach (var item in categoryData)
-        {
-            item.Percentage = totalValue > 0 ? (item.InventoryValue / totalValue) * 100 : 0;
-        }
-
-        return categoryData;
     }
 
-    private async Task<List<StatusChartDataDto>> GetTaskStatusChartAsync(CancellationToken cancellationToken)
+    private async Task<List<StatusValueDto>> GetTaskStatusChartAsync(CancellationToken cancellationToken)
     {
-        var statusData = await _context.Tasks
+        return await _context.Tasks
             .GroupBy(t => t.Status)
-            .Select(g => new StatusChartDataDto
-            {
-                StatusName = g.Key,
-                Count = g.Count()
-            })
+            .Select(g => new StatusValueDto { Status = g.Key, Count = g.Count() })
+            .OrderByDescending(x => x.Count)
             .ToListAsync(cancellationToken);
-
-        var totalCount = statusData.Sum(s => s.Count);
-        foreach (var item in statusData)
-        {
-            item.Percentage = totalCount > 0 ? (item.Count / (decimal)totalCount) * 100 : 0;
-        }
-
-        return statusData;
     }
 }

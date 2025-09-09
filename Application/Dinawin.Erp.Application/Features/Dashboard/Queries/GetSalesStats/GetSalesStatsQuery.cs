@@ -1,4 +1,5 @@
 using MediatR;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dinawin.Erp.Application.Features.Dashboard.Queries.GetSalesStats;
 

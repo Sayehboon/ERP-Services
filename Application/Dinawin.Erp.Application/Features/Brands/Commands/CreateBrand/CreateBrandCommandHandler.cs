@@ -1,6 +1,7 @@
 using MediatR;
 using Dinawin.Erp.Domain.Entities;
-using Dinawin.Erp.Persistence.ApplicationDbContext;
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.Brands.Commands.CreateBrand;
 
@@ -10,14 +11,14 @@ namespace Dinawin.Erp.Application.Features.Brands.Commands.CreateBrand;
 /// </summary>
 public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, Guid>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر دستور ایجاد برند
     /// Constructor for create brand command handler
     /// </summary>
     /// <param name="context">زمینه پایگاه داده</param>
-    public CreateBrandCommandHandler(ApplicationDbContext context)
+    public CreateBrandCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }

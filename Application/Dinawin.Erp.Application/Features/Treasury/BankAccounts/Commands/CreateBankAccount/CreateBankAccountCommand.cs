@@ -22,7 +22,7 @@ public class CreateBankAccountCommandHandler : IRequestHandler<CreateBankAccount
         var bankAccount = new BankAccount
         {
             Id = Guid.NewGuid(),
-            Name = request.Name,
+            AccountName = request.Name,
             Iban = request.Iban,
             Currency = request.Currency,
             ControlAccountId = request.ControlAccountId,

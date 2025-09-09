@@ -39,7 +39,7 @@ public class UpsertUomCommandHandler(IApplicationDbContext db) : IRequestHandler
                 Precision = request.Precision,
                 IsActive = request.IsActive
             };
-            db.UnitsOfMeasure.Add(u);
+            db.UnitsOfMeasures.Add(u);
             await db.SaveChangesAsync(cancellationToken);
             return u.Id;
         }

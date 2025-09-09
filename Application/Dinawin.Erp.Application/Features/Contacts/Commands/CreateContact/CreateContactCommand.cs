@@ -22,4 +22,9 @@ public class CreateContactCommand : IRequest<Guid>
     public string? Source { get; set; }
     public string Status { get; set; } = "فعال";
     public Guid? CreatedBy { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public string CompanyName { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string ContactType { get; set; } = string.Empty;
+    public bool IsActive { get; set; } = true;
 }

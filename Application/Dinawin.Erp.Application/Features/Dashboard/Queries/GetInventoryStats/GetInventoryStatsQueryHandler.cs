@@ -62,7 +62,7 @@ public sealed class GetInventoryStatsQueryHandler : IRequestHandler<GetInventory
             .GroupBy(i => new { i.Product.CategoryId, i.Product.Category.Name })
             .Select(g => new CategoryInventoryStatsDto
             {
-                CategoryId = g.Key.CategoryId,
+                //CategoryId = g.Key.CategoryId,
                 CategoryName = g.Key.Name,
                 ProductCount = g.Count(),
                 TotalQuantity = g.Sum(i => i.Quantity),
@@ -115,7 +115,7 @@ public sealed class GetInventoryStatsQueryHandler : IRequestHandler<GetInventory
         {
             TotalProducts = totalProducts,
             InStockProducts = inStockProducts,
-            LowStockProducts = lowStockProducts,
+            //LowStockProducts = lowStockProducts,
             OutOfStockProducts = outOfStockProducts,
             TotalInventoryValue = totalInventoryValue,
             TotalWarehouses = totalWarehouses,

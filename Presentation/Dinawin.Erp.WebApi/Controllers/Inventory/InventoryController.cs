@@ -1,10 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Inventory.Inventory.Queries.GetAllInventory;
-using Dinawin.Erp.Application.Features.Inventory.Inventory.Queries.GetInventoryById;
-using Dinawin.Erp.Application.Features.Inventory.Inventory.Commands.UpdateInventory;
-using Dinawin.Erp.Application.Features.Inventory.Inventory.Commands.DeleteInventory;
+using Dinawin.Erp.Application.Features.Inventories.Inventories.Queries.GetAllInventory;
+using Dinawin.Erp.Application.Features.Inventories.Inventories.Queries.GetInventoryById;
+using Dinawin.Erp.Application.Features.Inventories.Inventories.Queries.GetInventoryByProduct;
+using Dinawin.Erp.Application.Features.Inventories.Inventories.Commands.UpdateInventory;
+using Dinawin.Erp.Application.Features.Inventories.Inventories.Commands.DeleteInventory;
 
 namespace Dinawin.Erp.WebApi.Controllers.Inventory;
 
@@ -82,14 +83,14 @@ public class InventoryController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetInventoryByProductQuery
-            var inventory = new { 
-                ProductId = productId,
-                ProductName = "تویوتا کامری ۱۴۰۳",
-                Quantity = 5,
-                ReservedQuantity = 2,
-                AvailableQuantity = 3
-            };
+            var query = new GetInventoryByProductQuery { ProductId = productId };
+            var inventory = await _mediator.Send(query);
+            
+            if (inventory == null)
+            {
+                return NotFound("محصول یافت نشد");
+            }
+            
             return Success(inventory);
         }
         catch (Exception ex)

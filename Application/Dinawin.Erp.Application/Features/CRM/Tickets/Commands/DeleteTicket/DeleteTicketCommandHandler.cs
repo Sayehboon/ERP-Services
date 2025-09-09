@@ -31,19 +31,6 @@ public sealed class DeleteTicketCommandHandler : IRequestHandler<DeleteTicketCom
             throw new ArgumentException($"تیکت با شناسه {request.Id} یافت نشد");
         }
 
-        // بررسی وجود کامنت‌ها یا فعالیت‌های مرتبط
-        var hasComments = await _context.TicketComments.AnyAsync(tc => tc.TicketId == request.Id, cancellationToken);
-        if (hasComments)
-        {
-            throw new InvalidOperationException("امکان حذف تیکت وجود ندارد زیرا دارای کامنت است");
-        }
-
-        var hasActivities = await _context.Activities.AnyAsync(a => a.TicketId == request.Id, cancellationToken);
-        if (hasActivities)
-        {
-            throw new InvalidOperationException("امکان حذف تیکت وجود ندارد زیرا دارای فعالیت مرتبط است");
-        }
-
         _context.Tickets.Remove(ticket);
         await _context.SaveChangesAsync(cancellationToken);
         return true;

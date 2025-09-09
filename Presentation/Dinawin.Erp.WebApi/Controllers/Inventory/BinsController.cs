@@ -1,7 +1,7 @@
-using Dinawin.Erp.Application.Features.Inventory.Bins.Queries.GetAllBins;
-using Dinawin.Erp.Application.Features.Inventory.Bins.Queries.GetBinById;
-using Dinawin.Erp.Application.Features.Inventory.Bins.Commands.UpdateBin;
-using Dinawin.Erp.Application.Features.Inventory.Bins.Commands.DeleteBin;
+using Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetAllBins;
+using Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetBinById;
+using Dinawin.Erp.Application.Features.Inventories.Bins.Commands.UpdateBin;
+using Dinawin.Erp.Application.Features.Inventories.Bins.Commands.DeleteBin;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;

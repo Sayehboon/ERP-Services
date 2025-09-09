@@ -73,4 +73,7 @@ public class Category : BaseEntity, IAggregateRoot
     /// Products of this category
     /// </summary>
     public ICollection<Product> Products { get; set; } = new List<Product>();
+    public string? Icon { get; set; }
+    public string? Color { get; set; }
+    public string Code { get; set; }
 }

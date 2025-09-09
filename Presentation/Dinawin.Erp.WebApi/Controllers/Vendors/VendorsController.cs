@@ -4,6 +4,9 @@ using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.Vendors.Queries.GetAllVendors;
 using Dinawin.Erp.Application.Features.Vendors.Queries.GetVendorById;
 using Dinawin.Erp.Application.Features.Vendors.Queries.SearchVendors;
+using Dinawin.Erp.Application.Features.Vendors.Queries.GetActiveVendors;
+using Dinawin.Erp.Application.Features.Vendors.Queries.GetVendorProducts;
+using Dinawin.Erp.Application.Features.Vendors.Queries.GetVendorOrders;
 using Dinawin.Erp.Application.Features.Vendors.Commands.CreateVendor;
 using Dinawin.Erp.Application.Features.Vendors.Commands.UpdateVendor;
 using Dinawin.Erp.Application.Features.Vendors.Commands.DeleteVendor;
@@ -160,16 +163,8 @@ public class VendorsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetActiveVendorsQuery
-            var vendors = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    VendorCode = "VEND001",
-                    CompanyName = "شرکت خودرو پارس",
-                    IsActive = true
-                }
-            };
+            var query = new GetActiveVendorsQuery();
+            var vendors = await _mediator.Send(query);
             return Success(vendors);
         }
         catch (Exception ex)
@@ -190,17 +185,8 @@ public class VendorsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetVendorOrdersQuery
-            var orders = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    OrderNumber = "PO001",
-                    OrderDate = DateTime.Now.AddDays(-15),
-                    TotalAmount = 1000000000,
-                    Status = "در حال انجام"
-                }
-            };
+            var query = new GetVendorOrdersQuery { VendorId = id };
+            var orders = await _mediator.Send(query);
             return Success(orders);
         }
         catch (Exception ex)
@@ -221,17 +207,8 @@ public class VendorsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetVendorProductsQuery
-            var products = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    ProductName = "تویوتا کامری ۱۴۰۳",
-                    ProductCode = "TC1403",
-                    Price = 500000000,
-                    IsActive = true
-                }
-            };
+            var query = new GetVendorProductsQuery { VendorId = id };
+            var products = await _mediator.Send(query);
             return Success(products);
         }
         catch (Exception ex)

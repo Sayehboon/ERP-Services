@@ -16,11 +16,11 @@ public class GetBankAccountsByBusinessQueryHandler : IRequestHandler<GetBankAcco
     {
         return await _db.BankAccounts.AsNoTracking()
             .Where(ba => ba.BusinessId == request.BusinessId && ba.IsActive)
-            .OrderBy(ba => ba.Name)
+            .OrderBy(ba => ba.AccountName)
             .Select(ba => new BankAccountDto
             {
                 Id = ba.Id,
-                Name = ba.Name,
+                Name = ba.AccountName,
                 Iban = ba.Iban,
                 Currency = ba.Currency,
                 ControlAccountId = ba.ControlAccountId,

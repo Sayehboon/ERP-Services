@@ -5,6 +5,31 @@ using Dinawin.Erp.Domain.ValueObjects;
 namespace Dinawin.Erp.Domain.Entities.Products;
 
 /// <summary>
+/// انواع کالا
+/// Product types
+/// </summary>
+public enum ProductType
+{
+    /// <summary>
+    /// کالای فیزیکی
+    /// Physical product
+    /// </summary>
+    Physical = 1,
+
+    /// <summary>
+    /// کالای دیجیتال
+    /// Digital product
+    /// </summary>
+    Digital = 2,
+
+    /// <summary>
+    /// خدمات
+    /// Service
+    /// </summary>
+    Service = 3
+}
+
+/// <summary>
 /// موجودیت کالا
 /// Product entity
 /// </summary>
@@ -104,7 +129,7 @@ public class Product : BaseEntity, IAggregateRoot
     /// نوع کالا
     /// Product type
     /// </summary>
-    public ProductType Type { get; set; } = ProductType.Physical;
+    public ProductType Type { get; set; }
 
     /// <summary>
     /// وزن کالا
@@ -129,29 +154,18 @@ public class Product : BaseEntity, IAggregateRoot
     /// Product inventory movements
     /// </summary>
     public ICollection<InventoryMovement> InventoryMovements { get; set; } = [];
-}
-
-/// <summary>
-/// انواع کالا
-/// Product types
-/// </summary>
-public enum ProductType
-{
-    /// <summary>
-    /// کالای فیزیکی
-    /// Physical product
-    /// </summary>
-    Physical = 1,
-
-    /// <summary>
-    /// خدمات
-    /// Service
-    /// </summary>
-    Service = 2,
-
-    /// <summary>
-    /// کالای دیجیتال
-    /// Digital product
-    /// </summary>
-    Digital = 3
+    public string? Code { get; set; }
+    public Guid? ModelId { get; set; }
+    public Guid? TrimId { get; set; }
+    public Guid? YearId { get; set; }
+    public Guid? UnitId { get; set; }
+    public bool IsPurchasable { get; set; }
+    public bool IsSellable { get; set; }
+    public string Status { get; set; }
+    public string? ProductType { get; set; }
+    public string? Color { get; set; }
+    public decimal CurrentStock { get; set; }
+    public decimal WholesalePrice { get; set; }
+    public decimal SalePrice { get; set; }
+    public bool IsManufacturable { get; set; }
 }

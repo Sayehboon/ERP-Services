@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
+using Dinawin.Erp.Application.Common.Interfaces;
 
 namespace Dinawin.Erp.Application.Features.HR.Employees.Commands.UpdateEmployee;
 
@@ -36,9 +36,10 @@ public class UpdateEmployeeCommandHandler : IRequestHandler<UpdateEmployeeComman
             throw new InvalidOperationException($"کارمند با شناسه {request.Id} یافت نشد");
         }
 
-        // بررسی تکراری نبودن کد کارمند (به جز خود کارمند)
-        var existingEmployee = await _context.Employees
-            .FirstOrDefaultAsync(e => e.EmployeeCode == request.EmployeeCode && e.Id != request.Id, cancellationToken);
+        // بررسی تکراری نبودن شماره پرسنلی (به جز خود کارمند)
+        var existingEmployee = string.IsNullOrWhiteSpace(request.EmployeeCode)
+            ? null
+            : await _context.Employees.FirstOrDefaultAsync(e => e.PersonnelNumber == request.EmployeeCode && e.Id != request.Id, cancellationToken);
 
         if (existingEmployee != null)
         {
@@ -57,34 +58,20 @@ public class UpdateEmployeeCommandHandler : IRequestHandler<UpdateEmployeeComman
             }
         }
 
-        // بررسی وجود شرکت
-        if (request.CompanyId.HasValue)
-        {
-            var companyExists = await _context.Companies
-                .AnyAsync(c => c.Id == request.CompanyId.Value, cancellationToken);
-
-            if (!companyExists)
-            {
-                throw new InvalidOperationException($"شرکت با شناسه {request.CompanyId} یافت نشد");
-            }
-        }
+        // توجه: موجودیت شرکت در مدل کارمند وجود ندارد؛ از اعتبارسنجی شرکت صرف‌نظر شد
 
         // به‌روزرسانی اطلاعات
-        employee.EmployeeCode = request.EmployeeCode;
-        employee.FirstName = request.FirstName;
+        employee.PersonnelNumber = request.EmployeeCode;
+        employee.Name = request.FirstName ?? employee.Name;
         employee.LastName = request.LastName;
         employee.Email = request.Email;
         employee.Phone = request.Phone;
         employee.DepartmentId = request.DepartmentId;
-        employee.CompanyId = request.CompanyId;
         employee.Position = request.Position;
-        employee.HireDate = request.HireDate ?? employee.HireDate;
-        employee.Salary = request.Salary;
+        employee.EmploymentDate = request.HireDate ?? employee.EmploymentDate;
         employee.IsActive = request.IsActive;
         employee.Address = request.Address;
-        employee.BirthDate = request.BirthDate;
-        employee.Gender = request.Gender;
-        employee.NationalId = request.NationalId;
+        employee.NationalCode = request.NationalId;
         employee.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync(cancellationToken);

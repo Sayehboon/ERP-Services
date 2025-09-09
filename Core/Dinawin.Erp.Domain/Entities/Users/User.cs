@@ -37,13 +37,13 @@ public class User : BaseEntity, IAggregateRoot
     /// ایمیل
     /// Email address
     /// </summary>
-    public required Email Email { get; set; }
+    public required string Email { get; set; }
 
     /// <summary>
     /// شماره تلفن
     /// Phone number
     /// </summary>
-    public PhoneNumber? PhoneNumber { get; set; }
+    public string? PhoneNumber { get; set; }
 
     /// <summary>
     /// هش رمز عبور

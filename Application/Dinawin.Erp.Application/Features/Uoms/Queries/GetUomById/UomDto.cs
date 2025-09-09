@@ -16,19 +16,19 @@ public class UomDto
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
+    /// نماد واحد اندازه‌گیری
+    /// </summary>
+    public string Symbol { get; set; } = string.Empty;
+
+    /// <summary>
     /// کد واحد اندازه‌گیری
     /// </summary>
     public string Code { get; set; } = string.Empty;
 
     /// <summary>
-    /// نماد واحد اندازه‌گیری
-    /// </summary>
-    public string? Symbol { get; set; }
-
-    /// <summary>
     /// نوع واحد اندازه‌گیری
     /// </summary>
-    public string UomType { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
 
     /// <summary>
     /// توضیحات
@@ -41,22 +41,27 @@ public class UomDto
     public bool IsActive { get; set; }
 
     /// <summary>
+    /// ضریب تبدیل به واحد پایه
+    /// </summary>
+    public decimal ConversionFactor { get; set; } = 1;
+
+    /// <summary>
+    /// شناسه واحد پایه
+    /// </summary>
+    public Guid? BaseUomId { get; set; }
+
+    /// <summary>
+    /// نام واحد پایه
+    /// </summary>
+    public string? BaseUomName { get; set; }
+
+    /// <summary>
     /// تاریخ ایجاد
     /// </summary>
     public DateTime CreatedAt { get; set; }
 
     /// <summary>
-    /// تاریخ به‌روزرسانی
+    /// تاریخ آخرین به‌روزرسانی
     /// </summary>
     public DateTime? UpdatedAt { get; set; }
-
-    /// <summary>
-    /// شناسه کاربر ایجاد کننده
-    /// </summary>
-    public Guid? CreatedBy { get; set; }
-
-    /// <summary>
-    /// شناسه کاربر به‌روزرسانی کننده
-    /// </summary>
-    public Guid? UpdatedBy { get; set; }
 }

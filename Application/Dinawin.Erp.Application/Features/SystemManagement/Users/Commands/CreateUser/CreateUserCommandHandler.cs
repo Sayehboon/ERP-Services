@@ -1,7 +1,8 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.SystemManagement;
+using Dinawin.Erp.Domain.Entities.Users;
+using BCrypt.Net;
 
 namespace Dinawin.Erp.Application.Features.SystemManagement.Users.Commands.CreateUser;
 
@@ -79,7 +80,7 @@ public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand
         {
             Id = Guid.NewGuid(),
             Username = request.Username,
-            PasswordHash = HashPassword(request.Password), // TODO: استفاده از PasswordHasher مناسب
+            PasswordHash = HashPassword(request.Password),
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
@@ -100,13 +101,12 @@ public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand
     }
 
     /// <summary>
-    /// هش کردن رمز عبور
+    /// هش کردن رمز عبور با استفاده از BCrypt
     /// </summary>
     /// <param name="password">رمز عبور</param>
     /// <returns>رمز عبور هش شده</returns>
     private static string HashPassword(string password)
     {
-        // TODO: پیاده‌سازی هش کردن رمز عبور با استفاده از BCrypt یا روش مناسب دیگر
-        return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(password));
+        return BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt(12));
     }
 }

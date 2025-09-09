@@ -18,12 +18,12 @@ public sealed class BankAccountDto
     /// <summary>
     /// شماره حساب
     /// </summary>
-    public string AccountNumber { get; set; } = string.Empty;
+    public string? AccountNumber { get; set; } = string.Empty;
 
     /// <summary>
     /// نام بانک
     /// </summary>
-    public string BankName { get; set; } = string.Empty;
+    public string? BankName { get; set; } = string.Empty;
 
     /// <summary>
     /// کد بانک
@@ -33,7 +33,7 @@ public sealed class BankAccountDto
     /// <summary>
     /// نوع حساب
     /// </summary>
-    public string AccountType { get; set; } = string.Empty;
+    public string? AccountType { get; set; } = string.Empty;
 
     /// <summary>
     /// ارز حساب

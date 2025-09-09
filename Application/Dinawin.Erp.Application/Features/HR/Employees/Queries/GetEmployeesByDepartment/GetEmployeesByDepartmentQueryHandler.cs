@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
+using Dinawin.Erp.Application.Common.Interfaces;
 using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetAllEmployees;
 
 namespace Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeesByDepartment;

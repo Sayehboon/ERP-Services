@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\inventories\\inventorymovements\\commands\\createinventorymovement\\createinventorymovementcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\inventories\\inventorymovements\\commands\\createinventorymovement\\createinventorymovementcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\products\\queries\\getproductbyid\\getproductbyidqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\products\\queries\\getproductbyid\\getproductbyidqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\financial\\cashboxes\\queries\\getallcashboxes\\getallcashboxesqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\financial\\cashboxes\\queries\\getallcashboxes\\getallcashboxesqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\products\\queries\\getallproducts\\getallproductsqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\products\\queries\\getallproducts\\getallproductsqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\financial\\cashboxes\\commands\\createcashbox\\createcashboxcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\financial\\cashboxes\\commands\\createcashbox\\createcashboxcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\common\\mappings\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\common\\mappings\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\financial\\cashboxes\\queries\\getactivecashboxes\\getactivecashboxesqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\financial\\cashboxes\\queries\\getactivecashboxes\\getactivecashboxesqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -107,39 +115,67 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\UsersController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\UsersController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAEwDUAAAAoAAAAAAAAAA==",
+              "Title": "CreateInventoryMovementCommandHandler.cs",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Inventories\\InventoryMovements\\Commands\\CreateInventoryMovement\\CreateInventoryMovementCommandHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\Inventories\\InventoryMovements\\Commands\\CreateInventoryMovement\\CreateInventoryMovementCommandHandler.cs",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Inventories\\InventoryMovements\\Commands\\CreateInventoryMovement\\CreateInventoryMovementCommandHandler.cs",
+              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\Inventories\\InventoryMovements\\Commands\\CreateInventoryMovement\\CreateInventoryMovementCommandHandler.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAowGcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-19T13:26:21.539Z",
+              "WhenOpened": "2025-09-09T06:44:30.505Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "GetProductByIdQueryHandler.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Products\\Queries\\GetProductById\\GetProductByIdQueryHandler.cs",
-              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\Products\\Queries\\GetProductById\\GetProductByIdQueryHandler.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Products\\Queries\\GetProductById\\GetProductByIdQueryHandler.cs",
-              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\Products\\Queries\\GetProductById\\GetProductByIdQueryHandler.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAawB4AAAArAAAAAAAAAA==",
+              "Title": "GetAllCashBoxesQueryHandler.cs",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Queries\\GetAllCashBoxes\\GetAllCashBoxesQueryHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Queries\\GetAllCashBoxes\\GetAllCashBoxesQueryHandler.cs",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Queries\\GetAllCashBoxes\\GetAllCashBoxesQueryHandler.cs",
+              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Queries\\GetAllCashBoxes\\GetAllCashBoxesQueryHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-19T13:22:10.146Z"
+              "WhenOpened": "2025-09-09T06:42:27.331Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "GetAllProductsQueryHandler.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Products\\Queries\\GetAllProducts\\GetAllProductsQueryHandler.cs",
-              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\Products\\Queries\\GetAllProducts\\GetAllProductsQueryHandler.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Products\\Queries\\GetAllProducts\\GetAllProductsQueryHandler.cs",
-              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\Products\\Queries\\GetAllProducts\\GetAllProductsQueryHandler.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAA0wCYAAAAIAAAAAAAAAA==",
+              "Title": "CreateCashBoxCommandHandler.cs",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Commands\\CreateCashBox\\CreateCashBoxCommandHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Commands\\CreateCashBox\\CreateCashBoxCommandHandler.cs",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Commands\\CreateCashBox\\CreateCashBoxCommandHandler.cs",
+              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Commands\\CreateCashBox\\CreateCashBoxCommandHandler.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAArwDQAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-19T13:05:50.63Z"
+              "WhenOpened": "2025-09-09T06:41:56.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Common\\Mappings\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Common\\Mappings\\MappingProfile.cs",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Common\\Mappings\\MappingProfile.cs",
+              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Common\\Mappings\\MappingProfile.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAADgvzsAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T06:37:05.576Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GetActiveCashBoxesQueryHandler.cs",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Queries\\GetActiveCashBoxes\\GetActiveCashBoxesQueryHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Queries\\GetActiveCashBoxes\\GetActiveCashBoxesQueryHandler.cs",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Queries\\GetActiveCashBoxes\\GetActiveCashBoxesQueryHandler.cs",
+              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\Financial\\CashBoxes\\Queries\\GetActiveCashBoxes\\GetActiveCashBoxesQueryHandler.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAArwBYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T05:29:31.791Z",
+              "EditorCaption": ""
             }
           ]
         }

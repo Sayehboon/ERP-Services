@@ -31,7 +31,7 @@ public sealed class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByI
         var category = await _context.Categories
             .Include(c => c.ParentCategory)
             .Include(c => c.Products)
-            .Include(c => c.Subcategories)
+            .Include(c => c.SubCategories)
             .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
         if (category == null)
@@ -42,7 +42,7 @@ public sealed class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByI
         var dto = _mapper.Map<CategoryDto>(category);
         dto.ParentCategoryName = category.ParentCategory?.Name;
         dto.ProductCount = category.Products?.Count ?? 0;
-        dto.SubcategoryCount = category.Subcategories?.Count ?? 0;
+        dto.SubcategoryCount = category.SubCategories?.Count ?? 0;
         return dto;
     }
 }

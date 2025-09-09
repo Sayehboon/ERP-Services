@@ -49,4 +49,7 @@ public class Brand : BaseEntity, IAggregateRoot
     /// Products of this brand
     /// </summary>
     public ICollection<Product> Products { get; set; } = new List<Product>();
+    public string Code { get; set; }
+    public string? Country { get; set; }
+    public Guid? CategoryId { get; set; }
 }

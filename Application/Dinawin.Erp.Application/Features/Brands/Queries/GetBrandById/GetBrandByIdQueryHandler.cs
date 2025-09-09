@@ -1,8 +1,7 @@
 using AutoMapper;
+using Dinawin.Erp.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Application.Features.Products.Queries.Dtos;
 
 namespace Dinawin.Erp.Application.Features.Brands.Queries.GetBrandById;
 

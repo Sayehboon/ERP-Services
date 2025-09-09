@@ -25,9 +25,7 @@ public sealed class GetAllChartOfAccountsQueryHandler : IRequestHandler<GetAllCh
     /// </summary>
     public async Task<IEnumerable<ChartOfAccountDto>> Handle(GetAllChartOfAccountsQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.ChartOfAccounts
-            .Include(ca => ca.ParentAccount)
-            .AsQueryable();
+        var query = _context.ChartOfAccounts.AsQueryable();
 
         // اعمال فیلترها
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))
@@ -89,7 +87,7 @@ public sealed class GetAllChartOfAccountsQueryHandler : IRequestHandler<GetAllCh
             AccountCode = account.AccountCode,
             AccountName = account.AccountName,
             ParentAccountId = account.ParentAccountId,
-            ParentAccountName = account.ParentAccount?.AccountName,
+            ParentAccountName = null,
             AccountType = account.AccountType,
             AccountCategory = account.AccountCategory,
             Level = account.Level,

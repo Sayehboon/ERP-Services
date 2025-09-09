@@ -31,7 +31,7 @@ public class GetAllActivitiesQueryHandler : IRequestHandler<GetAllActivitiesQuer
         if (!string.IsNullOrEmpty(request.Priority))
             query = query.Where(a => a.Priority == request.Priority);
 
-        if (!string.IsNullOrEmpty(request.AssignedTo))
+        if (request.AssignedTo != null)
             query = query.Where(a => a.AssignedTo == request.AssignedTo);
 
         if (request.IsActive.HasValue)

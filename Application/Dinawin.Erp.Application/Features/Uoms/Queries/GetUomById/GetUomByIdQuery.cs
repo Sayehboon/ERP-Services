@@ -1,5 +1,4 @@
 using MediatR;
-using System.ComponentModel.DataAnnotations;
 
 namespace Dinawin.Erp.Application.Features.Uoms.Queries.GetUomById;
 
@@ -11,6 +10,5 @@ public sealed class GetUomByIdQuery : IRequest<UomDto?>
     /// <summary>
     /// شناسه واحد اندازه‌گیری
     /// </summary>
-    [Required(ErrorMessage = "شناسه واحد اندازه‌گیری الزامی است")]
-    public Guid Id { get; set; }
+    public required Guid Id { get; init; }
 }

@@ -2,6 +2,12 @@ using Dinawin.Erp.Application.Features.Accounting.FiscalPeriods.Queries.GetPerio
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Accounting.FiscalPeriods.Queries.GetFiscalPeriodById;
+using Dinawin.Erp.Application.Features.Accounting.FiscalPeriods.Queries.GetActiveFiscalPeriod;
+using Dinawin.Erp.Application.Features.Accounting.FiscalPeriods.Commands.CreateFiscalPeriod;
+using Dinawin.Erp.Application.Features.Accounting.FiscalPeriods.Commands.UpdateFiscalPeriod;
+using Dinawin.Erp.Application.Features.Accounting.FiscalPeriods.Commands.DeleteFiscalPeriod;
+using Dinawin.Erp.Application.Features.Accounting.FiscalPeriods.Queries.GetAllFiscalPeriods;
 
 namespace Dinawin.Erp.WebApi.Controllers.Accounting;
 
@@ -30,18 +36,7 @@ public class FiscalPeriodsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetFiscalPeriodsQuery
-            var periods = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    PeriodName = "فروردین ۱۴۰۳",
-                    StartDate = DateTime.Parse("2024-03-20"),
-                    EndDate = DateTime.Parse("2024-04-19"),
-                    FiscalYearId = Guid.NewGuid(),
-                    IsActive = true
-                }
-            };
+            var periods = await _mediator.Send(new GetAllFiscalPeriodsQuery());
             return Success(periods);
         }
         catch (Exception ex)
@@ -62,13 +57,8 @@ public class FiscalPeriodsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetFiscalPeriodByIdQuery
-            var period = new { 
-                Id = id, 
-                PeriodName = "فروردین ۱۴۰۳",
-                StartDate = DateTime.Parse("2024-03-20"),
-                EndDate = DateTime.Parse("2024-04-19")
-            };
+            var period = await _mediator.Send(new GetFiscalPeriodByIdQuery(id));
+            if (period == null) return NotFound("دوره مالی یافت نشد");
             return Success(period);
         }
         catch (Exception ex)
@@ -89,17 +79,7 @@ public class FiscalPeriodsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetPeriodsByYearQuery
-            var result = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    PeriodName = "فروردین ۱۴۰۳",
-                    StartDate = DateTime.Parse("2024-03-20"),
-                    EndDate = DateTime.Parse("2024-04-19"),
-                    FiscalYearId = fiscalYearId
-                }
-            };
+            var result = await _mediator.Send(new GetPeriodsByYearQuery(fiscalYearId));
             return Success(result);
         }
         catch (Exception ex)
@@ -115,18 +95,12 @@ public class FiscalPeriodsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetActiveFiscalPeriod()
+    public async Task<ActionResult> GetActiveFiscalPeriod([FromQuery] Guid fiscalYearId)
     {
         try
         {
-            // TODO: پیاده‌سازی GetActiveFiscalPeriodQuery
-            var period = new { 
-                Id = Guid.NewGuid(), 
-                PeriodName = "آبان ۱۴۰۳",
-                StartDate = DateTime.Parse("2024-10-22"),
-                EndDate = DateTime.Parse("2024-11-20"),
-                IsActive = true
-            };
+            var period = await _mediator.Send(new GetActiveFiscalPeriodQuery(fiscalYearId));
+            if (period == null) return NotFound("دوره مالی فعالی یافت نشد");
             return Success(period);
         }
         catch (Exception ex)
@@ -143,12 +117,11 @@ public class FiscalPeriodsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateFiscalPeriod([FromBody] object command)
+    public async Task<ActionResult> CreateFiscalPeriod([FromBody] CreateFiscalPeriodCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateFiscalPeriodCommand
-            var periodId = Guid.NewGuid();
+            var periodId = await _mediator.Send(command);
             return Created(periodId, "دوره مالی با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -167,11 +140,13 @@ public class FiscalPeriodsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateFiscalPeriod(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateFiscalPeriod(Guid id, [FromBody] UpdateFiscalPeriodCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateFiscalPeriodCommand
+            if (command.Id != id) return BadRequest("شناسه دوره مالی مطابقت ندارد");
+            var ok = await _mediator.Send(command);
+            if (!ok) return NotFound("دوره مالی یافت نشد");
             return Success("دوره مالی با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -192,7 +167,8 @@ public class FiscalPeriodsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteFiscalPeriodCommand
+            var ok = await _mediator.Send(new DeleteFiscalPeriodCommand(id));
+            if (!ok) return NotFound("دوره مالی یافت نشد");
             return Success("دوره مالی با موفقیت حذف شد");
         }
         catch (Exception ex)

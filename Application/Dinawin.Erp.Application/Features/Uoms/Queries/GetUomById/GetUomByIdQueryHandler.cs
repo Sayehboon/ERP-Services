@@ -23,18 +23,13 @@ public sealed class GetUomByIdQueryHandler : IRequestHandler<GetUomByIdQuery, Uo
     }
 
     /// <summary>
-    /// اجرای پرس‌وجو
+    /// پردازش پرس‌وجو دریافت واحد اندازه‌گیری بر اساس شناسه
     /// </summary>
     public async Task<UomDto?> Handle(GetUomByIdQuery request, CancellationToken cancellationToken)
     {
-        var uom = await _context.Uoms
+        var uom = await _context.UnitsOfMeasures
             .FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
 
-        if (uom == null)
-        {
-            return null;
-        }
-
-        return _mapper.Map<UomDto>(uom);
+        return uom != null ? _mapper.Map<UomDto>(uom) : null;
     }
 }

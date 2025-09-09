@@ -30,7 +30,6 @@ public sealed class GetAllOpportunitiesQueryHandler : IRequestHandler<GetAllOppo
         var query = _context.Opportunities
             .Include(o => o.Lead)
             .Include(o => o.Customer)
-            .Include(o => o.Account)
             .Include(o => o.AssignedTo)
             .AsQueryable();
 
@@ -38,11 +37,10 @@ public sealed class GetAllOpportunitiesQueryHandler : IRequestHandler<GetAllOppo
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))
         {
             var searchLower = request.SearchTerm.ToLower();
-            query = query.Where(o => 
+            query = query.Where(o =>
                 o.Name.ToLower().Contains(searchLower) ||
                 (o.Lead != null && o.Lead.Name.ToLower().Contains(searchLower)) ||
-                (o.Customer != null && o.Customer.Name.ToLower().Contains(searchLower)) ||
-                (o.Account != null && o.Account.Name.ToLower().Contains(searchLower)));
+                (o.Customer != null && o.Customer.Name.ToLower().Contains(searchLower)));
         }
 
         // فیلتر بر اساس مرحله
@@ -60,7 +58,7 @@ public sealed class GetAllOpportunitiesQueryHandler : IRequestHandler<GetAllOppo
         // فیلتر بر اساس کاربر مسئول
         if (request.AssignedToId.HasValue)
         {
-            query = query.Where(o => o.AssignedToId == request.AssignedToId.Value);
+            query = query.Where(o => o.AssignedTo == request.AssignedToId.Value);
         }
 
         // فیلتر بر اساس اولویت
@@ -105,11 +103,11 @@ public sealed class GetAllOpportunitiesQueryHandler : IRequestHandler<GetAllOppo
         {
             query = query.Skip((request.Page - 1) * request.PageSize);
         }
-        
+
         query = query.Take(request.PageSize);
 
         var opportunities = await query.ToListAsync(cancellationToken);
-        
+
         return opportunities.Select(o => new OpportunityDto
         {
             Id = o.Id,
@@ -119,7 +117,7 @@ public sealed class GetAllOpportunitiesQueryHandler : IRequestHandler<GetAllOppo
             CustomerId = o.CustomerId,
             CustomerName = o.Customer?.Name,
             AccountId = o.AccountId,
-            AccountName = o.Account?.Name,
+            //AccountName = o.Account?.Name,
             Stage = o.Stage,
             Status = o.Status,
             Probability = o.Probability,
@@ -129,8 +127,8 @@ public sealed class GetAllOpportunitiesQueryHandler : IRequestHandler<GetAllOppo
             ActualCloseDate = o.ActualCloseDate,
             OpportunityType = o.OpportunityType,
             Source = o.Source,
-            AssignedToId = o.AssignedToId,
-            AssignedToName = o.AssignedTo != null ? $"{o.AssignedTo.FirstName} {o.AssignedTo.LastName}" : null,
+            AssignedToId = o.AssignedTo,
+            //AssignedToName = o.AssignedTo != null ? $"{o.AssignedTo.FirstName} {o.AssignedTo.LastName}" : null,
             Priority = o.Priority,
             Notes = o.Notes,
             CreatedAt = o.CreatedAt,

@@ -33,16 +33,15 @@ public sealed class UpdateYearCommandHandler : IRequestHandler<UpdateYearCommand
 
         // بررسی تکراری نبودن سال
         var duplicate = await _context.Years
-            .AnyAsync(y => y.Year == request.Year && y.Id != request.Id, cancellationToken);
+            .AnyAsync(y => y.YearValue == request.Year && y.Id != request.Id, cancellationToken);
         if (duplicate)
         {
             throw new InvalidOperationException($"سالی با شماره {request.Year} قبلاً وجود دارد");
         }
 
-        year.Year = request.Year;
+        year.YearValue = request.Year;
         year.Description = request.Description;
         year.IsActive = request.IsActive;
-        year.SortOrder = request.SortOrder;
         year.UpdatedBy = request.UpdatedBy;
         year.UpdatedAt = DateTime.UtcNow;
 

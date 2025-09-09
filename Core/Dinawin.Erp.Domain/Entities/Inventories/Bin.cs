@@ -61,4 +61,11 @@ public class Bin : BaseEntity, IAggregateRoot
     /// Inventories in this bin
     /// </summary>
     public ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
+    public string? BinType { get; set; }
+    public decimal? Capacity { get; set; }
+    public string? CapacityUnit { get; set; }
+    public decimal? Width { get; set; }
+    public decimal? Length { get; set; }
+    public decimal? Height { get; set; }
+    public string? Location { get; set; }
 }

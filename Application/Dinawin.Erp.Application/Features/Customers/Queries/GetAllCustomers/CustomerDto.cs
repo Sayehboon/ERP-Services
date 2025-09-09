@@ -118,12 +118,12 @@ public sealed class CustomerDto
     /// <summary>
     /// اعتبار (مبلغ)
     /// </summary>
-    public decimal CreditLimit { get; set; }
+    public decimal? CreditLimit { get; set; }
 
     /// <summary>
     /// مانده حساب
     /// </summary>
-    public decimal AccountBalance { get; set; }
+    public decimal? AccountBalance { get; set; }
 
     /// <summary>
     /// وضعیت فعال بودن

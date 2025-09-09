@@ -5,6 +5,8 @@ using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetAllEmployees;
 using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeeById;
 using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeesByDepartment;
 using Dinawin.Erp.Application.Features.HR.Employees.Queries.SearchEmployees;
+using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeeAttendance;
+using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeeSalary;
 using Dinawin.Erp.Application.Features.HR.Employees.Commands.CreateEmployee;
 using Dinawin.Erp.Application.Features.HR.Employees.Commands.UpdateEmployee;
 using Dinawin.Erp.Application.Features.HR.Employees.Commands.DeleteEmployee;
@@ -229,6 +231,90 @@ public class EmployeesController : BaseController
         catch (Exception ex)
         {
             return HandleError(ex, "خطا در حذف کارمند");
+        }
+    }
+
+    /// <summary>
+    /// دریافت حضور و غیاب کارمند
+    /// </summary>
+    /// <param name="id">شناسه کارمند</param>
+    /// <param name="fromDate">تاریخ شروع (اختیاری)</param>
+    /// <param name="toDate">تاریخ پایان (اختیاری)</param>
+    /// <param name="attendanceType">نوع حضور (اختیاری)</param>
+    /// <param name="status">وضعیت حضور (اختیاری)</param>
+    /// <param name="maxResults">تعداد نتایج حداکثر</param>
+    /// <returns>لیست حضور و غیاب کارمند</returns>
+    [HttpGet("{id}/attendance")]
+    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> GetEmployeeAttendance(
+        Guid id,
+        [FromQuery] DateTime? fromDate = null,
+        [FromQuery] DateTime? toDate = null,
+        [FromQuery] string? attendanceType = null,
+        [FromQuery] string? status = null,
+        [FromQuery] int maxResults = 100)
+    {
+        try
+        {
+            var query = new GetEmployeeAttendanceQuery
+            {
+                EmployeeId = id,
+                FromDate = fromDate,
+                ToDate = toDate,
+                AttendanceType = attendanceType,
+                Status = status,
+                MaxResults = maxResults
+            };
+
+            var attendance = await _mediator.Send(query);
+            return Success(attendance);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت حضور و غیاب کارمند");
+        }
+    }
+
+    /// <summary>
+    /// دریافت حقوق کارمند
+    /// </summary>
+    /// <param name="id">شناسه کارمند</param>
+    /// <param name="year">سال (اختیاری)</param>
+    /// <param name="month">ماه (اختیاری)</param>
+    /// <param name="includeDetails">آیا شامل جزئیات باشد</param>
+    /// <returns>اطلاعات حقوق کارمند</returns>
+    [HttpGet("{id}/salary")]
+    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> GetEmployeeSalary(
+        Guid id,
+        [FromQuery] int? year = null,
+        [FromQuery] int? month = null,
+        [FromQuery] bool includeDetails = true)
+    {
+        try
+        {
+            var query = new GetEmployeeSalaryQuery
+            {
+                EmployeeId = id,
+                Year = year,
+                Month = month,
+                IncludeDetails = includeDetails
+            };
+
+            var salary = await _mediator.Send(query);
+            
+            if (salary == null)
+            {
+                return NotFound("اطلاعات حقوق برای این کارمند یافت نشد");
+            }
+
+            return Success(salary);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت حقوق کارمند");
         }
     }
 }

@@ -28,12 +28,8 @@ public sealed class GetAllTicketsQueryHandler : IRequestHandler<GetAllTicketsQue
     public async Task<IEnumerable<TicketDto>> Handle(GetAllTicketsQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Tickets
-            .Include(t => t.Customer)
-            .Include(t => t.CreatedByUser)
-            .Include(t => t.AssignedTo)
-            .Include(t => t.Product)
-            .Include(t => t.SalesOrder)
-            .Include(t => t.Opportunity)
+            .Include(t => t.Contact)
+            .Include(t => t.AssignedUser)
             .AsQueryable();
 
         // فیلتر بر اساس عبارت جستجو
@@ -43,8 +39,7 @@ public sealed class GetAllTicketsQueryHandler : IRequestHandler<GetAllTicketsQue
             query = query.Where(t => 
                 t.Title.ToLower().Contains(searchLower) ||
                 t.Description.ToLower().Contains(searchLower) ||
-                (t.Customer != null && t.Customer.Name.ToLower().Contains(searchLower)) ||
-                (t.Product != null && t.Product.Name.ToLower().Contains(searchLower)));
+                (t.Contact != null && t.Contact.Name.ToLower().Contains(searchLower)));
         }
 
         // فیلتر بر اساس نوع تیکت
@@ -156,17 +151,17 @@ public sealed class GetAllTicketsQueryHandler : IRequestHandler<GetAllTicketsQue
             Priority = t.Priority,
             Status = t.Status,
             CustomerId = t.CustomerId,
-            CustomerName = t.Customer?.Name,
+            CustomerName = t.CustomerName,
             CreatedById = t.CreatedById,
-            CreatedByName = t.CreatedByUser != null ? $"{t.CreatedByUser.FirstName} {t.CreatedByUser.LastName}" : null,
+            CreatedByName = null,
             AssignedToId = t.AssignedToId,
-            AssignedToName = t.AssignedTo != null ? $"{t.AssignedTo.FirstName} {t.AssignedTo.LastName}" : null,
+            AssignedToName = t.AssignedUser != null ? $"{t.AssignedUser.FirstName} {t.AssignedUser.LastName}" : null,
             ProductId = t.ProductId,
-            ProductName = t.Product?.Name,
+            ProductName = null,
             SalesOrderId = t.SalesOrderId,
-            SalesOrderNumber = t.SalesOrder?.OrderNumber,
+            SalesOrderNumber = null,
             OpportunityId = t.OpportunityId,
-            OpportunityName = t.Opportunity?.Name,
+            OpportunityName = null,
             DueDate = t.DueDate,
             ClosedDate = t.ClosedDate,
             CloseReason = t.CloseReason,

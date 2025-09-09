@@ -36,7 +36,7 @@ public class GetUomConversionsQueryHandler(IApplicationDbContext db) : IRequestH
                 Id = c.Id,
                 FromUomId = c.FromUomId,
                 ToUomId = c.ToUomId,
-                Factor = c.Factor
+                Factor = c.ConversionFactor
             })
             .ToListAsync(cancellationToken);
     }

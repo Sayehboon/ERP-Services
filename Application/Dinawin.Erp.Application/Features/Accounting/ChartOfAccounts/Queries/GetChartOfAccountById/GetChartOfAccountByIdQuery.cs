@@ -1,12 +1,13 @@
 using MediatR;
 using System.ComponentModel.DataAnnotations;
+using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetAllChartOfAccounts;
 
 namespace Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetChartOfAccountById;
 
 /// <summary>
 /// پرس‌وجو دریافت حساب کل بر اساس شناسه
 /// </summary>
-public sealed class GetChartOfAccountByIdQuery : IRequest<ChartOfAccountDto?>
+public sealed class GetChartOfAccountByIdQuery : IRequest<ChartOfAccountDto>
 {
     /// <summary>
     /// شناسه حساب کل

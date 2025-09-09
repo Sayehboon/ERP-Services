@@ -4,8 +4,10 @@ using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.Categories.Commands.CreateCategory;
 using Dinawin.Erp.Application.Features.Categories.Commands.UpdateCategory;
 using Dinawin.Erp.Application.Features.Categories.Commands.DeleteCategory;
+using Dinawin.Erp.Application.Features.Categories.Commands.ToggleCategoryActive;
 using Dinawin.Erp.Application.Features.Categories.Queries.GetAllCategories;
 using Dinawin.Erp.Application.Features.Categories.Queries.GetCategoryById;
+using Dinawin.Erp.Application.Features.Categories.Queries.GetCategoriesTree;
 using Dinawin.Erp.Application.Features.Categories.DTOs;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
@@ -174,9 +176,13 @@ public class CategoriesController : BaseController
             var validationResult = ValidateId(id);
             if (validationResult != null) return validationResult;
 
-            // TODO: Implement ToggleCategoryActiveCommand
-            await Task.CompletedTask;
-            return Success("وضعیت دسته‌بندی با موفقیت تغییر کرد");
+            var command = new ToggleCategoryActiveCommand
+            {
+                Id = id
+            };
+            
+            var isActive = await _mediator.Send(command);
+            return Success(new { IsActive = isActive }, "وضعیت دسته‌بندی با موفقیت تغییر کرد");
         }
         catch (Exception ex)
         {
@@ -196,9 +202,9 @@ public class CategoriesController : BaseController
     {
         try
         {
-            // TODO: Implement GetCategoriesTreeQuery
-            await Task.CompletedTask;
-            return Success(new List<CategoryDto>(), "درخت دسته‌بندی‌ها با موفقیت بازگردانده شد");
+            var query = new GetCategoriesTreeQuery();
+            var categoriesTree = await _mediator.Send(query);
+            return Success(categoriesTree, "درخت دسته‌بندی‌ها با موفقیت بازگردانده شد");
         }
         catch (Exception ex)
         {

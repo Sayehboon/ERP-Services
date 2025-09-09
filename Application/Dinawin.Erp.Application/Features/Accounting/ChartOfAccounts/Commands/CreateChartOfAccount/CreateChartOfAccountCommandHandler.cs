@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.Accounting;
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Accounting;
 
 namespace Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.CreateChartOfAccount;
 

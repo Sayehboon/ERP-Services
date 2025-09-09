@@ -30,8 +30,8 @@ public sealed class GetOpportunityByIdQueryHandler : IRequestHandler<GetOpportun
         var opportunity = await _context.Opportunities
             .Include(o => o.Lead)
             .Include(o => o.Customer)
-            .Include(o => o.Account)
-            .Include(o => o.AssignedTo)
+            //.Include(o => o.Account)
+            //.Include(o => o.AssignedTo)
             .FirstOrDefaultAsync(o => o.Id == request.Id, cancellationToken);
 
         if (opportunity == null)
@@ -42,8 +42,8 @@ public sealed class GetOpportunityByIdQueryHandler : IRequestHandler<GetOpportun
         var dto = _mapper.Map<OpportunityDto>(opportunity);
         dto.LeadName = opportunity.Lead?.Name;
         dto.CustomerName = opportunity.Customer?.Name;
-        dto.AccountName = opportunity.Account?.Name;
-        dto.AssignedToName = opportunity.AssignedTo != null ? $"{opportunity.AssignedTo.FirstName} {opportunity.AssignedTo.LastName}" : null;
+        //dto.AccountName = opportunity.Account?.Name;
+        //dto.AssignedToName = opportunity.AssignedTo != null ? $"{opportunity.AssignedTo.FirstName} {opportunity.AssignedTo.LastName}" : null;
         return dto;
     }
 }

@@ -1,5 +1,5 @@
 using MediatR;
-using Dinawin.Erp.Persistence.ApplicationDbContext;
+using Dinawin.Erp.Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dinawin.Erp.Application.Features.Users.Commands.UpdateUser;
@@ -10,14 +10,14 @@ namespace Dinawin.Erp.Application.Features.Users.Commands.UpdateUser;
 /// </summary>
 public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, bool>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر دستور ویرایش کاربر
     /// Constructor for update user command handler
     /// </summary>
     /// <param name="context">زمینه پایگاه داده</param>
-    public UpdateUserCommandHandler(ApplicationDbContext context)
+    public UpdateUserCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }
@@ -40,16 +40,12 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, bool>
         // بروزرسانی اطلاعات کاربر
         user.FirstName = request.FirstName;
         user.LastName = request.LastName;
-        user.Email = request.Email;
-        user.Phone = request.Phone;
-        user.InternalPhone = request.InternalPhone;
-        user.NationalId = request.NationalId;
-        user.BirthDate = request.BirthDate;
+        // Email is a value object; keep as is if not changing here
+        user.AvatarUrl = request.AvatarUrl;
         user.AvatarUrl = request.AvatarUrl;
         user.IsActive = request.IsActive;
         user.CompanyId = request.CompanyId;
         user.DepartmentId = request.DepartmentId;
-        user.BusinessId = request.BusinessId;
         user.UpdatedAt = DateTime.UtcNow;
 
         // بروزرسانی نقش‌های کاربر
@@ -61,7 +57,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, bool>
 
         if (request.RoleIds.Any())
         {
-            var newUserRoles = request.RoleIds.Select(roleId => new Domain.Entities.UserRole
+            var newUserRoles = request.RoleIds.Select(roleId => new Dinawin.Erp.Domain.Entities.Users.UserRole
             {
                 Id = Guid.NewGuid(),
                 UserId = user.Id,

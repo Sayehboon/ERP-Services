@@ -1,6 +1,6 @@
 using MediatR;
 using Dinawin.Erp.Application.Features.Users.Queries.Dtos;
-using Dinawin.Erp.Persistence.ApplicationDbContext;
+using Dinawin.Erp.Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dinawin.Erp.Application.Features.Users.Queries.GetUserById;
@@ -11,14 +11,14 @@ namespace Dinawin.Erp.Application.Features.Users.Queries.GetUserById;
 /// </summary>
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserProfileDto?>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر کوئری دریافت کاربر با شناسه
     /// Constructor for get user by ID query handler
     /// </summary>
     /// <param name="context">زمینه پایگاه داده</param>
-    public GetUserByIdQueryHandler(ApplicationDbContext context)
+    public GetUserByIdQueryHandler(IApplicationDbContext context)
     {
         _context = context;
     }

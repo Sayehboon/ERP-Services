@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.Uoms.Commands.CreateUom;
 
@@ -27,7 +27,7 @@ public sealed class CreateUomCommandHandler : IRequestHandler<CreateUomCommand, 
     public async Task<Guid> Handle(CreateUomCommand request, CancellationToken cancellationToken)
     {
         // بررسی یکتایی کد واحد اندازه‌گیری
-        var codeExists = await _context.Uoms
+        var codeExists = await _context.UnitsOfMeasures
             .AnyAsync(u => u.Code == request.Code, cancellationToken);
         if (codeExists)
         {
@@ -35,14 +35,14 @@ public sealed class CreateUomCommandHandler : IRequestHandler<CreateUomCommand, 
         }
 
         // بررسی یکتایی نام واحد اندازه‌گیری
-        var nameExists = await _context.Uoms
+        var nameExists = await _context.UnitsOfMeasures
             .AnyAsync(u => u.Name == request.Name, cancellationToken);
         if (nameExists)
         {
             throw new ArgumentException($"واحد اندازه‌گیری با نام {request.Name} قبلاً وجود دارد");
         }
 
-        var uom = new Uom
+        var uom = new UnitOfMeasure
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
@@ -55,7 +55,7 @@ public sealed class CreateUomCommandHandler : IRequestHandler<CreateUomCommand, 
             CreatedAt = DateTime.UtcNow
         };
 
-        _context.Uoms.Add(uom);
+        _context.UnitsOfMeasures.Add(uom);
         await _context.SaveChangesAsync(cancellationToken);
         return uom.Id;
     }

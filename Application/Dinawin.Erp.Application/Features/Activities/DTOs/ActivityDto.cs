@@ -14,7 +14,7 @@ public class ActivityDto
     public DateTime? DueDate { get; set; }
     public string Status { get; set; } = string.Empty;
     public string Priority { get; set; } = string.Empty;
-    public string? AssignedTo { get; set; }
+    public Guid? AssignedTo { get; set; }
     public string? Description { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }

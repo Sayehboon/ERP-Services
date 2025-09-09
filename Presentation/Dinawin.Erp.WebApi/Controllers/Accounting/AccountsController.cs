@@ -1,6 +1,9 @@
+using Dinawin.Erp.Application.Features.Accounting.Accounts.Commands.CreateAccount;
+using Dinawin.Erp.Application.Features.Accounting.Accounts.Commands.UpdateAccountStatus;
+using Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.Dtos;
+using Dinawin.Erp.Application.Features.Accounting.Accounts.Queries.GetAllAccounts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Dinawin.Erp.WebApi.Controllers;
 
 namespace Dinawin.Erp.WebApi.Controllers.Accounting;
 
@@ -25,23 +28,11 @@ public class AccountsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllAccounts()
+    public async Task<ActionResult<IReadOnlyList<AccountDto>>> GetAllAccounts()
     {
         try
         {
-            // TODO: پیاده‌سازی GetAccountsQuery
-            var accounts = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    AccountCode = "1000",
-                    AccountName = "موجودی نقد",
-                    AccountType = "Asset",
-                    ParentAccountId = null,
-                    Balance = 5000000000,
-                    IsActive = true
-                }
-            };
+            var accounts = await _mediator.Send(new GetAllAccountsQuery());
             return Success(accounts);
         }
         catch (Exception ex)
@@ -58,17 +49,14 @@ public class AccountsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetAccount(Guid id)
+    public async Task<ActionResult<AccountDto>> GetAccount(Guid id)
     {
         try
         {
-            // TODO: پیاده‌سازی GetAccountByIdQuery
-            var account = new { 
-                Id = id, 
-                AccountCode = "1000",
-                AccountName = "موجودی نقد",
-                AccountType = "Asset"
-            };
+            // There is no explicit GetAccountById query; fetch from business/all then filter
+            var accounts = await _mediator.Send(new GetAllAccountsQuery());
+            var account = accounts.FirstOrDefault(a => a.Id == id);
+            if (account == null) return NotFound("حساب یافت نشد");
             return Success(account);
         }
         catch (Exception ex)
@@ -85,12 +73,11 @@ public class AccountsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateAccount([FromBody] object command)
+    public async Task<ActionResult<Guid>> CreateAccount([FromBody] CreateAccountCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateAccountCommand
-            var accountId = Guid.NewGuid();
+            var accountId = await _mediator.Send(command);
             return Created(accountId, "حساب با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -109,11 +96,13 @@ public class AccountsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateAccount(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateAccount(Guid id, [FromBody] UpdateAccountStatusCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateAccountCommand
+            if (command.Id != id) return BadRequest("شناسه حساب مطابقت ندارد");
+            var ok = await _mediator.Send(command);
+            if (!ok) return NotFound("حساب یافت نشد");
             return Success("حساب با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -134,7 +123,9 @@ public class AccountsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteAccountCommand
+            // No delete command defined; set inactive as soft-delete
+            var ok = await _mediator.Send(new UpdateAccountStatusCommand(id, false));
+            if (!ok) return NotFound("حساب یافت نشد");
             return Success("حساب با موفقیت حذف شد");
         }
         catch (Exception ex)

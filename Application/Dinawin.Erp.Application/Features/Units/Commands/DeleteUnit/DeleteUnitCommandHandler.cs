@@ -25,27 +25,27 @@ public sealed class DeleteUnitCommandHandler : IRequestHandler<DeleteUnitCommand
     /// </summary>
     public async Task<bool> Handle(DeleteUnitCommand request, CancellationToken cancellationToken)
     {
-        var unit = await _context.Units.FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
+        var unit = await _context.UnitsOfMeasures.FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
         if (unit == null)
         {
             throw new ArgumentException($"واحد اندازه‌گیری با شناسه {request.Id} یافت نشد");
         }
 
         // بررسی وجود محصولات مرتبط
-        var hasProducts = await _context.Products.AnyAsync(p => p.UnitId == request.Id, cancellationToken);
+        var hasProducts = await _context.Products.AnyAsync(p => p.BaseUomId == request.Id, cancellationToken);
         if (hasProducts)
         {
             throw new InvalidOperationException("امکان حذف واحد اندازه‌گیری وجود ندارد زیرا به کالاها مرتبط است");
         }
 
         // بررسی وجود واحدهای وابسته
-        var hasDependentUnits = await _context.Units.AnyAsync(u => u.BaseUnitId == request.Id, cancellationToken);
+        var hasDependentUnits = await _context.UnitsOfMeasures.AnyAsync(u => u.BaseUnitId == request.Id, cancellationToken);
         if (hasDependentUnits)
         {
             throw new InvalidOperationException("امکان حذف واحد اندازه‌گیری وجود ندارد زیرا واحدهای دیگری به آن وابسته هستند");
         }
 
-        _context.Units.Remove(unit);
+        _context.UnitsOfMeasures.Remove(unit);
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }

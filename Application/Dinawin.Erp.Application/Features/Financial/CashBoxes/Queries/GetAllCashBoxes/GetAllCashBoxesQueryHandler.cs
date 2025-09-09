@@ -1,6 +1,6 @@
+using Dinawin.Erp.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
 
 namespace Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetAllCashBoxes;
 
@@ -58,8 +58,8 @@ public class GetAllCashBoxesQueryHandler : IRequestHandler<GetAllCashBoxesQuery,
                 Code = cb.Code,
                 Location = cb.Location,
                 ResponsiblePersonId = cb.ResponsiblePersonId,
-                ResponsiblePersonName = cb.ResponsiblePerson != null ? 
-                    $"{cb.ResponsiblePerson.FirstName} {cb.ResponsiblePerson.LastName}" : null,
+                //ResponsiblePersonName = cb.ResponsiblePerson != null ? 
+                //    $"{cb.ResponsiblePerson.FirstName} {cb.ResponsiblePerson.LastName}" : null,
                 CurrentBalance = cb.CurrentBalance,
                 Currency = cb.Currency,
                 IsActive = cb.IsActive,

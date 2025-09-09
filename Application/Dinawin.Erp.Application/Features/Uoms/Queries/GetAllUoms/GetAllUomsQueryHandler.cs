@@ -27,7 +27,7 @@ public sealed class GetAllUomsQueryHandler : IRequestHandler<GetAllUomsQuery, IE
     /// </summary>
     public async Task<IEnumerable<UomDto>> Handle(GetAllUomsQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.Uoms.AsQueryable();
+        var query = _context.UnitsOfMeasures.AsQueryable();
 
         // فیلتر بر اساس عبارت جستجو
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))

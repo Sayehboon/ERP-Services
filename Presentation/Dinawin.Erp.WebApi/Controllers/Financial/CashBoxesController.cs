@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetAllCashBoxes;
 using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetCashBoxById;
+using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetActiveCashBoxes;
+using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetCashBoxTransactions;
 using Dinawin.Erp.Application.Features.Financial.CashBoxes.Commands.CreateCashBox;
 
 namespace Dinawin.Erp.WebApi.Controllers.Financial;
@@ -99,16 +101,8 @@ public class CashBoxesController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetActiveCashBoxesQuery
-            var cashBoxes = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Name = "صندوق اصلی",
-                    Code = "CASH001",
-                    IsActive = true
-                }
-            };
+            var query = new GetActiveCashBoxesQuery();
+            var cashBoxes = await _mediator.Send(query);
             return Success(cashBoxes);
         }
         catch (Exception ex)
@@ -129,18 +123,8 @@ public class CashBoxesController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetCashBoxTransactionsQuery
-            var transactions = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    TransactionDate = DateTime.Now.AddDays(-3),
-                    Description = "دریافت نقدی فروش",
-                    Amount = 10000000,
-                    TransactionType = "دریافت",
-                    Balance = 50000000
-                }
-            };
+            var query = new GetCashBoxTransactionsQuery { CashBoxId = id };
+            var transactions = await _mediator.Send(query);
             return Success(transactions);
         }
         catch (Exception ex)
@@ -161,13 +145,18 @@ public class CashBoxesController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetCashBoxBalanceQuery
+            var cashBox = await _mediator.Send(new GetCashBoxByIdQuery { Id = id });
+            if (cashBox == null)
+            {
+                return NotFound($"صندوق نقدی با شناسه {id} یافت نشد");
+            }
+
             var balance = new
             {
                 CashBoxId = id,
-                CurrentBalance = 50000000,
-                LastUpdated = DateTime.Now.AddHours(-2),
-                Currency = "IRR"
+                CurrentBalance = cashBox.CurrentBalance,
+                LastUpdated = cashBox.UpdatedAt ?? cashBox.CreatedAt,
+                Currency = cashBox.Currency
             };
             return Success(balance);
         }

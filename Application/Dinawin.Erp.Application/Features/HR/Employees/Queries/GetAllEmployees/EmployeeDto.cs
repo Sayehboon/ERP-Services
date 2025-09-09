@@ -109,4 +109,8 @@ public sealed class EmployeeDto
     /// شناسه کاربر به‌روزرسانی کننده
     /// </summary>
     public Guid? UpdatedBy { get; set; }
+    public object EmployeeCode { get; internal set; }
+    public object Salary { get; internal set; }
+    public object HireDate { get; internal set; }
+    public string? Position { get; internal set; }
 }

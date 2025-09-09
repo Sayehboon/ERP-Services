@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.HR;
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Users;
 
 namespace Dinawin.Erp.Application.Features.HR.Employees.Commands.CreateEmployee;
 
@@ -29,9 +29,10 @@ public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeComman
     /// <returns>شناسه کارمند ایجاد شده</returns>
     public async Task<Guid> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
     {
-        // بررسی تکراری نبودن کد کارمند
-        var existingEmployee = await _context.Employees
-            .FirstOrDefaultAsync(e => e.EmployeeCode == request.EmployeeCode, cancellationToken);
+        // بررسی تکراری نبودن شماره پرسنلی (در صورت ارسال)
+        var existingEmployee = string.IsNullOrWhiteSpace(request.EmployeeCode)
+            ? null
+            : await _context.Employees.FirstOrDefaultAsync(e => e.PersonnelNumber == request.EmployeeCode, cancellationToken);
 
         if (existingEmployee != null)
         {
@@ -50,37 +51,23 @@ public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeComman
             }
         }
 
-        // بررسی وجود شرکت
-        if (request.CompanyId.HasValue)
-        {
-            var companyExists = await _context.Companies
-                .AnyAsync(c => c.Id == request.CompanyId.Value, cancellationToken);
-
-            if (!companyExists)
-            {
-                throw new InvalidOperationException($"شرکت با شناسه {request.CompanyId} یافت نشد");
-            }
-        }
+        // توجه: موجودیت شرکت در مدل کارمند وجود ندارد؛ از اعتبارسنجی شرکت صرف‌نظر شد
 
         var employee = new Employee
         {
             Id = Guid.NewGuid(),
-            EmployeeCode = request.EmployeeCode,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
+            Name = request.FirstName ?? string.Empty,
+            LastName = request.LastName ?? string.Empty,
             Email = request.Email,
             Phone = request.Phone,
             DepartmentId = request.DepartmentId,
-            CompanyId = request.CompanyId,
             Position = request.Position,
-            HireDate = request.HireDate ?? DateTime.UtcNow,
-            Salary = request.Salary,
+            EmploymentDate = request.HireDate ?? DateTime.UtcNow,
             IsActive = request.IsActive,
-            IsLocked = false,
             Address = request.Address,
-            BirthDate = request.BirthDate,
-            Gender = request.Gender,
-            NationalId = request.NationalId,
+            NationalCode = request.NationalId,
+            PersonnelNumber = request.EmployeeCode,
+            Status = "active",
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };

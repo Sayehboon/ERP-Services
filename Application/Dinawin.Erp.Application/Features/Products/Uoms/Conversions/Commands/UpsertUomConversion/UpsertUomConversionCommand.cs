@@ -19,7 +19,9 @@ public class UpsertUomConversionCommandHandler(IApplicationDbContext db) : IRequ
         {
             var c = await db.UomConversions.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
             if (c == null) throw new KeyNotFoundException("Conversion not found");
-            c.FromUomId = request.FromUomId; c.ToUomId = request.ToUomId; c.Factor = request.Factor;
+            c.FromUomId = request.FromUomId; 
+            c.ToUomId = request.ToUomId;
+            c.ConversionFactor = request.Factor;
             await db.SaveChangesAsync(cancellationToken);
             return c.Id;
         }
@@ -30,7 +32,7 @@ public class UpsertUomConversionCommandHandler(IApplicationDbContext db) : IRequ
                 Id = Guid.NewGuid(),
                 FromUomId = request.FromUomId,
                 ToUomId = request.ToUomId,
-                Factor = request.Factor
+                ConversionFactor = request.Factor
             };
             db.UomConversions.Add(c);
             await db.SaveChangesAsync(cancellationToken);

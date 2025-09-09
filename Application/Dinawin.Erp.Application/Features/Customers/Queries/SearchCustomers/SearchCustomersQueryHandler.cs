@@ -98,7 +98,7 @@ public sealed class SearchCustomersQueryHandler : IRequestHandler<SearchCustomer
     /// <param name="customer">مشتری</param>
     /// <param name="searchTerm">عبارت جستجو</param>
     /// <returns>امتیاز تطبیق</returns>
-    private static int CalculateMatchScore(Dinawin.Erp.Infrastructure.Data.Entities.Customers.Customer customer, string searchTerm)
+    private static int CalculateMatchScore(Dinawin.Erp.Domain.Entities.Accounting.Customer customer, string searchTerm)
     {
         int score = 0;
 

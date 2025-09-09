@@ -104,4 +104,13 @@ public class ActivityDto
     /// تاریخ آخرین به‌روزرسانی
     /// </summary>
     public DateTime UpdatedAt { get; set; }
+    public DateTime? ReminderDate { get; internal set; }
+    public Guid? AssignedTo { get; internal set; }
+    public bool IsCompleted { get; internal set; }
+    public string? CreatedByName { get; internal set; }
+    public Guid? CreatedBy { get; internal set; }
+    public string? AssignedToName { get; internal set; }
+    public string? Result { get; internal set; }
+    public string? Notes { get; internal set; }
+    public DateTime? CompletedAt { get; internal set; }
 }

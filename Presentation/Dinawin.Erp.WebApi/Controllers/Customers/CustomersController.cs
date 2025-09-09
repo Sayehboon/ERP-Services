@@ -4,6 +4,9 @@ using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.Customers.Queries.GetAllCustomers;
 using Dinawin.Erp.Application.Features.Customers.Queries.GetCustomerById;
 using Dinawin.Erp.Application.Features.Customers.Queries.SearchCustomers;
+using Dinawin.Erp.Application.Features.Customers.Queries.GetActiveCustomers;
+using Dinawin.Erp.Application.Features.Customers.Queries.GetCustomerOrders;
+using Dinawin.Erp.Application.Features.Customers.Queries.GetCustomerTransactions;
 using Dinawin.Erp.Application.Features.Customers.Commands.CreateCustomer;
 using Dinawin.Erp.Application.Features.Customers.Commands.UpdateCustomer;
 using Dinawin.Erp.Application.Features.Customers.Commands.DeleteCustomer;
@@ -157,17 +160,8 @@ public class CustomersController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetActiveCustomersQuery
-            var customers = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    CustomerCode = "CUST001",
-                    FirstName = "احمد",
-                    LastName = "محمدی",
-                    IsActive = true
-                }
-            };
+            var query = new GetActiveCustomersQuery();
+            var customers = await _mediator.Send(query);
             return Success(customers);
         }
         catch (Exception ex)
@@ -188,22 +182,58 @@ public class CustomersController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetCustomerOrdersQuery
-            var orders = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    OrderNumber = "SO001",
-                    OrderDate = DateTime.Now.AddDays(-10),
-                    TotalAmount = 500000000,
-                    Status = "تکمیل شده"
-                }
-            };
+            var query = new GetCustomerOrdersQuery { CustomerId = id };
+            var orders = await _mediator.Send(query);
             return Success(orders);
         }
         catch (Exception ex)
         {
             return HandleError(ex, "خطا در دریافت تاریخچه سفارشات مشتری");
+        }
+    }
+
+    /// <summary>
+    /// دریافت تراکنش‌های مشتری
+    /// </summary>
+    /// <param name="id">شناسه مشتری</param>
+    /// <param name="transactionType">نوع تراکنش (اختیاری)</param>
+    /// <param name="fromDate">تاریخ شروع (اختیاری)</param>
+    /// <param name="toDate">تاریخ پایان (اختیاری)</param>
+    /// <param name="minAmount">مبلغ حداقل (اختیاری)</param>
+    /// <param name="maxAmount">مبلغ حداکثر (اختیاری)</param>
+    /// <param name="maxResults">تعداد نتایج حداکثر</param>
+    /// <returns>لیست تراکنش‌های مشتری</returns>
+    [HttpGet("{id}/transactions")]
+    [ProducesResponseType(typeof(IEnumerable<object>), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> GetCustomerTransactions(
+        Guid id,
+        [FromQuery] string? transactionType = null,
+        [FromQuery] DateTime? fromDate = null,
+        [FromQuery] DateTime? toDate = null,
+        [FromQuery] decimal? minAmount = null,
+        [FromQuery] decimal? maxAmount = null,
+        [FromQuery] int maxResults = 100)
+    {
+        try
+        {
+            var query = new GetCustomerTransactionsQuery
+            {
+                CustomerId = id,
+                TransactionType = transactionType,
+                FromDate = fromDate,
+                ToDate = toDate,
+                MinAmount = minAmount,
+                MaxAmount = maxAmount,
+                MaxResults = maxResults
+            };
+
+            var transactions = await _mediator.Send(query);
+            return Success(transactions);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت تراکنش‌های مشتری");
         }
     }
 

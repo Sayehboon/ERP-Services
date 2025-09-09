@@ -26,7 +26,7 @@ public sealed class GetAllEmployeesQueryHandler : IRequestHandler<GetAllEmployee
     public async Task<IEnumerable<EmployeeDto>> Handle(GetAllEmployeesQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Users
-            .Include(u => u.Role)
+            .Include(u => u.UserRoles)
             .Include(u => u.Department)
             .Include(u => u.Company)
             .AsQueryable();
@@ -40,7 +40,7 @@ public sealed class GetAllEmployeesQueryHandler : IRequestHandler<GetAllEmployee
                 u.FirstName.ToLower().Contains(searchTerm) ||
                 u.LastName.ToLower().Contains(searchTerm) ||
                 u.Email.ToLower().Contains(searchTerm) ||
-                (u.Phone != null && u.Phone.Contains(searchTerm)));
+                (u.PhoneNumber != null && u.PhoneNumber.Contains(searchTerm)));
         }
 
         if (request.DepartmentId.HasValue)
@@ -50,7 +50,7 @@ public sealed class GetAllEmployeesQueryHandler : IRequestHandler<GetAllEmployee
 
         if (request.RoleId.HasValue)
         {
-            query = query.Where(u => u.RoleId == request.RoleId.Value);
+            //query = query.Where(u => u.RoleId == request.RoleId.Value);
         }
 
         if (request.CompanyId.HasValue)

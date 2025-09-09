@@ -1,6 +1,6 @@
+using Dinawin.Erp.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
 
 namespace Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.SearchTasks;
 
@@ -30,11 +30,10 @@ public class SearchTasksQueryHandler : IRequestHandler<SearchTasksQuery, IEnumer
     {
         var query = _context.Tasks.AsQueryable();
 
-        // جستجو در عنوان و توضیحات
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))
         {
             var searchTerm = request.SearchTerm.ToLower();
-            query = query.Where(t => 
+            query = query.Where(t =>
                 t.Title.ToLower().Contains(searchTerm) ||
                 (t.Description != null && t.Description.ToLower().Contains(searchTerm)));
         }
@@ -46,7 +45,7 @@ public class SearchTasksQueryHandler : IRequestHandler<SearchTasksQuery, IEnumer
 
         if (request.AssignedToUserId.HasValue)
         {
-            query = query.Where(t => t.AssignedToUserId == request.AssignedToUserId.Value);
+            query = query.Where(t => t.AssignedTo == request.AssignedToUserId.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(request.Priority))
@@ -59,11 +58,6 @@ public class SearchTasksQueryHandler : IRequestHandler<SearchTasksQuery, IEnumer
             query = query.Where(t => t.Status == request.Status);
         }
 
-        if (!string.IsNullOrWhiteSpace(request.TaskType))
-        {
-            query = query.Where(t => t.TaskType == request.TaskType);
-        }
-
         var tasks = await query
             .Select(t => new TaskSearchDto
             {
@@ -71,16 +65,15 @@ public class SearchTasksQueryHandler : IRequestHandler<SearchTasksQuery, IEnumer
                 Title = t.Title,
                 Description = t.Description,
                 ProjectId = t.ProjectId,
-                ProjectName = t.Project != null ? t.Project.Name : null,
-                AssignedToUserId = t.AssignedToUserId,
-                AssignedToUserName = t.AssignedToUser != null ? 
-                    $"{t.AssignedToUser.FirstName} {t.AssignedToUser.LastName}" : null,
+                ProjectName = null,
+                AssignedToUserId = t.AssignedTo,
+                AssignedToUserName = null,
                 Priority = t.Priority,
                 Status = t.Status,
-                TaskType = t.TaskType,
-                Progress = t.Progress,
+                TaskType = null,
+                Progress = t.ProgressPercentage,
                 StartDate = t.StartDate,
-                DueDate = t.DueDate,
+                DueDate = t.EndDate,
                 IsActive = t.IsActive
             })
             .Take(request.MaxResults)

@@ -2,6 +2,12 @@ using Dinawin.Erp.Application.Features.Accounting.FiscalYears.Queries.GetAllFisc
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Accounting.FiscalYears.Queries.GetFiscalYearById;
+using Dinawin.Erp.Application.Features.Accounting.FiscalYears.Queries.GetActiveFiscalYear;
+using Dinawin.Erp.Application.Features.Accounting.FiscalYears.Commands.CreateFiscalYear;
+using Dinawin.Erp.Application.Features.Accounting.FiscalYears.Commands.UpdateFiscalYear;
+using Dinawin.Erp.Application.Features.Accounting.FiscalYears.Commands.CloseFiscalYear;
+using Dinawin.Erp.Application.Features.Accounting.FiscalYears.Commands.DeleteFiscalYear;
 
 namespace Dinawin.Erp.WebApi.Controllers.Accounting;
 
@@ -30,18 +36,7 @@ public class FiscalYearsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetAllFiscalYearsQuery
-            var fiscalYears = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    YearName = "سال مالی ۱۴۰۳",
-                    StartDate = DateTime.Parse("2024-03-20"),
-                    EndDate = DateTime.Parse("2025-03-20"),
-                    IsActive = true,
-                    IsClosed = false
-                }
-            };
+            var fiscalYears = await _mediator.Send(new GetAllFiscalYearsQuery());
             return Success(fiscalYears);
         }
         catch (Exception ex)
@@ -62,14 +57,9 @@ public class FiscalYearsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetFiscalYearByIdQuery
-            var fiscalYear = new { 
-                Id = id, 
-                YearName = "سال مالی ۱۴۰۳",
-                StartDate = DateTime.Parse("2024-03-20"),
-                EndDate = DateTime.Parse("2025-03-20")
-            };
-            return Success(fiscalYear);
+            var fy = await _mediator.Send(new GetFiscalYearByIdQuery(id));
+            if (fy == null) return NotFound("سال مالی یافت نشد");
+            return Success(fy);
         }
         catch (Exception ex)
         {
@@ -88,15 +78,9 @@ public class FiscalYearsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetActiveFiscalYearQuery
-            var fiscalYear = new { 
-                Id = Guid.NewGuid(), 
-                YearName = "سال مالی ۱۴۰۳",
-                StartDate = DateTime.Parse("2024-03-20"),
-                EndDate = DateTime.Parse("2025-03-20"),
-                IsActive = true
-            };
-            return Success(fiscalYear);
+            var fy = await _mediator.Send(new GetActiveFiscalYearQuery());
+            if (fy == null) return NotFound("سال مالی فعالی یافت نشد");
+            return Success(fy);
         }
         catch (Exception ex)
         {
@@ -112,12 +96,11 @@ public class FiscalYearsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateFiscalYear([FromBody] object command)
+    public async Task<ActionResult> CreateFiscalYear([FromBody] CreateFiscalYearCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateFiscalYearCommand
-            var fiscalYearId = Guid.NewGuid();
+            var fiscalYearId = await _mediator.Send(command);
             return Created(fiscalYearId, "سال مالی با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -136,11 +119,13 @@ public class FiscalYearsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateFiscalYear(Guid id, [FromBody] object command)
+    public async Task<ActionResult> UpdateFiscalYear(Guid id, [FromBody] UpdateFiscalYearCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateFiscalYearCommand
+            if (command.Id != id) return BadRequest("شناسه سال مالی مطابقت ندارد");
+            var ok = await _mediator.Send(command);
+            if (!ok) return NotFound("سال مالی یافت نشد");
             return Success("سال مالی با موفقیت به‌روزرسانی شد");
         }
         catch (Exception ex)
@@ -162,7 +147,8 @@ public class FiscalYearsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی CloseFiscalYearCommand
+            var ok = await _mediator.Send(new CloseFiscalYearCommand(id));
+            if (!ok) return NotFound("سال مالی یافت نشد");
             return Success("سال مالی با موفقیت بسته شد");
         }
         catch (Exception ex)
@@ -183,7 +169,8 @@ public class FiscalYearsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی DeleteFiscalYearCommand
+            var ok = await _mediator.Send(new DeleteFiscalYearCommand(id));
+            if (!ok) return NotFound("سال مالی یافت نشد");
             return Success("سال مالی با موفقیت حذف شد");
         }
         catch (Exception ex)

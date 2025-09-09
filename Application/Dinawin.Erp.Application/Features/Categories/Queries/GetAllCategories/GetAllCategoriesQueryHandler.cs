@@ -20,7 +20,7 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
     public async Task<List<CategoryDto>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Categories
-            .Include(c => c.Parent)
+            .Include(c => c.ParentCategory)
             .AsQueryable();
 
         // Apply filters
@@ -31,7 +31,7 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
         }
 
         if (request.ParentId.HasValue)
-            query = query.Where(c => c.ParentId == request.ParentId.Value);
+            query = query.Where(c => c.ParentCategoryId == request.ParentId.Value);
 
         if (request.IsActive.HasValue)
             query = query.Where(c => c.IsActive == request.IsActive.Value);
@@ -49,8 +49,8 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
                 Id = c.Id,
                 Name = c.Name,
                 Description = c.Description,
-                ParentId = c.ParentId,
-                ParentName = c.Parent != null ? c.Parent.Name : null,
+                ParentId = c.ParentCategoryId,
+                ParentName = c.ParentCategory != null ? c.ParentCategory.Name : null,
                 IsActive = c.IsActive,
                 SortOrder = c.SortOrder,
                 Icon = c.Icon,
@@ -78,7 +78,7 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
     private async Task<List<CategoryDto>> GetChildrenCategories(Guid parentId, CancellationToken cancellationToken)
     {
         return await _context.Categories
-            .Where(c => c.ParentId == parentId && c.IsActive)
+            .Where(c => c.ParentCategoryId == parentId && c.IsActive)
             .OrderBy(c => c.SortOrder)
             .ThenBy(c => c.Name)
             .Select(c => new CategoryDto
@@ -86,7 +86,7 @@ public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuer
                 Id = c.Id,
                 Name = c.Name,
                 Description = c.Description,
-                ParentId = c.ParentId,
+                ParentId = c.ParentCategoryId,
                 IsActive = c.IsActive,
                 SortOrder = c.SortOrder,
                 Icon = c.Icon,

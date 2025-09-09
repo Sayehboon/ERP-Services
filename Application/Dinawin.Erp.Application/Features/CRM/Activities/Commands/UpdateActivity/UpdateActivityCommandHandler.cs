@@ -1,6 +1,6 @@
 using MediatR;
-using Dinawin.Erp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Dinawin.Erp.Application.Common.Interfaces;
 
 namespace Dinawin.Erp.Application.Features.CRM.Activities.Commands.UpdateActivity;
 
@@ -9,13 +9,13 @@ namespace Dinawin.Erp.Application.Features.CRM.Activities.Commands.UpdateActivit
 /// </summary>
 public class UpdateActivityCommandHandler : IRequestHandler<UpdateActivityCommand, bool>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر
     /// </summary>
     /// <param name="context">کانتکست پایگاه داده</param>
-    public UpdateActivityCommandHandler(ApplicationDbContext context)
+    public UpdateActivityCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }

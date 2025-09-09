@@ -1,6 +1,6 @@
 using MediatR;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.Product;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.Categories.Commands.CreateCategory;
 
@@ -23,7 +23,7 @@ public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryComman
             Id = Guid.NewGuid(),
             Name = request.Name,
             Description = request.Description,
-            ParentId = request.ParentId,
+            ParentCategoryId = request.ParentId,
             IsActive = request.IsActive,
             SortOrder = request.SortOrder,
             Icon = request.Icon,

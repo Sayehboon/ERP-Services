@@ -1,6 +1,6 @@
 using MediatR;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.Purchase;
+using Dinawin.Erp.Domain.Entities.Purchase;
 
 namespace Dinawin.Erp.Application.Features.PurchaseOrders.Commands.CreatePurchaseOrder;
 
@@ -21,8 +21,8 @@ public class CreatePurchaseOrderCommandHandler : IRequestHandler<CreatePurchaseO
         var purchaseOrder = new PurchaseOrder
         {
             Id = Guid.NewGuid(),
-            Number = request.Number,
-            VendorName = request.VendorName,
+            OrderNumber = request.Number,
+            VendorId = request.VendorId,
             VendorEmail = request.VendorEmail,
             VendorPhone = request.VendorPhone,
             OrderDate = request.OrderDate,

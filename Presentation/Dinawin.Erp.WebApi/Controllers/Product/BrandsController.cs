@@ -1,11 +1,11 @@
+using Dinawin.Erp.Application.Features.Brands.Commands.CreateBrand;
+using Dinawin.Erp.Application.Features.Brands.Commands.UpdateBrand;
+using Dinawin.Erp.Application.Features.Brands.Commands.DeleteBrand;
+using Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands;
+using Dinawin.Erp.Application.Features.Brands.Queries.GetBrandById;
+using Dinawin.Erp.WebApi.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Product.Brands.Queries.GetAllBrands;
-using Dinawin.Erp.Application.Features.Product.Brands.Queries.GetBrandById;
-using Dinawin.Erp.Application.Features.Product.Brands.Commands.CreateBrand;
-using Dinawin.Erp.Application.Features.Product.Brands.Commands.UpdateBrand;
-using Dinawin.Erp.Application.Features.Product.Brands.Commands.DeleteBrand;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -34,7 +34,7 @@ public class BrandsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<BrandDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllBrands(
+    public async Task<ActionResult<IEnumerable<BrandDto>>> GetAllBrands(
         [FromQuery] string? searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
@@ -67,7 +67,7 @@ public class BrandsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(BrandDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetBrand(Guid id)
+    public async Task<ActionResult<BrandDto>> GetBrand(Guid id)
     {
         try
         {
@@ -95,7 +95,7 @@ public class BrandsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateBrand([FromBody] CreateBrandCommand command)
+    public async Task<ActionResult<Guid>> CreateBrand([FromBody] CreateBrandCommand command)
     {
         try
         {

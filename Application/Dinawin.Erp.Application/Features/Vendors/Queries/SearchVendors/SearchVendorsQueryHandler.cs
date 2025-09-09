@@ -98,7 +98,7 @@ public sealed class SearchVendorsQueryHandler : IRequestHandler<SearchVendorsQue
     /// <param name="vendor">تامین‌کننده</param>
     /// <param name="searchTerm">عبارت جستجو</param>
     /// <returns>امتیاز تطبیق</returns>
-    private static int CalculateMatchScore(Dinawin.Erp.Infrastructure.Data.Entities.Vendors.Vendor vendor, string searchTerm)
+    private static int CalculateMatchScore(Dinawin.Erp.Domain.Entities.Accounting.Vendor vendor, string searchTerm)
     {
         int score = 0;
 

@@ -65,7 +65,7 @@ public class UpdateActivityCommand : IRequest<bool>
     /// <summary>
     /// شناسه کاربر مسئول
     /// </summary>
-    public Guid? AssignedToUserId { get; set; }
+    public Guid AssignedToUserId { get; set; }
 
     /// <summary>
     /// شناسه کاربر به‌روزرسانی‌کننده

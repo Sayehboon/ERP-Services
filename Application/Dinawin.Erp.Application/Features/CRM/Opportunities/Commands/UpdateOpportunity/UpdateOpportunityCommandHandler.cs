@@ -88,7 +88,7 @@ public sealed class UpdateOpportunityCommandHandler : IRequestHandler<UpdateOppo
         opportunity.ActualCloseDate = request.ActualCloseDate;
         opportunity.OpportunityType = request.OpportunityType;
         opportunity.Source = request.Source;
-        opportunity.AssignedToId = request.AssignedToId;
+        opportunity.AssignedTo = request.AssignedToId;
         opportunity.Priority = request.Priority;
         opportunity.Notes = request.Notes;
         opportunity.UpdatedBy = request.UpdatedBy;

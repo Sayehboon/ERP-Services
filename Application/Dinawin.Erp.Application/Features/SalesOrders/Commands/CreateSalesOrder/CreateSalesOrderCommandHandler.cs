@@ -1,6 +1,6 @@
 using MediatR;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.Sales;
+using Dinawin.Erp.Domain.Entities.Sales;
 
 namespace Dinawin.Erp.Application.Features.SalesOrders.Commands.CreateSalesOrder;
 

@@ -169,6 +169,27 @@ public abstract class BaseController : ControllerBase
     }
 
     /// <summary>
+    /// ایجاد پاسخ ایجاد شده با شناسه
+    /// Creates a created response with ID
+    /// </summary>
+    /// <param name="id">شناسه ایجاد شده</param>
+    /// <param name="message">پیام</param>
+    /// <param name="actionName">نام اکشن</param>
+    /// <returns>پاسخ ایجاد شده</returns>
+    protected ActionResult<Guid> Created(Guid id, string message, string actionName = "Get")
+    {
+        var response = new
+        {
+            success = true,
+            data = id,
+            message = message,
+            timestamp = DateTime.UtcNow
+        };
+
+        return CreatedAtAction(actionName, new { id }, response);
+    }
+
+    /// <summary>
     /// ایجاد پاسخ حذف شده
     /// Creates a deleted response
     /// </summary>
@@ -214,6 +235,20 @@ public abstract class BaseController : ControllerBase
     {
         // Log the exception here if needed
         return Error("خطای داخلی سرور", 500);
+    }
+
+    /// <summary>
+    /// مدیریت خطاهای عمومی با پیام سفارشی
+    /// Handles general errors with custom message
+    /// </summary>
+    /// <param name="ex">استثنا</param>
+    /// <param name="customMessage">پیام خطای سفارشی</param>
+    /// <param name="statusCode">کد وضعیت HTTP</param>
+    /// <returns>پاسخ خطا</returns>
+    protected ActionResult HandleError(Exception ex, string customMessage, int statusCode = 500)
+    {
+        // Log the exception here if needed
+        return Error(customMessage, statusCode);
     }
 
     /// <summary>

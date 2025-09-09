@@ -32,7 +32,7 @@ public sealed class UpdateUomConversionCommandHandler : IRequestHandler<UpdateUo
         }
 
         // بررسی وجود واحد اندازه‌گیری مبدا
-        var fromUomExists = await _context.Uoms
+        var fromUomExists = await _context.UnitsOfMeasures
             .AnyAsync(u => u.Id == request.FromUomId, cancellationToken);
         if (!fromUomExists)
         {
@@ -40,7 +40,7 @@ public sealed class UpdateUomConversionCommandHandler : IRequestHandler<UpdateUo
         }
 
         // بررسی وجود واحد اندازه‌گیری مقصد
-        var toUomExists = await _context.Uoms
+        var toUomExists = await _context.UnitsOfMeasures
             .AnyAsync(u => u.Id == request.ToUomId, cancellationToken);
         if (!toUomExists)
         {

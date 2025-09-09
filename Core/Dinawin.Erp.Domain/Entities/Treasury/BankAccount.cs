@@ -13,7 +13,7 @@ public class BankAccount : BaseEntity, IAggregateRoot
     /// نام حساب بانکی
     /// Bank account name
     /// </summary>
-    public required string Name { get; set; }
+    public required string AccountName { get; set; }
 
     /// <summary>
     /// شماره IBAN
@@ -50,4 +50,30 @@ public class BankAccount : BaseEntity, IAggregateRoot
     /// Control account
     /// </summary>
     public Accounting.Account? ControlAccount { get; set; }
+    public decimal CurrentBalance { get; set; }
+    public string? BankName { get; set; }
+    public string? AccountNumber { get; set; }
+    public string? AccountType { get; set; }
+    public decimal InitialBalance { get; set; }
+    public string? BranchName { get; set; }
+    public string? BranchCode { get; set; }
+    public string? BranchAddress { get; set; }
+    public string? BranchPhone { get; set; }
+    public string? CardNumber { get; set; }
+    public string? Notes { get; set; }
+    public string? BankCode { get; set; }
+    public string? AccountHolderName { get; set; }
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// پرداخت‌های فروش از این حساب
+    /// Sale payments from this bank account
+    /// </summary>
+    public ICollection<Dinawin.Erp.Domain.Entities.Accounting.SalePayment> SalePayments { get; set; } = new List<Dinawin.Erp.Domain.Entities.Accounting.SalePayment>();
+
+    /// <summary>
+    /// پرداخت‌های خرید از این حساب
+    /// Purchase payments from this bank account
+    /// </summary>
+    public ICollection<Dinawin.Erp.Domain.Entities.Accounting.PurchasePayment> PurchasePayments { get; set; } = new List<Dinawin.Erp.Domain.Entities.Accounting.PurchasePayment>();
 }

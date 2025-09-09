@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
+using Dinawin.Erp.Application.Common.Interfaces;
 
 namespace Dinawin.Erp.Application.Features.HR.Employees.Queries.SearchEmployees;
 
@@ -35,9 +35,9 @@ public class SearchEmployeesQueryHandler : IRequestHandler<SearchEmployeesQuery,
         {
             var searchTerm = request.SearchTerm.ToLower();
             query = query.Where(e => 
-                e.FirstName.ToLower().Contains(searchTerm) ||
+                e.Name.ToLower().Contains(searchTerm) ||
                 e.LastName.ToLower().Contains(searchTerm) ||
-                e.EmployeeCode.ToLower().Contains(searchTerm) ||
+                (e.PersonnelNumber != null && e.PersonnelNumber.ToLower().Contains(searchTerm)) ||
                 (e.Email != null && e.Email.ToLower().Contains(searchTerm)));
         }
 
@@ -46,10 +46,7 @@ public class SearchEmployeesQueryHandler : IRequestHandler<SearchEmployeesQuery,
             query = query.Where(e => e.DepartmentId == request.DepartmentId.Value);
         }
 
-        if (request.CompanyId.HasValue)
-        {
-            query = query.Where(e => e.CompanyId == request.CompanyId.Value);
-        }
+        // CompanyId در مدل کارمند وجود ندارد
 
         if (request.IsActive.HasValue)
         {
@@ -60,13 +57,13 @@ public class SearchEmployeesQueryHandler : IRequestHandler<SearchEmployeesQuery,
             .Select(e => new EmployeeSearchDto
             {
                 Id = e.Id,
-                EmployeeCode = e.EmployeeCode,
-                FirstName = e.FirstName,
+                EmployeeCode = e.PersonnelNumber,
+                FirstName = e.Name,
                 LastName = e.LastName,
                 Email = e.Email,
                 Phone = e.Phone,
                 DepartmentId = e.DepartmentId,
-                DepartmentName = e.Department != null ? e.Department.Name : null,
+                DepartmentName = null,
                 Position = e.Position,
                 IsActive = e.IsActive
             })

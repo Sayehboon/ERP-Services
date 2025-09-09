@@ -7,6 +7,7 @@ using Dinawin.Erp.Application.Features.Accounting.JournalVouchers.Commands.Delet
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using Dinawin.Erp.Application.Features.Accounting.JournalVouchers.Queries.GetJournalVoucherById;
 
 namespace Dinawin.Erp.WebApi.Controllers.Accounting;
 
@@ -47,7 +48,6 @@ public class JournalVouchersController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetAllJournalVouchersQuery
             var result = await _mediator.Send(new GetAllJournalVouchersQuery(status, type, number, fromDate, toDate, sortBy));
             return Success(result);
         }
@@ -69,13 +69,8 @@ public class JournalVouchersController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetJournalVoucherByIdQuery
-            var voucher = new { 
-                Id = id, 
-                VoucherNumber = "JV001",
-                VoucherDate = DateTime.Now,
-                Description = "سند حسابداری"
-            };
+            var voucher = await _mediator.Send(new GetJournalVoucherByIdQuery(id));
+            if (voucher == null) return NotFound("سند حسابداری یافت نشد");
             return Success(voucher);
         }
         catch (Exception ex)

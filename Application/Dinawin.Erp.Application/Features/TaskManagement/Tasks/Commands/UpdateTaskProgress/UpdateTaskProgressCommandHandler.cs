@@ -1,6 +1,6 @@
+using Dinawin.Erp.Application.Common.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
 
 namespace Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTaskProgress;
 

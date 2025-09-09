@@ -1,14 +1,13 @@
-using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Products;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dinawin.Erp.Application.Features.Units.Commands.CreateUnit;
 
 /// <summary>
 /// مدیریت‌کننده دستور ایجاد واحد اندازه‌گیری
 /// </summary>
-public sealed class CreateUnitCommandHandler : IRequestHandler<CreateUnitCommand, Guid>
+public sealed class CreateUnitCommandHandler : MediatR.IRequestHandler<CreateUnitCommand, Guid>
 {
     private readonly IApplicationDbContext _context;
 
@@ -27,7 +26,7 @@ public sealed class CreateUnitCommandHandler : IRequestHandler<CreateUnitCommand
     public async Task<Guid> Handle(CreateUnitCommand request, CancellationToken cancellationToken)
     {
         // بررسی تکراری نبودن نام واحد
-        var duplicateName = await _context.Units
+        var duplicateName = await _context.UnitsOfMeasures
             .AnyAsync(u => u.Name == request.Name, cancellationToken);
         if (duplicateName)
         {
@@ -35,7 +34,7 @@ public sealed class CreateUnitCommandHandler : IRequestHandler<CreateUnitCommand
         }
 
         // بررسی تکراری نبودن کد واحد
-        var duplicateCode = await _context.Units
+        var duplicateCode = await _context.UnitsOfMeasures
             .AnyAsync(u => u.Code == request.Code, cancellationToken);
         if (duplicateCode)
         {
@@ -45,7 +44,7 @@ public sealed class CreateUnitCommandHandler : IRequestHandler<CreateUnitCommand
         // بررسی وجود واحد پایه
         if (request.BaseUnitId.HasValue)
         {
-            var baseUnitExists = await _context.Units
+            var baseUnitExists = await _context.UnitsOfMeasures
                 .AnyAsync(u => u.Id == request.BaseUnitId.Value, cancellationToken);
             if (!baseUnitExists)
             {
@@ -53,7 +52,7 @@ public sealed class CreateUnitCommandHandler : IRequestHandler<CreateUnitCommand
             }
         }
 
-        var unit = new Unit
+        var unit = new UnitOfMeasure
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
@@ -69,7 +68,7 @@ public sealed class CreateUnitCommandHandler : IRequestHandler<CreateUnitCommand
             CreatedAt = DateTime.UtcNow
         };
 
-        _context.Units.Add(unit);
+        _context.UnitsOfMeasures.Add(unit);
         await _context.SaveChangesAsync(cancellationToken);
         return unit.Id;
     }

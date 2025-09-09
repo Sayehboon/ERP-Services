@@ -1,4 +1,5 @@
 using MediatR;
+using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetAllEmployees;
 
 namespace Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeesByDepartment;
 

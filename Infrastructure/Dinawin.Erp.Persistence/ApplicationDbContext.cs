@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
+using TaskEntity = Dinawin.Erp.Domain.Entities.Users.WorkTask;
 using Dinawin.Erp.Domain.Entities.Products;
 using Dinawin.Erp.Domain.Entities.Users;
 using Dinawin.Erp.Domain.Common;
@@ -9,10 +10,9 @@ using Dinawin.Erp.Domain.Entities.Inventories;
 using Dinawin.Erp.Domain.Entities.Accounting;
 using Dinawin.Erp.Domain.Entities.Treasury;
 using Dinawin.Erp.Domain.Entities.Systems;
-using Dinawin.Erp.Infrastructure.Data.Entities.Crm;
-using Dinawin.Erp.Infrastructure.Data.Entities.Product;
-using Dinawin.Erp.Infrastructure.Data.Entities.Sales;
-using Dinawin.Erp.Infrastructure.Data.Entities.Purchase;
+using Dinawin.Erp.Domain.Entities.Crm;
+using Dinawin.Erp.Domain.Entities.Sales;
+using Dinawin.Erp.Domain.Entities.Purchase;
 
 namespace Dinawin.Erp.Persistence;
 
@@ -35,13 +35,24 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Brand> Brands => Set<Brand>();
     public DbSet<Category> Categories => Set<Category>();
-    public DbSet<UnitOfMeasure> UnitsOfMeasure => Set<UnitOfMeasure>();
+    public DbSet<UnitOfMeasure> UnitsOfMeasures => Set<UnitOfMeasure>();
+    public DbSet<Model> Models => Set<Model>();
+    public DbSet<Trim> Trims => Set<Trim>();
+    public DbSet<Year> Years => Set<Year>();
+    public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
 
     // Inventory entities
-    public DbSet<Inventory> Inventories => Set<Inventory>();
+    public DbSet<Inventory> Inventory => Set<Inventory>();
     public DbSet<Warehouse> Warehouses => Set<Warehouse>();
     public DbSet<InventoryMovement> InventoryMovements => Set<InventoryMovement>();
     public DbSet<Bin> Bins => Set<Bin>();
+    public DbSet<InventoryReservation> InventoryReservations => Set<InventoryReservation>();
+    public DbSet<InventoryIssueNote> InventoryIssueNotes => Set<InventoryIssueNote>();
+    public DbSet<InventoryIssueLine> InventoryIssueLines => Set<InventoryIssueLine>();
+    public DbSet<InventoryTransferNote> InventoryTransferNotes => Set<InventoryTransferNote>();
+    public DbSet<InventoryTransferLine> InventoryTransferLines => Set<InventoryTransferLine>();
+    public DbSet<GrnReceipt> GrnReceipts => Set<GrnReceipt>();
+    public DbSet<GrnLine> GrnLines => Set<GrnLine>();
 
     // User entities
     public DbSet<User> Users => Set<User>();
@@ -49,6 +60,16 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Permission> Permissions => Set<Permission>();
     public DbSet<UserRole> UserRoles => Set<UserRole>();
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
+    public DbSet<Employee> Employees => Set<Employee>();
+    public DbSet<EmployeeAttendance> EmployeeAttendances => Set<EmployeeAttendance>();
+    public DbSet<EmployeeSalary> EmployeeSalaries => Set<EmployeeSalary>();
+    public DbSet<TaskEntity> Tasks => Set<TaskEntity>();
+    public DbSet<SubTask> SubTasks => Set<SubTask>();
+    public DbSet<Project> Projects => Set<Project>();
+    public DbSet<TaskComment> TaskComments => Set<TaskComment>();
+    public DbSet<TaskAttachment> TaskAttachments => Set<TaskAttachment>();
+    public DbSet<TaskActivity> TaskActivities => Set<TaskActivity>();
+    public DbSet<TaskProgressUpdate> TaskProgressUpdates => Set<TaskProgressUpdate>();
     public DbSet<UserPermission> UserPermissions => Set<UserPermission>();
     public DbSet<Company> Companies => Set<Company>();
     public DbSet<Department> Departments => Set<Department>();
@@ -74,32 +95,71 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<CashBox> CashBoxes => Set<CashBox>();
     public DbSet<CashTransaction> CashTransactions => Set<CashTransaction>();
     public DbSet<BankAccount> BankAccounts => Set<BankAccount>();
+    public DbSet<SalePayment> SalePayments => Set<SalePayment>();
+    public DbSet<PurchasePayment> PurchasePayments => Set<PurchasePayment>();
+    public DbSet<CashBoxTransfer> CashBoxTransfers => Set<CashBoxTransfer>();
+    public DbSet<BankTransaction> BankTransactions => Set<BankTransaction>();
+    public DbSet<BankReconciliation> BankReconciliations => Set<BankReconciliation>();
+    public DbSet<Instrument> Instruments => Set<Instrument>();
+    public DbSet<InstrumentFlow> InstrumentFlows => Set<InstrumentFlow>();
 
     // System entities
     public DbSet<SystemSetting> SystemSettings => Set<SystemSetting>();
+    public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
+    public DbSet<SecurityAudit> SecurityAudits => Set<SecurityAudit>();
+    public DbSet<SmsLog> SmsLogs => Set<SmsLog>();
 
     public DbSet<UomConversion> UomConversions => Set<UomConversion>();
 
     // CRM entities
     public DbSet<Activity> Activities => Set<Activity>();
     public DbSet<Contact> Contacts => Set<Contact>();
-    public DbSet<Account> CrmAccounts => Set<Account>();
     public DbSet<Lead> Leads => Set<Lead>();
     public DbSet<Opportunity> Opportunities => Set<Opportunity>();
     public DbSet<Ticket> Tickets => Set<Ticket>();
 
-    // Product entities (new)
-    public DbSet<Model> Models => Set<Model>();
-    public DbSet<Trim> Trims => Set<Trim>();
-    public DbSet<Year> Years => Set<Year>();
-
     // Sales entities
     public DbSet<SalesOrder> SalesOrders => Set<SalesOrder>();
     public DbSet<SalesOrderItem> SalesOrderItems => Set<SalesOrderItem>();
+    public DbSet<SalesReturn> SalesReturns => Set<SalesReturn>();
+    public DbSet<SalesReturnLine> SalesReturnLines => Set<SalesReturnLine>();
 
     // Purchase entities
     public DbSet<PurchaseOrder> PurchaseOrders => Set<PurchaseOrder>();
     public DbSet<PurchaseOrderItem> PurchaseOrderItems => Set<PurchaseOrderItem>();
+    public DbSet<PurchaseReceipt> PurchaseReceipts => Set<PurchaseReceipt>();
+    public DbSet<PurchaseReceiptLine> PurchaseReceiptLines => Set<PurchaseReceiptLine>();
+    public DbSet<PurchaseReturn> PurchaseReturns => Set<PurchaseReturn>();
+    public DbSet<PurchaseReturnLine> PurchaseReturnLines => Set<PurchaseReturnLine>();
+    public DbSet<JournalEntry> JournalEntries => Set<JournalEntry>();
+    public DbSet<JournalEntryLine> JournalEntryLines => Set<JournalEntryLine>();
+
+    // Additional entities for IApplicationDbContext compatibility
+    public DbSet<CashBoxTransaction> CashBoxTransactions => Set<CashBoxTransaction>();
+    public DbSet<ChartOfAccount> ChartOfAccounts => Set<ChartOfAccount>();
+    public DbSet<Transaction> Transactions => Set<Transaction>();
+    public DbSet<CustomerOrder> CustomerOrders => Set<CustomerOrder>();
+    public DbSet<VendorOrder> VendorOrders => Set<VendorOrder>();
+    public DbSet<GeneralLedgerEntry> GeneralLedgerEntries => Set<GeneralLedgerEntry>();
+    public DbSet<EmployeeAttendance> EmployeeAttendance => Set<EmployeeAttendance>();
+    
+    // Inventory entities
+    public DbSet<InventoryLevel> InventoryLevels => Set<InventoryLevel>();
+    public DbSet<InventoryBin> InventoryBins => Set<InventoryBin>();
+    public DbSet<InventoryBarcode> InventoryBarcodes => Set<InventoryBarcode>();
+    public DbSet<InventoryCostLayer> InventoryCostLayers => Set<InventoryCostLayer>();
+    
+    // AR/AP entities
+    public DbSet<ArCustomer> ArCustomers => Set<ArCustomer>();
+    public DbSet<ArInvoice> ArInvoices => Set<ArInvoice>();
+    public DbSet<ArInvoiceLine> ArInvoiceLines => Set<ArInvoiceLine>();
+    public DbSet<ArReceipt> ArReceipts => Set<ArReceipt>();
+    public DbSet<ArSettlement> ArSettlements => Set<ArSettlement>();
+    public DbSet<ApVendor> ApVendors => Set<ApVendor>();
+    public DbSet<ApBill> ApBills => Set<ApBill>();
+    public DbSet<ApBillLine> ApBillLines => Set<ApBillLine>();
+    public DbSet<ApPayment> ApPayments => Set<ApPayment>();
+    public DbSet<ApSettlement> ApSettlements => Set<ApSettlement>();
 
     /// <summary>
     /// پیکربندی مدل دیتابیس
@@ -162,4 +222,5 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
         return await base.SaveChangesAsync(cancellationToken);
     }
+
 }

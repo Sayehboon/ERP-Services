@@ -1,8 +1,9 @@
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.Crm;
-using Dinawin.Erp.Infrastructure.Data.Entities.Product;
-using Dinawin.Erp.Infrastructure.Data.Entities.Sales;
-using Dinawin.Erp.Infrastructure.Data.Entities.Purchase;
+using Microsoft.EntityFrameworkCore;
+using Dinawin.Erp.Domain.Entities.Crm;
+using Dinawin.Erp.Domain.Entities.Products;
+using Dinawin.Erp.Domain.Entities.Sales;
+using Dinawin.Erp.Domain.Entities.Purchase;
 
 namespace Dinawin.Erp.Application.Services;
 
@@ -42,7 +43,7 @@ public class SampleDataService
                 DueDate = DateTime.UtcNow.AddDays(2),
                 Status = "انجام شده",
                 Priority = "بالا",
-                AssignedTo = "علی رضایی",
+                AssignedTo = null,
                 Description = "تماس برای پیگیری پیشنهاد قطعات",
                 CreatedAt = DateTime.UtcNow.AddDays(-2),
                 IsActive = true
@@ -58,7 +59,7 @@ public class SampleDataService
                 DueDate = DateTime.UtcNow.AddDays(3),
                 Status = "برنامه‌ریزی شده",
                 Priority = "متوسط",
-                AssignedTo = "سارا احمدی",
+                AssignedTo = null,
                 Description = "ملاقات حضوری برای معرفی محصولات",
                 CreatedAt = DateTime.UtcNow.AddDays(-1),
                 IsActive = true
@@ -74,7 +75,7 @@ public class SampleDataService
                 DueDate = DateTime.UtcNow.AddDays(1),
                 Status = "انجام شده",
                 Priority = "پایین",
-                AssignedTo = "حسین کریمی",
+                AssignedTo = null,
                 Description = "ارسال کاتالوگ جدید قطعات",
                 CreatedAt = DateTime.UtcNow.AddDays(-2),
                 IsActive = true
@@ -90,7 +91,7 @@ public class SampleDataService
                 DueDate = DateTime.UtcNow.AddDays(4),
                 Status = "در حال انجام",
                 Priority = "بالا",
-                AssignedTo = "علی رضایی",
+                AssignedTo = null,
                 Description = "تهیه پیشنهاد قیمت برای سفارش جدید",
                 CreatedAt = DateTime.UtcNow.AddDays(-1),
                 IsActive = true
@@ -116,16 +117,12 @@ public class SampleDataService
             new SalesOrder
             {
                 Id = Guid.NewGuid(),
-                Number = "SO-2024-001",
-                CustomerName = "شرکت ABC تجارت",
-                CustomerEmail = "info@abc-trade.com",
-                CustomerPhone = "021-12345678",
+                OrderNumber = "SO-2024-001",
+                CustomerId = Guid.Empty,
                 OrderDate = DateTime.UtcNow.AddDays(-5),
-                DeliveryDate = DateTime.UtcNow.AddDays(10),
+                ExpectedDeliveryDate = DateTime.UtcNow.AddDays(10),
                 TotalAmount = 145000000,
                 Status = "تایید شده",
-                Priority = "عادی",
-                SalesPerson = "احمد محمدی",
                 Description = "سفارش محصولات صنعتی",
                 CreatedAt = DateTime.UtcNow.AddDays(-5),
                 IsActive = true
@@ -133,16 +130,12 @@ public class SampleDataService
             new SalesOrder
             {
                 Id = Guid.NewGuid(),
-                Number = "SO-2024-002",
-                CustomerName = "شرکت XYZ صنعت",
-                CustomerEmail = "orders@xyz-industry.com",
-                CustomerPhone = "021-87654321",
+                OrderNumber = "SO-2024-002",
+                CustomerId = Guid.Empty,
                 OrderDate = DateTime.UtcNow.AddDays(-7),
-                DeliveryDate = DateTime.UtcNow.AddDays(5),
+                ExpectedDeliveryDate = DateTime.UtcNow.AddDays(5),
                 TotalAmount = 89000000,
                 Status = "در حال تولید",
-                Priority = "فوری",
-                SalesPerson = "فاطمه احمدی",
                 Description = "سفارش تجهیزات دفتری",
                 CreatedAt = DateTime.UtcNow.AddDays(-7),
                 IsActive = true
@@ -150,16 +143,12 @@ public class SampleDataService
             new SalesOrder
             {
                 Id = Guid.NewGuid(),
-                Number = "SO-2024-003",
-                CustomerName = "شرکت DEF بازرگانی",
-                CustomerEmail = "purchase@def-trade.com",
-                CustomerPhone = "021-11223344",
+                OrderNumber = "SO-2024-003",
+                CustomerId = Guid.Empty,
                 OrderDate = DateTime.UtcNow.AddDays(-10),
-                DeliveryDate = DateTime.UtcNow.AddDays(2),
+                ExpectedDeliveryDate = DateTime.UtcNow.AddDays(2),
                 TotalAmount = 267000000,
                 Status = "آماده ارسال",
-                Priority = "عادی",
-                SalesPerson = "علی رضایی",
                 Description = "سفارش مواد اولیه",
                 CreatedAt = DateTime.UtcNow.AddDays(-10),
                 IsActive = true
@@ -185,34 +174,26 @@ public class SampleDataService
             new PurchaseOrder
             {
                 Id = Guid.NewGuid(),
-                Number = "PO-2024-001",
-                VendorName = "شرکت پتروشیمی پارس",
-                VendorEmail = "sales@pars-petrochemical.com",
-                VendorPhone = "021-99887766",
+                OrderNumber = "PO-2024-001",
+                VendorId = Guid.Empty,
                 OrderDate = DateTime.UtcNow.AddDays(-3),
-                DeliveryDate = DateTime.UtcNow.AddDays(12),
+                ExpectedDeliveryDate = DateTime.UtcNow.AddDays(12),
                 TotalAmount = 45000000,
                 Status = "sent",
                 Description = "سفارش روغن موتور و فیلتر",
-                PaymentTerms = "نقدی",
-                DeliveryAddress = "انبار مرکزی تهران",
                 CreatedAt = DateTime.UtcNow.AddDays(-3),
                 IsActive = true
             },
             new PurchaseOrder
             {
                 Id = Guid.NewGuid(),
-                Number = "PO-2024-002",
-                VendorName = "شرکت یدک پارت",
-                VendorEmail = "orders@yadak-part.com",
-                VendorPhone = "021-55443322",
+                OrderNumber = "PO-2024-002",
+                VendorId = Guid.Empty,
                 OrderDate = DateTime.UtcNow.AddDays(-4),
-                DeliveryDate = DateTime.UtcNow.AddDays(11),
+                ExpectedDeliveryDate = DateTime.UtcNow.AddDays(11),
                 TotalAmount = 32000000,
                 Status = "confirmed",
                 Description = "سفارش قطعات یدکی خودرو",
-                PaymentTerms = "چک ۳۰ روزه",
-                DeliveryAddress = "انبار قطعات",
                 CreatedAt = DateTime.UtcNow.AddDays(-4),
                 IsActive = true
             }
@@ -314,8 +295,6 @@ public class SampleDataService
                 Name = "کمری",
                 Code = "CAMRY",
                 BrandId = brands[0].Id,
-                CategoryId = categories[0].Id,
-                YearRange = "2020-2024",
                 Description = "مدل کمری تویوتا",
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
@@ -326,8 +305,6 @@ public class SampleDataService
                 Name = "کرولا",
                 Code = "COROLLA",
                 BrandId = brands[0].Id,
-                CategoryId = categories[0].Id,
-                YearRange = "2019-2024",
                 Description = "مدل کرولا تویوتا",
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
@@ -338,8 +315,6 @@ public class SampleDataService
                 Name = "206",
                 Code = "206",
                 BrandId = brands[1].Id,
-                CategoryId = categories[0].Id,
-                YearRange = "2006-2016",
                 Description = "مدل 206 پژو",
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
@@ -358,9 +333,6 @@ public class SampleDataService
                 Name = "LE",
                 Code = "LE",
                 ModelId = models[0].Id,
-                Engine = "2.5L",
-                Transmission = "اتوماتیک",
-                Drivetrain = "جلو",
                 Description = "نسخه استاندارد با امکانات پایه",
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
@@ -371,9 +343,6 @@ public class SampleDataService
                 Name = "XLE",
                 Code = "XLE",
                 ModelId = models[0].Id,
-                Engine = "2.5L",
-                Transmission = "اتوماتیک",
-                Drivetrain = "جلو",
                 Description = "نسخه میانی با امکانات بیشتر",
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
@@ -389,32 +358,21 @@ public class SampleDataService
             new Year
             {
                 Id = Guid.NewGuid(),
-                YearValue = "2022",
-                TrimId = trims[0].Id,
-                Changes = "بروزرسانی سیستم اطلاعات سرگرمی",
-                HasEpc = true,
-                EpcCode = "EPC-2022-CAM-LE",
+                YearValue = 2022,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
             },
             new Year
             {
                 Id = Guid.NewGuid(),
-                YearValue = "2023",
-                TrimId = trims[0].Id,
-                Changes = "اضافه شدن سیستم هشدار نقطه کور",
-                HasEpc = true,
-                EpcCode = "EPC-2023-CAM-LE",
+                YearValue = 2023,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
             },
             new Year
             {
                 Id = Guid.NewGuid(),
-                YearValue = "2024",
-                TrimId = trims[0].Id,
-                Changes = "بهبود سیستم تعلیق و فرمان",
-                HasEpc = false,
+                YearValue = 2024,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
             }
@@ -511,15 +469,15 @@ public class SampleDataService
             new Lead
             {
                 Id = Guid.NewGuid(),
-                FirstName = "رضا",
+                Name = "رضا",
                 LastName = "نوری",
                 Email = "r.nouri@example.com",
                 Phone = "09123456789",
-                Company = "شرکت البرز موتور",
+                CompanyName = "شرکت البرز موتور",
                 Source = "وب‌سایت",
                 Status = "جدید",
                 Score = 85,
-                Value = 15000000,
+                EstimatedValue = 15000000,
                 Notes = "علاقه‌مند به قطعات یدکی",
                 CreatedAt = DateTime.UtcNow.AddDays(-2),
                 IsActive = true
@@ -527,15 +485,15 @@ public class SampleDataService
             new Lead
             {
                 Id = Guid.NewGuid(),
-                FirstName = "زهرا",
+                Name = "زهرا",
                 LastName = "کریمی",
                 Email = "z.karimi@example.com",
                 Phone = "09187654321",
-                Company = "گاراژ ستاره",
+                CompanyName = "گاراژ ستاره",
                 Source = "تماس تلفنی",
                 Status = "مقدماتی",
                 Score = 72,
-                Value = 8500000,
+                EstimatedValue = 8500000,
                 Notes = "درخواست کاتالوگ محصولات",
                 CreatedAt = DateTime.UtcNow.AddDays(-1),
                 IsActive = true
@@ -618,7 +576,7 @@ public class SampleDataService
                 Category = "شکایت",
                 Priority = "بالا",
                 Status = "باز",
-                AssignedTo = "علی رضایی",
+                //AssignedTo = "علی رضایی",
                 Description = "قطعات سفارش داده شده با تأخیر تحویل شده و کیفیت مطلوب نداشته",
                 ResponseCount = 3,
                 CreatedAt = DateTime.UtcNow.AddDays(-2),
@@ -634,7 +592,7 @@ public class SampleDataService
                 Category = "سوال",
                 Priority = "متوسط",
                 Status = "در حال بررسی",
-                AssignedTo = "سارا احمدی",
+                //AssignedTo = "سارا احمدی",
                 Description = "درخواست مشخصات فنی و قیمت محصولات جدید",
                 ResponseCount = 1,
                 CreatedAt = DateTime.UtcNow.AddDays(-1),

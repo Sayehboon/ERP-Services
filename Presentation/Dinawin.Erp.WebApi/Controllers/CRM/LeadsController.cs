@@ -1,8 +1,8 @@
+using Dinawin.Erp.Application.Features.CRM.Leads.Commands.CreateLead;
+using Dinawin.Erp.Application.Features.CRM.Leads.Commands.UpdateLead;
+using Dinawin.Erp.Application.Features.CRM.Leads.Queries.GetAllLeads;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Dinawin.Erp.Application.Features.Leads.Commands.CreateLead;
-using Dinawin.Erp.Application.Features.Leads.Queries.GetAllLeads;
-using Dinawin.Erp.Application.Features.Leads.DTOs;
 
 namespace Dinawin.Erp.WebApi.Controllers.CRM;
 

@@ -10,7 +10,7 @@ public class CreateContactCommand : IRequest<Guid>
     /// <summary>
     /// نام
     /// </summary>
-    public string FirstName { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// نام خانوادگی
@@ -25,17 +25,17 @@ public class CreateContactCommand : IRequest<Guid>
     /// <summary>
     /// عنوان شغلی
     /// </summary>
-    public string? JobTitle { get; set; }
+    public string? Position { get; set; }
 
     /// <summary>
     /// شماره تلفن
     /// </summary>
-    public string? PhoneNumber { get; set; }
+    public string? Phone { get; set; }
 
     /// <summary>
     /// شماره موبایل
     /// </summary>
-    public string? MobileNumber { get; set; }
+    public string? Mobile { get; set; }
 
     /// <summary>
     /// آدرس ایمیل
@@ -55,7 +55,7 @@ public class CreateContactCommand : IRequest<Guid>
     /// <summary>
     /// استان
     /// </summary>
-    public string? State { get; set; }
+    public string? Province { get; set; }
 
     /// <summary>
     /// کد پستی
@@ -75,10 +75,20 @@ public class CreateContactCommand : IRequest<Guid>
     /// <summary>
     /// یادداشت‌ها
     /// </summary>
-    public string? Notes { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// شناسه کاربر ایجادکننده
     /// </summary>
-    public Guid CreatedByUserId { get; set; }
+    public Guid CreatedBy { get; set; }
+
+    /// <summary>
+    /// نوع مخاطب
+    /// </summary>
+    public string? ContactType { get; set; }
+
+    /// <summary>
+    /// وضعیت فعال بودن
+    /// </summary>
+    public bool IsActive { get; set; } = true;
 }

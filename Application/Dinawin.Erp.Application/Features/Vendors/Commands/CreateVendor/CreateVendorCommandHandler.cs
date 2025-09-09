@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.Vendors;
+using Dinawin.Erp.Domain.Entities.Accounting;
 
 namespace Dinawin.Erp.Application.Features.Vendors.Commands.CreateVendor;
 

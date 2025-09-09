@@ -28,8 +28,6 @@ public sealed class GetModelByIdQueryHandler : IRequestHandler<GetModelByIdQuery
     public async Task<ModelDto?> Handle(GetModelByIdQuery request, CancellationToken cancellationToken)
     {
         var model = await _context.Models
-            .Include(m => m.Brand)
-            .Include(m => m.Products)
             .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
 
         if (model == null)
@@ -38,8 +36,8 @@ public sealed class GetModelByIdQueryHandler : IRequestHandler<GetModelByIdQuery
         }
 
         var dto = _mapper.Map<ModelDto>(model);
-        dto.BrandName = model.Brand?.Name;
-        dto.ProductCount = model.Products?.Count ?? 0;
+        dto.BrandName = null;
+        dto.ProductCount = 0;
         return dto;
     }
 }

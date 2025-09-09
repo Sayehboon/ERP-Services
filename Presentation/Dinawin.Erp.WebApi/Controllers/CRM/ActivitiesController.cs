@@ -1,8 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Dinawin.Erp.Application.Features.Activities.Commands.CreateActivity;
-using Dinawin.Erp.Application.Features.Activities.Queries.GetAllActivities;
-using Dinawin.Erp.Application.Features.Activities.DTOs;
+using Dinawin.Erp.Application.Features.CRM.Activities.Commands.CreateActivity;
+using Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetAllActivities;
+using Dinawin.Erp.Application.Features.CRM.Activities.DTOs;
+using Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetActivityById;
+using Dinawin.Erp.Application.Features.CRM.Activities.Commands.UpdateActivity;
+using Dinawin.Erp.Application.Features.CRM.Activities.Commands.DeleteActivity;
 
 namespace Dinawin.Erp.WebApi.Controllers.CRM;
 
@@ -62,9 +65,9 @@ public class ActivitiesController : BaseController
             var validationResult = ValidateId(id);
             if (validationResult != null) return validationResult;
 
-            // TODO: Implement GetActivityByIdQuery
-            await Task.CompletedTask;
-            return Error("فعالیت با شناسه مشخص شده پیدا نشد", 404);
+            var result = await _mediator.Send(new GetActivityByIdQuery(id));
+            if (result == null) return Error("فعالیت با شناسه مشخص شده پیدا نشد", 404);
+            return Success(result);
         }
         catch (Exception ex)
         {
@@ -117,8 +120,9 @@ public class ActivitiesController : BaseController
             var validationResult = ValidateId(id);
             if (validationResult != null) return validationResult;
 
-            // TODO: Implement UpdateActivityCommand
-            await Task.CompletedTask;
+            if (command.Id != id) return BadRequest("شناسه فعالیت مطابقت ندارد");
+            var ok = await _mediator.Send(command);
+            if (!ok) return Error("فعالیت پیدا نشد", 404);
             return Updated("فعالیت با موفقیت ویرایش شد");
         }
         catch (Exception ex)
@@ -145,8 +149,8 @@ public class ActivitiesController : BaseController
             var validationResult = ValidateId(id);
             if (validationResult != null) return validationResult;
 
-            // TODO: Implement DeleteActivityCommand
-            await Task.CompletedTask;
+            var ok = await _mediator.Send(new DeleteActivityCommand(id));
+            if (!ok) return Error("فعالیت پیدا نشد", 404);
             return Deleted("فعالیت با موفقیت حذف شد");
         }
         catch (Exception ex)

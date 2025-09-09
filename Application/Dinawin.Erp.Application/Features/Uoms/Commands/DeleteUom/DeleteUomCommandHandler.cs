@@ -25,7 +25,7 @@ public sealed class DeleteUomCommandHandler : IRequestHandler<DeleteUomCommand, 
     /// </summary>
     public async Task<bool> Handle(DeleteUomCommand request, CancellationToken cancellationToken)
     {
-        var uom = await _context.Uoms.FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
+        var uom = await _context.UnitsOfMeasures.FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
         if (uom == null)
         {
             throw new ArgumentException($"واحد اندازه‌گیری با شناسه {request.Id} یافت نشد");
@@ -45,7 +45,7 @@ public sealed class DeleteUomCommandHandler : IRequestHandler<DeleteUomCommand, 
             throw new InvalidOperationException("امکان حذف واحد اندازه‌گیری وجود ندارد زیرا در تبدیلات UOM استفاده شده است");
         }
 
-        _context.Uoms.Remove(uom);
+        _context.UnitsOfMeasures.Remove(uom);
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }

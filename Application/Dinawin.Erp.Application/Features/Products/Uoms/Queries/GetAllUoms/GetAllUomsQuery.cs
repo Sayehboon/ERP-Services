@@ -8,7 +8,13 @@ using Microsoft.EntityFrameworkCore;
 /// DTO واحد
 /// UOM DTO
 /// </summary>
-public class UomDto { public Guid Id { get; set; } public string Name { get; set; } = string.Empty; public string Symbol { get; set; } = string.Empty; public string Type { get; set; } = string.Empty; }
+public class UomDto
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Symbol { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+}
 
 /// <summary>
 /// کوئری لیست واحدها
@@ -27,7 +33,7 @@ public class GetAllUomsQueryHandler : IRequestHandler<GetAllUomsQuery, IReadOnly
 
     public async Task<IReadOnlyList<UomDto>> Handle(GetAllUomsQuery request, CancellationToken cancellationToken)
     {
-        var q = _db.UnitsOfMeasure.AsNoTracking();
+        var q = _db.UnitsOfMeasures.AsNoTracking();
         if (!string.IsNullOrWhiteSpace(request.Type))
             q = q.Where(u => u.Type.ToString().ToLower() == request.Type!.ToLower());
         return await q.OrderBy(u => u.Name)

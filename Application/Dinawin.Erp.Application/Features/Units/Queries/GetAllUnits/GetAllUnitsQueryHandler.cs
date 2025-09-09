@@ -27,10 +27,8 @@ public sealed class GetAllUnitsQueryHandler : IRequestHandler<GetAllUnitsQuery, 
     /// </summary>
     public async Task<IEnumerable<UnitDto>> Handle(GetAllUnitsQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.Units
+        var query = _context.UnitsOfMeasures
             .Include(u => u.BaseUnit)
-            .Include(u => u.Products)
-            .Include(u => u.DependentUnits)
             .AsQueryable();
 
         // فیلتر بر اساس عبارت جستجو
@@ -47,7 +45,7 @@ public sealed class GetAllUnitsQueryHandler : IRequestHandler<GetAllUnitsQuery, 
         // فیلتر بر اساس نوع واحد
         if (!string.IsNullOrWhiteSpace(request.UnitType))
         {
-            query = query.Where(u => u.UnitType == request.UnitType);
+            query = query.Where(u => u.Type.ToString() == request.UnitType || u.UomType == request.UnitType);
         }
 
         // فیلتر بر اساس وضعیت فعال/غیرفعال
@@ -57,7 +55,7 @@ public sealed class GetAllUnitsQueryHandler : IRequestHandler<GetAllUnitsQuery, 
         }
 
         // مرتب‌سازی
-        query = query.OrderBy(u => u.SortOrder).ThenBy(u => u.Name);
+        query = query.OrderBy(u => u.Name);
 
         // صفحه‌بندی
         if (request.Page > 1)
@@ -76,14 +74,14 @@ public sealed class GetAllUnitsQueryHandler : IRequestHandler<GetAllUnitsQuery, 
             Code = u.Code,
             Symbol = u.Symbol,
             Description = u.Description,
-            UnitType = u.UnitType,
+            UnitType = u.UomType,
             ConversionFactor = u.ConversionFactor,
             BaseUnitId = u.BaseUnitId,
             BaseUnitName = u.BaseUnit?.Name,
             IsActive = u.IsActive,
-            SortOrder = u.SortOrder,
-            ProductCount = u.Products?.Count ?? 0,
-            DependentUnitCount = u.DependentUnits?.Count ?? 0,
+            SortOrder = 0,
+            ProductCount = 0,
+            DependentUnitCount = 0,
             CreatedAt = u.CreatedAt,
             UpdatedAt = u.UpdatedAt
         });

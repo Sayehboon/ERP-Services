@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
+using Dinawin.Erp.Application.Common.Interfaces;
 
 namespace Dinawin.Erp.Application.Features.HR.Employees.Commands.DeleteEmployee;
 

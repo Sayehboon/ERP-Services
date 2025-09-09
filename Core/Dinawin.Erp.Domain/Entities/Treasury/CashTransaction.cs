@@ -56,6 +56,10 @@ public class CashTransaction : BaseEntity, IAggregateRoot
     /// Cash box
     /// </summary>
     public CashBox CashBox { get; set; } = null!;
+    public Guid BankAccountId { get; set; }
+    public string TransactionType { get; set; }
+    public Guid? ReferenceId { get; set; }
+    public string? ReferenceType { get; set; }
 }
 
 /// <summary>

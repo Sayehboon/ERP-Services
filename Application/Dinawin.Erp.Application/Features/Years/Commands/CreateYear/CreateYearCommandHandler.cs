@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.Years.Commands.CreateYear;
 
@@ -28,7 +28,7 @@ public sealed class CreateYearCommandHandler : IRequestHandler<CreateYearCommand
     {
         // بررسی تکراری نبودن سال
         var duplicate = await _context.Years
-            .AnyAsync(y => y.Year == request.Year, cancellationToken);
+            .AnyAsync(y => y.YearValue == request.Year, cancellationToken);
         if (duplicate)
         {
             throw new InvalidOperationException($"سالی با شماره {request.Year} قبلاً وجود دارد");
@@ -37,10 +37,9 @@ public sealed class CreateYearCommandHandler : IRequestHandler<CreateYearCommand
         var year = new Year
         {
             Id = Guid.NewGuid(),
-            Year = request.Year,
+            YearValue = request.Year,
             Description = request.Description,
             IsActive = request.IsActive,
-            SortOrder = request.SortOrder,
             CreatedBy = request.CreatedBy,
             CreatedAt = DateTime.UtcNow
         };

@@ -1,7 +1,7 @@
 using MediatR;
-using Dinawin.Erp.Infrastructure.Data;
-using Dinawin.Erp.Infrastructure.Data.Entities.Crm;
 using Microsoft.EntityFrameworkCore;
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Crm;
 
 namespace Dinawin.Erp.Application.Features.CRM.Contacts.Commands.CreateContact;
 
@@ -10,13 +10,13 @@ namespace Dinawin.Erp.Application.Features.CRM.Contacts.Commands.CreateContact;
 /// </summary>
 public class CreateContactCommandHandler : IRequestHandler<CreateContactCommand, Guid>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر
     /// </summary>
     /// <param name="context">کانتکست پایگاه داده</param>
-    public CreateContactCommandHandler(ApplicationDbContext context)
+    public CreateContactCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }
@@ -32,21 +32,23 @@ public class CreateContactCommandHandler : IRequestHandler<CreateContactCommand,
         var contact = new Contact
         {
             Id = Guid.NewGuid(),
-            FirstName = request.FirstName,
+            Name = request.Name,
             LastName = request.LastName,
             CompanyName = request.CompanyName,
-            JobTitle = request.JobTitle,
-            PhoneNumber = request.PhoneNumber,
-            MobileNumber = request.MobileNumber,
+            Position = request.Position,
+            Phone = request.Phone,
+            Mobile = request.Mobile,
             Email = request.Email,
             Address = request.Address,
             City = request.City,
-            State = request.State,
+            Province = request.Province,
             PostalCode = request.PostalCode,
             Country = request.Country,
             BirthDate = request.BirthDate,
-            Notes = request.Notes,
-            CreatedByUserId = request.CreatedByUserId,
+            Description = request.Description,
+            CreatedBy = request.CreatedBy,
+            ContactType = request.ContactType,
+            IsActive = request.IsActive,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };

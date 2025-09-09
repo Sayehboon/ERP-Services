@@ -73,6 +73,18 @@ public class JournalVoucher : BaseEntity, IAggregateRoot
     /// Voucher lines
     /// </summary>
     public ICollection<JournalLine> Lines { get; set; } = new List<JournalLine>();
+
+    /// <summary>
+    /// سال مالی مرتبط
+    /// Related fiscal year
+    /// </summary>
+    public FiscalYear? FiscalYear { get; set; }
+
+    /// <summary>
+    /// دوره مالی مرتبط
+    /// Related fiscal period
+    /// </summary>
+    public FiscalPeriod? FiscalPeriod { get; set; }
 }
 
 /// <summary>
@@ -110,4 +122,16 @@ public class JournalLine : BaseEntity
     /// Credit amount
     /// </summary>
     public decimal Credit { get; set; }
+
+    /// <summary>
+    /// سند مرتبط
+    /// Related voucher
+    /// </summary>
+    public JournalVoucher? Voucher { get; set; }
+
+    /// <summary>
+    /// حساب مرتبط
+    /// Related account
+    /// </summary>
+    public Account? Account { get; set; }
 }

@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Dinawin.Erp.Application.Features.Tickets.Commands.CreateTicket;
-using Dinawin.Erp.Application.Features.Tickets.Queries.GetAllTickets;
-using Dinawin.Erp.Application.Features.Tickets.DTOs;
+using Dinawin.Erp.Application.Features.CRM.Tickets.Commands.CreateTicket;
+using Dinawin.Erp.Application.Features.CRM.Tickets.Queries.GetAllTickets;
+using Dinawin.Erp.Application.Features.CRM.Tickets.DTOs;
 
 namespace Dinawin.Erp.WebApi.Controllers.CRM;
 

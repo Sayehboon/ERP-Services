@@ -25,20 +25,14 @@ public sealed class GetAllTasksQueryHandler : IRequestHandler<GetAllTasksQuery, 
     /// </summary>
     public async Task<IEnumerable<TaskDto>> Handle(GetAllTasksQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.Tasks
-            .Include(t => t.Project)
-            .Include(t => t.AssignedToUser)
-            .Include(t => t.CreatedByUser)
-            .AsQueryable();
+        var query = _context.Tasks.AsQueryable();
 
-        // اعمال فیلترها
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))
         {
             var searchTerm = request.SearchTerm.ToLower();
-            query = query.Where(t => 
+            query = query.Where(t =>
                 t.Title.ToLower().Contains(searchTerm) ||
-                (t.Description != null && t.Description.ToLower().Contains(searchTerm)) ||
-                (t.Tags != null && t.Tags.ToLower().Contains(searchTerm)));
+                (t.Description != null && t.Description.ToLower().Contains(searchTerm)));
         }
 
         if (request.ProjectId.HasValue)
@@ -48,12 +42,7 @@ public sealed class GetAllTasksQueryHandler : IRequestHandler<GetAllTasksQuery, 
 
         if (request.AssignedToUserId.HasValue)
         {
-            query = query.Where(t => t.AssignedToUserId == request.AssignedToUserId.Value);
-        }
-
-        if (request.CreatedByUserId.HasValue)
-        {
-            query = query.Where(t => t.CreatedByUserId == request.CreatedByUserId.Value);
+            query = query.Where(t => t.AssignedTo == request.AssignedToUserId.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(request.Priority))
@@ -66,11 +55,6 @@ public sealed class GetAllTasksQueryHandler : IRequestHandler<GetAllTasksQuery, 
             query = query.Where(t => t.Status == request.Status);
         }
 
-        if (!string.IsNullOrWhiteSpace(request.TaskType))
-        {
-            query = query.Where(t => t.TaskType == request.TaskType);
-        }
-
         if (request.IsActive.HasValue)
         {
             query = query.Where(t => t.IsActive == request.IsActive.Value);
@@ -78,18 +62,16 @@ public sealed class GetAllTasksQueryHandler : IRequestHandler<GetAllTasksQuery, 
 
         if (request.FromDate.HasValue)
         {
-            query = query.Where(t => t.PlannedStartDate >= request.FromDate.Value);
+            query = query.Where(t => t.StartDate >= request.FromDate.Value);
         }
 
         if (request.ToDate.HasValue)
         {
-            query = query.Where(t => t.PlannedStartDate <= request.ToDate.Value);
+            query = query.Where(t => t.StartDate <= request.ToDate.Value);
         }
 
-        // مرتب‌سازی
         query = query.OrderByDescending(t => t.CreatedAt);
 
-        // صفحه‌بندی
         if (request.Page > 0 && request.PageSize > 0)
         {
             query = query.Skip((request.Page - 1) * request.PageSize)
@@ -104,27 +86,12 @@ public sealed class GetAllTasksQueryHandler : IRequestHandler<GetAllTasksQuery, 
             Title = t.Title,
             Description = t.Description,
             ProjectId = t.ProjectId,
-            ProjectName = t.Project?.Name,
-            AssignedToUserId = t.AssignedToUserId,
-            AssignedToUserName = t.AssignedToUser?.FirstName + " " + t.AssignedToUser?.LastName,
-            CreatedByUserId = t.CreatedByUserId,
-            CreatedByUserName = t.CreatedByUser?.FirstName + " " + t.CreatedByUser?.LastName,
+            AssignedToUserId = t.AssignedTo,
             Priority = t.Priority,
             Status = t.Status,
-            TaskType = t.TaskType,
-            PlannedStartDate = t.PlannedStartDate,
-            PlannedEndDate = t.PlannedEndDate,
-            ActualStartDate = t.ActualStartDate,
-            ActualEndDate = t.ActualEndDate,
-            ProgressPercentage = t.ProgressPercentage,
-            EstimatedHours = t.EstimatedHours,
-            ActualHours = t.ActualHours,
-            Tags = t.Tags,
-            IsActive = t.IsActive,
-            CreatedAt = t.CreatedAt,
-            UpdatedAt = t.UpdatedAt,
-            CreatedBy = t.CreatedBy,
-            UpdatedBy = t.UpdatedBy
+            StartDate = t.StartDate,
+            EndDate = t.EndDate,
+            IsActive = t.IsActive
         });
     }
 }

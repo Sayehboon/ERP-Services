@@ -1,4 +1,6 @@
 using Dinawin.Erp.Application.Features.Products.Uoms.Queries.GetAllUoms;
+using Dinawin.Erp.Application.Features.Uoms.Queries.GetUomById;
+using Dinawin.Erp.Application.Features.Uoms.Queries.GetActiveUoms;
 using Dinawin.Erp.Application.Features.Products.Uoms.Commands.UpsertUom;
 using Dinawin.Erp.Application.Features.Products.Uoms.Commands.DeleteUom;
 using MediatR;
@@ -54,14 +56,14 @@ public class UomsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetUomByIdQuery
-            var uom = new { 
-                Id = id, 
-                Name = "عدد",
-                Symbol = "عدد",
-                Type = "Count",
-                IsActive = true
-            };
+            var query = new GetUomByIdQuery { Id = id };
+            var uom = await _mediator.Send(query);
+            
+            if (uom == null)
+            {
+                return NotFound("واحد اندازه‌گیری یافت نشد");
+            }
+            
             return Success(uom);
         }
         catch (Exception ex)
@@ -81,17 +83,8 @@ public class UomsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetActiveUomsQuery
-            var uoms = new List<object>
-            {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Name = "عدد",
-                    Symbol = "عدد",
-                    Type = "Count",
-                    IsActive = true
-                }
-            };
+            var query = new GetActiveUomsQuery();
+            var uoms = await _mediator.Send(query);
             return Success(uoms);
         }
         catch (Exception ex)

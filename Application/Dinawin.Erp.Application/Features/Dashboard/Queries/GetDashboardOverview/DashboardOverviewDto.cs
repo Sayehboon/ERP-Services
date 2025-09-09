@@ -43,22 +43,22 @@ public sealed class DashboardOverviewDto
     /// <summary>
     /// نمودار فروش ماهانه
     /// </summary>
-    public List<MonthlyChartDataDto> MonthlySalesChart { get; set; } = new();
+    public List<MonthlyValueDto> MonthlySalesChart { get; set; } = new();
 
     /// <summary>
     /// نمودار خرید ماهانه
     /// </summary>
-    public List<MonthlyChartDataDto> MonthlyPurchaseChart { get; set; } = new();
+    public List<MonthlyValueDto> MonthlyPurchaseChart { get; set; } = new();
 
     /// <summary>
     /// نمودار موجودی بر اساس دسته‌بندی
     /// </summary>
-    public List<CategoryChartDataDto> InventoryByCategoryChart { get; set; } = new();
+    public List<CategoryValueDto> InventoryByCategoryChart { get; set; } = new();
 
     /// <summary>
     /// نمودار وضعیت وظایف
     /// </summary>
-    public List<StatusChartDataDto> TaskStatusChart { get; set; } = new();
+    public List<StatusValueDto> TaskStatusChart { get; set; } = new();
 }
 
 /// <summary>
@@ -296,77 +296,58 @@ public sealed class TaskOverviewDto
     /// تعداد وظایف منقضی شده
     /// </summary>
     public int OverdueTasks { get; set; }
+    public int ActiveTasks { get; internal set; }
 }
 
 /// <summary>
 /// مدل داده نمودار ماهانه
 /// </summary>
-public sealed class MonthlyChartDataDto
+public sealed class MonthlyValueDto
 {
-    /// <summary>
-    /// نام ماه
-    /// </summary>
-    public string Month { get; set; } = string.Empty;
-
     /// <summary>
     /// سال
     /// </summary>
     public int Year { get; set; }
 
     /// <summary>
+    /// ماه
+    /// </summary>
+    public int Month { get; set; }
+
+    /// <summary>
     /// مقدار
     /// </summary>
     public decimal Value { get; set; }
-
-    /// <summary>
-    /// تعداد
-    /// </summary>
-    public int Count { get; set; }
 }
 
 /// <summary>
 /// مدل داده نمودار دسته‌بندی
 /// </summary>
-public sealed class CategoryChartDataDto
+public sealed class CategoryValueDto
 {
     /// <summary>
-    /// نام دسته‌بندی
+    /// شناسه دسته‌بندی
     /// </summary>
-    public string CategoryName { get; set; } = string.Empty;
+    public Guid? CategoryId { get; set; }
 
     /// <summary>
-    /// تعداد محصولات
+    /// مقدار
     /// </summary>
-    public int ProductCount { get; set; }
-
-    /// <summary>
-    /// ارزش موجودی
-    /// </summary>
-    public decimal InventoryValue { get; set; }
-
-    /// <summary>
-    /// درصد از کل
-    /// </summary>
-    public decimal Percentage { get; set; }
+    public decimal Value { get; set; }
 }
 
 /// <summary>
 /// مدل داده نمودار وضعیت
 /// </summary>
-public sealed class StatusChartDataDto
+public sealed class StatusValueDto
 {
     /// <summary>
     /// نام وضعیت
     /// </summary>
-    public string StatusName { get; set; } = string.Empty;
+    public string Status { get; set; } = string.Empty;
 
     /// <summary>
     /// تعداد
     /// </summary>
     public int Count { get; set; }
-
-    /// <summary>
-    /// درصد از کل
-    /// </summary>
-    public decimal Percentage { get; set; }
 }

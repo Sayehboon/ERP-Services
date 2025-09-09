@@ -24,7 +24,7 @@ public class UomConversion : BaseEntity
     /// ضریب تبدیل (از → به)
     /// Conversion factor (from → to)
     /// </summary>
-    public decimal Factor { get; set; }
+    public decimal ConversionFactor { get; set; }
 
     /// <summary>
     /// ناوبری به واحد مبدا
@@ -37,6 +37,24 @@ public class UomConversion : BaseEntity
     /// Navigation to to unit
     /// </summary>
     public UnitOfMeasure? ToUom { get; set; }
+
+    /// <summary>
+    /// نام تبدیل
+    /// Conversion name
+    /// </summary>
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// توضیحات تبدیل
+    /// Conversion description
+    /// </summary>
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// فعال است؟
+    /// Is active?
+    /// </summary>
+    public bool IsActive { get; set; } = true;
 }
 
 

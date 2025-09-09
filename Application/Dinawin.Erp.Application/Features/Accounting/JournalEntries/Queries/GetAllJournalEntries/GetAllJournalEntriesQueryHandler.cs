@@ -36,8 +36,8 @@ public sealed class GetAllJournalEntriesQueryHandler : IRequestHandler<GetAllJou
             query = query.Where(je => 
                 je.EntryNumber.ToLower().Contains(searchTerm) ||
                 je.Description.ToLower().Contains(searchTerm) ||
-                je.Account.AccountName.ToLower().Contains(searchTerm) ||
-                je.Account.AccountCode.ToLower().Contains(searchTerm) ||
+                je.Account.Name.ToLower().Contains(searchTerm) ||
+                je.Account.Code.ToLower().Contains(searchTerm) ||
                 (je.Reference != null && je.Reference.ToLower().Contains(searchTerm)));
         }
 
@@ -92,8 +92,8 @@ public sealed class GetAllJournalEntriesQueryHandler : IRequestHandler<GetAllJou
             EntryType = entry.EntryType,
             Description = entry.Description,
             AccountId = entry.AccountId,
-            AccountCode = entry.Account.AccountCode,
-            AccountName = entry.Account.AccountName,
+            AccountCode = entry.Account?.Code,
+            AccountName = entry.Account?.Name,
             DebitAmount = entry.DebitAmount,
             CreditAmount = entry.CreditAmount,
             Currency = entry.Currency,

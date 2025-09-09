@@ -25,14 +25,14 @@ public sealed class UpdateUomCommandHandler : IRequestHandler<UpdateUomCommand, 
     /// </summary>
     public async Task<Guid> Handle(UpdateUomCommand request, CancellationToken cancellationToken)
     {
-        var uom = await _context.Uoms.FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
+        var uom = await _context.UnitsOfMeasures.FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
         if (uom == null)
         {
             throw new ArgumentException($"واحد اندازه‌گیری با شناسه {request.Id} یافت نشد");
         }
 
         // بررسی یکتایی کد واحد اندازه‌گیری (به جز خود واحد)
-        var codeExists = await _context.Uoms
+        var codeExists = await _context.UnitsOfMeasures
             .AnyAsync(u => u.Code == request.Code && u.Id != request.Id, cancellationToken);
         if (codeExists)
         {
@@ -40,7 +40,7 @@ public sealed class UpdateUomCommandHandler : IRequestHandler<UpdateUomCommand, 
         }
 
         // بررسی یکتایی نام واحد اندازه‌گیری (به جز خود واحد)
-        var nameExists = await _context.Uoms
+        var nameExists = await _context.UnitsOfMeasures
             .AnyAsync(u => u.Name == request.Name && u.Id != request.Id, cancellationToken);
         if (nameExists)
         {

@@ -1,5 +1,5 @@
 using AutoMapper;
-using Dinawin.Erp.Application.Features.Inventory.Queries.Dtos;
+using Dinawin.Erp.Application.Features.Inventories.Queries.Dtos;
 using Dinawin.Erp.Application.Features.Products.Queries.Dtos;
 using Dinawin.Erp.Application.Features.Users.Queries.Dtos;
 using Dinawin.Erp.Domain.Entities.Inventories;
@@ -58,9 +58,11 @@ public class MappingProfile : Profile
         CreateMap<Warehouse, WarehouseDto>();
         CreateMap<InventoryMovement, InventoryMovementDto>()
             .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.ProductCode, opt => opt.MapFrom(src => src.Product.Sku))
             .ForMember(dest => dest.WarehouseName, opt => opt.MapFrom(src => src.Warehouse.Name))
-            .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString()))
-            .ForMember(dest => dest.UnitCost, opt => opt.MapFrom(src => src.UnitCost != null ? src.UnitCost.Amount : (decimal?)null))
-            .ForMember(dest => dest.TotalValue, opt => opt.MapFrom(src => src.TotalValue != null ? src.TotalValue.Amount : (decimal?)null));
+            .ForMember(dest => dest.MovementType, opt => opt.MapFrom(src => src.MovementType))
+            .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => src.UnitCost))
+            .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.TotalCost))
+            .ForMember(dest => dest.Unit, opt => opt.MapFrom(src => src.Product.BaseUom != null ? src.Product.BaseUom.Name : string.Empty));
     }
 }

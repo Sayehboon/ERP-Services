@@ -38,12 +38,12 @@ public sealed class JournalEntryDto
     /// <summary>
     /// کد حساب
     /// </summary>
-    public string AccountCode { get; set; } = string.Empty;
+    public string? AccountCode { get; set; } = string.Empty;
 
     /// <summary>
     /// نام حساب
     /// </summary>
-    public string AccountName { get; set; } = string.Empty;
+    public string? AccountName { get; set; } = string.Empty;
 
     /// <summary>
     /// مبلغ بدهکار

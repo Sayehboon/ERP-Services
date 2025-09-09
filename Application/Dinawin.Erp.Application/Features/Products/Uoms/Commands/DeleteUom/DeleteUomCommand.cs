@@ -21,9 +21,9 @@ public class DeleteUomCommandHandler : IRequestHandler<DeleteUomCommand, bool>
 
     public async Task<bool> Handle(DeleteUomCommand request, CancellationToken cancellationToken)
     {
-        var u = await _db.UnitsOfMeasure.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+        var u = await _db.UnitsOfMeasures.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
         if (u == null) return false;
-        _db.UnitsOfMeasure.Remove(u);
+        _db.UnitsOfMeasures.Remove(u);
         await _db.SaveChangesAsync(cancellationToken);
         return true;
     }

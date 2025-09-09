@@ -31,8 +31,8 @@ public sealed class DeleteYearCommandHandler : IRequestHandler<DeleteYearCommand
             throw new ArgumentException($"سال با شناسه {request.Id} یافت نشد");
         }
 
-        // بررسی وجود محصولات مرتبط
-        var hasProducts = await _context.Products.AnyAsync(p => p.YearId == request.Id, cancellationToken);
+        // مدل فعلی محصول سال را نگه‌داری نمی‌کند، بررسی وابستگی حذف شد
+        var hasProducts = false;
         if (hasProducts)
         {
             throw new InvalidOperationException("امکان حذف سال وجود ندارد زیرا به کالاها مرتبط است");

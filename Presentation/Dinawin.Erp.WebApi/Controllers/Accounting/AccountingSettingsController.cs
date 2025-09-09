@@ -1,6 +1,7 @@
+using Dinawin.Erp.Application.Features.Accounting.Settings.Commands.UpsertAccountingSettings;
+using Dinawin.Erp.Application.Features.Accounting.Settings.Queries.GetAccountingSettings;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Dinawin.Erp.WebApi.Controllers;
 
 namespace Dinawin.Erp.WebApi.Controllers.Accounting;
 
@@ -25,22 +26,11 @@ public class AccountingSettingsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAccountingSettings()
+    public async Task<ActionResult<AccountingSettingsDto>> GetAccountingSettings()
     {
         try
         {
-            // TODO: پیاده‌سازی GetAccountingSettingsQuery
-            var settings = new
-            {
-                DefaultCurrency = "IRR",
-                FiscalYearStart = "01/01",
-                AutoPostJournalEntries = true,
-                RequireApprovalForPosting = false,
-                DefaultAccountReceivable = Guid.NewGuid(),
-                DefaultAccountPayable = Guid.NewGuid(),
-                DefaultCashAccount = Guid.NewGuid(),
-                DefaultBankAccount = Guid.NewGuid()
-            };
+            var settings = await _mediator.Send(new GetAccountingSettingsQuery());
             return Success(settings);
         }
         catch (Exception ex)
@@ -57,11 +47,12 @@ public class AccountingSettingsController : BaseController
     [HttpPut]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> UpdateAccountingSettings([FromBody] object command)
+    public async Task<ActionResult> UpdateAccountingSettings([FromBody] UpsertAccountingSettingsCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی UpdateAccountingSettingsCommand
+            var ok = await _mediator.Send(command);
+            if (!ok) return BadRequest("به‌روزرسانی تنظیمات انجام نشد");
             return Success("تنظیمات حسابداری با موفقیت به‌روزرسانی شدند");
         }
         catch (Exception ex)

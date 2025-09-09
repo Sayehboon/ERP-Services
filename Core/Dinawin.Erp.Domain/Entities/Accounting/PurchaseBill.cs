@@ -43,6 +43,12 @@ public class PurchaseBill : BaseEntity, IAggregateRoot
     /// Bill lines
     /// </summary>
     public ICollection<PurchaseBillLine> LineItems { get; set; } = new List<PurchaseBillLine>();
+
+    /// <summary>
+    /// تامین‌کننده مرتبط
+    /// Related vendor
+    /// </summary>
+    public Vendor? Vendor { get; set; }
 }
 
 /// <summary>
@@ -60,6 +66,18 @@ public class PurchaseBillLine : BaseEntity
     public decimal TaxAmount { get; set; }
     public string? Description { get; set; }
     public decimal LineTotal { get; set; }
+
+    /// <summary>
+    /// صورتحساب مرتبط
+    /// Related bill
+    /// </summary>
+    public PurchaseBill? PurchaseBill { get; set; }
+
+    /// <summary>
+    /// حساب مرتبط
+    /// Related account
+    /// </summary>
+    public Account? Account { get; set; }
 }
 
 

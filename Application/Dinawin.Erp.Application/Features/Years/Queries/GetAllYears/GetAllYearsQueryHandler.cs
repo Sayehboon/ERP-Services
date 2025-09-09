@@ -27,16 +27,14 @@ public sealed class GetAllYearsQueryHandler : IRequestHandler<GetAllYearsQuery, 
     /// </summary>
     public async Task<IEnumerable<YearDto>> Handle(GetAllYearsQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.Years
-            .Include(y => y.Products)
-            .AsQueryable();
+        var query = _context.Years.AsQueryable();
 
         // فیلتر بر اساس عبارت جستجو
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))
         {
             var searchLower = request.SearchTerm.ToLower();
             query = query.Where(y => 
-                y.Year.ToString().Contains(searchLower) ||
+                y.YearValue.ToString().Contains(searchLower) ||
                 (y.Description != null && y.Description.ToLower().Contains(searchLower)));
         }
 
@@ -49,16 +47,16 @@ public sealed class GetAllYearsQueryHandler : IRequestHandler<GetAllYearsQuery, 
         // فیلتر بر اساس بازه سال
         if (request.YearFrom.HasValue)
         {
-            query = query.Where(y => y.Year >= request.YearFrom.Value);
+            query = query.Where(y => y.YearValue >= request.YearFrom.Value);
         }
 
         if (request.YearTo.HasValue)
         {
-            query = query.Where(y => y.Year <= request.YearTo.Value);
+            query = query.Where(y => y.YearValue <= request.YearTo.Value);
         }
 
         // مرتب‌سازی
-        query = query.OrderByDescending(y => y.Year);
+        query = query.OrderByDescending(y => y.YearValue);
 
         // صفحه‌بندی
         if (request.Page > 1)
@@ -73,11 +71,11 @@ public sealed class GetAllYearsQueryHandler : IRequestHandler<GetAllYearsQuery, 
         return years.Select(y => new YearDto
         {
             Id = y.Id,
-            Year = y.Year,
+            Year = y.YearValue,
             Description = y.Description,
             IsActive = y.IsActive,
-            SortOrder = y.SortOrder,
-            ProductCount = y.Products?.Count ?? 0,
+            SortOrder = 0,
+            ProductCount = 0,
             CreatedAt = y.CreatedAt,
             UpdatedAt = y.UpdatedAt
         });

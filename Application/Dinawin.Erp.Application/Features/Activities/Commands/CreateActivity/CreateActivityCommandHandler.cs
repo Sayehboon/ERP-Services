@@ -1,6 +1,6 @@
 using MediatR;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.Crm;
+using Dinawin.Erp.Domain.Entities.Crm;
 
 namespace Dinawin.Erp.Application.Features.Activities.Commands.CreateActivity;
 

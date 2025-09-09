@@ -103,7 +103,7 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
         // بررسی وجود UOM
         if (request.UomId.HasValue)
         {
-            var uomExists = await _context.Uoms
+            var uomExists = await _context.UnitsOfMeasures
                 .AnyAsync(u => u.Id == request.UomId.Value, cancellationToken);
             if (!uomExists)
             {
@@ -111,7 +111,7 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
             }
         }
 
-        var product = new Product
+        var product = new Domain.Entities.Products.Product
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
@@ -122,13 +122,13 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
             TrimId = request.TrimId,
             YearId = request.YearId,
             UnitId = request.UnitId,
-            UomId = request.UomId,
+            BaseUomId = request.UomId,
             Description = request.Description,
             PurchasePrice = request.PurchasePrice,
             SalePrice = request.SalePrice,
             WholesalePrice = request.WholesalePrice,
-            MinStock = request.MinStock,
-            MaxStock = request.MaxStock,
+            MinStockLevel = request.MinStock,
+            MaxStockLevel = request.MaxStock,
             CurrentStock = request.CurrentStock,
             Weight = request.Weight,
             Dimensions = request.Dimensions,

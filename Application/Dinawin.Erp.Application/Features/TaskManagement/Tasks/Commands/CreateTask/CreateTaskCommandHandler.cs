@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Dinawin.Erp.Application.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.TaskManagement;
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Users;
 
 namespace Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.CreateTask;
 
@@ -62,23 +62,20 @@ public class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, Guid>
             throw new InvalidOperationException($"کاربر ایجاد کننده با شناسه {request.CreatedByUserId} یافت نشد");
         }
 
-        var task = new Task
+        var task = new WorkTask
         {
             Id = Guid.NewGuid(),
             Title = request.Title,
             Description = request.Description,
             ProjectId = request.ProjectId,
-            AssignedToUserId = request.AssignedToUserId,
-            CreatedByUserId = request.CreatedByUserId,
+            AssignedTo = request.AssignedToUserId,
+            CreatedBy = request.CreatedByUserId,
             Priority = request.Priority,
             Status = request.Status,
-            TaskType = request.TaskType,
-            Progress = request.Progress,
+            ProgressPercentage = request.Progress,
             StartDate = request.StartDate,
-            DueDate = request.DueDate,
+            EndDate = request.DueDate,
             CompletedDate = request.CompletedDate,
-            EstimatedHours = request.EstimatedHours,
-            ActualHours = request.ActualHours,
             IsActive = request.IsActive,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow

@@ -37,20 +37,6 @@ builder.Services.AddSwaggerGen(options =>
     }
 });
 
-// Add database connection
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString, sqlOptions =>
-    {
-        sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
-        sqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5,
-            maxRetryDelay: TimeSpan.FromSeconds(30),
-            errorNumbersToAdd: null);
-    });
-});
-
 // Add application layers
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);

@@ -31,7 +31,7 @@ public class Warehouse : BaseEntity, IAggregateRoot
     /// آدرس انبار
     /// Warehouse address
     /// </summary>
-    public Address? Address { get; set; }
+    public string? Address { get; set; }
 
     /// <summary>
     /// نوع انبار
@@ -92,6 +92,9 @@ public class Warehouse : BaseEntity, IAggregateRoot
     /// Warehouse inventory movements
     /// </summary>
     public ICollection<InventoryMovement> InventoryMovements { get; set; } = [];
+    public string? ManagerName { get; set; }
+    public string? CapacityUnit { get; set; }
+    public string? WarehouseType { get; set; }
 }
 
 /// <summary>

@@ -1,6 +1,6 @@
 using MediatR;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.Crm;
+using Dinawin.Erp.Domain.Entities.Crm;
 
 namespace Dinawin.Erp.Application.Features.Contacts.Commands.CreateContact;
 
@@ -21,23 +21,22 @@ public class CreateContactCommandHandler : IRequestHandler<CreateContactCommand,
         var contact = new Contact
         {
             Id = Guid.NewGuid(),
-            FirstName = request.FirstName,
+            Name = request.Name,
             LastName = request.LastName,
             Email = request.Email,
             Phone = request.Phone,
             Mobile = request.Mobile,
-            Company = request.Company,
+            CompanyName = request.CompanyName,
             Position = request.Position,
             Address = request.Address,
             City = request.City,
             PostalCode = request.PostalCode,
             Country = request.Country,
-            Notes = request.Notes,
-            Source = request.Source,
-            Status = request.Status,
+            Description = request.Description,
+            ContactType = request.ContactType,
             CreatedBy = request.CreatedBy,
             CreatedAt = DateTime.UtcNow,
-            IsActive = true
+            IsActive = request.IsActive
         };
 
         _context.Contacts.Add(contact);

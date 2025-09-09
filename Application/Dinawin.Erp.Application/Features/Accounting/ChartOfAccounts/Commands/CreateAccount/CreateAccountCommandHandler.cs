@@ -1,6 +1,6 @@
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Accounting;
 using MediatR;
-using Dinawin.Erp.Infrastructure.Data;
-using Dinawin.Erp.Infrastructure.Data.Entities.Accounting;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.CreateAccount;
@@ -10,13 +10,13 @@ namespace Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.C
 /// </summary>
 public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, Guid>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر
     /// </summary>
     /// <param name="context">کانتکست پایگاه داده</param>
-    public CreateAccountCommandHandler(ApplicationDbContext context)
+    public CreateAccountCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }

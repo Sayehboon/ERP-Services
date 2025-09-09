@@ -1,8 +1,8 @@
+using Dinawin.Erp.Application.Features.CRM.Opportunities.Commands.CreateOpportunity;
+using Dinawin.Erp.Application.Features.CRM.Opportunities.Commands.UpdateOpportunity;
+using Dinawin.Erp.Application.Features.CRM.Opportunities.Queries.GetAllOpportunities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Dinawin.Erp.Application.Features.Opportunities.Commands.CreateOpportunity;
-using Dinawin.Erp.Application.Features.Opportunities.Queries.GetAllOpportunities;
-using Dinawin.Erp.Application.Features.Opportunities.DTOs;
 
 namespace Dinawin.Erp.WebApi.Controllers.CRM;
 

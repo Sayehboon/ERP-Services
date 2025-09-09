@@ -1,4 +1,5 @@
 using MediatR;
+using Dinawin.Erp.Application.Features.CRM.Activities.DTOs;
 
 namespace Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetActivityById;
 

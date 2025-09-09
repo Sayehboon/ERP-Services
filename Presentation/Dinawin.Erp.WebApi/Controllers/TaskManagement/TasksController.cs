@@ -4,6 +4,8 @@ using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetAllTasks;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetTaskById;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.SearchTasks;
+using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetTaskProgress;
+using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetTaskStatistics;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.CreateTask;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTask;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTaskProgress;
@@ -315,6 +317,79 @@ public class TasksController : BaseController
         catch (Exception ex)
         {
             return HandleError(ex, "خطا در حذف وظیفه");
+        }
+    }
+
+    /// <summary>
+    /// دریافت پیشرفت وظیفه
+    /// </summary>
+    /// <param name="id">شناسه وظیفه</param>
+    /// <param name="includeDetails">آیا شامل جزئیات باشد</param>
+    /// <returns>اطلاعات پیشرفت وظیفه</returns>
+    [HttpGet("{id}/progress")]
+    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(404)]
+    public async Task<ActionResult> GetTaskProgress(Guid id, [FromQuery] bool includeDetails = true)
+    {
+        try
+        {
+            var query = new GetTaskProgressQuery
+            {
+                TaskId = id,
+                IncludeDetails = includeDetails
+            };
+
+            var progress = await _mediator.Send(query);
+            
+            if (progress == null)
+            {
+                return NotFound("وظیفه یافت نشد");
+            }
+
+            return Success(progress);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت پیشرفت وظیفه");
+        }
+    }
+
+    /// <summary>
+    /// دریافت آمار وظایف
+    /// </summary>
+    /// <param name="projectId">شناسه پروژه (اختیاری)</param>
+    /// <param name="userId">شناسه کاربر (اختیاری)</param>
+    /// <param name="fromDate">تاریخ شروع (اختیاری)</param>
+    /// <param name="toDate">تاریخ پایان (اختیاری)</param>
+    /// <param name="statisticsType">نوع آمار</param>
+    /// <returns>آمار وظایف</returns>
+    [HttpGet("statistics")]
+    [ProducesResponseType(typeof(object), 200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> GetTaskStatistics(
+        [FromQuery] Guid? projectId = null,
+        [FromQuery] Guid? userId = null,
+        [FromQuery] DateTime? fromDate = null,
+        [FromQuery] DateTime? toDate = null,
+        [FromQuery] string statisticsType = "overview")
+    {
+        try
+        {
+            var query = new GetTaskStatisticsQuery
+            {
+                ProjectId = projectId,
+                UserId = userId,
+                FromDate = fromDate,
+                ToDate = toDate,
+                StatisticsType = statisticsType
+            };
+
+            var statistics = await _mediator.Send(query);
+            return Success(statistics);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت آمار وظایف");
         }
     }
 }

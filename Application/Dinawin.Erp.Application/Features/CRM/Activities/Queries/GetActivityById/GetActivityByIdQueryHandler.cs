@@ -1,6 +1,7 @@
 using MediatR;
-using Dinawin.Erp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Application.Features.CRM.Activities.DTOs;
 
 namespace Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetActivityById;
 
@@ -9,13 +10,13 @@ namespace Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetActivityByI
 /// </summary>
 public class GetActivityByIdQueryHandler : IRequestHandler<GetActivityByIdQuery, ActivityDto?>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر
     /// </summary>
     /// <param name="context">کانتکست پایگاه داده</param>
-    public GetActivityByIdQueryHandler(ApplicationDbContext context)
+    public GetActivityByIdQueryHandler(IApplicationDbContext context)
     {
         _context = context;
     }
@@ -29,6 +30,7 @@ public class GetActivityByIdQueryHandler : IRequestHandler<GetActivityByIdQuery,
     public async Task<ActivityDto?> Handle(GetActivityByIdQuery request, CancellationToken cancellationToken)
     {
         var activity = await _context.Activities
+            .AsNoTracking()
             .Where(a => a.Id == request.Id)
             .Select(a => new ActivityDto
             {
@@ -40,16 +42,21 @@ public class GetActivityByIdQueryHandler : IRequestHandler<GetActivityByIdQuery,
                 Priority = a.Priority,
                 StartDate = a.StartDate,
                 EndDate = a.EndDate,
+                ReminderDate = a.ReminderDate,
                 ContactId = a.ContactId,
-                ContactName = a.Contact != null ? $"{a.Contact.FirstName} {a.Contact.LastName}" : null,
+                ContactName = null,
                 LeadId = a.LeadId,
-                LeadName = a.Lead != null ? $"{a.Lead.FirstName} {a.Lead.LastName}" : null,
+                LeadName = null,
                 OpportunityId = a.OpportunityId,
-                OpportunityName = a.Opportunity != null ? a.Opportunity.Name : null,
-                AssignedToUserId = a.AssignedToUserId,
-                AssignedToUserName = a.AssignedToUser != null ? $"{a.AssignedToUser.FirstName} {a.AssignedToUser.LastName}" : null,
-                CreatedByUserId = a.CreatedByUserId,
-                CreatedByUserName = a.CreatedByUser != null ? $"{a.CreatedByUser.FirstName} {a.CreatedByUser.LastName}" : string.Empty,
+                OpportunityName = null,
+                CreatedBy = a.CreatedBy,
+                CreatedByName = null,
+                AssignedTo = a.AssignedTo,
+                AssignedToName = null,
+                Result = a.Result,
+                Notes = a.Notes,
+                IsCompleted = a.IsCompleted,
+                CompletedAt = a.CompletedAt,
                 CreatedAt = a.CreatedAt,
                 UpdatedAt = a.UpdatedAt
             })

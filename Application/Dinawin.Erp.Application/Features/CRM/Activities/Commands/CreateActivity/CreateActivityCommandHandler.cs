@@ -1,7 +1,7 @@
 using MediatR;
-using Dinawin.Erp.Infrastructure.Data;
-using Dinawin.Erp.Infrastructure.Data.Entities.Crm;
 using Microsoft.EntityFrameworkCore;
+using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Crm;
 
 namespace Dinawin.Erp.Application.Features.CRM.Activities.Commands.CreateActivity;
 
@@ -10,13 +10,13 @@ namespace Dinawin.Erp.Application.Features.CRM.Activities.Commands.CreateActivit
 /// </summary>
 public class CreateActivityCommandHandler : IRequestHandler<CreateActivityCommand, Guid>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر
     /// </summary>
     /// <param name="context">کانتکست پایگاه داده</param>
-    public CreateActivityCommandHandler(ApplicationDbContext context)
+    public CreateActivityCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }
@@ -42,8 +42,8 @@ public class CreateActivityCommandHandler : IRequestHandler<CreateActivityComman
             ContactId = request.ContactId,
             LeadId = request.LeadId,
             OpportunityId = request.OpportunityId,
-            AssignedToUserId = request.AssignedToUserId,
-            CreatedByUserId = request.CreatedByUserId,
+            AssignedTo = request.AssignedToUserId,
+            CreatedBy = request.CreatedByUserId,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };

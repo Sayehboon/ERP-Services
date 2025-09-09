@@ -1,7 +1,10 @@
-using Dinawin.Erp.Application.Features.Inventory.InventoryMovements.Queries.GetAllInventoryMovements;
-using Dinawin.Erp.Application.Features.Inventory.InventoryMovements.Queries.GetInventoryMovementById;
-using Dinawin.Erp.Application.Features.Inventory.InventoryMovements.Commands.UpdateInventoryMovement;
-using Dinawin.Erp.Application.Features.Inventory.InventoryMovements.Commands.DeleteInventoryMovement;
+using Dinawin.Erp.Application.Features.Inventories.InventoryMovements.Queries.GetAllInventoryMovements;
+using Dinawin.Erp.Application.Features.Inventories.InventoryMovements.Queries.GetInventoryMovementById;
+using Dinawin.Erp.Application.Features.Inventories.InventoryMovements.Commands.CreateInventoryMovement;
+using Dinawin.Erp.Application.Features.Inventories.InventoryMovements.Commands.UpdateInventoryMovement;
+using Dinawin.Erp.Application.Features.Inventories.InventoryMovements.Commands.DeleteInventoryMovement;
+using Dinawin.Erp.Application.Features.Inventories.Inventories.Commands.ReserveInventory;
+using Dinawin.Erp.Application.Features.Inventories.Inventories.Commands.ReleaseInventory;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
@@ -39,7 +42,7 @@ public class InventoryMovementsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<InventoryMovementDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllInventoryMovements(
+    public async Task<ActionResult<IEnumerable<InventoryMovementDto>>> GetAllInventoryMovements(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? productId = null,
         [FromQuery] Guid? warehouseId = null,
@@ -84,7 +87,7 @@ public class InventoryMovementsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(InventoryMovementDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetInventoryMovement(Guid id)
+    public async Task<ActionResult<InventoryMovementDto>> GetInventoryMovement(Guid id)
     {
         try
         {
@@ -112,7 +115,7 @@ public class InventoryMovementsController : BaseController
     [HttpGet("by-product/{productId}")]
     [ProducesResponseType(typeof(IEnumerable<InventoryMovementDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetMovementsByProduct(Guid productId)
+    public async Task<ActionResult<IEnumerable<InventoryMovementDto>>> GetMovementsByProduct(Guid productId)
     {
         try
         {
@@ -134,7 +137,7 @@ public class InventoryMovementsController : BaseController
     [HttpGet("by-warehouse/{warehouseId}")]
     [ProducesResponseType(typeof(IEnumerable<InventoryMovementDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetMovementsByWarehouse(Guid warehouseId)
+    public async Task<ActionResult<IEnumerable<InventoryMovementDto>>> GetMovementsByWarehouse(Guid warehouseId)
     {
         try
         {
@@ -156,12 +159,11 @@ public class InventoryMovementsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateInventoryMovement([FromBody] object command)
+    public async Task<ActionResult<Guid>> CreateInventoryMovement([FromBody] CreateInventoryMovementCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی CreateInventoryMovementCommand
-            var movementId = Guid.NewGuid();
+            var movementId = await _mediator.Send(command);
             return Created(movementId, "حرکت انبار با موفقیت ایجاد شد");
         }
         catch (Exception ex)
@@ -189,6 +191,60 @@ public class InventoryMovementsController : BaseController
         catch (Exception ex)
         {
             return HandleError(ex, "خطا در حذف حرکت انبار");
+        }
+    }
+
+    /// <summary>
+    /// رزرو موجودی
+    /// </summary>
+    /// <param name="command">دستور رزرو موجودی</param>
+    /// <returns>نتیجه رزرو</returns>
+    [HttpPost("reserve")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> ReserveInventory([FromBody] ReserveInventoryCommand command)
+    {
+        try
+        {
+            var result = await _mediator.Send(command);
+            
+            if (result)
+            {
+                return Success("موجودی با موفقیت رزرو شد");
+            }
+            
+            return BadRequest("خطا در رزرو موجودی");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در رزرو موجودی");
+        }
+    }
+
+    /// <summary>
+    /// آزادسازی موجودی رزرو شده
+    /// </summary>
+    /// <param name="command">دستور آزادسازی موجودی</param>
+    /// <returns>نتیجه آزادسازی</returns>
+    [HttpPost("release")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    public async Task<ActionResult> ReleaseInventory([FromBody] ReleaseInventoryCommand command)
+    {
+        try
+        {
+            var result = await _mediator.Send(command);
+            
+            if (result)
+            {
+                return Success("موجودی رزرو شده با موفقیت آزاد شد");
+            }
+            
+            return BadRequest("خطا در آزادسازی موجودی");
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در آزادسازی موجودی");
         }
     }
 }

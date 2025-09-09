@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Infrastructure.Data.Entities.SystemManagement;
+using Dinawin.Erp.Domain.Entities.Users;
 
 namespace Dinawin.Erp.Application.Features.SystemManagement.Companies.Commands.CreateCompany;
 

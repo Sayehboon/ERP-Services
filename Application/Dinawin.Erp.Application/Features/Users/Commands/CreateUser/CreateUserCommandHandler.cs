@@ -1,6 +1,6 @@
 using MediatR;
 using Dinawin.Erp.Domain.Entities;
-using Dinawin.Erp.Persistence.ApplicationDbContext;
+using Dinawin.Erp.Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dinawin.Erp.Application.Features.Users.Commands.CreateUser;
@@ -11,14 +11,14 @@ namespace Dinawin.Erp.Application.Features.Users.Commands.CreateUser;
 /// </summary>
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IApplicationDbContext _context;
 
     /// <summary>
     /// سازنده پردازشگر دستور ایجاد کاربر
     /// Constructor for create user command handler
     /// </summary>
     /// <param name="context">زمینه پایگاه داده</param>
-    public CreateUserCommandHandler(ApplicationDbContext context)
+    public CreateUserCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }

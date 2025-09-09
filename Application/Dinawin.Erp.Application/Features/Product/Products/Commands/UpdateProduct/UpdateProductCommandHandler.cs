@@ -108,7 +108,7 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
         // بررسی وجود UOM
         if (request.UomId.HasValue)
         {
-            var uomExists = await _context.Uoms
+            var uomExists = await _context.UnitsOfMeasures
                 .AnyAsync(u => u.Id == request.UomId.Value, cancellationToken);
             if (!uomExists)
             {

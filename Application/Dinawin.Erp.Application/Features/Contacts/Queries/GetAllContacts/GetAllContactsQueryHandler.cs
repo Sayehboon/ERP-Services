@@ -25,10 +25,10 @@ public class GetAllContactsQueryHandler : IRequestHandler<GetAllContactsQuery, L
         if (!string.IsNullOrEmpty(request.SearchTerm))
         {
             query = query.Where(c => 
-                c.FirstName.Contains(request.SearchTerm) ||
+                c.Name.Contains(request.SearchTerm) ||
                 c.LastName.Contains(request.SearchTerm) ||
                 (c.Email != null && c.Email.Contains(request.SearchTerm)) ||
-                (c.Company != null && c.Company.Contains(request.SearchTerm)));
+                (c.CompanyName != null && c.CompanyName.Contains(request.SearchTerm)));
         }
 
         if (!string.IsNullOrEmpty(request.Status))

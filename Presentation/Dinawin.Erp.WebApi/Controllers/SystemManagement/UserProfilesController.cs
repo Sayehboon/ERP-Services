@@ -2,7 +2,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.SystemManagement.UserProfiles.Queries.GetUserProfile;
+using Dinawin.Erp.Application.Features.SystemManagement.UserProfiles.Queries.GetCurrentUserProfile;
 using Dinawin.Erp.Application.Features.SystemManagement.UserProfiles.Commands.UpdateUserProfile;
+using Dinawin.Erp.Application.Features.SystemManagement.UserProfiles.Commands.ChangePassword;
 
 namespace Dinawin.Erp.WebApi.Controllers.SystemManagement;
 
@@ -54,14 +56,17 @@ public class UserProfilesController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetCurrentUserProfileQuery
-            var profile = new { 
-                Id = Guid.NewGuid(), 
-                FirstName = "احمد",
-                LastName = "محمدی",
-                Email = "ahmad@example.com",
-                PhoneNumber = "09123456789"
-            };
+            // TODO: دریافت شناسه کاربر فعلی از JWT token
+            var currentUserId = Guid.NewGuid(); // این باید از JWT token دریافت شود
+            
+            var query = new GetCurrentUserProfileQuery { UserId = currentUserId };
+            var profile = await _mediator.Send(query);
+            
+            if (profile == null)
+            {
+                return NotFound("پروفایل کاربر یافت نشد");
+            }
+            
             return Success(profile);
         }
         catch (Exception ex)
@@ -125,12 +130,19 @@ public class UserProfilesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> ChangePassword(Guid id, [FromBody] object command)
+    public async Task<ActionResult> ChangePassword(Guid id, [FromBody] ChangePasswordCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی ChangePasswordCommand
-            return Success("رمز عبور با موفقیت تغییر یافت");
+            command.UserId = id;
+            var result = await _mediator.Send(command);
+            
+            if (result)
+            {
+                return Success("رمز عبور با موفقیت تغییر یافت");
+            }
+            
+            return BadRequest("خطا در تغییر رمز عبور");
         }
         catch (Exception ex)
         {
@@ -146,12 +158,22 @@ public class UserProfilesController : BaseController
     [HttpPost("current/change-password")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> ChangeCurrentUserPassword([FromBody] object command)
+    public async Task<ActionResult> ChangeCurrentUserPassword([FromBody] ChangePasswordCommand command)
     {
         try
         {
-            // TODO: پیاده‌سازی ChangeCurrentUserPasswordCommand
-            return Success("رمز عبور کاربر فعلی با موفقیت تغییر یافت");
+            // TODO: دریافت شناسه کاربر فعلی از JWT token
+            var currentUserId = Guid.NewGuid(); // این باید از JWT token دریافت شود
+            command.UserId = currentUserId;
+            
+            var result = await _mediator.Send(command);
+            
+            if (result)
+            {
+                return Success("رمز عبور کاربر فعلی با موفقیت تغییر یافت");
+            }
+            
+            return BadRequest("خطا در تغییر رمز عبور");
         }
         catch (Exception ex)
         {

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
 using Dinawin.Erp.Application.Features.Product.Products.Queries.GetAllProducts;
 using Dinawin.Erp.Application.Features.Product.Products.Queries.GetProductById;
+using Dinawin.Erp.Application.Features.Product.Products.Queries.SearchProducts;
+using Dinawin.Erp.Application.Features.Product.Products.Queries.GetProductsByCategory;
 using Dinawin.Erp.Application.Features.Product.Products.Commands.CreateProduct;
 using Dinawin.Erp.Application.Features.Product.Products.Commands.UpdateProduct;
 using Dinawin.Erp.Application.Features.Product.Products.Commands.DeleteProduct;
@@ -108,15 +110,12 @@ public class ProductsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی SearchProductsQuery
-            var products = new List<object>
+            var query = new SearchProductsQuery
             {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Name = "تویوتا کامری ۱۴۰۳", 
-                    Code = "TC1403"
-                }
+                SearchTerm = searchTerm
             };
+            
+            var products = await _mediator.Send(query);
             return Success(products);
         }
         catch (Exception ex)
@@ -137,16 +136,12 @@ public class ProductsController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetProductsByCategoryQuery
-            var products = new List<object>
+            var query = new GetProductsByCategoryQuery
             {
-                new { 
-                    Id = Guid.NewGuid(), 
-                    Name = "تویوتا کامری ۱۴۰۳", 
-                    Code = "TC1403",
-                    CategoryId = categoryId
-                }
+                CategoryId = categoryId
             };
+            
+            var products = await _mediator.Send(query);
             return Success(products);
         }
         catch (Exception ex)

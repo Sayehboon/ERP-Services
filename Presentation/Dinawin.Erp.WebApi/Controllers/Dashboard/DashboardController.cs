@@ -5,6 +5,8 @@ using Dinawin.Erp.Application.Features.Dashboard.Queries.GetDashboardOverview;
 using Dinawin.Erp.Application.Features.Dashboard.Queries.GetSalesStats;
 using Dinawin.Erp.Application.Features.Dashboard.Queries.GetInventoryStats;
 using Dinawin.Erp.Application.Features.Dashboard.Queries.GetCrmStats;
+using Dinawin.Erp.Application.Features.Dashboard.Queries.GetSalesChart;
+using Dinawin.Erp.Application.Features.Dashboard.Queries.GetRecentActivities;
 
 namespace Dinawin.Erp.WebApi.Controllers.Dashboard;
 
@@ -156,14 +158,12 @@ public class DashboardController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetSalesChartQuery
-            var chartData = new
+            var query = new GetSalesChartQuery
             {
-                Period = period,
-                Labels = new[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور" },
-                Data = new[] { 500000000, 800000000, 1200000000, 950000000, 1100000000, 1300000000 },
-                Count = new[] { 5, 8, 12, 9, 11, 13 }
+                Period = period
             };
+            
+            var chartData = await _mediator.Send(query);
             return Success(chartData);
         }
         catch (Exception ex)
@@ -183,34 +183,12 @@ public class DashboardController : BaseController
     {
         try
         {
-            // TODO: پیاده‌سازی GetRecentActivitiesQuery
-            var activities = new List<object>
+            var query = new GetRecentActivitiesQuery
             {
-                new { 
-                    Id = Guid.NewGuid(),
-                    Type = "Sale",
-                    Description = "فروش تویوتا کامری ۱۴۰۳",
-                    UserName = "احمد محمدی",
-                    Timestamp = DateTime.Now.AddHours(-2),
-                    Amount = 500000000
-                },
-                new { 
-                    Id = Guid.NewGuid(),
-                    Type = "Lead",
-                    Description = "لید جدید: علی رضایی",
-                    UserName = "سارا احمدی",
-                    Timestamp = DateTime.Now.AddHours(-4),
-                    Amount = null
-                },
-                new { 
-                    Id = Guid.NewGuid(),
-                    Type = "Purchase",
-                    Description = "خرید ۵ دستگاه تویوتا کامری",
-                    UserName = "محمد کریمی",
-                    Timestamp = DateTime.Now.AddHours(-6),
-                    Amount = 2500000000
-                }
+                Count = 10
             };
+            
+            var activities = await _mediator.Send(query);
             return Success(activities);
         }
         catch (Exception ex)
