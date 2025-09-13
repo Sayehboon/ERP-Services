@@ -86,7 +86,7 @@ public class SecurityAuditConfiguration : IEntityTypeConfiguration<SecurityAudit
         builder.HasOne(e => e.User)
             .WithMany()
             .HasForeignKey(e => e.UserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.UserId);
         builder.HasIndex(e => e.EventType);

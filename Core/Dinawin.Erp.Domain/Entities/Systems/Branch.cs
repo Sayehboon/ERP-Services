@@ -186,7 +186,7 @@ public class BranchConfiguration : IEntityTypeConfiguration<Branch>
         builder.HasOne(e => e.ManagerUser)
             .WithMany()
             .HasForeignKey(e => e.ManagerUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.ParentBranch)
             .WithMany(e => e.ChildBranches)

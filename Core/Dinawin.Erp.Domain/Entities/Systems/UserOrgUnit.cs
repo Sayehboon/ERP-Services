@@ -142,7 +142,7 @@ public class UserOrgUnitConfiguration : IEntityTypeConfiguration<UserOrgUnit>
         builder.HasOne(e => e.User)
             .WithMany()
             .HasForeignKey(e => e.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.OrgUnit)
             .WithMany(e => e.UnitUsers)
@@ -152,12 +152,12 @@ public class UserOrgUnitConfiguration : IEntityTypeConfiguration<UserOrgUnit>
         builder.HasOne(e => e.CreatedByUser)
             .WithMany()
             .HasForeignKey(e => e.CreatedByUserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.LastModifiedByUser)
             .WithMany()
             .HasForeignKey(e => e.LastModifiedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => new { e.UserId, e.OrgUnitId })
             .IsUnique();

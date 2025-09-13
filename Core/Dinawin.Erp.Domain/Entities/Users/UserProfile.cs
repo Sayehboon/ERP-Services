@@ -133,7 +133,7 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
         builder.HasOne(e => e.User)
             .WithOne()
             .HasForeignKey<UserProfile>(e => e.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.UserId).IsUnique();
         builder.HasIndex(e => e.Email).IsUnique(false);

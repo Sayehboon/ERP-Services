@@ -237,9 +237,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         base.OnModelCreating(builder);
 
-        // اعمال تمام پیکربندی‌ها از assembly فعلی
-        // Apply all configurations from current assembly
-        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        // اعمال تمام پیکربندی‌ها از assembly دامنه
+        // Apply all configurations from domain assembly
+        builder.ApplyConfigurationsFromAssembly(typeof(BaseEntity).Assembly);
 
         // پیکربندی حذف نرم برای تمام موجودیت‌ها
         // Configure soft delete for all entities

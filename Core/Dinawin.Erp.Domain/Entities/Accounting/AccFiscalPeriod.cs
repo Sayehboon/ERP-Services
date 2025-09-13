@@ -131,12 +131,12 @@ public class AccFiscalPeriodConfiguration : IEntityTypeConfiguration<AccFiscalPe
         builder.HasOne(e => e.ClosedByUser)
             .WithMany()
             .HasForeignKey(e => e.ClosedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.LockedByUser)
             .WithMany()
             .HasForeignKey(e => e.LockedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => new { e.FiscalYearId, e.PeriodNumber }).IsUnique();
         builder.HasIndex(e => e.Status);

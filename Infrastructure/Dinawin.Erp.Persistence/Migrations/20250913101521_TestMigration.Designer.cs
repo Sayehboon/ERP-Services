@@ -4,6 +4,7 @@ using Dinawin.Erp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dinawin.Erp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250913101521_TestMigration")]
+    partial class TestMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -13603,7 +13606,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ClosedByUser")
                         .WithMany()
                         .HasForeignKey("ClosedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccFiscalYear", "FiscalYear")
                         .WithMany("FiscalPeriods")
@@ -13614,7 +13617,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LockedByUser")
                         .WithMany()
                         .HasForeignKey("LockedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("ClosedByUser");
 
@@ -13628,12 +13631,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ClosedByUser")
                         .WithMany()
                         .HasForeignKey("ClosedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LockedByUser")
                         .WithMany()
                         .HasForeignKey("LockedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("ClosedByUser");
 
@@ -14065,12 +14068,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ApprovedByUser")
                         .WithMany()
                         .HasForeignKey("ApprovedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ExecutedByUser")
                         .WithMany()
                         .HasForeignKey("ExecutedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccFiscalPeriod", "FiscalPeriod")
@@ -14082,7 +14085,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ReversedByUser")
                         .WithMany()
                         .HasForeignKey("ReversedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("ApprovedByUser");
 
@@ -14358,7 +14361,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("User");
                 });
@@ -14411,12 +14414,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ApprovedByUser")
                         .WithMany()
                         .HasForeignKey("ApprovedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Department", "Department")
@@ -14438,7 +14441,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LastModifiedByUser")
                         .WithMany()
                         .HasForeignKey("LastModifiedByUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Project", "Project")
                         .WithMany()
@@ -15537,7 +15540,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ManagerUser")
                         .WithMany()
                         .HasForeignKey("ManagerUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Systems.Branch", "ParentBranch")
                         .WithMany("ChildBranches")
@@ -15594,7 +15597,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ManagerUser")
                         .WithMany()
                         .HasForeignKey("ManagerUserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Systems.OrgUnit", "ParentUnit")
                         .WithMany("ChildUnits")
@@ -15660,7 +15663,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -15688,7 +15691,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CreatedByUser");
@@ -16208,7 +16211,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Role");

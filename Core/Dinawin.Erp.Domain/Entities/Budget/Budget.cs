@@ -290,17 +290,17 @@ public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
         builder.HasOne(e => e.ApprovedByUser)
             .WithMany()
             .HasForeignKey(e => e.ApprovedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.CreatedByUser)
             .WithMany()
             .HasForeignKey(e => e.CreatedByUserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.LastModifiedByUser)
             .WithMany()
             .HasForeignKey(e => e.LastModifiedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Department)
             .WithMany()

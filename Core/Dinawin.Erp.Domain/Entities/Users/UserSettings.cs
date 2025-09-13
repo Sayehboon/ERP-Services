@@ -110,7 +110,7 @@ public class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
         builder.HasOne(e => e.User)
             .WithOne()
             .HasForeignKey<UserSettings>(e => e.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.UserId).IsUnique();
     }

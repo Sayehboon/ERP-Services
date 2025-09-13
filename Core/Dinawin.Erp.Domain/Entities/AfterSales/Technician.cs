@@ -170,7 +170,7 @@ public class TechnicianConfiguration : IEntityTypeConfiguration<Technician>
         builder.HasOne(e => e.User)
             .WithMany()
             .HasForeignKey(e => e.UserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.TechnicianCode)
             .IsUnique();

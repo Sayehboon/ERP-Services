@@ -194,7 +194,7 @@ public class OrgUnitConfiguration : IEntityTypeConfiguration<OrgUnit>
         builder.HasOne(e => e.ManagerUser)
             .WithMany()
             .HasForeignKey(e => e.ManagerUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.UnitCode).IsUnique();
         builder.HasIndex(e => e.ParentUnitId);

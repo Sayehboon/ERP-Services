@@ -280,6 +280,33 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(e => e.MinStock).HasPrecision(18, 4);
         builder.Property(e => e.MaxStock).HasPrecision(18, 4);
 
+        // Configure value objects
+        builder.OwnsOne(e => e.Weight, weight =>
+        {
+            weight.Property(w => w.Value).HasPrecision(18, 4);
+            weight.Property(w => w.Unit).HasMaxLength(20);
+        });
+
+        builder.OwnsOne(e => e.Dimensions, dimensions =>
+        {
+            dimensions.Property(d => d.Length).HasPrecision(18, 4);
+            dimensions.Property(d => d.Width).HasPrecision(18, 4);
+            dimensions.Property(d => d.Height).HasPrecision(18, 4);
+            dimensions.Property(d => d.Unit).HasMaxLength(20);
+        });
+
+        builder.OwnsOne(e => e.PurchasePrice, price =>
+        {
+            price.Property(p => p.Amount).HasPrecision(18, 2);
+            price.Property(p => p.Currency).HasMaxLength(10);
+        });
+
+        builder.OwnsOne(e => e.SellingPrice, price =>
+        {
+            price.Property(p => p.Amount).HasPrecision(18, 2);
+            price.Property(p => p.Currency).HasMaxLength(10);
+        });
+
         builder.HasOne(e => e.Brand)
             .WithMany(b => b.Products)
             .HasForeignKey(e => e.BrandId)

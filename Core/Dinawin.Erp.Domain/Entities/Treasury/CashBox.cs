@@ -113,6 +113,17 @@ public class CashBoxConfiguration : IEntityTypeConfiguration<CashBox>
             .HasForeignKey(e => e.ControlAccountId)
             .OnDelete(DeleteBehavior.SetNull);
 
+        // Configure relationships with CashBoxTransfer
+        builder.HasMany(e => e.OutgoingTransfers)
+            .WithOne(t => t.SourceCashBox)
+            .HasForeignKey(t => t.SourceCashBoxId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(e => e.IncomingTransfers)
+            .WithOne(t => t.TargetCashBox)
+            .HasForeignKey(t => t.TargetCashBoxId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasIndex(e => e.BusinessId);
     }
 }

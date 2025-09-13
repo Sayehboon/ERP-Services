@@ -78,6 +78,13 @@ public class CashTransactionConfiguration : IEntityTypeConfiguration<CashTransac
         builder.Property(e => e.TransactionType).HasMaxLength(50);
         builder.Property(e => e.ReferenceType).HasMaxLength(50);
 
+        // Configure value objects
+        builder.OwnsOne(e => e.Amount, amount =>
+        {
+            amount.Property(a => a.Amount).HasPrecision(18, 2);
+            amount.Property(a => a.Currency).HasMaxLength(10);
+        });
+
         builder.HasOne(e => e.CashBox)
             .WithMany(cb => cb.CashTransactions)
             .HasForeignKey(e => e.CashBoxId)

@@ -258,7 +258,7 @@ public class FaDepreciationEntryConfiguration : IEntityTypeConfiguration<FaDepre
         builder.HasOne(e => e.ApprovedByUser)
             .WithMany()
             .HasForeignKey(e => e.ApprovedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => new { e.FaAssetId, e.PeriodNumber })
             .IsUnique();

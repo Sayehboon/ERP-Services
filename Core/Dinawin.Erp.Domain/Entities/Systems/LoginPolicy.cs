@@ -195,12 +195,12 @@ public class LoginPolicyConfiguration : IEntityTypeConfiguration<LoginPolicy>
         builder.HasOne(e => e.CreatedByUser)
             .WithMany()
             .HasForeignKey(e => e.CreatedByUserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.LastModifiedByUser)
             .WithMany()
             .HasForeignKey(e => e.LastModifiedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.PolicyCode)
             .IsUnique();

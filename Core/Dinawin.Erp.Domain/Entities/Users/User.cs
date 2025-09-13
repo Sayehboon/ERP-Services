@@ -234,7 +234,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasOne(e => e.Department)
-            .WithMany()
+            .WithMany(d => d.Users)
             .HasForeignKey(e => e.DepartmentId)
             .OnDelete(DeleteBehavior.SetNull);
 

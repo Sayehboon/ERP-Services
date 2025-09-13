@@ -138,6 +138,28 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.Property(e => e.EconomicCode).HasMaxLength(50);
         builder.Property(e => e.Website).HasMaxLength(200);
 
+        // Configure value objects
+        builder.OwnsOne(e => e.Address, address =>
+        {
+            address.Property(a => a.Street).HasMaxLength(200);
+            address.Property(a => a.City).HasMaxLength(100);
+            address.Property(a => a.State).HasMaxLength(100);
+            address.Property(a => a.PostalCode).HasMaxLength(20);
+            address.Property(a => a.Country).HasMaxLength(100);
+            address.Property(a => a.Longitude).HasPrecision(18, 6);
+            address.Property(a => a.Latitude).HasPrecision(18, 6);
+        });
+
+        builder.OwnsOne(e => e.PhoneNumber, phone =>
+        {
+            phone.Property(p => p.Value).HasMaxLength(20);
+        });
+
+        builder.OwnsOne(e => e.Email, email =>
+        {
+            email.Property(e => e.Value).HasMaxLength(100);
+        });
+
         builder.HasIndex(e => e.NationalId).IsUnique(false);
         builder.HasIndex(e => e.RegistrationNumber).IsUnique(false);
         builder.HasIndex(e => e.Name);

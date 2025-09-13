@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -55,4 +57,30 @@ public class RolePermission : BaseEntity
     /// Notes
     /// </summary>
     public string? Notes { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت رابطه نقش و مجوز
+/// Role-Permission relationship entity configuration
+/// </summary>
+public class RolePermissionConfiguration : IEntityTypeConfiguration<RolePermission>
+{
+    public void Configure(EntityTypeBuilder<RolePermission> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Notes).HasMaxLength(1000);
+
+        builder.HasOne(e => e.Role)
+            .WithMany(r => r.RolePermissions)
+            .HasForeignKey(e => e.RoleId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.Permission)
+            .WithMany(p => p.RolePermissions)
+            .HasForeignKey(e => e.PermissionId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasIndex(e => new { e.RoleId, e.PermissionId }).IsUnique();
+    }
 }

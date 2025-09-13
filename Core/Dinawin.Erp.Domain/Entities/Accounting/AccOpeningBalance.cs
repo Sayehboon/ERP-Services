@@ -153,12 +153,12 @@ public class AccOpeningBalanceConfiguration : IEntityTypeConfiguration<AccOpenin
         builder.HasOne(e => e.RegisteredByUser)
             .WithMany()
             .HasForeignKey(e => e.RegisteredByUserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.ApprovedByUser)
             .WithMany()
             .HasForeignKey(e => e.ApprovedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => new { e.AccountId, e.FiscalPeriodId }).IsUnique();
     }

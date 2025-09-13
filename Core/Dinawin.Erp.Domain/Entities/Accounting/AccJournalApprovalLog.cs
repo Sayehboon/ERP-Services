@@ -107,7 +107,7 @@ public class AccJournalApprovalLogConfiguration : IEntityTypeConfiguration<AccJo
         builder.HasOne(e => e.ApproverUser)
             .WithMany()
             .HasForeignKey(e => e.ApproverUserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.JournalVoucherId);
         builder.HasIndex(e => e.ApprovalDate);

@@ -170,7 +170,7 @@ public class SessionAuditConfiguration : IEntityTypeConfiguration<SessionAudit>
         builder.HasOne(e => e.User)
             .WithMany()
             .HasForeignKey(e => e.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.SessionId).IsUnique();
         builder.HasIndex(e => e.UserId);

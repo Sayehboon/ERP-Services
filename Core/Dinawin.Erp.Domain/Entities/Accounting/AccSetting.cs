@@ -98,7 +98,7 @@ public class AccSettingConfiguration : IEntityTypeConfiguration<AccSetting>
         builder.HasOne(e => e.CreatedByUser)
             .WithMany()
             .HasForeignKey(e => e.CreatedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.DefaultCurrency);
     }

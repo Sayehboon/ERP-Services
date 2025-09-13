@@ -110,15 +110,7 @@ public class CashBoxTransferConfiguration : IEntityTypeConfiguration<CashBoxTran
         builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
         builder.Property(e => e.AmountInBaseCurrency).HasPrecision(18, 2);
 
-        builder.HasOne(e => e.SourceCashBox)
-            .WithMany(cb => cb.OutgoingTransfers)
-            .HasForeignKey(e => e.SourceCashBoxId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(e => e.TargetCashBox)
-            .WithMany(cb => cb.IncomingTransfers)
-            .HasForeignKey(e => e.TargetCashBoxId)
-            .OnDelete(DeleteBehavior.Restrict);
+        // Relationships are configured in CashBoxConfiguration to avoid circular references
 
         builder.HasIndex(e => e.TransferDate);
         builder.HasIndex(e => e.Status);

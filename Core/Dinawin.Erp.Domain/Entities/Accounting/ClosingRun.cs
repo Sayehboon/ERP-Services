@@ -244,17 +244,17 @@ public class ClosingRunConfiguration : IEntityTypeConfiguration<ClosingRun>
         builder.HasOne(e => e.ExecutedByUser)
             .WithMany()
             .HasForeignKey(e => e.ExecutedByUserId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.ApprovedByUser)
             .WithMany()
             .HasForeignKey(e => e.ApprovedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.ReversedByUser)
             .WithMany()
             .HasForeignKey(e => e.ReversedByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.RunCode)
             .IsUnique();
