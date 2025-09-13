@@ -186,17 +186,17 @@ public class OpportunityConfiguration : IEntityTypeConfiguration<Opportunity>
         builder.HasOne(e => e.Lead)
             .WithMany()
             .HasForeignKey(e => e.LeadId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Contact)
             .WithMany()
             .HasForeignKey(e => e.ContactId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Customer)
             .WithMany()
             .HasForeignKey(e => e.CustomerId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.Stage);
         builder.HasIndex(e => e.Status);

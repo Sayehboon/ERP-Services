@@ -133,12 +133,12 @@ public class ArReceiptConfiguration : IEntityTypeConfiguration<ArReceipt>
         builder.HasOne(e => e.BankAccount)
             .WithMany()
             .HasForeignKey(e => e.BankAccountId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.CashBox)
             .WithMany()
             .HasForeignKey(e => e.CashBoxId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.ReceiptDate);
         builder.HasIndex(e => e.CustomerId);

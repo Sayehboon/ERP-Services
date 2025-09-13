@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Purchase;
 
@@ -104,4 +106,30 @@ public class PurchaseReturn : BaseEntity, IAggregateRoot
     /// Return lines
     /// </summary>
     public ICollection<PurchaseReturnLine> Lines { get; set; } = new List<PurchaseReturnLine>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت برگشت خرید
+/// Purchase Return entity configuration
+/// </summary>
+public class PurchaseReturnConfiguration : IEntityTypeConfiguration<PurchaseReturn>
+{
+    public void Configure(EntityTypeBuilder<PurchaseReturn> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.ReturnNumber).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        // Configure decimal properties with precision
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+
+        builder.HasIndex(e => e.ReturnNumber).IsUnique(false);
+        builder.HasIndex(e => e.VendorId);
+        builder.HasIndex(e => e.WarehouseId);
+        builder.HasIndex(e => e.Status);
+    }
 }

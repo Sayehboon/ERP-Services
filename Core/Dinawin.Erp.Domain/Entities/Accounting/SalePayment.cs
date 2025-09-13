@@ -145,12 +145,14 @@ public class SalePaymentConfiguration : IEntityTypeConfiguration<SalePayment>
         builder.HasOne(e => e.CashBox)
             .WithMany()
             .HasForeignKey(e => e.CashBoxId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasOne(e => e.BankAccount)
             .WithMany()
             .HasForeignKey(e => e.BankAccountId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasIndex(e => e.SaleId);
         builder.HasIndex(e => e.PaymentDate);

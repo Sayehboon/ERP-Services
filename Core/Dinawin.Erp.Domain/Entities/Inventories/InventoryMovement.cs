@@ -213,17 +213,17 @@ public class InventoryMovementConfiguration : IEntityTypeConfiguration<Inventory
         builder.HasOne(e => e.Product)
             .WithMany(p => p.InventoryMovements)
             .HasForeignKey(e => e.ProductId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Warehouse)
             .WithMany(w => w.InventoryMovements)
             .HasForeignKey(e => e.WarehouseId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Bin)
             .WithMany()
             .HasForeignKey(e => e.BinId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.ProductId);
         builder.HasIndex(e => e.WarehouseId);

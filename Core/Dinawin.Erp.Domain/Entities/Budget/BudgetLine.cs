@@ -307,62 +307,62 @@ public class BudgetLineConfiguration : IEntityTypeConfiguration<BudgetLine>
         builder.HasOne(e => e.Dimension1)
             .WithMany()
             .HasForeignKey(e => e.Dimension1Id)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension2)
             .WithMany()
             .HasForeignKey(e => e.Dimension2Id)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension3)
             .WithMany()
             .HasForeignKey(e => e.Dimension3Id)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension4)
             .WithMany()
             .HasForeignKey(e => e.Dimension4Id)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension5)
             .WithMany()
             .HasForeignKey(e => e.Dimension5Id)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension1Value)
             .WithMany()
             .HasForeignKey(e => e.Dimension1ValueId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension2Value)
             .WithMany()
             .HasForeignKey(e => e.Dimension2ValueId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension3Value)
             .WithMany()
             .HasForeignKey(e => e.Dimension3ValueId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension4Value)
             .WithMany()
             .HasForeignKey(e => e.Dimension4ValueId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Dimension5Value)
             .WithMany()
             .HasForeignKey(e => e.Dimension5ValueId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Department)
             .WithMany()
             .HasForeignKey(e => e.DepartmentId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Project)
             .WithMany()
             .HasForeignKey(e => e.ProjectId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.BudgetId);
         builder.HasIndex(e => e.AccountId);

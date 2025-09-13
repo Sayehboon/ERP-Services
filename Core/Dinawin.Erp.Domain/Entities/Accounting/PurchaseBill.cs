@@ -97,7 +97,7 @@ public class PurchaseBillConfiguration : IEntityTypeConfiguration<PurchaseBill>
         builder.Property(e => e.Notes).HasMaxLength(1000);
 
         builder.HasOne(e => e.Vendor)
-            .WithMany()
+            .WithMany(v => v.PurchaseBills)
             .HasForeignKey(e => e.VendorId)
             .OnDelete(DeleteBehavior.Restrict);
 

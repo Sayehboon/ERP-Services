@@ -120,7 +120,7 @@ public class UnitOfMeasureConfiguration : IEntityTypeConfiguration<UnitOfMeasure
         builder.HasOne(e => e.BaseUnit)
             .WithMany()
             .HasForeignKey(e => e.BaseUnitId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.Code).IsUnique(false);
         builder.HasIndex(e => e.Name);

@@ -180,6 +180,9 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
         builder.Property(e => e.CapacityUnit).HasMaxLength(20);
         builder.Property(e => e.WarehouseType).HasMaxLength(50);
 
+        // Configure decimal properties with precision
+        builder.Property(e => e.Capacity).HasPrecision(18, 4);
+
         builder.HasIndex(e => e.Code).IsUnique();
     }
 }

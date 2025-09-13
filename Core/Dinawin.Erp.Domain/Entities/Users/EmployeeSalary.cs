@@ -143,7 +143,7 @@ public class EmployeeSalaryConfiguration : IEntityTypeConfiguration<EmployeeSala
         builder.HasOne(e => e.CreatedByUser)
             .WithMany()
             .HasForeignKey(e => e.CreatedBy)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.EmployeeId);
         builder.HasIndex(e => e.PeriodStartDate);

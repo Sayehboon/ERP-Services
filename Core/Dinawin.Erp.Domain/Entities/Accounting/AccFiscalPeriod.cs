@@ -126,7 +126,7 @@ public class AccFiscalPeriodConfiguration : IEntityTypeConfiguration<AccFiscalPe
         builder.HasOne(e => e.FiscalYear)
             .WithMany(fy => fy.FiscalPeriods)
             .HasForeignKey(e => e.FiscalYearId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(e => e.ClosedByUser)
             .WithMany()

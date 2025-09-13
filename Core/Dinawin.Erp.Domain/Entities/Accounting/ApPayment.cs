@@ -133,12 +133,12 @@ public class ApPaymentConfiguration : IEntityTypeConfiguration<ApPayment>
         builder.HasOne(e => e.BankAccount)
             .WithMany()
             .HasForeignKey(e => e.BankAccountId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.CashBox)
             .WithMany()
             .HasForeignKey(e => e.CashBoxId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.PaymentDate);
         builder.HasIndex(e => e.VendorId);

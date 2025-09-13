@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Users;
 
@@ -163,4 +165,44 @@ public class WorkTask : BaseEntity
     /// Assigned user
     /// </summary>
     public User? AssignedToUser { get; set; }
+}
+
+/// <summary>
+/// پیکربندی موجودیت وظیفه
+/// WorkTask entity configuration
+/// </summary>
+public class WorkTaskConfiguration : IEntityTypeConfiguration<WorkTask>
+{
+    /// <summary>
+    /// پیکربندی موجودیت
+    /// Configure entity
+    /// </summary>
+    /// <param name="builder">سازنده موجودیت</param>
+    public void Configure(EntityTypeBuilder<WorkTask> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Title).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(2000);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Priority).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Tags).HasMaxLength(500);
+        builder.Property(e => e.TaskType).HasMaxLength(100);
+        builder.Property(e => e.Notes).HasMaxLength(2000);
+
+        // Configure decimal properties with precision
+        builder.Property(e => e.ActualHours).HasPrecision(8, 2);
+        builder.Property(e => e.EstimatedHours).HasPrecision(8, 2);
+
+        builder.HasOne(e => e.AssignedToUser)
+            .WithMany()
+            .HasForeignKey(e => e.AssignedTo)
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
+
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.Priority);
+        builder.HasIndex(e => e.AssignedTo);
+        builder.HasIndex(e => e.ProjectId);
+    }
 }

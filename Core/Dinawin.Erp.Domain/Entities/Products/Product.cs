@@ -279,6 +279,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(e => e.Color).HasMaxLength(50);
         builder.Property(e => e.MinStock).HasPrecision(18, 4);
         builder.Property(e => e.MaxStock).HasPrecision(18, 4);
+        builder.Property(e => e.CurrentStock).HasPrecision(18, 4);
+        builder.Property(e => e.WholesalePrice).HasPrecision(18, 2);
+        builder.Property(e => e.SalePrice).HasPrecision(18, 2);
+        builder.Property(e => e.MinStockLevel).HasPrecision(18, 4);
+        builder.Property(e => e.MaxStockLevel).HasPrecision(18, 4);
+        builder.Property(e => e.ReorderPoint).HasPrecision(18, 4);
 
         // Configure value objects
         builder.OwnsOne(e => e.Weight, weight =>
@@ -310,27 +316,32 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasOne(e => e.Brand)
             .WithMany(b => b.Products)
             .HasForeignKey(e => e.BrandId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasOne(e => e.Category)
             .WithMany(c => c.Products)
             .HasForeignKey(e => e.CategoryId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasOne(e => e.BaseUom)
             .WithMany()
             .HasForeignKey(e => e.BaseUomId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasOne(e => e.Model)
             .WithMany()
             .HasForeignKey(e => e.ModelId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasOne(e => e.Trim)
             .WithMany()
             .HasForeignKey(e => e.TrimId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasIndex(e => e.Sku).IsUnique();
         builder.HasIndex(e => e.Name);

@@ -168,17 +168,17 @@ public class ActivityConfiguration : IEntityTypeConfiguration<Activity>
         builder.HasOne(e => e.Contact)
             .WithMany(c => c.Activities)
             .HasForeignKey(e => e.ContactId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Lead)
             .WithMany(l => l.Activities)
             .HasForeignKey(e => e.LeadId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.Opportunity)
             .WithMany(o => o.Activities)
             .HasForeignKey(e => e.OpportunityId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.ActivityType);
         builder.HasIndex(e => e.Status);

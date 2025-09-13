@@ -291,6 +291,8 @@ public class PurchaseOrderConfiguration : IEntityTypeConfiguration<PurchaseOrder
         builder.Property(e => e.DiscountAmount).HasPrecision(18, 2);
         builder.Property(e => e.TaxAmount).HasPrecision(18, 2);
         builder.Property(e => e.FinalAmount).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+        builder.Property(e => e.TotalAmountInBaseCurrency).HasPrecision(18, 2);
 
         builder.HasIndex(e => e.OrderNumber).IsUnique(false);
         builder.HasIndex(e => e.VendorId);

@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Inventories;
 
@@ -26,4 +28,48 @@ public class PriceChange : BaseEntity, IAggregateRoot
     public DateTime ChangedAt { get; set; } = DateTime.UtcNow;
 }
 
+/// <summary>
+/// پیکربندی موجودیت تاریخچه قیمت
+/// Price History entity configuration
+/// </summary>
+public class PriceHistoryConfiguration : IEntityTypeConfiguration<PriceHistory>
+{
+    public void Configure(EntityTypeBuilder<PriceHistory> builder)
+    {
+        builder.HasKey(e => e.Id);
 
+        builder.Property(e => e.Note).HasMaxLength(1000);
+
+        // Configure decimal properties with precision
+        builder.Property(e => e.OldPriceBuy).HasPrecision(18, 2);
+        builder.Property(e => e.OldPriceSell).HasPrecision(18, 2);
+        builder.Property(e => e.NewPriceBuy).HasPrecision(18, 2);
+        builder.Property(e => e.NewPriceSell).HasPrecision(18, 2);
+
+        builder.HasIndex(e => e.ProductId);
+        builder.HasIndex(e => e.ChangedAt);
+    }
+}
+
+/// <summary>
+/// پیکربندی موجودیت تغییر قیمت
+/// Price Change entity configuration
+/// </summary>
+public class PriceChangeConfiguration : IEntityTypeConfiguration<PriceChange>
+{
+    public void Configure(EntityTypeBuilder<PriceChange> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.ChangeType).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Note).HasMaxLength(1000);
+
+        // Configure decimal properties with precision
+        builder.Property(e => e.OldPrice).HasPrecision(18, 2);
+        builder.Property(e => e.NewPrice).HasPrecision(18, 2);
+
+        builder.HasIndex(e => e.ProductId);
+        builder.HasIndex(e => e.ChangedAt);
+    }
+}

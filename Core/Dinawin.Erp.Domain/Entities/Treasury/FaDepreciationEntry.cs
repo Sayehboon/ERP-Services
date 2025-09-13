@@ -243,17 +243,17 @@ public class FaDepreciationEntryConfiguration : IEntityTypeConfiguration<FaDepre
         builder.HasOne(e => e.DepreciationAccount)
             .WithMany()
             .HasForeignKey(e => e.DepreciationAccountId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.AccumulatedDepreciationAccount)
             .WithMany()
             .HasForeignKey(e => e.AccumulatedDepreciationAccountId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.JournalVoucher)
             .WithMany()
             .HasForeignKey(e => e.JournalVoucherId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.ApprovedByUser)
             .WithMany()

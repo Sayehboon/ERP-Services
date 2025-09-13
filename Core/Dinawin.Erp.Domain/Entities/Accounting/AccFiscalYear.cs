@@ -140,12 +140,14 @@ public class AccFiscalYearConfiguration : IEntityTypeConfiguration<AccFiscalYear
         builder.HasOne(e => e.ClosedByUser)
             .WithMany()
             .HasForeignKey(e => e.ClosedByUserId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasOne(e => e.LockedByUser)
             .WithMany()
             .HasForeignKey(e => e.LockedByUserId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasIndex(e => e.Year).IsUnique(false);
         builder.HasIndex(e => e.Status);

@@ -1,5 +1,7 @@
 using Dinawin.Erp.Domain.Common;
 using Dinawin.Erp.Domain.Entities.Users;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Crm;
 
@@ -86,4 +88,33 @@ public class Survey : BaseEntity, IAggregateRoot
     /// Survey responses
     /// </summary>
     public ICollection<SurveyResponse> SurveyResponses { get; set; } = new List<SurveyResponse>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت نظرسنجی
+/// Survey entity configuration
+/// </summary>
+public class SurveyConfiguration : IEntityTypeConfiguration<Survey>
+{
+    /// <summary>
+    /// پیکربندی موجودیت
+    /// Configure entity
+    /// </summary>
+    /// <param name="builder">سازنده موجودیت</param>
+    public void Configure(EntityTypeBuilder<Survey> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Title).IsRequired().HasMaxLength(200);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.Type).IsRequired().HasMaxLength(50);
+        builder.Property(e => e.Status).IsRequired().HasMaxLength(50);
+
+        // Configure decimal properties with precision
+        builder.Property(e => e.CompletionRate).HasPrecision(5, 2);
+        builder.Property(e => e.AverageRating).HasPrecision(5, 2);
+
+        builder.HasIndex(e => e.Status);
+        builder.HasIndex(e => e.Type);
+    }
 }

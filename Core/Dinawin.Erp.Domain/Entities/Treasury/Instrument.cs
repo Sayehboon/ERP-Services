@@ -129,17 +129,17 @@ public class InstrumentConfiguration : IEntityTypeConfiguration<Instrument>
         builder.HasOne(e => e.BankAccount)
             .WithMany()
             .HasForeignKey(e => e.BankAccountId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.DebitAccount)
             .WithMany()
             .HasForeignKey(e => e.DebitAccountId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.CreditAccount)
             .WithMany()
             .HasForeignKey(e => e.CreditAccountId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.InstrumentNumber).IsUnique(false);
         builder.HasIndex(e => e.InstrumentType);

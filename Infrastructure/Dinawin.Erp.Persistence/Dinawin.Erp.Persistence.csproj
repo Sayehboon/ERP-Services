@@ -28,4 +28,8 @@
     <ProjectReference Include="..\..\Application\Dinawin.Erp.Application\Dinawin.Erp.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

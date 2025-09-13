@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dinawin.Erp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250913101521_TestMigration")]
-    partial class TestMigration
+    [Migration("20250913135129_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2812,9 +2812,6 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.Property<Guid>("VendorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("VendorId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BillDate");
@@ -2824,8 +2821,6 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasIndex("Status");
 
                     b.HasIndex("VendorId");
-
-                    b.HasIndex("VendorId1");
 
                     b.ToTable("PurchaseBills");
                 });
@@ -5171,10 +5166,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("AverageRating")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal>("CompletionRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -5192,7 +5189,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -5208,18 +5206,21 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Target")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -5230,6 +5231,10 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("Type");
 
                     b.ToTable("Surveys");
                 });
@@ -5332,7 +5337,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Answer")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -5352,7 +5358,13 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("SurveyQuestionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("SurveyResponseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SurveyResponseId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -5365,7 +5377,11 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.HasIndex("QuestionId");
 
+                    b.HasIndex("SurveyQuestionId");
+
                     b.HasIndex("SurveyResponseId");
+
+                    b.HasIndex("SurveyResponseId1");
 
                     b.ToTable("SurveyQuestionResponses");
                 });
@@ -5398,15 +5414,20 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("RespondentEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("RespondentName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("ResponseDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("SurveyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SurveyId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -5419,7 +5440,11 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.HasIndex("ContactId");
 
+                    b.HasIndex("ResponseDate");
+
                     b.HasIndex("SurveyId");
+
+                    b.HasIndex("SurveyId1");
 
                     b.ToTable("SurveyResponses");
                 });
@@ -6138,7 +6163,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("AvailableQuantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("AverageCost")
                         .HasPrecision(18, 2)
@@ -6998,7 +7024,8 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.Property<string>("ChangeType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("ChangedAt")
                         .HasColumnType("datetime2");
@@ -7014,7 +7041,8 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.Property<string>("Currency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
@@ -7026,12 +7054,15 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("NewPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<decimal>("OldPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductId")
@@ -7044,6 +7075,10 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChangedAt");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("PriceChanges");
                 });
@@ -7076,18 +7111,23 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal?>("NewPriceBuy")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("NewPriceSell")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<decimal?>("OldPriceBuy")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("OldPriceSell")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductId")
@@ -7100,6 +7140,10 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChangedAt");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("PriceHistories");
                 });
@@ -7119,7 +7163,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Capacity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("CapacityUnit")
                         .HasMaxLength(20)
@@ -7859,7 +7904,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("CurrentStock")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("DefaultUnit")
                         .HasMaxLength(50)
@@ -7895,14 +7941,16 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("MaxStockLevel")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("MinStock")
                         .HasPrecision(18, 4)
                         .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("MinStockLevel")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<Guid?>("ModelId")
                         .HasColumnType("uniqueidentifier");
@@ -7920,9 +7968,11 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("ReorderPoint")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("SalePrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Sku")
@@ -7960,6 +8010,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("WholesalePrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("YearId")
@@ -8856,7 +8907,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal>("ExchangeRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 6)
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<DateTime?>("ExpectedDeliveryDate")
                         .HasColumnType("datetime2");
@@ -8915,6 +8967,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("TotalAmountInBaseCurrency")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Type")
@@ -9061,7 +9114,8 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.Property<string>("Currency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
@@ -9070,10 +9124,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<decimal>("ExchangeRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 6)
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -9086,13 +9142,16 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.Property<string>("ReceiptNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -9110,6 +9169,10 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PurchaseOrderId");
+
+                    b.HasIndex("ReceiptNumber");
+
+                    b.HasIndex("Status");
 
                     b.HasIndex("VendorId");
 
@@ -9137,7 +9200,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -9146,7 +9210,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("OrderedQuantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -9158,15 +9223,19 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("ReceivedQuantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("RemainingQuantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -9201,7 +9270,8 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.Property<string>("Currency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
@@ -9210,10 +9280,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<decimal>("ExchangeRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 6)
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -9226,16 +9298,19 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.Property<string>("ReturnNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ReturnReason")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -9253,6 +9328,10 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PurchaseReceiptId");
+
+                    b.HasIndex("ReturnNumber");
+
+                    b.HasIndex("Status");
 
                     b.HasIndex("VendorId");
 
@@ -9280,7 +9359,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -9295,12 +9375,15 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("ReturnedQuantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -9385,7 +9468,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal>("ExchangeRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(18, 6)
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<DateTime?>("ExpectedDeliveryDate")
                         .HasColumnType("datetime2");
@@ -13494,15 +13578,13 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("ActualHours")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<DateTime?>("ActualStartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("AssignedTo")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AssignedToUserId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CompletedDate")
@@ -13521,13 +13603,15 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("EstimatedHours")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -13536,14 +13620,16 @@ namespace Dinawin.Erp.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<Guid?>("ParentTaskId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Priority")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("ProgressPercentage")
                         .HasColumnType("int");
@@ -13556,17 +13642,21 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Tags")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("TaskType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -13576,9 +13666,13 @@ namespace Dinawin.Erp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssignedToUserId1");
+                    b.HasIndex("AssignedTo");
+
+                    b.HasIndex("Priority");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("Status");
 
                     b.ToTable("Tasks");
                 });
@@ -13606,18 +13700,18 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ClosedByUser")
                         .WithMany()
                         .HasForeignKey("ClosedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccFiscalYear", "FiscalYear")
                         .WithMany("FiscalPeriods")
                         .HasForeignKey("FiscalYearId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LockedByUser")
                         .WithMany()
                         .HasForeignKey("LockedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("ClosedByUser");
 
@@ -13631,12 +13725,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ClosedByUser")
                         .WithMany()
                         .HasForeignKey("ClosedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LockedByUser")
                         .WithMany()
                         .HasForeignKey("LockedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("ClosedByUser");
 
@@ -13648,7 +13742,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ApproverUser")
                         .WithMany()
                         .HasForeignKey("ApproverUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccJournalVoucher", "JournalVoucher")
@@ -13746,12 +13840,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ApprovedByUser")
                         .WithMany()
                         .HasForeignKey("ApprovedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccFiscalPeriod", "FiscalPeriod")
@@ -13763,7 +13857,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LastModifiedByUser")
                         .WithMany()
                         .HasForeignKey("LastModifiedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("ApprovedByUser");
 
@@ -13785,7 +13879,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ApprovedByUser")
                         .WithMany()
                         .HasForeignKey("ApprovedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccFiscalPeriod", "FiscalPeriod")
                         .WithMany()
@@ -13796,7 +13890,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "RegisteredByUser")
                         .WithMany()
                         .HasForeignKey("RegisteredByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Account");
@@ -13813,7 +13907,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("CreatedByUser");
                 });
@@ -13837,12 +13931,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.FiscalPeriod", "FiscalPeriod")
                         .WithMany()
                         .HasForeignKey("FiscalPeriodId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.FiscalYear", "FiscalYear")
                         .WithMany()
                         .HasForeignKey("FiscalYearId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.ApVendor", "Vendor")
                         .WithMany()
@@ -13888,12 +13982,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.BankAccount", "BankAccount")
                         .WithMany()
                         .HasForeignKey("BankAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.CashBox", "CashBox")
                         .WithMany()
                         .HasForeignKey("CashBoxId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.ApVendor", "Vendor")
                         .WithMany("Payments")
@@ -13938,12 +14032,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.FiscalPeriod", "FiscalPeriod")
                         .WithMany()
                         .HasForeignKey("FiscalPeriodId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.FiscalYear", "FiscalYear")
                         .WithMany()
                         .HasForeignKey("FiscalYearId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Customer");
 
@@ -13983,12 +14077,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.BankAccount", "BankAccount")
                         .WithMany()
                         .HasForeignKey("BankAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.CashBox", "CashBox")
                         .WithMany()
                         .HasForeignKey("CashBoxId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.ArCustomer", "Customer")
                         .WithMany("Receipts")
@@ -14068,12 +14162,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ApprovedByUser")
                         .WithMany()
                         .HasForeignKey("ApprovedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ExecutedByUser")
                         .WithMany()
                         .HasForeignKey("ExecutedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccFiscalPeriod", "FiscalPeriod")
@@ -14085,7 +14179,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ReversedByUser")
                         .WithMany()
                         .HasForeignKey("ReversedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("ApprovedByUser");
 
@@ -14197,14 +14291,10 @@ namespace Dinawin.Erp.Persistence.Migrations
             modelBuilder.Entity("Dinawin.Erp.Domain.Entities.Accounting.PurchaseBill", b =>
                 {
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.Vendor", "Vendor")
-                        .WithMany()
+                        .WithMany("PurchaseBills")
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.Vendor", null)
-                        .WithMany("PurchaseBills")
-                        .HasForeignKey("VendorId1");
 
                     b.Navigation("Vendor");
                 });
@@ -14237,7 +14327,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.BankAccount", "BankAccount")
                         .WithMany()
                         .HasForeignKey("BankAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.BankAccount", null)
                         .WithMany("PurchasePayments")
@@ -14246,7 +14336,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.CashBox", "CashBox")
                         .WithMany()
                         .HasForeignKey("CashBoxId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.CashBox", null)
                         .WithMany("PurchasePayments")
@@ -14286,7 +14376,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.BankAccount", "BankAccount")
                         .WithMany()
                         .HasForeignKey("BankAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.BankAccount", null)
                         .WithMany("SalePayments")
@@ -14295,7 +14385,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.CashBox", "CashBox")
                         .WithMany()
                         .HasForeignKey("CashBoxId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.CashBox", null)
                         .WithMany("SalePayments")
@@ -14361,7 +14451,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("User");
                 });
@@ -14414,12 +14504,12 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ApprovedByUser")
                         .WithMany()
                         .HasForeignKey("ApprovedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Department", "Department")
@@ -14441,7 +14531,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LastModifiedByUser")
                         .WithMany()
                         .HasForeignKey("LastModifiedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Project", "Project")
                         .WithMany()
@@ -14480,62 +14570,62 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimension", "Dimension1")
                         .WithMany()
                         .HasForeignKey("Dimension1Id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimensionValue", "Dimension1Value")
                         .WithMany()
                         .HasForeignKey("Dimension1ValueId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimension", "Dimension2")
                         .WithMany()
                         .HasForeignKey("Dimension2Id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimensionValue", "Dimension2Value")
                         .WithMany()
                         .HasForeignKey("Dimension2ValueId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimension", "Dimension3")
                         .WithMany()
                         .HasForeignKey("Dimension3Id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimensionValue", "Dimension3Value")
                         .WithMany()
                         .HasForeignKey("Dimension3ValueId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimension", "Dimension4")
                         .WithMany()
                         .HasForeignKey("Dimension4Id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimensionValue", "Dimension4Value")
                         .WithMany()
                         .HasForeignKey("Dimension4ValueId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimension", "Dimension5")
                         .WithMany()
                         .HasForeignKey("Dimension5Id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccDimensionValue", "Dimension5Value")
                         .WithMany()
                         .HasForeignKey("Dimension5ValueId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Account");
 
@@ -14575,17 +14665,17 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Crm.Contact", "Contact")
                         .WithMany("Activities")
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Crm.Lead", "Lead")
                         .WithMany("Activities")
                         .HasForeignKey("LeadId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Crm.Opportunity", "Opportunity")
                         .WithMany("Activities")
                         .HasForeignKey("OpportunityId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("AssignedUser");
 
@@ -14640,17 +14730,17 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Crm.Contact", "Contact")
                         .WithMany()
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Crm.Lead", "Lead")
                         .WithMany()
                         .HasForeignKey("LeadId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Contact");
 
@@ -14682,16 +14772,24 @@ namespace Dinawin.Erp.Persistence.Migrations
             modelBuilder.Entity("Dinawin.Erp.Domain.Entities.Crm.SurveyQuestionResponse", b =>
                 {
                     b.HasOne("Dinawin.Erp.Domain.Entities.Crm.SurveyQuestion", "Question")
-                        .WithMany("QuestionResponses")
+                        .WithMany()
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Dinawin.Erp.Domain.Entities.Crm.SurveyResponse", "SurveyResponse")
+                    b.HasOne("Dinawin.Erp.Domain.Entities.Crm.SurveyQuestion", null)
                         .WithMany("QuestionResponses")
+                        .HasForeignKey("SurveyQuestionId");
+
+                    b.HasOne("Dinawin.Erp.Domain.Entities.Crm.SurveyResponse", "SurveyResponse")
+                        .WithMany()
                         .HasForeignKey("SurveyResponseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("Dinawin.Erp.Domain.Entities.Crm.SurveyResponse", null)
+                        .WithMany("QuestionResponses")
+                        .HasForeignKey("SurveyResponseId1");
 
                     b.Navigation("Question");
 
@@ -14702,13 +14800,18 @@ namespace Dinawin.Erp.Persistence.Migrations
                 {
                     b.HasOne("Dinawin.Erp.Domain.Entities.Crm.Contact", "Contact")
                         .WithMany()
-                        .HasForeignKey("ContactId");
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Crm.Survey", "Survey")
-                        .WithMany("SurveyResponses")
+                        .WithMany()
                         .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("Dinawin.Erp.Domain.Entities.Crm.Survey", null)
+                        .WithMany("SurveyResponses")
+                        .HasForeignKey("SurveyId1");
 
                     b.Navigation("Contact");
 
@@ -14776,7 +14879,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Inventories.Bin", "Bin")
                         .WithMany()
                         .HasForeignKey("BinId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Inventories.Bin", null)
                         .WithMany("Inventories")
@@ -14904,7 +15007,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Inventories.Bin", "Bin")
                         .WithMany()
                         .HasForeignKey("BinId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Inventories.Inventory", null)
                         .WithMany("Movements")
@@ -14913,13 +15016,13 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.Product", "Product")
                         .WithMany("InventoryMovements")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Inventories.Warehouse", "Warehouse")
                         .WithMany("InventoryMovements")
                         .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Bin");
@@ -14993,22 +15096,22 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.UnitOfMeasure", "BaseUom")
                         .WithMany()
                         .HasForeignKey("BaseUomId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.Brand", "Brand")
                         .WithMany("Products")
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.Model", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.Model", null)
                         .WithMany("Products")
@@ -15017,7 +15120,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.Trim", "Trim")
                         .WithMany()
                         .HasForeignKey("TrimId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.Trim", null)
                         .WithMany("Products")
@@ -15195,7 +15298,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.UnitOfMeasure", "BaseUnit")
                         .WithMany()
                         .HasForeignKey("BaseUnitId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Products.UnitOfMeasure", null)
                         .WithMany("DependentUnits")
@@ -15540,7 +15643,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ManagerUser")
                         .WithMany()
                         .HasForeignKey("ManagerUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Systems.Branch", "ParentBranch")
                         .WithMany("ChildBranches")
@@ -15557,13 +15660,13 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LastModifiedByUser")
                         .WithMany()
                         .HasForeignKey("LastModifiedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("CreatedByUser");
 
@@ -15597,7 +15700,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ManagerUser")
                         .WithMany()
                         .HasForeignKey("ManagerUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Systems.OrgUnit", "ParentUnit")
                         .WithMany("ChildUnits")
@@ -15616,13 +15719,13 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LastModifiedByUser")
                         .WithMany()
                         .HasForeignKey("LastModifiedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("CreatedByUser");
 
@@ -15653,7 +15756,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("User");
                 });
@@ -15663,7 +15766,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -15674,13 +15777,13 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "LastModifiedByUser")
                         .WithMany()
                         .HasForeignKey("LastModifiedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Systems.OrgUnit", "OrgUnit")
                         .WithMany("UnitUsers")
@@ -15691,7 +15794,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("CreatedByUser");
@@ -15817,17 +15920,17 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.Account", "AccumulatedDepreciationAccount")
                         .WithMany()
                         .HasForeignKey("AccumulatedDepreciationAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "ApprovedByUser")
                         .WithMany()
                         .HasForeignKey("ApprovedByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.Account", "DepreciationAccount")
                         .WithMany()
                         .HasForeignKey("DepreciationAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.FixedAssets.FaAsset", "FaAsset")
                         .WithMany()
@@ -15850,7 +15953,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.AccJournalVoucher", "JournalVoucher")
                         .WithMany()
                         .HasForeignKey("JournalVoucherId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("AccumulatedDepreciationAccount");
 
@@ -15872,17 +15975,17 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Treasury.BankAccount", "BankAccount")
                         .WithMany()
                         .HasForeignKey("BankAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.Account", "CreditAccount")
                         .WithMany()
                         .HasForeignKey("CreditAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Accounting.Account", "DebitAccount")
                         .WithMany()
                         .HasForeignKey("DebitAccountId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("BankAccount");
 
@@ -16048,7 +16151,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Company");
 
@@ -16069,7 +16172,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Employee", "Employee")
                         .WithMany("Salaries")
@@ -16142,7 +16245,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Company", null)
                         .WithMany("Users")
@@ -16151,7 +16254,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Department", "Department")
                         .WithMany("Users")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Role", "Role")
                         .WithMany()
@@ -16190,7 +16293,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithOne()
                         .HasForeignKey("Dinawin.Erp.Domain.Entities.Users.UserProfile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", null)
@@ -16211,7 +16314,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Role");
@@ -16224,7 +16327,7 @@ namespace Dinawin.Erp.Persistence.Migrations
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "User")
                         .WithOne()
                         .HasForeignKey("Dinawin.Erp.Domain.Entities.Users.UserSettings", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", null)
@@ -16238,7 +16341,8 @@ namespace Dinawin.Erp.Persistence.Migrations
                 {
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.User", "AssignedToUser")
                         .WithMany()
-                        .HasForeignKey("AssignedToUserId1");
+                        .HasForeignKey("AssignedTo")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Dinawin.Erp.Domain.Entities.Users.Project", "Project")
                         .WithMany()

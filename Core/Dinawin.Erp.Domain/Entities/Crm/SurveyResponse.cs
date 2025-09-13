@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Crm;
 
@@ -61,4 +63,33 @@ public class SurveyResponse : BaseEntity
     /// Question responses
     /// </summary>
     public ICollection<SurveyQuestionResponse> QuestionResponses { get; set; } = new List<SurveyQuestionResponse>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت پاسخ نظرسنجی
+/// Survey Response entity configuration
+/// </summary>
+public class SurveyResponseConfiguration : IEntityTypeConfiguration<SurveyResponse>
+{
+    public void Configure(EntityTypeBuilder<SurveyResponse> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.RespondentName).HasMaxLength(200);
+        builder.Property(e => e.RespondentEmail).HasMaxLength(200);
+
+        builder.HasOne(e => e.Survey)
+            .WithMany()
+            .HasForeignKey(e => e.SurveyId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasOne(e => e.Contact)
+            .WithMany()
+            .HasForeignKey(e => e.ContactId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasIndex(e => e.SurveyId);
+        builder.HasIndex(e => e.ContactId);
+        builder.HasIndex(e => e.ResponseDate);
+    }
 }

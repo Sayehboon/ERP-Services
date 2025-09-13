@@ -180,12 +180,12 @@ public class ArInvoiceConfiguration : IEntityTypeConfiguration<ArInvoice>
         builder.HasOne(e => e.FiscalPeriod)
             .WithMany()
             .HasForeignKey(e => e.FiscalPeriodId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(e => e.FiscalYear)
             .WithMany()
             .HasForeignKey(e => e.FiscalYearId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasIndex(e => e.Number).IsUnique(false);
         builder.HasIndex(e => e.InvoiceDate);

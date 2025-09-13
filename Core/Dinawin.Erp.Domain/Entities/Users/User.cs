@@ -231,12 +231,14 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(e => e.Company)
             .WithMany()
             .HasForeignKey(e => e.CompanyId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasOne(e => e.Department)
             .WithMany(d => d.Users)
             .HasForeignKey(e => e.DepartmentId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasIndex(e => e.Username).IsUnique();
         builder.HasIndex(e => e.Email).IsUnique();

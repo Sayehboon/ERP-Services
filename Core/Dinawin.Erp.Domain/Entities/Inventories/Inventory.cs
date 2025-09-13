@@ -201,6 +201,7 @@ public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
         builder.Property(e => e.MaxStockLevel).HasPrecision(18, 4);
         builder.Property(e => e.ReorderPoint).HasPrecision(18, 4);
         builder.Property(e => e.SafetyStock).HasPrecision(18, 4);
+        builder.Property(e => e.AvailableQuantity).HasPrecision(18, 4);
 
         builder.HasOne(e => e.Product)
             .WithMany(p => p.Inventories)
@@ -215,7 +216,8 @@ public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
         builder.HasOne(e => e.Bin)
             .WithMany()
             .HasForeignKey(e => e.BinId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(false);
 
         builder.HasIndex(e => new { e.ProductId, e.WarehouseId })
             .IsUnique();

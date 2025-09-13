@@ -1,4 +1,6 @@
 using Dinawin.Erp.Domain.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dinawin.Erp.Domain.Entities.Purchase;
 
@@ -98,4 +100,30 @@ public class PurchaseReceipt : BaseEntity, IAggregateRoot
     /// Receipt lines
     /// </summary>
     public ICollection<PurchaseReceiptLine> Lines { get; set; } = new List<PurchaseReceiptLine>();
+}
+
+/// <summary>
+/// پیکربندی موجودیت رسید خرید
+/// Purchase Receipt entity configuration
+/// </summary>
+public class PurchaseReceiptConfiguration : IEntityTypeConfiguration<PurchaseReceipt>
+{
+    public void Configure(EntityTypeBuilder<PurchaseReceipt> builder)
+    {
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.ReceiptNumber).HasMaxLength(100);
+        builder.Property(e => e.Status).HasMaxLength(50);
+        builder.Property(e => e.Currency).HasMaxLength(10);
+        builder.Property(e => e.Description).HasMaxLength(1000);
+
+        // Configure decimal properties with precision
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+        builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+
+        builder.HasIndex(e => e.ReceiptNumber).IsUnique(false);
+        builder.HasIndex(e => e.VendorId);
+        builder.HasIndex(e => e.WarehouseId);
+        builder.HasIndex(e => e.Status);
+    }
 }
