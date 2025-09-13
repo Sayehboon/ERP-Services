@@ -1,5 +1,6 @@
 using MediatR;
 using System.ComponentModel.DataAnnotations;
+using Dinawin.Erp.Application.Features.Inventories.Bins.DTOs;
 
 namespace Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetBinById;
 

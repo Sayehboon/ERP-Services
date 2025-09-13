@@ -9,6 +9,7 @@ using Dinawin.Erp.Application.Features.Financial.BankAccounts.Commands.UpdateBan
 using Dinawin.Erp.Application.Features.Financial.BankAccounts.Commands.DeleteBankAccount;
 using Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetBankAccountById;
 using Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetAllBankAccounts;
+using Dinawin.Erp.Application.Features.Financial.BankAccounts.DTOs;
 
 namespace Dinawin.Erp.WebApi.Controllers.Financial;
 
@@ -38,7 +39,7 @@ public class BankAccountsController : BaseController
     /// <param name="pageSize">تعداد آیتم در هر صفحه</param>
     /// <returns>لیست تمام حساب‌های بانکی</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<GetAllBankAccounts.BankAccountDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<BankAccountDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllBankAccounts(
         [FromQuery] string? searchTerm = null,
@@ -77,7 +78,7 @@ public class BankAccountsController : BaseController
     /// <param name="id">شناسه حساب بانکی</param>
     /// <returns>اطلاعات حساب بانکی</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(GetBankAccountById.BankAccountDto), 200)]
+    [ProducesResponseType(typeof(BankAccountDto), 200)]
     [ProducesResponseType(404)]
     public async Task<object> GetBankAccount(Guid id)
     {
@@ -104,7 +105,7 @@ public class BankAccountsController : BaseController
     /// </summary>
     /// <returns>لیست حساب‌های بانکی فعال</returns>
     [HttpGet("active")]
-    [ProducesResponseType(typeof(IEnumerable<GetAllBankAccounts.BankAccountDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<BankAccountDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetActiveBankAccounts()
     {

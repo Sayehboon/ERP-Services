@@ -1,4 +1,5 @@
 using MediatR;
+using Dinawin.Erp.Application.Features.Inventories.Bins.DTOs;
 
 namespace Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetAllBins;
 

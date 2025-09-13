@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Application.Features.Inventories.Bins.DTOs;
 
 namespace Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetBinById;
 

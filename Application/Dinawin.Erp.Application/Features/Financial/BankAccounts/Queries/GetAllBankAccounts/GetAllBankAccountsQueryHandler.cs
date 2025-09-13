@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Application.Features.Financial.BankAccounts.DTOs;
 
 namespace Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetAllBankAccounts;
 

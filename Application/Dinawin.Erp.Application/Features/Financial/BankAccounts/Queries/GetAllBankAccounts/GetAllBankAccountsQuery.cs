@@ -1,4 +1,5 @@
 using MediatR;
+using Dinawin.Erp.Application.Features.Financial.BankAccounts.DTOs;
 
 namespace Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetAllBankAccounts;
 

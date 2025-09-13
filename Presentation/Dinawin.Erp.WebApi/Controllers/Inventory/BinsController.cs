@@ -3,11 +3,10 @@ using Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetBinById;
 using Dinawin.Erp.Application.Features.Inventories.Bins.Commands.CreateBin;
 using Dinawin.Erp.Application.Features.Inventories.Bins.Commands.UpdateBin;
 using Dinawin.Erp.Application.Features.Inventories.Bins.Commands.DeleteBin;
+using Dinawin.Erp.Application.Features.Inventories.Bins.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using BinDto = Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetAllBins.BinDto;
-using GetBinByIdDto = Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetBinById.BinDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Inventory;
 
@@ -73,7 +72,7 @@ public class BinsController : BaseController
     /// <param name="id">شناسه مکان انبار</param>
     /// <returns>اطلاعات مکان انبار</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(GetBinByIdDto), 200)]
+    [ProducesResponseType(typeof(BinDto), 200)]
     [ProducesResponseType(404)]
     public async Task<object> GetBin(Guid id)
     {

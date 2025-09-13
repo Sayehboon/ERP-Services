@@ -1,4 +1,4 @@
-namespace Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetBinById;
+namespace Dinawin.Erp.Application.Features.Inventories.Bins.DTOs;
 
 /// <summary>
 /// مدل انتقال داده مکان

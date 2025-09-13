@@ -1,5 +1,6 @@
 using MediatR;
 using System.ComponentModel.DataAnnotations;
+using Dinawin.Erp.Application.Features.Financial.BankAccounts.DTOs;
 
 namespace Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetBankAccountById;
 
