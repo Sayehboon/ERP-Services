@@ -28,11 +28,6 @@ public class TicketResponse : BaseEntity, IAggregateRoot
     /// </summary>
     public bool IsInternal { get; set; }
 
-    /// <summary>
-    /// ایجادکننده
-    /// Created by
-    /// </summary>
-    public Guid? CreatedBy { get; set; }
 }
 
 /// <summary>

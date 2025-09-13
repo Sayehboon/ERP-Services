@@ -25,7 +25,7 @@ public sealed class DeleteInventoryCommandHandler : IRequestHandler<DeleteInvent
     /// </summary>
     public async Task<bool> Handle(DeleteInventoryCommand request, CancellationToken cancellationToken)
     {
-        var inventory = await _context.Inventory.FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);
+        var inventory = await _context.Inventories.FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);
         if (inventory == null)
         {
             throw new ArgumentException($"موجودی با شناسه {request.Id} یافت نشد");
@@ -40,7 +40,7 @@ public sealed class DeleteInventoryCommandHandler : IRequestHandler<DeleteInvent
             throw new InvalidOperationException("امکان حذف موجودی به دلیل وجود حرکات وابسته وجود ندارد");
         }
 
-        _context.Inventory.Remove(inventory);
+        _context.Inventories.Remove(inventory);
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }

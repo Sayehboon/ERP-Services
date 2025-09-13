@@ -25,7 +25,7 @@ public class ProjectsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllProjects()
+    public async Task<ActionResult<List<object>>> GetAllProjects()
     {
         try
         {
@@ -63,7 +63,7 @@ public class ProjectsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetProject(Guid id)
+    public async Task<ActionResult<object>> GetProject(Guid id)
     {
         try
         {
@@ -90,7 +90,7 @@ public class ProjectsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveProjects()
+    public async Task<ActionResult<List<object>>> GetActiveProjects()
     {
         try
         {
@@ -120,7 +120,7 @@ public class ProjectsController : BaseController
     [HttpGet("{id}/stats")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetProjectStats(Guid id)
+    public async Task<ActionResult<object>> GetProjectStats(Guid id)
     {
         try
         {
@@ -153,7 +153,7 @@ public class ProjectsController : BaseController
     [HttpGet("{id}/team")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetProjectTeam(Guid id)
+    public async Task<ActionResult<List<object>>> GetProjectTeam(Guid id)
     {
         try
         {
@@ -184,7 +184,7 @@ public class ProjectsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateProject([FromBody] object command)
+    public async Task<ActionResult<Guid>> CreateProject([FromBody] object command)
     {
         try
         {
@@ -208,7 +208,7 @@ public class ProjectsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateProject(Guid id, [FromBody] object command)
+    public async Task<ActionResult<object>> UpdateProject(Guid id, [FromBody] object command)
     {
         try
         {

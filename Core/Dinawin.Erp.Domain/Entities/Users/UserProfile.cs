@@ -41,6 +41,54 @@ public class UserProfile : BaseEntity, IAggregateRoot
     public string? AvatarUrl { get; set; }
 
     /// <summary>
+    /// کد ملی
+    /// National ID
+    /// </summary>
+    public string? NationalId { get; set; }
+
+    /// <summary>
+    /// آدرس
+    /// Address
+    /// </summary>
+    public string? Address { get; set; }
+
+    /// <summary>
+    /// تاریخ تولد
+    /// Date of birth
+    /// </summary>
+    public DateTime? DateOfBirth { get; set; }
+
+    /// <summary>
+    /// جنسیت
+    /// Gender
+    /// </summary>
+    public string? Gender { get; set; }
+
+    /// <summary>
+    /// آدرس تصویر پروفایل
+    /// Profile image URL
+    /// </summary>
+    public string? ProfileImageUrl { get; set; }
+
+    /// <summary>
+    /// بیوگرافی
+    /// Bio
+    /// </summary>
+    public string? Bio { get; set; }
+
+    /// <summary>
+    /// زبان ترجیحی
+    /// Preferred language
+    /// </summary>
+    public string? PreferredLanguage { get; set; }
+
+    /// <summary>
+    /// منطقه زمانی
+    /// Time zone
+    /// </summary>
+    public string? TimeZone { get; set; }
+
+    /// <summary>
     /// فعال است؟
     /// Is active?
     /// </summary>
@@ -74,6 +122,13 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
         builder.Property(e => e.Email).HasMaxLength(200);
         builder.Property(e => e.Phone).HasMaxLength(20);
         builder.Property(e => e.AvatarUrl).HasMaxLength(500);
+        builder.Property(e => e.NationalId).HasMaxLength(20);
+        builder.Property(e => e.Address).HasMaxLength(500);
+        builder.Property(e => e.Gender).HasMaxLength(10);
+        builder.Property(e => e.ProfileImageUrl).HasMaxLength(500);
+        builder.Property(e => e.Bio).HasMaxLength(1000);
+        builder.Property(e => e.PreferredLanguage).HasMaxLength(10);
+        builder.Property(e => e.TimeZone).HasMaxLength(50);
 
         builder.HasOne(e => e.User)
             .WithOne()

@@ -89,8 +89,8 @@ public sealed class GetAllTasksQueryHandler : IRequestHandler<GetAllTasksQuery, 
             AssignedToUserId = t.AssignedTo,
             Priority = t.Priority,
             Status = t.Status,
-            StartDate = t.StartDate,
-            EndDate = t.EndDate,
+            PlannedStartDate = t.StartDate,
+            PlannedEndDate = t.EndDate,
             IsActive = t.IsActive
         });
     }

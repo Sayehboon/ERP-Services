@@ -8,6 +8,8 @@ using Dinawin.Erp.Application.Features.Product.Products.Queries.GetProductsByCat
 using Dinawin.Erp.Application.Features.Product.Products.Commands.CreateProduct;
 using Dinawin.Erp.Application.Features.Product.Products.Commands.UpdateProduct;
 using Dinawin.Erp.Application.Features.Product.Products.Commands.DeleteProduct;
+using ProductDto = Dinawin.Erp.Application.Features.Product.Products.Queries.GetAllProducts.ProductDto;
+using GetProductByIdDto = Dinawin.Erp.Application.Features.Product.Products.Queries.GetProductById.ProductDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -39,7 +41,7 @@ public class ProductsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<ProductDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllProducts(
+    public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? categoryId = null,
         [FromQuery] Guid? brandId = null,
@@ -56,7 +58,7 @@ public class ProductsController : BaseController
                 CategoryId = categoryId,
                 BrandId = brandId,
                 ModelId = modelId,
-                IsActive = isActive,
+                Status = isActive.HasValue ? (isActive.Value ? "Active" : "Inactive") : null,
                 Page = page,
                 PageSize = pageSize
             };
@@ -76,9 +78,9 @@ public class ProductsController : BaseController
     /// <param name="id">شناسه محصول</param>
     /// <returns>اطلاعات محصول</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ProductDto), 200)]
+    [ProducesResponseType(typeof(GetProductByIdDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetProduct(Guid id)
+    public async Task<object> GetProduct(Guid id)
     {
         try
         {
@@ -106,7 +108,7 @@ public class ProductsController : BaseController
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> SearchProducts([FromQuery] string searchTerm)
+    public async Task<ActionResult<IEnumerable<ProductDto>>> SearchProducts([FromQuery] string searchTerm)
     {
         try
         {
@@ -132,7 +134,7 @@ public class ProductsController : BaseController
     [HttpGet("by-category/{categoryId}")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetProductsByCategory(Guid categoryId)
+    public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsByCategory(Guid categoryId)
     {
         try
         {
@@ -158,7 +160,7 @@ public class ProductsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateProduct([FromBody] CreateProductCommand command)
+    public async Task<ActionResult<Guid>> CreateProduct([FromBody] CreateProductCommand command)
     {
         try
         {

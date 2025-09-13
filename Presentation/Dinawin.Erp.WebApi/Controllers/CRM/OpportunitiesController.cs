@@ -31,7 +31,7 @@ public class OpportunitiesController : BaseController
     /// <response code="200">لیست فرصت‌ها با موفقیت بازگردانده شد</response>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<OpportunityDto>), 200)]
-    public async Task<ActionResult<List<OpportunityDto>>> GetAllOpportunities([FromQuery] GetAllOpportunitiesQuery query)
+    public async Task<ActionResult<IEnumerable<OpportunityDto>>> GetAllOpportunities([FromQuery] GetAllOpportunitiesQuery query)
     {
         try
         {

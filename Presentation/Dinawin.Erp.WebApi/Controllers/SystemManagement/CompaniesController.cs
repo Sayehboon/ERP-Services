@@ -6,6 +6,7 @@ using Dinawin.Erp.Application.Features.SystemManagement.Companies.Queries.GetCom
 using Dinawin.Erp.Application.Features.SystemManagement.Companies.Commands.CreateCompany;
 using Dinawin.Erp.Application.Features.SystemManagement.Companies.Commands.UpdateCompany;
 using Dinawin.Erp.Application.Features.SystemManagement.Companies.Commands.DeleteCompany;
+using CompanyDto = Dinawin.Erp.Application.Features.SystemManagement.Companies.Queries.GetAllCompanies.CompanyDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.SystemManagement;
 
@@ -34,7 +35,7 @@ public class CompaniesController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<CompanyDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllCompanies(
+    public async Task<ActionResult<IEnumerable<CompanyDto>>> GetAllCompanies(
         [FromQuery] string? searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
@@ -67,7 +68,7 @@ public class CompaniesController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(CompanyDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCompany(Guid id)
+    public async Task<object> GetCompany(Guid id)
     {
         try
         {
@@ -94,7 +95,7 @@ public class CompaniesController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<CompanyDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveCompanies()
+    public async Task<ActionResult<IEnumerable<CompanyDto>>> GetActiveCompanies()
     {
         try
         {
@@ -116,7 +117,7 @@ public class CompaniesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateCompany([FromBody] CreateCompanyCommand command)
+    public async Task<ActionResult<Guid>> CreateCompany([FromBody] CreateCompanyCommand command)
     {
         try
         {

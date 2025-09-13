@@ -9,6 +9,8 @@ public class CreatePurchaseOrderCommand : IRequest<Guid>
 {
     public string Number { get; set; } = string.Empty;
     public Guid VendorId { get; set; }
+    public string? VendorEmail { get; set; }
+    public string? VendorPhone { get; set; }
     public DateTime OrderDate { get; set; } = DateTime.UtcNow;
     public DateTime? ExpectedDeliveryDate { get; set; }
     public decimal TotalAmount { get; set; }

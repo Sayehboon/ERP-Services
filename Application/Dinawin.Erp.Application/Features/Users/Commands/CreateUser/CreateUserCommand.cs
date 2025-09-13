@@ -27,10 +27,22 @@ public class CreateUserCommand : IRequest<Guid>
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
+    /// نام کاربری
+    /// Username
+    /// </summary>
+    public string Username { get; set; } = string.Empty;
+
+    /// <summary>
     /// رمز عبور کاربر
     /// User's password
     /// </summary>
     public string Password { get; set; } = string.Empty;
+
+    /// <summary>
+    /// هش رمز عبور
+    /// Password hash
+    /// </summary>
+    public string PasswordHash { get; set; } = string.Empty;
 
     /// <summary>
     /// شماره تماس کاربر

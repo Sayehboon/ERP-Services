@@ -16,6 +16,7 @@ using Dinawin.Erp.Domain.Entities.Purchase;
 using Dinawin.Erp.Domain.Entities.AfterSales;
 using Dinawin.Erp.Domain.Entities.Maintenance;
 using Dinawin.Erp.Domain.Entities.FixedAssets;
+using Dinawin.Erp.Domain.Entities.Budget;
 
 namespace Dinawin.Erp.Persistence;
 
@@ -39,6 +40,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Brand> Brands => Set<Brand>();
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<UnitOfMeasure> UnitsOfMeasures => Set<UnitOfMeasure>();
+    public DbSet<UnitOfMeasure> Units => Set<UnitOfMeasure>();
     public DbSet<Model> Models => Set<Model>();
     public DbSet<Trim> Trims => Set<Trim>();
     public DbSet<Year> Years => Set<Year>();
@@ -49,7 +51,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<VehicleCompatibility> VehicleCompatibilities => Set<VehicleCompatibility>();
 
     // Inventory entities
-    public DbSet<Inventory> Inventory => Set<Inventory>();
+    public DbSet<Inventory> Inventories => Set<Inventory>();
     public DbSet<Warehouse> Warehouses => Set<Warehouse>();
     public DbSet<InventoryMovement> InventoryMovements => Set<InventoryMovement>();
     public DbSet<Bin> Bins => Set<Bin>();
@@ -80,6 +82,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<EmployeeAttendance> EmployeeAttendances => Set<EmployeeAttendance>();
     public DbSet<EmployeeSalary> EmployeeSalaries => Set<EmployeeSalary>();
+    public DbSet<EmployeeSalary> EmployeeSalaryDetails => Set<EmployeeSalary>();
     public DbSet<Leave> Leaves => Set<Leave>();
     public DbSet<TaskEntity> Tasks => Set<TaskEntity>();
     public DbSet<SubTask> SubTasks => Set<SubTask>();
@@ -92,7 +95,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<Company> Companies => Set<Company>();
     public DbSet<Department> Departments => Set<Department>();
     public DbSet<UserSettings> UserSettings => Set<UserSettings>();
-    public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
 
     // Accounting entities
     public DbSet<Customer> Customers => Set<Customer>();
@@ -137,7 +139,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
     public DbSet<SecurityAudit> SecurityAudits => Set<SecurityAudit>();
     public DbSet<SmsLog> SmsLogs => Set<SmsLog>();
-    public DbSet<Console> Consoles => Set<Console>();
+    public DbSet<Dinawin.Erp.Domain.Entities.Systems.Console> Consoles => Set<Dinawin.Erp.Domain.Entities.Systems.Console>();
     public DbSet<Operation> Operations => Set<Operation>();
     public DbSet<RoleOperation> RoleOperations => Set<RoleOperation>();
     public DbSet<Branch> Branches => Set<Branch>();

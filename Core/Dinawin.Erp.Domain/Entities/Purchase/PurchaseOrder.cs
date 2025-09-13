@@ -17,6 +17,12 @@ public class PurchaseOrder : BaseEntity
     public string OrderNumber { get; set; } = string.Empty;
 
     /// <summary>
+    /// شماره سفارش (نام مستعار)
+    /// Order number (alias)
+    /// </summary>
+    public string Number => OrderNumber;
+
+    /// <summary>
     /// تاریخ سفارش
     /// Order date
     /// </summary>
@@ -51,6 +57,12 @@ public class PurchaseOrder : BaseEntity
     /// Order type
     /// </summary>
     public string? Type { get; set; }
+
+    /// <summary>
+    /// نوع سفارش (نام مستعار)
+    /// Order type (alias)
+    /// </summary>
+    public string? OrderType => Type;
 
     /// <summary>
     /// مبلغ کل سفارش
@@ -100,7 +112,17 @@ public class PurchaseOrder : BaseEntity
     /// </summary>
     public string? Notes { get; set; }
 
-    
+    /// <summary>
+    /// شناسه کاربر ایجادکننده
+    /// Created by user ID
+    /// </summary>
+    public Guid? CreatedByUserId { get; set; }
+
+    /// <summary>
+    /// شناسه کاربر ایجادکننده (نام مستعار)
+    /// Created by user ID (alias)
+    /// </summary>
+    public Guid? CreatedById => CreatedByUserId;
 
     /// <summary>
     /// شناسه کاربر مسئول
@@ -109,10 +131,118 @@ public class PurchaseOrder : BaseEntity
     public Guid? AssignedTo { get; set; }
 
     /// <summary>
+    /// شناسه کاربر مسئول (نام مستعار)
+    /// Assigned to user ID (alias)
+    /// </summary>
+    public Guid? AssignedToId => AssignedTo;
+
+    /// <summary>
+    /// ایمیل تامین‌کننده
+    /// Vendor email
+    /// </summary>
+    public string? VendorEmail { get; set; }
+
+    /// <summary>
+    /// تلفن تامین‌کننده
+    /// Vendor phone
+    /// </summary>
+    public string? VendorPhone { get; set; }
+
+    /// <summary>
+    /// اولویت سفارش
+    /// Order priority
+    /// </summary>
+    public string? Priority { get; set; }
+
+    /// <summary>
+    /// درخواست‌کننده
+    /// Requested by
+    /// </summary>
+    public string? RequestedBy { get; set; }
+
+    /// <summary>
+    /// آدرس تحویل
+    /// Delivery address
+    /// </summary>
+    public string? DeliveryAddress { get; set; }
+
+    /// <summary>
+    /// شرایط پرداخت
+    /// Payment terms
+    /// </summary>
+    public string? PaymentTerms { get; set; }
+
+    /// <summary>
+    /// نرخ تبدیل ارز
+    /// Exchange rate
+    /// </summary>
+    public decimal ExchangeRate { get; set; } = 1;
+
+    /// <summary>
+    /// مبلغ کل به ارز پایه
+    /// Total amount in base currency
+    /// </summary>
+    public decimal TotalAmountInBaseCurrency { get; set; }
+
+    /// <summary>
+    /// شناسه انبار
+    /// Warehouse ID
+    /// </summary>
+    public Guid? WarehouseId { get; set; }
+
+    /// <summary>
+    /// انبار مرتبط
+    /// Related warehouse
+    /// </summary>
+    public Dinawin.Erp.Domain.Entities.Inventories.Warehouse? Warehouse { get; set; }
+
+    /// <summary>
+    /// یادداشت‌های داخلی
+    /// Internal notes
+    /// </summary>
+    public string? InternalNotes { get; set; }
+
+    /// <summary>
+    /// کاربر ایجادکننده
+    /// Created by user
+    /// </summary>
+    public Dinawin.Erp.Domain.Entities.Users.User? CreatedByUser { get; set; }
+
+    /// <summary>
+    /// شناسه کاربر تاییدکننده
+    /// Approved by user ID
+    /// </summary>
+    public Guid? ApprovedBy { get; set; }
+
+    /// <summary>
+    /// کاربر تاییدکننده
+    /// Approved by user
+    /// </summary>
+    public Dinawin.Erp.Domain.Entities.Users.User? ApprovedByUser { get; set; }
+
+    /// <summary>
+    /// تاریخ تایید
+    /// Approval date
+    /// </summary>
+    public DateTime? ApprovedAt { get; set; }
+
+    /// <summary>
     /// وضعیت فعال بودن سفارش
     /// Order active status
     /// </summary>
     public bool IsActive { get; set; } = true;
+
+    /// <summary>
+    /// نام تامین‌کننده
+    /// Vendor name
+    /// </summary>
+    public string? VendorName { get; set; }
+
+    /// <summary>
+    /// روش پرداخت
+    /// Payment method
+    /// </summary>
+    public string? PaymentMethod { get; set; }
 
     /// <summary>
     /// تامین‌کننده مرتبط
@@ -149,6 +279,12 @@ public class PurchaseOrderConfiguration : IEntityTypeConfiguration<PurchaseOrder
         builder.Property(e => e.Currency).HasMaxLength(10);
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Notes).HasMaxLength(2000);
+        builder.Property(e => e.VendorEmail).HasMaxLength(100);
+        builder.Property(e => e.VendorPhone).HasMaxLength(20);
+        builder.Property(e => e.Priority).HasMaxLength(20);
+        builder.Property(e => e.RequestedBy).HasMaxLength(100);
+        builder.Property(e => e.DeliveryAddress).HasMaxLength(500);
+        builder.Property(e => e.PaymentTerms).HasMaxLength(200);
 
         builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
         builder.Property(e => e.DiscountPercentage).HasPrecision(5, 2);

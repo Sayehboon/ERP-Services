@@ -1,67 +1,91 @@
-namespace Dinawin.Erp.Domain.Entities.Products;
-
 using Dinawin.Erp.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+namespace Dinawin.Erp.Domain.Entities.Products;
+
 /// <summary>
-/// موجودیت تبدیل واحد
-/// Unit of Measure conversion entity
+/// موجودیت تبدیل واحد اندازه‌گیری
+/// Unit of Measure Conversion entity
 /// </summary>
 public class UomConversion : BaseEntity
 {
     /// <summary>
     /// شناسه واحد مبدا
-    /// From unit id
+    /// From unit ID
     /// </summary>
-    public Guid FromUomId { get; set; }
+    public Guid FromUnitId { get; set; }
 
     /// <summary>
     /// شناسه واحد مقصد
-    /// To unit id
+    /// To unit ID
     /// </summary>
-    public Guid ToUomId { get; set; }
+    public Guid ToUnitId { get; set; }
 
     /// <summary>
-    /// ضریب تبدیل (از → به)
-    /// Conversion factor (from → to)
+    /// شناسه واحد مبدا (نام مستعار)
+    /// From UOM ID (alias)
+    /// </summary>
+    public Guid FromUomId => FromUnitId;
+
+    /// <summary>
+    /// شناسه واحد مقصد (نام مستعار)
+    /// To UOM ID (alias)
+    /// </summary>
+    public Guid ToUomId => ToUnitId;
+
+    /// <summary>
+    /// ضریب تبدیل
+    /// Conversion factor
     /// </summary>
     public decimal ConversionFactor { get; set; }
 
     /// <summary>
-    /// ناوبری به واحد مبدا
-    /// Navigation to from unit
+    /// توضیحات
+    /// Description
     /// </summary>
-    public UnitOfMeasure? FromUom { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
-    /// ناوبری به واحد مقصد
-    /// Navigation to to unit
+    /// آیا فعال است
+    /// Is active
     /// </summary>
-    public UnitOfMeasure? ToUom { get; set; }
+    public bool IsActive { get; set; } = true;
+
+    /// <summary>
+    /// واحد مبدا
+    /// From unit
+    /// </summary>
+    public UnitOfMeasure FromUnit { get; set; } = null!;
+
+    /// <summary>
+    /// واحد مقصد
+    /// To unit
+    /// </summary>
+    public UnitOfMeasure ToUnit { get; set; } = null!;
+
+    /// <summary>
+    /// واحد مبدا (نام مستعار)
+    /// From UOM (alias)
+    /// </summary>
+    public UnitOfMeasure FromUom => FromUnit;
+
+    /// <summary>
+    /// واحد مقصد (نام مستعار)
+    /// To UOM (alias)
+    /// </summary>
+    public UnitOfMeasure ToUom => ToUnit;
 
     /// <summary>
     /// نام تبدیل
     /// Conversion name
     /// </summary>
     public string? Name { get; set; }
-
-    /// <summary>
-    /// توضیحات تبدیل
-    /// Conversion description
-    /// </summary>
-    public string? Description { get; set; }
-
-    /// <summary>
-    /// فعال است؟
-    /// Is active?
-    /// </summary>
-    public bool IsActive { get; set; } = true;
 }
 
 /// <summary>
-/// پیکربندی موجودیت تبدیل واحد
-/// Unit of Measure Conversion entity configuration
+/// پیکربندی موجودیت تبدیل واحد اندازه‌گیری
+/// UOM Conversion entity configuration
 /// </summary>
 public class UomConversionConfiguration : IEntityTypeConfiguration<UomConversion>
 {
@@ -69,22 +93,25 @@ public class UomConversionConfiguration : IEntityTypeConfiguration<UomConversion
     {
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Name).HasMaxLength(200);
-        builder.Property(e => e.Description).HasMaxLength(1000);
+        builder.Property(e => e.ConversionFactor)
+            .HasPrecision(18, 6);
 
-        builder.Property(e => e.ConversionFactor).HasPrecision(18, 6);
+        builder.Property(e => e.Description)
+            .HasMaxLength(500);
 
-        builder.HasOne(e => e.FromUom)
+        builder.HasOne(e => e.FromUnit)
             .WithMany()
-            .HasForeignKey(e => e.FromUomId)
+            .HasForeignKey(e => e.FromUnitId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(e => e.ToUom)
+        builder.HasOne(e => e.ToUnit)
             .WithMany()
-            .HasForeignKey(e => e.ToUomId)
+            .HasForeignKey(e => e.ToUnitId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasIndex(e => new { e.FromUomId, e.ToUomId }).IsUnique();
+        builder.HasIndex(e => new { e.FromUnitId, e.ToUnitId })
+            .IsUnique();
+
+        builder.HasIndex(e => e.IsActive);
     }
 }
-

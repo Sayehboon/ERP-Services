@@ -1,11 +1,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.HR.Departments.Queries.GetAllDepartments;
-using Dinawin.Erp.Application.Features.HR.Departments.Queries.GetDepartmentById;
+using GetAllDepartments = Dinawin.Erp.Application.Features.HR.Departments.Queries.GetAllDepartments;
+using GetDepartmentById = Dinawin.Erp.Application.Features.HR.Departments.Queries.GetDepartmentById;
 using Dinawin.Erp.Application.Features.HR.Departments.Commands.CreateDepartment;
 using Dinawin.Erp.Application.Features.HR.Departments.Commands.UpdateDepartment;
 using Dinawin.Erp.Application.Features.HR.Departments.Commands.DeleteDepartment;
+using Dinawin.Erp.Application.Features.HR.Departments.Queries.GetAllDepartments;
+using Dinawin.Erp.Application.Features.HR.Departments.Queries.GetDepartmentById;
 
 namespace Dinawin.Erp.WebApi.Controllers.HR;
 
@@ -37,9 +39,9 @@ public class DepartmentsController : BaseController
     /// <param name="pageSize">تعداد آیتم در هر صفحه</param>
     /// <returns>لیست تمام بخش‌ها</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<DepartmentDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<GetAllDepartments.DepartmentDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllDepartments(
+    public async Task<object> GetAllDepartments(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? parentDepartmentId = null,
         [FromQuery] Guid? managerId = null,
@@ -80,9 +82,9 @@ public class DepartmentsController : BaseController
     /// <param name="id">شناسه بخش</param>
     /// <returns>اطلاعات بخش</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(DepartmentDto), 200)]
+    [ProducesResponseType(typeof(GetDepartmentById.DepartmentDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetDepartment(Guid id)
+    public async Task<object> GetDepartment(Guid id)
     {
         try
         {
@@ -110,7 +112,7 @@ public class DepartmentsController : BaseController
     [HttpGet("children/{parentId}")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetChildDepartments(Guid parentId)
+    public async Task<ActionResult<List<object>>> GetChildDepartments(Guid parentId)
     {
         try
         {
@@ -139,7 +141,7 @@ public class DepartmentsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveDepartments()
+    public async Task<object> GetActiveDepartments()
     {
         try
         {
@@ -169,7 +171,7 @@ public class DepartmentsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateDepartment([FromBody] CreateDepartmentCommand command)
+    public async Task<ActionResult<Guid>> CreateDepartment([FromBody] CreateDepartmentCommand command)
     {
         try
         {
@@ -192,7 +194,7 @@ public class DepartmentsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateDepartment(Guid id, [FromBody] UpdateDepartmentCommand command)
+    public async Task<ActionResult<Guid>> UpdateDepartment(Guid id, [FromBody] UpdateDepartmentCommand command)
     {
         try
         {
@@ -214,7 +216,7 @@ public class DepartmentsController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteDepartment(Guid id)
+    public async Task<ActionResult<bool>> DeleteDepartment(Guid id)
     {
         try
         {

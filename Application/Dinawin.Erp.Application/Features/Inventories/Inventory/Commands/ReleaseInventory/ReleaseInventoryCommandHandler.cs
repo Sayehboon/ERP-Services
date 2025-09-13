@@ -75,7 +75,7 @@ public sealed class ReleaseInventoryCommandHandler : IRequestHandler<ReleaseInve
         foreach (var reservation in reservations)
         {
             // دریافت موجودی
-            var inventory = await _context.Inventory
+            var inventory = await _context.Inventories
                 .FirstOrDefaultAsync(i => i.ProductId == reservation.ProductId && 
                                         i.WarehouseId == reservation.WarehouseId && 
                                         i.BinId == reservation.BinId, cancellationToken);

@@ -53,6 +53,18 @@ public class PurchaseOrderItem : BaseEntity
     public decimal TotalAmount { get; set; }
 
     /// <summary>
+    /// نام محصول
+    /// Product name
+    /// </summary>
+    public string? ProductName { get; set; }
+
+    /// <summary>
+    /// کد محصول
+    /// Product code
+    /// </summary>
+    public string? ProductCode { get; set; }
+
+    /// <summary>
     /// توضیحات آیتم
     /// Item description
     /// </summary>
@@ -63,6 +75,24 @@ public class PurchaseOrderItem : BaseEntity
     /// Item notes
     /// </summary>
     public string? Notes { get; set; }
+
+    /// <summary>
+    /// شناسه واحد اندازه‌گیری
+    /// Unit of measure ID
+    /// </summary>
+    public Guid? UomId { get; set; }
+
+    /// <summary>
+    /// محصول مرتبط
+    /// Related product
+    /// </summary>
+    public Dinawin.Erp.Domain.Entities.Products.Product? Product { get; set; }
+
+    /// <summary>
+    /// واحد اندازه‌گیری مرتبط
+    /// Related unit of measure
+    /// </summary>
+    public Dinawin.Erp.Domain.Entities.Products.UnitOfMeasure? Uom { get; set; }
 }
 
 /// <summary>
@@ -80,6 +110,8 @@ public class PurchaseOrderItemConfiguration : IEntityTypeConfiguration<PurchaseO
         builder.Property(e => e.DiscountPercentage).HasPrecision(5, 2);
         builder.Property(e => e.DiscountAmount).HasPrecision(18, 2);
         builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+        builder.Property(e => e.ProductName).HasMaxLength(200);
+        builder.Property(e => e.ProductCode).HasMaxLength(50);
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Notes).HasMaxLength(2000);
 

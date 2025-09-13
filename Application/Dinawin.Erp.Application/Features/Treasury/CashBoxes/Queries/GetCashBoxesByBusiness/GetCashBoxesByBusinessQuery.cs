@@ -15,14 +15,14 @@ public class GetCashBoxesByBusinessQueryHandler : IRequestHandler<GetCashBoxesBy
     public async Task<IReadOnlyList<CashBoxDto>> Handle(GetCashBoxesByBusinessQuery request, CancellationToken cancellationToken)
     {
         return await _db.CashBoxes.AsNoTracking()
-            .Where(cb => cb.BusinessId == request.BusinessId && cb.IsActive)
+            .Where(cb => cb.BusinessId == Guid.Parse(request.BusinessId) && cb.IsActive)
             .OrderBy(cb => cb.Name)
             .Select(cb => new CashBoxDto
             {
                 Id = cb.Id,
                 Name = cb.Name,
                 Location = cb.Location,
-                BusinessId = cb.BusinessId,
+                BusinessId = cb.BusinessId.ToString(),
                 IsActive = cb.IsActive
             })
             .ToListAsync(cancellationToken);

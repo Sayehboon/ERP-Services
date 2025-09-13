@@ -27,7 +27,7 @@ public sealed class GetAllInventoryQueryHandler : IRequestHandler<GetAllInventor
     /// </summary>
     public async Task<IEnumerable<InventoryDto>> Handle(GetAllInventoryQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.Inventory
+        var query = _context.Inventories
             .Include(i => i.Product)
             .Include(i => i.Warehouse)
             .Include(i => i.Bin)
@@ -38,10 +38,10 @@ public sealed class GetAllInventoryQueryHandler : IRequestHandler<GetAllInventor
         {
             var searchLower = request.SearchTerm.ToLower();
             query = query.Where(i => 
-                i.Product.Name.ToLower().Contains(searchLower) ||
-                i.Product.Code.ToLower().Contains(searchLower) ||
-                i.Warehouse.Name.ToLower().Contains(searchLower) ||
-                (i.Bin != null && i.Bin.Name.ToLower().Contains(searchLower)) ||
+                (i.Product != null && i.Product.Name != null && i.Product.Name.ToLower().Contains(searchLower)) ||
+                (i.Product != null && i.Product.Code != null && i.Product.Code.ToLower().Contains(searchLower)) ||
+                (i.Warehouse != null && i.Warehouse.Name != null && i.Warehouse.Name.ToLower().Contains(searchLower)) ||
+                (i.Bin != null && i.Bin.Name != null && i.Bin.Name.ToLower().Contains(searchLower)) ||
                 (i.SerialNumber != null && i.SerialNumber.ToLower().Contains(searchLower)));
         }
 
@@ -92,10 +92,10 @@ public sealed class GetAllInventoryQueryHandler : IRequestHandler<GetAllInventor
         {
             Id = i.Id,
             ProductId = i.ProductId,
-            ProductName = i.Product.Name,
-            ProductCode = i.Product.Code,
+            ProductName = i.Product?.Name ?? string.Empty,
+            ProductCode = i.Product?.Code ?? string.Empty,
             WarehouseId = i.WarehouseId,
-            WarehouseName = i.Warehouse.Name,
+            WarehouseName = i.Warehouse?.Name ?? string.Empty,
             BinId = i.BinId,
             BinName = i.Bin?.Name,
             Quantity = i.Quantity,

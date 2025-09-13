@@ -38,7 +38,7 @@ public class SalesInvoicesController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<SalesInvoiceDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllSalesInvoices(
+    public async Task<ActionResult<IReadOnlyList<SalesInvoiceDto>>> GetAllSalesInvoices(
         [FromQuery] Guid? customerId = null,
         [FromQuery] string? status = null,
         [FromQuery] DateTime? fromDate = null,
@@ -65,7 +65,7 @@ public class SalesInvoicesController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(SalesInvoiceDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetSalesInvoice(Guid id)
+    public async Task<ActionResult<SalesInvoiceDto>> GetSalesInvoice(Guid id)
     {
         try
         {
@@ -87,7 +87,7 @@ public class SalesInvoicesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateSalesInvoice([FromBody] CreateSalesInvoiceCommand command)
+    public async Task<ActionResult<Guid>> CreateSalesInvoice([FromBody] CreateSalesInvoiceCommand command)
     {
         try
         {

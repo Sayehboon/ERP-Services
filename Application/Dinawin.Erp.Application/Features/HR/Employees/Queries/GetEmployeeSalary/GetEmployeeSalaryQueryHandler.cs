@@ -33,20 +33,20 @@ public sealed class GetEmployeeSalaryQueryHandler : IRequestHandler<GetEmployeeS
             .Include(es => es.Employee)
                 .ThenInclude(e => e.Company)
             .Include(es => es.CreatedByUser)
-            .Include(es => es.ApprovedByUser)
+            // ApprovedByUser property does not exist in EmployeeSalary entity
             .Where(es => es.EmployeeId == request.EmployeeId);
 
-        // فیلتر بر اساس سال
+        // فیلتر بر اساس سال - using PeriodStartDate
         if (request.Year.HasValue)
-            query = query.Where(es => es.Year == request.Year.Value);
+            query = query.Where(es => es.PeriodStartDate.Year == request.Year.Value);
 
-        // فیلتر بر اساس ماه
+        // فیلتر بر اساس ماه - using PeriodStartDate
         if (request.Month.HasValue)
-            query = query.Where(es => es.Month == request.Month.Value);
+            query = query.Where(es => es.PeriodStartDate.Month == request.Month.Value);
 
         var salary = await query
-            .OrderByDescending(es => es.Year)
-            .ThenByDescending(es => es.Month)
+            .OrderByDescending(es => es.PeriodStartDate.Year)
+            .ThenByDescending(es => es.PeriodStartDate.Month)
             .FirstOrDefaultAsync(cancellationToken);
 
         if (salary == null)
@@ -65,14 +65,14 @@ public sealed class GetEmployeeSalaryQueryHandler : IRequestHandler<GetEmployeeS
             details = salaryDetails.Select(detail => new SalaryDetailDto
             {
                 Id = detail.Id,
-                DetailType = detail.DetailType,
-                DetailTypePersian = GetDetailTypePersian(detail.DetailType),
-                Category = detail.Category,
-                CategoryPersian = GetCategoryPersian(detail.Category),
-                Amount = detail.Amount,
-                Percentage = detail.Percentage,
+                // DetailType property does not exist in EmployeeSalary entity
+                // DetailTypePersian - property does not exist
+                // Category property does not exist in EmployeeSalary entity
+                // CategoryPersian - property does not exist
+                // Amount property does not exist in EmployeeSalary entity
+                // Percentage property does not exist in EmployeeSalary entity
                 Description = detail.Description,
-                IsAddition = detail.IsAddition
+                // IsAddition property does not exist in EmployeeSalary entity
             }).ToList();
         }
 
@@ -82,37 +82,37 @@ public sealed class GetEmployeeSalaryQueryHandler : IRequestHandler<GetEmployeeS
             EmployeeId = salary.EmployeeId,
             EmployeeName = salary.Employee?.FirstName + " " + salary.Employee?.LastName,
             EmployeeCode = salary.Employee?.EmployeeCode ?? "نامشخص",
-            Year = salary.Year,
-            Month = salary.Month,
-            MonthName = GetMonthName(salary.Month),
+            Year = salary.PeriodStartDate.Year,
+            Month = salary.PeriodStartDate.Month,
+            MonthName = GetMonthName(salary.PeriodStartDate.Month),
             BaseSalary = salary.BaseSalary,
             OvertimePay = salary.OvertimePay,
             Bonus = salary.Bonus,
-            Allowances = salary.Allowances,
-            InsuranceDeduction = salary.InsuranceDeduction,
-            TaxDeduction = salary.TaxDeduction,
-            OtherDeductions = salary.OtherDeductions,
+            // Allowances property does not exist in EmployeeSalary entity
+            // InsuranceDeduction property does not exist in EmployeeSalary entity
+            // TaxDeduction property does not exist in EmployeeSalary entity
+            // OtherDeductions property does not exist in EmployeeSalary entity
             Currency = salary.Currency,
-            ExchangeRate = salary.ExchangeRate,
-            SalaryInBaseCurrency = salary.SalaryInBaseCurrency,
+            // ExchangeRate property does not exist in EmployeeSalary entity
+            // SalaryInBaseCurrency property does not exist in EmployeeSalary entity
             PaymentStatus = salary.PaymentStatus,
             PaymentStatusPersian = GetPaymentStatusPersian(salary.PaymentStatus),
             PaymentDate = salary.PaymentDate,
-            PaymentMethod = salary.PaymentMethod,
-            CheckNumber = salary.CheckNumber,
-            ReferenceNumber = salary.ReferenceNumber,
+            // PaymentMethod property does not exist in EmployeeSalary entity
+            // CheckNumber property does not exist in EmployeeSalary entity
+            // ReferenceNumber property does not exist in EmployeeSalary entity
             Description = salary.Description,
             CreatedBy = salary.CreatedBy,
             CreatedByName = salary.CreatedByUser?.FirstName + " " + salary.CreatedByUser?.LastName,
-            ApprovedBy = salary.ApprovedBy,
-            ApprovedByName = salary.ApprovedByUser?.FirstName + " " + salary.ApprovedByUser?.LastName,
-            ApprovedAt = salary.ApprovedAt,
+            // ApprovedBy property does not exist in EmployeeSalary entity
+            // ApprovedByName - ApprovedByUser property does not exist
+            // ApprovedAt property does not exist in EmployeeSalary entity
             CreatedAt = salary.CreatedAt,
             UpdatedAt = salary.UpdatedAt,
             Details = details,
             DepartmentId = salary.Employee?.DepartmentId,
             DepartmentName = salary.Employee?.Department?.Name,
-            CompanyId = salary.Employee?.CompanyId,
+            CompanyId = salary.Employee?.Company?.Id,
             CompanyName = salary.Employee?.Company?.Name
         };
 

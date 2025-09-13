@@ -1,11 +1,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Product.Models.Queries.GetAllModels;
-using Dinawin.Erp.Application.Features.Product.Models.Queries.GetModelById;
-using Dinawin.Erp.Application.Features.Product.Models.Commands.CreateModel;
-using Dinawin.Erp.Application.Features.Product.Models.Commands.UpdateModel;
-using Dinawin.Erp.Application.Features.Product.Models.Commands.DeleteModel;
+using Dinawin.Erp.Application.Features.Models.Queries.GetAllModels;
+using Dinawin.Erp.Application.Features.Models.Queries.GetModelById;
+using Dinawin.Erp.Application.Features.Models.Commands.CreateModel;
+using Dinawin.Erp.Application.Features.Models.Commands.UpdateModel;
+using Dinawin.Erp.Application.Features.Models.Commands.DeleteModel;
+using ModelDto = Dinawin.Erp.Application.Features.Models.Queries.GetAllModels.ModelDto;
+using GetModelByIdDto = Dinawin.Erp.Application.Features.Models.Queries.GetModelById.ModelDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -35,7 +37,7 @@ public class ModelsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<ModelDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllModels(
+    public async Task<object> GetAllModels(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? brandId = null,
         [FromQuery] bool? isActive = null,
@@ -68,9 +70,9 @@ public class ModelsController : BaseController
     /// <param name="id">شناسه مدل</param>
     /// <returns>اطلاعات مدل</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ModelDto), 200)]
+    [ProducesResponseType(typeof(GetModelByIdDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetModel(Guid id)
+    public async Task<object> GetModel(Guid id)
     {
         try
         {
@@ -98,7 +100,7 @@ public class ModelsController : BaseController
     [HttpGet("by-brand/{brandId}")]
     [ProducesResponseType(typeof(IEnumerable<ModelDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetModelsByBrand(Guid brandId)
+    public async Task<object> GetModelsByBrand(Guid brandId)
     {
         try
         {
@@ -120,7 +122,7 @@ public class ModelsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateModel([FromBody] CreateModelCommand command)
+    public async Task<object> CreateModel([FromBody] CreateModelCommand command)
     {
         try
         {
@@ -143,7 +145,7 @@ public class ModelsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateModel(Guid id, [FromBody] UpdateModelCommand command)
+    public async Task<object> UpdateModel(Guid id, [FromBody] UpdateModelCommand command)
     {
         try
         {
@@ -165,7 +167,7 @@ public class ModelsController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteModel(Guid id)
+    public async Task<object> DeleteModel(Guid id)
     {
         try
         {

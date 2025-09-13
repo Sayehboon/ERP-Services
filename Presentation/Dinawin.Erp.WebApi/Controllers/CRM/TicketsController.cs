@@ -1,8 +1,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.Application.Features.CRM.Tickets.Commands.CreateTicket;
+using Dinawin.Erp.Application.Features.CRM.Tickets.Commands.UpdateTicket;
 using Dinawin.Erp.Application.Features.CRM.Tickets.Queries.GetAllTickets;
 using Dinawin.Erp.Application.Features.CRM.Tickets.DTOs;
+using TicketDto = Dinawin.Erp.Application.Features.CRM.Tickets.DTOs.TicketDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.CRM;
 
@@ -31,7 +33,7 @@ public class TicketsController : BaseController
     /// <response code="200">لیست تیکت‌ها با موفقیت بازگردانده شد</response>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<TicketDto>), 200)]
-    public async Task<ActionResult<List<TicketDto>>> GetAllTickets([FromQuery] GetAllTicketsQuery query)
+    public async Task<object> GetAllTickets([FromQuery] GetAllTicketsQuery query)
     {
         try
         {
@@ -55,7 +57,7 @@ public class TicketsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(TicketDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult<TicketDto>> GetTicket(Guid id)
+    public async Task<object> GetTicket(Guid id)
     {
         try
         {
@@ -83,7 +85,7 @@ public class TicketsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<Guid>> CreateTicket([FromBody] CreateTicketCommand command)
+    public async Task<object> CreateTicket([FromBody] CreateTicketCommand command)
     {
         try
         {

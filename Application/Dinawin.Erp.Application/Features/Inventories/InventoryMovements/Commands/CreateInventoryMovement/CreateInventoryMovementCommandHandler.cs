@@ -103,7 +103,7 @@ public sealed class CreateInventoryMovementCommandHandler : IRequestHandler<Crea
         decimal quantity,
         CancellationToken cancellationToken)
     {
-        var inventory = await _context.Inventory
+        var inventory = await _context.Inventories
             .FirstOrDefaultAsync(i => i.ProductId == productId && i.WarehouseId == warehouseId, cancellationToken);
 
         if (inventory == null)
@@ -116,7 +116,7 @@ public sealed class CreateInventoryMovementCommandHandler : IRequestHandler<Crea
                 MinStockAlert = 0,
                 CreatedAt = DateTime.UtcNow
             };
-            _context.Inventory.Add(inventory);
+            _context.Inventories.Add(inventory);
         }
 
         switch (movementType.ToLower())

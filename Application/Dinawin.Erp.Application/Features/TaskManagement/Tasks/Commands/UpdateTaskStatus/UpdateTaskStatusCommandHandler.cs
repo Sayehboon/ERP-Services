@@ -43,7 +43,7 @@ public class UpdateTaskStatusCommandHandler : IRequestHandler<UpdateTaskStatusCo
         if (request.Status == "Completed")
         {
             task.CompletedDate = DateTime.UtcNow;
-            task.Progress = 100; // پیشرفت را به 100% تنظیم کنید
+            task.ProgressPercentage = 100; // پیشرفت را به 100% تنظیم کنید
         }
         // اگر وضعیت از تکمیل شده تغییر یافت، تاریخ تکمیل را پاک کنید
         else if (task.Status == "Completed" && request.Status != "Completed")

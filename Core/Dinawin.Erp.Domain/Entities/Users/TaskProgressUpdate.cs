@@ -33,10 +33,22 @@ public class TaskProgressUpdate : BaseEntity
     public string? Description { get; set; }
 
     /// <summary>
+    /// توضیحات تغییر (نام مستعار)
+    /// Change description (alias)
+    /// </summary>
+    public string? ChangeDescription => Description;
+
+    /// <summary>
     /// شناسه کاربر ایجادکننده
     /// Created by user ID
     /// </summary>
-    
+    public Guid? CreatedBy { get; set; }
+
+    /// <summary>
+    /// تاریخ بروزرسانی
+    /// Updated date
+    /// </summary>
+    public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
 
     /// <summary>
     /// یادداشت‌های بروزرسانی

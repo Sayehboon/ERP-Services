@@ -34,14 +34,9 @@ public class GetCashBoxByIdQueryHandler : IRequestHandler<GetCashBoxByIdQuery, C
             {
                 Id = cb.Id,
                 Name = cb.Name,
-                Code = cb.Code,
                 Location = cb.Location,
-                ResponsiblePersonId = cb.ResponsiblePersonId,
-                ResponsiblePersonName = cb.ResponsiblePerson != null ? 
-                    $"{cb.ResponsiblePerson.FirstName} {cb.ResponsiblePerson.LastName}" : null,
-                CurrentBalance = cb.CurrentBalance,
-                Currency = cb.Currency,
-                IsActive = cb.IsActive,
+                BusinessId = cb.BusinessId,
+                ControlAccountId = cb.ControlAccountId,
                 CreatedAt = cb.CreatedAt,
                 UpdatedAt = cb.UpdatedAt
             })

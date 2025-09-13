@@ -84,12 +84,11 @@ public sealed class CreateUserCommandHandler : IRequestHandler<CreateUserCommand
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
-            Phone = request.Phone,
+            PhoneNumber = request.Phone,
             RoleId = request.RoleId,
             DepartmentId = request.DepartmentId,
             CompanyId = request.CompanyId,
             IsActive = request.IsActive,
-            IsLocked = request.IsLocked,
             ExpiryDate = request.ExpiryDate,
             CreatedBy = request.CreatedBy,
             CreatedAt = DateTime.UtcNow

@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.Application.Services;
 using Dinawin.Erp.WebApi.Controllers;
@@ -29,7 +30,7 @@ public class SampleDataController : BaseController
     /// </summary>
     /// <returns>نتیجه عملیات</returns>
     [HttpPost("seed-all")]
-    public async Task<ActionResult> SeedAllData()
+    public async Task<ActionResult<object>> SeedAllData()
     {
         try
         {
@@ -67,7 +68,7 @@ public class SampleDataController : BaseController
     /// </summary>
     /// <returns>نتیجه عملیات</returns>
     [HttpPost("seed-sales-orders")]
-    public async Task<ActionResult> SeedSalesOrdersData()
+    public async Task<ActionResult<object>> SeedSalesOrdersData()
     {
         try
         {
@@ -86,7 +87,7 @@ public class SampleDataController : BaseController
     /// </summary>
     /// <returns>نتیجه عملیات</returns>
     [HttpPost("seed-purchase-orders")]
-    public async Task<ActionResult> SeedPurchaseOrdersData()
+    public async Task<ActionResult<object>> SeedPurchaseOrdersData()
     {
         try
         {
@@ -105,7 +106,7 @@ public class SampleDataController : BaseController
     /// </summary>
     /// <returns>نتیجه عملیات</returns>
     [HttpPost("seed-products")]
-    public async Task<ActionResult> SeedProductData()
+    public async Task<ActionResult<object>> SeedProductData()
     {
         try
         {
@@ -124,7 +125,7 @@ public class SampleDataController : BaseController
     /// </summary>
     /// <returns>نتیجه عملیات</returns>
     [HttpPost("seed-contacts")]
-    public async Task<ActionResult> SeedContactsData()
+    public async Task<ActionResult<object>> SeedContactsData()
     {
         try
         {
@@ -143,7 +144,7 @@ public class SampleDataController : BaseController
     /// </summary>
     /// <returns>نتیجه عملیات</returns>
     [HttpPost("seed-leads")]
-    public async Task<ActionResult> SeedLeadsData()
+    public async Task<ActionResult<object>> SeedLeadsData()
     {
         try
         {
@@ -162,7 +163,7 @@ public class SampleDataController : BaseController
     /// </summary>
     /// <returns>نتیجه عملیات</returns>
     [HttpPost("seed-opportunities")]
-    public async Task<ActionResult> SeedOpportunitiesData()
+    public async Task<ActionResult<object>> SeedOpportunitiesData()
     {
         try
         {
@@ -181,7 +182,7 @@ public class SampleDataController : BaseController
     /// </summary>
     /// <returns>نتیجه عملیات</returns>
     [HttpPost("seed-tickets")]
-    public async Task<ActionResult> SeedTicketsData()
+    public async Task<ActionResult<object>> SeedTicketsData()
     {
         try
         {

@@ -80,8 +80,8 @@ public sealed class GetAllWarehousesQueryHandler : IRequestHandler<GetAllWarehou
             Description = w.Description,
             IsActive = w.IsActive,
             BinsCount = _context.Bins.Count(b => b.WarehouseId == w.Id),
-            ProductsCount = _context.Inventory.Count(i => i.WarehouseId == w.Id),
-            TotalInventoryValue = _context.Inventory
+            ProductsCount = _context.Inventories.Count(i => i.WarehouseId == w.Id),
+            TotalInventoryValue = _context.Inventories
                 .Where(i => i.WarehouseId == w.Id)
                 .Sum(i => i.Quantity * i.UnitPrice),
             CreatedAt = w.CreatedAt,

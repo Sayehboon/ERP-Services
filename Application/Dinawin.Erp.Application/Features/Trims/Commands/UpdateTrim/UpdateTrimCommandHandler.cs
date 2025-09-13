@@ -52,7 +52,7 @@ public sealed class UpdateTrimCommandHandler : IRequestHandler<UpdateTrimCommand
 
         trim.Name = request.Name;
         trim.Description = request.Description;
-        trim.ModelId = request.ModelId;
+        trim.ModelId = request.ModelId ?? Guid.Empty;
         trim.IsActive = request.IsActive;
         trim.SortOrder = request.SortOrder;
         trim.UpdatedBy = request.UpdatedBy;

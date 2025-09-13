@@ -16,39 +16,19 @@ public class CashBoxDto
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// کد صندوق
-    /// </summary>
-    public string Code { get; set; } = string.Empty;
-
-    /// <summary>
     /// مکان صندوق
     /// </summary>
     public string? Location { get; set; }
 
     /// <summary>
-    /// شناسه مسئول صندوق
+    /// شناسه کسب‌وکار
     /// </summary>
-    public Guid? ResponsiblePersonId { get; set; }
+    public Guid? BusinessId { get; set; }
 
     /// <summary>
-    /// نام مسئول صندوق
+    /// شناسه حساب کنترل
     /// </summary>
-    public string? ResponsiblePersonName { get; set; }
-
-    /// <summary>
-    /// موجودی فعلی
-    /// </summary>
-    public decimal CurrentBalance { get; set; }
-
-    /// <summary>
-    /// ارز
-    /// </summary>
-    public string Currency { get; set; } = "IRR";
-
-    /// <summary>
-    /// آیا فعال است
-    /// </summary>
-    public bool IsActive { get; set; }
+    public Guid? ControlAccountId { get; set; }
 
     /// <summary>
     /// تاریخ ایجاد
@@ -59,4 +39,6 @@ public class CashBoxDto
     /// تاریخ آخرین به‌روزرسانی
     /// </summary>
     public DateTime UpdatedAt { get; set; }
+    public object CurrentBalance { get; set; }
+    public object Currency { get; set; }
 }

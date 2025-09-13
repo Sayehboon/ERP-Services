@@ -6,6 +6,8 @@ using Dinawin.Erp.Application.Features.Inventories.Inventories.Queries.GetInvent
 using Dinawin.Erp.Application.Features.Inventories.Inventories.Queries.GetInventoryByProduct;
 using Dinawin.Erp.Application.Features.Inventories.Inventories.Commands.UpdateInventory;
 using Dinawin.Erp.Application.Features.Inventories.Inventories.Commands.DeleteInventory;
+using InventoryDto = Dinawin.Erp.Application.Features.Inventories.Inventories.Queries.GetAllInventory.InventoryDto;
+using GetInventoryByIdDto = Dinawin.Erp.Application.Features.Inventories.Inventories.Queries.GetInventoryById.InventoryDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Inventory;
 
@@ -38,7 +40,7 @@ public class InventoryController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<InventoryDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllInventory(
+    public async Task<ActionResult<IEnumerable<InventoryDto>>> GetAllInventory(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? productId = null,
         [FromQuery] Guid? warehouseId = null,
@@ -79,7 +81,7 @@ public class InventoryController : BaseController
     [HttpGet("product/{productId}")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetInventoryByProduct(Guid productId)
+    public async Task<ActionResult<object>> GetInventoryByProduct(Guid productId)
     {
         try
         {
@@ -106,7 +108,7 @@ public class InventoryController : BaseController
     [HttpGet("low-stock")]
     [ProducesResponseType(typeof(IEnumerable<InventoryDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetLowStockItems()
+    public async Task<ActionResult<IEnumerable<InventoryDto>>> GetLowStockItems()
     {
         try
         {

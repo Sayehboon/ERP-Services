@@ -93,15 +93,15 @@ public sealed class UpdateSalesOrderCommandHandler : IRequestHandler<UpdateSales
 
         salesOrder.OrderNumber = request.OrderNumber;
         salesOrder.CustomerId = request.CustomerId;
-        salesOrder.OpportunityId = request.OpportunityId;
+        salesOrder.OpportunityId = request.OpportunityId ?? Guid.Empty;
         salesOrder.OrderDate = request.OrderDate;
         salesOrder.ExpectedDeliveryDate = request.ExpectedDeliveryDate;
         salesOrder.ActualDeliveryDate = request.ActualDeliveryDate;
         salesOrder.Status = request.Status;
-        salesOrder.OrderType = request.OrderType;
+        salesOrder.Type = request.OrderType;
         salesOrder.WarehouseId = request.WarehouseId;
-        salesOrder.AssignedToId = request.AssignedToId;
-        salesOrder.CreatedById = request.CreatedById;
+        salesOrder.AssignedTo = request.AssignedToId;
+        salesOrder.CreatedByUserId = request.CreatedById;
         salesOrder.TotalAmount = request.TotalAmount;
         salesOrder.DiscountAmount = request.DiscountAmount;
         salesOrder.TaxAmount = request.TaxAmount;

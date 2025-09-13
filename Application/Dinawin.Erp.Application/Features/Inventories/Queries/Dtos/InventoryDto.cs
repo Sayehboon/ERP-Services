@@ -271,4 +271,9 @@ public class InventoryMovementDto
     /// Creation date
     /// </summary>
     public DateTime CreatedAt { get; set; }
+    public string? ProductCode { get; set; }
+    public string? MovementType { get; set; }
+    public decimal? UnitPrice { get; set; }
+    public decimal? TotalPrice { get; set; }
+    public string? Unit { get; set; }
 }

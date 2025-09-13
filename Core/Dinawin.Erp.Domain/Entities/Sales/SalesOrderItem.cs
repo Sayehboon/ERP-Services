@@ -53,6 +53,18 @@ public class SalesOrderItem : BaseEntity
     public decimal TotalAmount { get; set; }
 
     /// <summary>
+    /// نام محصول
+    /// Product name
+    /// </summary>
+    public string? ProductName { get; set; }
+
+    /// <summary>
+    /// کد محصول
+    /// Product code
+    /// </summary>
+    public string? ProductCode { get; set; }
+
+    /// <summary>
     /// توضیحات آیتم
     /// Item description
     /// </summary>
@@ -92,6 +104,8 @@ public class SalesOrderItemConfiguration : IEntityTypeConfiguration<SalesOrderIt
         builder.Property(e => e.DiscountPercentage).HasPrecision(5, 2);
         builder.Property(e => e.DiscountAmount).HasPrecision(18, 2);
         builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+        builder.Property(e => e.ProductName).HasMaxLength(200);
+        builder.Property(e => e.ProductCode).HasMaxLength(50);
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.Notes).HasMaxLength(2000);
 

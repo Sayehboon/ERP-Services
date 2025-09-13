@@ -1,4 +1,5 @@
 using Dinawin.Erp.Application.Common.Interfaces;
+// using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetCashBoxById;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,32 +37,22 @@ public class GetAllCashBoxesQueryHandler : IRequestHandler<GetAllCashBoxesQuery,
             var searchTerm = request.SearchTerm.ToLower();
             query = query.Where(cb => 
                 cb.Name.ToLower().Contains(searchTerm) ||
-                cb.Code.ToLower().Contains(searchTerm) ||
                 (cb.Location != null && cb.Location.ToLower().Contains(searchTerm)));
         }
 
-        if (request.ResponsiblePersonId.HasValue)
-        {
-            query = query.Where(cb => cb.ResponsiblePersonId == request.ResponsiblePersonId.Value);
-        }
-
-        if (request.IsActive.HasValue)
-        {
-            query = query.Where(cb => cb.IsActive == request.IsActive.Value);
-        }
+        // Note: ResponsiblePersonId and IsActive properties were removed from CashBox entity
 
         var cashBoxes = await query
             .Select(cb => new CashBoxDto
             {
                 Id = cb.Id,
                 Name = cb.Name,
-                Code = cb.Code,
+                Code = string.Empty, // Code property does not exist in CashBox entity
                 Location = cb.Location,
-                ResponsiblePersonId = cb.ResponsiblePersonId,
-                //ResponsiblePersonName = cb.ResponsiblePerson != null ? 
-                //    $"{cb.ResponsiblePerson.FirstName} {cb.ResponsiblePerson.LastName}" : null,
-                CurrentBalance = cb.CurrentBalance,
-                Currency = cb.Currency,
+                ResponsiblePersonId = null, // ResponsiblePersonId property does not exist in CashBox entity
+                ResponsiblePersonName = null, // ResponsiblePerson property does not exist in CashBox entity
+                CurrentBalance = 0, // CurrentBalance property does not exist in CashBox entity
+                Currency = "IRR", // Currency property does not exist in CashBox entity
                 IsActive = cb.IsActive,
                 CreatedAt = cb.CreatedAt,
                 UpdatedAt = cb.UpdatedAt

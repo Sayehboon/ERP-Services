@@ -53,6 +53,12 @@ public class UnitOfMeasure : BaseEntity, IAggregateRoot
     public UnitOfMeasure? BaseUnit { get; set; }
 
     /// <summary>
+    /// واحد پایه (نام مستعار)
+    /// Base UOM (alias)
+    /// </summary>
+    public UnitOfMeasure? BaseUom => BaseUnit;
+
+    /// <summary>
     /// ضریب تبدیل به واحد پایه
     /// Conversion factor to base unit
     /// </summary>
@@ -81,6 +87,12 @@ public class UnitOfMeasure : BaseEntity, IAggregateRoot
     /// Products using this unit
     /// </summary>
     public ICollection<Product> Products { get; set; } = new List<Product>();
+
+    /// <summary>
+    /// واحدهای وابسته
+    /// Dependent units
+    /// </summary>
+    public ICollection<UnitOfMeasure> DependentUnits { get; set; } = new List<UnitOfMeasure>();
     public string UomType { get; set; } = string.Empty;
     public string? UnitType { get; set; }
     public int SortOrder { get; set; }

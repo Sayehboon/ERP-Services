@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
+using System.Globalization;
 
 namespace Dinawin.Erp.Application.Features.Dashboard.Queries.GetSalesChart;
 
@@ -162,7 +163,7 @@ public sealed class GetSalesChartQueryHandler : IRequestHandler<GetSalesChartQue
     /// </summary>
     private static int GetWeekOfYear(DateTime date)
     {
-        var calendar = System.Globalization.CultureInfo.CurrentCulture.Calendar;
-        return calendar.GetWeekOfYear(date, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Saturday);
+        var calendar = CultureInfo.CurrentCulture.Calendar;
+        return calendar.GetWeekOfYear(date, CalendarWeekRule.FirstDay, DayOfWeek.Saturday);
     }
 }

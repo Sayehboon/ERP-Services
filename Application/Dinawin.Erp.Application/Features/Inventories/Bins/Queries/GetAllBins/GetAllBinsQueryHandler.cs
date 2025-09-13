@@ -32,7 +32,7 @@ public sealed class GetAllBinsQueryHandler : IRequestHandler<GetAllBinsQuery, IE
         // اعمال فیلترها
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))
         {
-            var searchTerm = request.SearchTerm.ToLower();
+            var searchTerm = request.SearchTerm?.ToLower() ?? string.Empty;
             query = query.Where(b => 
                 b.Name.ToLower().Contains(searchTerm) ||
                 b.Code.ToLower().Contains(searchTerm) ||
@@ -74,7 +74,7 @@ public sealed class GetAllBinsQueryHandler : IRequestHandler<GetAllBinsQuery, IE
             Name = b.Name,
             Code = b.Code,
             WarehouseId = b.WarehouseId,
-            WarehouseName = b.Warehouse.Name,
+            WarehouseName = b.Warehouse?.Name ?? string.Empty,
             BinType = b.BinType,
             Capacity = b.Capacity,
             CapacityUnit = b.CapacityUnit,

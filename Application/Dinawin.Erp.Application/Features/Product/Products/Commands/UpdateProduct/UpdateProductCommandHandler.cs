@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.ValueObjects;
 
 namespace Dinawin.Erp.Application.Features.Product.Products.Commands.UpdateProduct;
 
@@ -126,14 +127,14 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
         product.UnitId = request.UnitId;
         product.UomId = request.UomId;
         product.Description = request.Description;
-        product.PurchasePrice = request.PurchasePrice;
-        product.SalePrice = request.SalePrice;
-        product.WholesalePrice = request.WholesalePrice;
+        product.PurchasePrice = request.PurchasePrice > 0 ? Money.Rial(request.PurchasePrice) : null;
+        product.SellingPrice = request.SalePrice > 0 ? Money.Rial(request.SalePrice) : null;
+        product.WholesalePrice = request.WholesalePrice > 0 ? request.WholesalePrice : 0;
         product.MinStock = request.MinStock;
         product.MaxStock = request.MaxStock;
         product.CurrentStock = request.CurrentStock;
-        product.Weight = request.Weight;
-        product.Dimensions = request.Dimensions;
+        product.Weight = request.Weight.HasValue ? Weight.Kilograms(request.Weight.Value) : null;
+        product.Dimensions = !string.IsNullOrEmpty(request.Dimensions) ? Dimensions.Centimeters(0, 0, 0) : null; // TODO: Parse dimensions string
         product.Color = request.Color;
         product.ProductType = request.ProductType;
         product.Status = request.Status;

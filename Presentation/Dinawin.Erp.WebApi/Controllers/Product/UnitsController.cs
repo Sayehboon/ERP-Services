@@ -1,11 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Product.Units.Queries.GetAllUnits;
-using Dinawin.Erp.Application.Features.Product.Units.Queries.GetUnitById;
-using Dinawin.Erp.Application.Features.Product.Units.Commands.CreateUnit;
-using Dinawin.Erp.Application.Features.Product.Units.Commands.UpdateUnit;
-using Dinawin.Erp.Application.Features.Product.Units.Commands.DeleteUnit;
+using Dinawin.Erp.Application.Features.Units.Queries.GetAllUnits;
+using Dinawin.Erp.Application.Features.Units.Queries.GetUnitById;
+using Dinawin.Erp.Application.Features.Units.Commands.CreateUnit;
+using Dinawin.Erp.Application.Features.Units.Commands.UpdateUnit;
+using Dinawin.Erp.Application.Features.Units.Commands.DeleteUnit;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -32,9 +32,9 @@ public class UnitsController : BaseController
     /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام واحدها</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<UnitDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<Application.Features.Units.Queries.GetAllUnits.UnitDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllUnits(
+    public async Task<object> GetAllUnits(
         [FromQuery] string? searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
@@ -65,9 +65,9 @@ public class UnitsController : BaseController
     /// <param name="id">شناسه واحد</param>
     /// <returns>اطلاعات واحد</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(UnitDto), 200)]
+    [ProducesResponseType(typeof(Application.Features.Units.Queries.GetUnitById.UnitDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetUnit(Guid id)
+    public async Task<object> GetUnit(Guid id)
     {
         try
         {
@@ -92,9 +92,9 @@ public class UnitsController : BaseController
     /// </summary>
     /// <returns>لیست واحدهای فعال</returns>
     [HttpGet("active")]
-    [ProducesResponseType(typeof(IEnumerable<UnitDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<Application.Features.Units.Queries.GetAllUnits.UnitDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveUnits()
+    public async Task<object> GetActiveUnits()
     {
         try
         {
@@ -116,7 +116,7 @@ public class UnitsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateUnit([FromBody] CreateUnitCommand command)
+    public async Task<ActionResult<Guid>> CreateUnit([FromBody] CreateUnitCommand command)
     {
         try
         {

@@ -30,7 +30,7 @@ public class UserProfilesController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(UserProfileDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetUserProfile(Guid id)
+    public async Task<ActionResult<UserProfileDto>> GetUserProfile(Guid id)
     {
         try
         {
@@ -52,7 +52,7 @@ public class UserProfilesController : BaseController
     [HttpGet("current")]
     [ProducesResponseType(typeof(UserProfileDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCurrentUserProfile()
+    public async Task<object> GetCurrentUserProfile()
     {
         try
         {
@@ -85,7 +85,7 @@ public class UserProfilesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateUserProfile(Guid id, [FromBody] UpdateUserProfileCommand command)
+    public async Task<ActionResult<object>> UpdateUserProfile(Guid id, [FromBody] UpdateUserProfileCommand command)
     {
         try
         {
@@ -130,12 +130,12 @@ public class UserProfilesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> ChangePassword(Guid id, [FromBody] ChangePasswordCommand command)
+    public async Task<ActionResult<bool>> ChangePassword(Guid id, [FromBody] ChangePasswordCommand command)
     {
         try
         {
-            command.UserId = id;
-            var result = await _mediator.Send(command);
+            var changePasswordCommand = new ChangePasswordCommand { UserId = id, CurrentPassword = command.CurrentPassword, NewPassword = command.NewPassword, ConfirmNewPassword = command.ConfirmNewPassword };
+            var result = await _mediator.Send(changePasswordCommand);
             
             if (result)
             {
@@ -164,9 +164,9 @@ public class UserProfilesController : BaseController
         {
             // TODO: دریافت شناسه کاربر فعلی از JWT token
             var currentUserId = Guid.NewGuid(); // این باید از JWT token دریافت شود
-            command.UserId = currentUserId;
+            var changePasswordCommand = new ChangePasswordCommand { UserId = currentUserId, CurrentPassword = command.CurrentPassword, NewPassword = command.NewPassword, ConfirmNewPassword = command.ConfirmNewPassword };
             
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(changePasswordCommand);
             
             if (result)
             {

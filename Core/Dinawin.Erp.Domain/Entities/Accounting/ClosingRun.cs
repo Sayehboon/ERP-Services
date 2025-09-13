@@ -1,8 +1,9 @@
 using Dinawin.Erp.Domain.Common;
+using Dinawin.Erp.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dinawin.Erp.Domain.Entities.Treasury;
+namespace Dinawin.Erp.Domain.Entities.Accounting;
 
 /// <summary>
 /// اجرای بستن دوره

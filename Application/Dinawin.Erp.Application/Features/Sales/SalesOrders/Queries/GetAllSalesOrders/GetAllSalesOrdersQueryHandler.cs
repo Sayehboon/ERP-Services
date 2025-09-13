@@ -31,8 +31,6 @@ public sealed class GetAllSalesOrdersQueryHandler : IRequestHandler<GetAllSalesO
             .Include(so => so.Customer)
             .Include(so => so.Opportunity)
             .Include(so => so.Warehouse)
-            .Include(so => so.AssignedTo)
-            .Include(so => so.CreatedByUser)
             .AsQueryable();
 
         // فیلتر بر اساس عبارت جستجو
@@ -172,9 +170,9 @@ public sealed class GetAllSalesOrdersQueryHandler : IRequestHandler<GetAllSalesO
             WarehouseId = so.WarehouseId,
             WarehouseName = so.Warehouse?.Name,
             AssignedToId = so.AssignedToId,
-            AssignedToName = so.AssignedTo != null ? $"{so.AssignedTo.FirstName} {so.AssignedTo.LastName}" : null,
+            // AssignedTo is a Guid?, not a User object
             CreatedById = so.CreatedById,
-            CreatedByName = so.CreatedByUser != null ? $"{so.CreatedByUser.FirstName} {so.CreatedByUser.LastName}" : null,
+            // CreatedByName - CreatedByUser property does not exist in SalesOrder entity
             TotalAmount = so.TotalAmount,
             DiscountAmount = so.DiscountAmount,
             TaxAmount = so.TaxAmount,

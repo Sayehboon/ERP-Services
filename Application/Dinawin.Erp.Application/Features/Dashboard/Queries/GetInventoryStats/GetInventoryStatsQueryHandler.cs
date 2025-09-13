@@ -25,7 +25,7 @@ public sealed class GetInventoryStatsQueryHandler : IRequestHandler<GetInventory
     /// </summary>
     public async Task<InventoryStatsDto> Handle(GetInventoryStatsQuery request, CancellationToken cancellationToken)
     {
-        var inventoryQuery = _context.Inventory
+        var inventoryQuery = _context.Inventories
             .Include(i => i.Product)
             .ThenInclude(p => p.Category)
             .Include(i => i.Warehouse)

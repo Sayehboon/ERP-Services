@@ -25,7 +25,7 @@ public sealed class UpdateInventoryCommandHandler : IRequestHandler<UpdateInvent
     /// </summary>
     public async Task<Guid> Handle(UpdateInventoryCommand request, CancellationToken cancellationToken)
     {
-        var inventory = await _context.Inventory.FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);
+        var inventory = await _context.Inventories.FirstOrDefaultAsync(i => i.Id == request.Id, cancellationToken);
         if (inventory == null)
         {
             throw new ArgumentException($"موجودی با شناسه {request.Id} یافت نشد");

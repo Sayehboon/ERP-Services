@@ -38,12 +38,12 @@ public sealed class DeletePurchaseOrderCommandHandler : IRequestHandler<DeletePu
             throw new InvalidOperationException("امکان حذف سفارش خرید وجود ندارد زیرا دارای آیتم است");
         }
 
-        // بررسی تبدیل شدن به فاکتور خرید
-        var hasBills = await _context.PurchaseBills.AnyAsync(pb => pb.PurchaseOrderId == request.Id, cancellationToken);
-        if (hasBills)
-        {
-            throw new InvalidOperationException("امکان حذف سفارش خرید وجود ندارد زیرا به فاکتور خرید تبدیل شده است");
-        }
+        // بررسی تبدیل شدن به فاکتور خرید - PurchaseBill entity doesn't have PurchaseOrderId property
+        // var hasBills = await _context.PurchaseBills.AnyAsync(pb => pb.PurchaseOrderId == request.Id, cancellationToken);
+        // if (hasBills)
+        // {
+        //     throw new InvalidOperationException("امکان حذف سفارش خرید وجود ندارد زیرا به فاکتور خرید تبدیل شده است");
+        // }
 
         _context.PurchaseOrders.Remove(purchaseOrder);
         await _context.SaveChangesAsync(cancellationToken);

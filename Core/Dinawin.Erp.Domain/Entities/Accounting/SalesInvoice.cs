@@ -29,6 +29,12 @@ public class SalesInvoice : BaseEntity, IAggregateRoot
     public Guid CustomerId { get; set; }
 
     /// <summary>
+    /// شناسه سفارش فروش
+    /// Sales order ID
+    /// </summary>
+    public Guid? SalesOrderId { get; set; }
+
+    /// <summary>
     /// وضعیت
     /// Status
     /// </summary>
@@ -106,6 +112,8 @@ public class SalesInvoiceLine : BaseEntity
     /// Line total
     /// </summary>
     public decimal LineTotal { get; set; }
+
+    public SalesInvoice SalesInvoice { get; set; }
 }
 
 /// <summary>

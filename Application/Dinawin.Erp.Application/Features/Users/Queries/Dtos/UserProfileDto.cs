@@ -49,6 +49,30 @@ public class UserProfileDto
     public string? PhoneNumber { get; set; }
 
     /// <summary>
+    /// شماره تلفن (نام مستعار)
+    /// Phone (alias)
+    /// </summary>
+    public string? Phone => PhoneNumber;
+
+    /// <summary>
+    /// شماره تلفن داخلی
+    /// Internal phone number
+    /// </summary>
+    public string? InternalPhone { get; set; }
+
+    /// <summary>
+    /// کد ملی
+    /// National ID
+    /// </summary>
+    public string? NationalId { get; set; }
+
+    /// <summary>
+    /// تاریخ تولد
+    /// Birth date
+    /// </summary>
+    public DateTime? BirthDate { get; set; }
+
+    /// <summary>
     /// آدرس آواتار
     /// Avatar URL
     /// </summary>
@@ -107,6 +131,18 @@ public class UserProfileDto
     /// Primary user role
     /// </summary>
     public string? RoleName { get; set; }
+
+    /// <summary>
+    /// نام کسب‌وکار
+    /// Business name
+    /// </summary>
+    public string? BusinessName { get; set; }
+
+    /// <summary>
+    /// نام‌های نقش‌ها
+    /// Role names
+    /// </summary>
+    public string? RoleNames { get; set; }
 
     /// <summary>
     /// تاریخ ایجاد

@@ -36,9 +36,9 @@ public sealed class GetAllCompaniesQueryHandler : IRequestHandler<GetAllCompanie
             query = query.Where(c => 
                 c.Name.ToLower().Contains(searchLower) ||
                 (c.TradeName != null && c.TradeName.ToLower().Contains(searchLower)) ||
-                (c.RegistrationNumber != null && c.RegistrationNumber.Contains(searchTerm)) ||
-                (c.NationalId != null && c.NationalId.Contains(searchTerm)) ||
-                (c.EconomicCode != null && c.EconomicCode.Contains(searchTerm)));
+                (c.RegistrationNumber != null && c.RegistrationNumber.Contains(searchLower)) ||
+                (c.NationalId != null && c.NationalId.Contains(searchLower)) ||
+                (c.EconomicCode != null && c.EconomicCode.Contains(searchLower)));
         }
 
         // فیلتر بر اساس وضعیت فعال بودن
@@ -68,12 +68,12 @@ public sealed class GetAllCompaniesQueryHandler : IRequestHandler<GetAllCompanie
             RegistrationNumber = c.RegistrationNumber,
             NationalId = c.NationalId,
             EconomicCode = c.EconomicCode,
-            Address = c.Address,
+            Address = c.Address?.ToString() ?? string.Empty,
             PhoneNumber = c.PhoneNumber,
-            FaxNumber = c.FaxNumber,
+            // FaxNumber property does not exist in Company entity
             Email = c.Email,
             Website = c.Website,
-            Description = c.Description,
+            // Description property does not exist in Company entity
             IsActive = c.IsActive,
             UsersCount = _context.Users.Count(u => u.CompanyId == c.Id),
             CreatedAt = c.CreatedAt,

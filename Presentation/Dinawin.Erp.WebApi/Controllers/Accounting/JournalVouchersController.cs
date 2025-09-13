@@ -38,7 +38,7 @@ public class JournalVouchersController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<JournalVoucherDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllJournalVouchers(
+    public async Task<ActionResult<IReadOnlyList<JournalVoucherDto>>> GetAllJournalVouchers(
         [FromQuery] string? status = null,
         [FromQuery] string? type = null,
         [FromQuery] string? number = null,
@@ -65,7 +65,7 @@ public class JournalVouchersController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(JournalVoucherDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetJournalVoucher(Guid id)
+    public async Task<ActionResult<JournalVoucherDto>> GetJournalVoucher(Guid id)
     {
         try
         {
@@ -87,7 +87,7 @@ public class JournalVouchersController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateJournalVoucher([FromBody] CreateJournalVoucherCommand command)
+    public async Task<ActionResult<Guid>> CreateJournalVoucher([FromBody] CreateJournalVoucherCommand command)
     {
         try
         {

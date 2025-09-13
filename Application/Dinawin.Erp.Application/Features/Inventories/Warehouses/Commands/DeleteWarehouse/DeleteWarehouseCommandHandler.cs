@@ -32,7 +32,7 @@ public sealed class DeleteWarehouseCommandHandler : IRequestHandler<DeleteWareho
         }
 
         // بررسی وابستگی‌ها قبل از حذف
-        var hasInventory = await _context.Inventory
+        var hasInventory = await _context.Inventories
             .AnyAsync(i => i.WarehouseId == request.Id, cancellationToken);
         
         var hasBins = await _context.Bins

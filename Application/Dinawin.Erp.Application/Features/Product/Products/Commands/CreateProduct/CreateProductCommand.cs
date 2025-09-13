@@ -23,6 +23,12 @@ public sealed class CreateProductCommand : IRequest<Guid>
     public string Code { get; set; } = string.Empty;
 
     /// <summary>
+    /// کد SKU محصول
+    /// </summary>
+    [StringLength(100, ErrorMessage = "کد SKU نمی‌تواند بیش از 100 کاراکتر باشد")]
+    public string? Sku { get; set; }
+
+    /// <summary>
     /// شناسه برند
     /// </summary>
     public Guid? BrandId { get; set; }

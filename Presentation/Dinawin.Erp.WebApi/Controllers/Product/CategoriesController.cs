@@ -61,7 +61,7 @@ public class CategoriesController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(CategoryDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult<CategoryDto>> GetCategory(Guid id)
+    public async Task<object> GetCategory(Guid id)
     {
         try
         {
@@ -169,7 +169,7 @@ public class CategoriesController : BaseController
     [HttpPatch("{id}/toggle-active")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> ToggleCategoryActive(Guid id)
+    public async Task<object> ToggleCategoryActive(Guid id)
     {
         try
         {
@@ -198,7 +198,7 @@ public class CategoriesController : BaseController
     /// <response code="200">درخت دسته‌بندی‌ها با موفقیت بازگردانده شد</response>
     [HttpGet("tree")]
     [ProducesResponseType(typeof(IEnumerable<CategoryDto>), 200)]
-    public async Task<ActionResult<List<CategoryDto>>> GetCategoriesTree()
+    public async Task<object> GetCategoriesTree()
     {
         try
         {

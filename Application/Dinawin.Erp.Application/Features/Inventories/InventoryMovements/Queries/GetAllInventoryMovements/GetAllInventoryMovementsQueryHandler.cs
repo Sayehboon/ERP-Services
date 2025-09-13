@@ -34,13 +34,13 @@ public sealed class GetAllInventoryMovementsQueryHandler : IRequestHandler<GetAl
         // اعمال فیلترها
         if (!string.IsNullOrWhiteSpace(request.SearchTerm))
         {
-            var searchTerm = request.SearchTerm.ToLower();
+            var searchTerm = request.SearchTerm?.ToLower() ?? string.Empty;
             query = query.Where(im => 
-                im.Product.Name.ToLower().Contains(searchTerm) ||
-                im.Product.Code.ToLower().Contains(searchTerm) ||
-                im.Warehouse.Name.ToLower().Contains(searchTerm) ||
-                (im.Bin != null && im.Bin.Name.ToLower().Contains(searchTerm)) ||
-                im.MovementType.ToLower().Contains(searchTerm) ||
+                (im.Product != null && im.Product.Name != null && im.Product.Name.ToLower().Contains(searchTerm)) ||
+                (im.Product != null && im.Product.Code != null && im.Product.Code.ToLower().Contains(searchTerm)) ||
+                (im.Warehouse != null && im.Warehouse.Name != null && im.Warehouse.Name.ToLower().Contains(searchTerm)) ||
+                (im.Bin != null && im.Bin.Name != null && im.Bin.Name.ToLower().Contains(searchTerm)) ||
+                (im.MovementType != null && im.MovementType.ToLower().Contains(searchTerm)) ||
                 (im.ReferenceNumber != null && im.ReferenceNumber.ToLower().Contains(searchTerm)) ||
                 (im.Description != null && im.Description.ToLower().Contains(searchTerm)));
         }
@@ -97,10 +97,10 @@ public sealed class GetAllInventoryMovementsQueryHandler : IRequestHandler<GetAl
         {
             Id = im.Id,
             ProductId = im.ProductId,
-            ProductName = im.Product.Name,
-            ProductCode = im.Product.Code,
+            ProductName = im.Product?.Name ?? string.Empty,
+            ProductCode = im.Product?.Code ?? string.Empty,
             WarehouseId = im.WarehouseId,
-            WarehouseName = im.Warehouse.Name,
+            WarehouseName = im.Warehouse?.Name ?? string.Empty,
             BinId = im.BinId,
             BinName = im.Bin?.Name,
             MovementType = im.MovementType,

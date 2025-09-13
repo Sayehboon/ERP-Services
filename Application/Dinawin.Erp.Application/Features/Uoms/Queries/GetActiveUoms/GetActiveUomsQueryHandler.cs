@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.Uoms.Queries.GetActiveUoms;
 
@@ -35,7 +36,10 @@ public sealed class GetActiveUomsQueryHandler : IRequestHandler<GetActiveUomsQue
         // فیلتر بر اساس نوع
         if (!string.IsNullOrWhiteSpace(request.Type))
         {
-            query = query.Where(u => u.Type == request.Type);
+            if (Enum.TryParse<UnitType>(request.Type, true, out var unitType))
+            {
+                query = query.Where(u => u.Type == unitType);
+            }
         }
 
         // جستجو در نام، نماد و کد

@@ -42,8 +42,8 @@ public sealed class GetPurchaseOrderByIdQueryHandler : IRequestHandler<GetPurcha
         var dto = _mapper.Map<PurchaseOrderDto>(purchaseOrder);
         dto.VendorName = purchaseOrder.Vendor?.Name;
         dto.WarehouseName = purchaseOrder.Warehouse?.Name;
-        dto.AssignedToName = purchaseOrder.AssignedTo != null ? $"{purchaseOrder.AssignedTo.FirstName} {purchaseOrder.AssignedTo.LastName}" : null;
-        dto.CreatedByName = purchaseOrder.CreatedByUser != null ? $"{purchaseOrder.CreatedByUser.FirstName} {purchaseOrder.CreatedByUser.LastName}" : null;
+        // AssignedTo is a Guid?, not a User object
+        // CreatedByUser property does not exist in PurchaseOrder entity
         return dto;
     }
 }

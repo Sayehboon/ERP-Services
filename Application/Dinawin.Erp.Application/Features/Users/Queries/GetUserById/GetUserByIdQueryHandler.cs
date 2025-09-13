@@ -49,7 +49,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserPro
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email,
-            Phone = user.Phone,
+            PhoneNumber = user.PhoneNumber,
             InternalPhone = user.InternalPhone,
             NationalId = user.NationalId,
             BirthDate = user.BirthDate,
@@ -58,7 +58,7 @@ public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserPro
             CompanyName = user.Company?.Name,
             DepartmentName = user.Department?.Name,
             BusinessName = user.Business?.Name,
-            RoleNames = user.UserRoles.Select(ur => ur.Role?.Name).Where(name => !string.IsNullOrEmpty(name)).ToList(),
+            RoleNames = string.Join(", ", user.UserRoles.Select(ur => ur.Role?.Name).Where(name => !string.IsNullOrEmpty(name))),
             CreatedAt = user.CreatedAt,
             UpdatedAt = user.UpdatedAt
         };

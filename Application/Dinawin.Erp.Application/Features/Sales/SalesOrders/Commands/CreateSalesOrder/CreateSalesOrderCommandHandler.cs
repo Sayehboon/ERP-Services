@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
 using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Sales;
 
 namespace Dinawin.Erp.Application.Features.Sales.SalesOrders.Commands.CreateSalesOrder;
 
@@ -91,15 +92,15 @@ public sealed class CreateSalesOrderCommandHandler : IRequestHandler<CreateSales
             Id = Guid.NewGuid(),
             OrderNumber = request.OrderNumber,
             CustomerId = request.CustomerId,
-            OpportunityId = request.OpportunityId,
+            OpportunityId = request.OpportunityId ?? Guid.Empty,
             OrderDate = request.OrderDate,
             ExpectedDeliveryDate = request.ExpectedDeliveryDate,
             ActualDeliveryDate = request.ActualDeliveryDate,
             Status = request.Status,
-            OrderType = request.OrderType,
+            Type = request.OrderType,
             WarehouseId = request.WarehouseId,
-            AssignedToId = request.AssignedToId,
-            CreatedById = request.CreatedById,
+            AssignedTo = request.AssignedToId,
+            CreatedByUserId = request.CreatedById,
             TotalAmount = request.TotalAmount,
             DiscountAmount = request.DiscountAmount,
             TaxAmount = request.TaxAmount,

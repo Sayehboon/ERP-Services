@@ -86,10 +86,10 @@ public sealed class UpdatePurchaseOrderCommandHandler : IRequestHandler<UpdatePu
         purchaseOrder.ExpectedDeliveryDate = request.ExpectedDeliveryDate;
         purchaseOrder.ActualDeliveryDate = request.ActualDeliveryDate;
         purchaseOrder.Status = request.Status;
-        purchaseOrder.OrderType = request.OrderType;
+        purchaseOrder.Type = request.OrderType;
         purchaseOrder.WarehouseId = request.WarehouseId;
-        purchaseOrder.AssignedToId = request.AssignedToId;
-        purchaseOrder.CreatedById = request.CreatedById;
+        // AssignedToId property does not exist in PurchaseOrder entity
+        // CreatedById property does not exist in PurchaseOrder entity
         purchaseOrder.TotalAmount = request.TotalAmount;
         purchaseOrder.DiscountAmount = request.DiscountAmount;
         purchaseOrder.TaxAmount = request.TaxAmount;

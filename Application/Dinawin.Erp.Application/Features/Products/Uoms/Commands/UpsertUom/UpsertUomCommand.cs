@@ -22,7 +22,7 @@ public class UpsertUomCommandHandler(IApplicationDbContext db) : IRequestHandler
         UnitType type = Enum.TryParse<UnitType>(request.Type, true, out var t) ? t : UnitType.Count;
         if (request.Id.HasValue)
         {
-            var u = await db.UnitsOfMeasure.FirstOrDefaultAsync(x => x.Id == request.Id.Value, cancellationToken);
+            var u = await db.UnitsOfMeasures.FirstOrDefaultAsync(x => x.Id == request.Id.Value, cancellationToken);
             if (u == null) throw new KeyNotFoundException("UOM not found");
             u.Code = request.Code; u.Name = request.Name; u.Type = type; u.Precision = request.Precision; u.IsActive = request.IsActive;
             await db.SaveChangesAsync(cancellationToken);

@@ -86,10 +86,22 @@ public class Product : BaseEntity, IAggregateRoot
     public Guid? BaseUomId { get; set; }
 
     /// <summary>
+    /// شناسه واحد (نام مستعار)
+    /// Unit ID (alias)
+    /// </summary>
+    public Guid? UomId { get; set; }
+
+    /// <summary>
     /// واحد پایه
     /// Base unit of measure
     /// </summary>
     public UnitOfMeasure? BaseUom { get; set; }
+
+    /// <summary>
+    /// واحد اندازه‌گیری (نام مستعار)
+    /// Unit of measure (alias)
+    /// </summary>
+    public UnitOfMeasure? Unit => BaseUom;
 
     /// <summary>
     /// واحد پیش‌فرض (Supabase: default_unit)
@@ -116,10 +128,22 @@ public class Product : BaseEntity, IAggregateRoot
     public decimal MinStockLevel { get; set; }
 
     /// <summary>
+    /// حداقل موجودی (نام مستعار)
+    /// Minimum stock (alias)
+    /// </summary>
+    public decimal MinStock { get; set; } = 0;
+
+    /// <summary>
     /// حداکثر موجودی
     /// Maximum stock level
     /// </summary>
     public decimal MaxStockLevel { get; set; }
+
+    /// <summary>
+    /// حداکثر موجودی (نام مستعار)
+    /// Maximum stock (alias)
+    /// </summary>
+    public decimal MaxStock { get; set; } = 0;
 
     /// <summary>
     /// نقطه سفارش مجدد
@@ -191,6 +215,24 @@ public class Product : BaseEntity, IAggregateRoot
     public Guid? TrimId { get; set; }
     public Guid? YearId { get; set; }
     public Guid? UnitId { get; set; }
+
+    /// <summary>
+    /// مدل مرتبط
+    /// Related model
+    /// </summary>
+    public Model? Model { get; set; }
+
+    /// <summary>
+    /// تریم مرتبط
+    /// Related trim
+    /// </summary>
+    public Trim? Trim { get; set; }
+
+    /// <summary>
+    /// سال مرتبط
+    /// Related year
+    /// </summary>
+    public Year? Year { get; set; }
     public bool IsPurchasable { get; set; }
     public bool IsSellable { get; set; }
     public string Status { get; set; }
@@ -235,6 +277,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(e => e.Status).HasMaxLength(50);
         builder.Property(e => e.ProductType).HasMaxLength(50);
         builder.Property(e => e.Color).HasMaxLength(50);
+        builder.Property(e => e.MinStock).HasPrecision(18, 4);
+        builder.Property(e => e.MaxStock).HasPrecision(18, 4);
 
         builder.HasOne(e => e.Brand)
             .WithMany(b => b.Products)
@@ -249,6 +293,16 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasOne(e => e.BaseUom)
             .WithMany()
             .HasForeignKey(e => e.BaseUomId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.Model)
+            .WithMany()
+            .HasForeignKey(e => e.ModelId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(e => e.Trim)
+            .WithMany()
+            .HasForeignKey(e => e.TrimId)
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasIndex(e => e.Sku).IsUnique();

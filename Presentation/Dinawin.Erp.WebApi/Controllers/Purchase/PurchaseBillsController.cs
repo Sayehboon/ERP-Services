@@ -35,7 +35,7 @@ public class PurchaseBillsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<PurchaseBillDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllPurchaseBills(
+    public async Task<object> GetAllPurchaseBills(
         [FromQuery] Guid? vendorId = null, 
         [FromQuery] string? status = null, 
         [FromQuery] DateTime? fromDate = null, 
@@ -60,7 +60,7 @@ public class PurchaseBillsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(PurchaseBillDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetPurchaseBill(Guid id)
+    public async Task<object> GetPurchaseBill(Guid id)
     {
         try
         {
@@ -88,7 +88,7 @@ public class PurchaseBillsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreatePurchaseBill([FromBody] CreatePurchaseBillCommand command)
+    public async Task<object> CreatePurchaseBill([FromBody] CreatePurchaseBillCommand command)
     {
         try
         {

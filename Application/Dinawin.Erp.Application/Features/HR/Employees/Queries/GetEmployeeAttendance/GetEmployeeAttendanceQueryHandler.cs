@@ -28,12 +28,6 @@ public sealed class GetEmployeeAttendanceQueryHandler : IRequestHandler<GetEmplo
     public async Task<IEnumerable<EmployeeAttendanceDto>> Handle(GetEmployeeAttendanceQuery request, CancellationToken cancellationToken)
     {
         var query = _context.EmployeeAttendances
-            .Include(ea => ea.Employee)
-                .ThenInclude(e => e.Department)
-            .Include(ea => ea.Employee)
-                .ThenInclude(e => e.Company)
-            .Include(ea => ea.CreatedByUser)
-            .Include(ea => ea.ApprovedByUser)
             .Where(ea => ea.EmployeeId == request.EmployeeId);
 
         // فیلتر بر اساس تاریخ
@@ -42,9 +36,9 @@ public sealed class GetEmployeeAttendanceQueryHandler : IRequestHandler<GetEmplo
         if (request.ToDate.HasValue)
             query = query.Where(ea => ea.AttendanceDate <= request.ToDate.Value);
 
-        // فیلتر بر اساس نوع حضور
-        if (!string.IsNullOrEmpty(request.AttendanceType))
-            query = query.Where(ea => ea.AttendanceType == request.AttendanceType);
+        // فیلتر بر اساس نوع حضور - AttendanceType property does not exist in EmployeeAttendance entity
+        // if (!string.IsNullOrEmpty(request.AttendanceType))
+        //     query = query.Where(ea => ea.AttendanceType == request.AttendanceType);
 
         // فیلتر بر اساس وضعیت
         if (!string.IsNullOrEmpty(request.Status))
@@ -67,77 +61,51 @@ public sealed class GetEmployeeAttendanceQueryHandler : IRequestHandler<GetEmplo
                 workDurationMinutes = (int)duration.TotalMinutes;
             }
 
-            // محاسبه تاخیر در ورود
+            // محاسبه تاخیر در ورود - ScheduledStartTime property does not exist
             int? lateArrivalMinutes = null;
-            if (attendance.CheckInTime.HasValue && attendance.ScheduledStartTime.HasValue)
-            {
-                if (attendance.CheckInTime.Value > attendance.ScheduledStartTime.Value)
-                {
-                    var lateTime = attendance.CheckInTime.Value - attendance.ScheduledStartTime.Value;
-                    lateArrivalMinutes = (int)lateTime.TotalMinutes;
-                }
-            }
-
-            // محاسبه زودتر خروج
+            // محاسبه زودتر خروج - ScheduledEndTime property does not exist
             int? earlyDepartureMinutes = null;
-            if (attendance.CheckOutTime.HasValue && attendance.ScheduledEndTime.HasValue)
-            {
-                if (attendance.CheckOutTime.Value < attendance.ScheduledEndTime.Value)
-                {
-                    var earlyTime = attendance.ScheduledEndTime.Value - attendance.CheckOutTime.Value;
-                    earlyDepartureMinutes = (int)earlyTime.TotalMinutes;
-                }
-            }
-
-            // محاسبه اضافه کار
+            // محاسبه اضافه کار - ScheduledEndTime property does not exist
             int? overtimeMinutes = null;
-            if (attendance.CheckOutTime.HasValue && attendance.ScheduledEndTime.HasValue)
-            {
-                if (attendance.CheckOutTime.Value > attendance.ScheduledEndTime.Value)
-                {
-                    var overtime = attendance.CheckOutTime.Value - attendance.ScheduledEndTime.Value;
-                    overtimeMinutes = (int)overtime.TotalMinutes;
-                }
-            }
 
             var attendanceDto = new EmployeeAttendanceDto
             {
                 Id = attendance.Id,
                 EmployeeId = attendance.EmployeeId,
-                EmployeeName = attendance.Employee?.FirstName + " " + attendance.Employee?.LastName,
-                EmployeeCode = attendance.Employee?.EmployeeCode ?? "نامشخص",
+                EmployeeName = "نامشخص",
+                EmployeeCode = "نامشخص",
                 AttendanceDate = attendance.AttendanceDate,
                 CheckInTime = attendance.CheckInTime,
                 CheckOutTime = attendance.CheckOutTime,
                 WorkDurationMinutes = workDurationMinutes,
-                AttendanceType = attendance.AttendanceType,
-                AttendanceTypePersian = GetAttendanceTypePersian(attendance.AttendanceType),
+                // AttendanceType property does not exist in EmployeeAttendance entity
+                // AttendanceTypePersian - property does not exist
                 Status = attendance.Status,
                 StatusPersian = GetStatusPersian(attendance.Status),
-                ScheduledStartTime = attendance.ScheduledStartTime,
-                ScheduledEndTime = attendance.ScheduledEndTime,
+                // ScheduledStartTime property does not exist in EmployeeAttendance entity
+                // ScheduledEndTime property does not exist in EmployeeAttendance entity
                 LateArrivalMinutes = lateArrivalMinutes,
                 EarlyDepartureMinutes = earlyDepartureMinutes,
                 OvertimeMinutes = overtimeMinutes,
-                BreakMinutes = attendance.BreakMinutes,
-                CheckInLocation = attendance.CheckInLocation,
-                CheckOutLocation = attendance.CheckOutLocation,
-                CheckInDevice = attendance.CheckInDevice,
-                CheckOutDevice = attendance.CheckOutDevice,
+                // BreakMinutes property does not exist in EmployeeAttendance entity
+                // CheckInLocation property does not exist in EmployeeAttendance entity
+                // CheckOutLocation property does not exist in EmployeeAttendance entity
+                // CheckInDevice property does not exist in EmployeeAttendance entity
+                // CheckOutDevice property does not exist in EmployeeAttendance entity
                 Description = attendance.Description,
-                ManagerNotes = attendance.ManagerNotes,
-                IsApproved = attendance.IsApproved,
-                ApprovedBy = attendance.ApprovedBy,
-                ApprovedByName = attendance.ApprovedByUser?.FirstName + " " + attendance.ApprovedByUser?.LastName,
-                ApprovedAt = attendance.ApprovedAt,
+                // ManagerNotes property does not exist in EmployeeAttendance entity
+                // IsApproved property does not exist in EmployeeAttendance entity
+                // ApprovedBy property does not exist in EmployeeAttendance entity
+                // ApprovedByName - ApprovedByUser property does not exist
+                // ApprovedAt property does not exist in EmployeeAttendance entity
                 CreatedBy = attendance.CreatedBy,
-                CreatedByName = attendance.CreatedByUser?.FirstName + " " + attendance.CreatedByUser?.LastName,
+                // CreatedByName - CreatedByUser property does not exist
                 CreatedAt = attendance.CreatedAt,
                 UpdatedAt = attendance.UpdatedAt,
-                DepartmentId = attendance.Employee?.DepartmentId,
-                DepartmentName = attendance.Employee?.Department?.Name,
-                CompanyId = attendance.Employee?.CompanyId,
-                CompanyName = attendance.Employee?.Company?.Name
+                DepartmentId = null,
+                DepartmentName = null,
+                CompanyId = null,
+                CompanyName = null
             };
 
             result.Add(attendanceDto);

@@ -1,11 +1,14 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetAllCashBoxes;
-using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetCashBoxById;
-using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetActiveCashBoxes;
+using GetAllCashBoxes = Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetAllCashBoxes;
+using GetCashBoxById = Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetCashBoxById;
+using GetActiveCashBoxes = Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetActiveCashBoxes;
 using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetCashBoxTransactions;
 using Dinawin.Erp.Application.Features.Financial.CashBoxes.Commands.CreateCashBox;
+using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetActiveCashBoxes;
+using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetCashBoxById;
+using Dinawin.Erp.Application.Features.Financial.CashBoxes.Queries.GetAllCashBoxes;
 
 namespace Dinawin.Erp.WebApi.Controllers.Financial;
 
@@ -33,9 +36,9 @@ public class CashBoxesController : BaseController
     /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام صندوق‌های نقدی</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<CashBoxDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<GetAllCashBoxes.CashBoxDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllCashBoxes(
+    public async Task<object> GetAllCashBoxes(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? responsiblePersonId = null,
         [FromQuery] bool? isActive = null,
@@ -68,9 +71,9 @@ public class CashBoxesController : BaseController
     /// <param name="id">شناسه صندوق نقدی</param>
     /// <returns>اطلاعات صندوق نقدی</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(CashBoxDto), 200)]
+    [ProducesResponseType(typeof(GetCashBoxById.CashBoxDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCashBox(Guid id)
+    public async Task<object> GetCashBox(Guid id)
     {
         try
         {
@@ -97,7 +100,7 @@ public class CashBoxesController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveCashBoxes()
+    public async Task<object> GetActiveCashBoxes()
     {
         try
         {
@@ -119,7 +122,7 @@ public class CashBoxesController : BaseController
     [HttpGet("{id}/transactions")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCashBoxTransactions(Guid id)
+    public async Task<object> GetCashBoxTransactions(Guid id)
     {
         try
         {
@@ -141,7 +144,7 @@ public class CashBoxesController : BaseController
     [HttpGet("{id}/balance")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCashBoxBalance(Guid id)
+    public async Task<object> GetCashBoxBalance(Guid id)
     {
         try
         {
@@ -155,7 +158,7 @@ public class CashBoxesController : BaseController
             {
                 CashBoxId = id,
                 CurrentBalance = cashBox.CurrentBalance,
-                LastUpdated = cashBox.UpdatedAt ?? cashBox.CreatedAt,
+                LastUpdated = cashBox.UpdatedAt ,
                 Currency = cashBox.Currency
             };
             return Success(balance);
@@ -174,7 +177,7 @@ public class CashBoxesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateCashBox([FromBody] CreateCashBoxCommand command)
+    public async Task<ActionResult<Guid>> CreateCashBox([FromBody] CreateCashBoxCommand command)
     {
         try
         {
@@ -197,7 +200,7 @@ public class CashBoxesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateCashBox(Guid id, [FromBody] object command)
+    public async Task<object> UpdateCashBox(Guid id, [FromBody] object command)
     {
         try
         {
@@ -220,7 +223,7 @@ public class CashBoxesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateCashBoxBalance(Guid id, [FromBody] object command)
+    public async Task<object> UpdateCashBoxBalance(Guid id, [FromBody] object command)
     {
         try
         {
@@ -241,7 +244,7 @@ public class CashBoxesController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteCashBox(Guid id)
+    public async Task<object> DeleteCashBox(Guid id)
     {
         try
         {

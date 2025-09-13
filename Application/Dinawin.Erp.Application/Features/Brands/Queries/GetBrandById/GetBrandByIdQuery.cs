@@ -1,6 +1,5 @@
 using MediatR;
 using System.ComponentModel.DataAnnotations;
-using Dinawin.Erp.Application.Features.Products.Queries.Dtos;
 
 namespace Dinawin.Erp.Application.Features.Brands.Queries.GetBrandById;
 

@@ -34,7 +34,7 @@ public class DashboardController : BaseController
     [HttpGet("overview")]
     [ProducesResponseType(typeof(DashboardOverviewDto), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetOverview(
+    public async Task<object> GetOverview(
         [FromQuery] Guid? userId = null,
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null)
@@ -65,7 +65,7 @@ public class DashboardController : BaseController
     [HttpGet("sales-stats")]
     [ProducesResponseType(typeof(SalesStatsDto), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetSalesStats(
+    public async Task<object> GetSalesStats(
         [FromQuery] string period = "monthly",
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
@@ -102,7 +102,7 @@ public class DashboardController : BaseController
     [HttpGet("inventory-stats")]
     [ProducesResponseType(typeof(InventoryStatsDto), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetInventoryStats(
+    public async Task<object> GetInventoryStats(
         [FromQuery] Guid? warehouseId = null,
         [FromQuery] Guid? categoryId = null,
         [FromQuery] Guid? productId = null)
@@ -132,7 +132,7 @@ public class DashboardController : BaseController
     [HttpGet("crm-stats")]
     [ProducesResponseType(typeof(CrmStatsDto), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetCrmStats()
+    public async Task<object> GetCrmStats()
     {
         try
         {
@@ -154,7 +154,7 @@ public class DashboardController : BaseController
     [HttpGet("sales-chart")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetSalesChart([FromQuery] string period = "monthly")
+    public async Task<object> GetSalesChart([FromQuery] string period = "monthly")
     {
         try
         {
@@ -179,7 +179,7 @@ public class DashboardController : BaseController
     [HttpGet("recent-activities")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetRecentActivities()
+    public async Task<object> GetRecentActivities()
     {
         try
         {

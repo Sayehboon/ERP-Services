@@ -83,8 +83,8 @@ public sealed class UpdateVendorCommandHandler : IRequestHandler<UpdateVendorCom
         vendor.BirthDate = request.BirthDate ?? vendor.BirthDate;
         vendor.Gender = request.Gender ?? vendor.Gender;
         vendor.JobTitle = request.JobTitle ?? vendor.JobTitle;
-        vendor.CreditLimit = request.CreditLimit ?? vendor.CreditLimit;
-        vendor.AccountBalance = request.AccountBalance ?? vendor.AccountBalance;
+        vendor.CreditLimit = request.CreditLimit;
+        vendor.AccountBalance = request.AccountBalance;
         vendor.PaymentTerms = request.PaymentTerms ?? vendor.PaymentTerms;
         vendor.PreferredCurrency = request.PreferredCurrency ?? vendor.PreferredCurrency;
         vendor.IsActive = request.IsActive;

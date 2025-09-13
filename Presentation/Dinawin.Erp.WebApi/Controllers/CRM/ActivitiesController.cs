@@ -2,10 +2,10 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.Application.Features.CRM.Activities.Commands.CreateActivity;
 using Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetAllActivities;
-using Dinawin.Erp.Application.Features.CRM.Activities.DTOs;
 using Dinawin.Erp.Application.Features.CRM.Activities.Queries.GetActivityById;
 using Dinawin.Erp.Application.Features.CRM.Activities.Commands.UpdateActivity;
 using Dinawin.Erp.Application.Features.CRM.Activities.Commands.DeleteActivity;
+using ActivityDto = Dinawin.Erp.Application.Features.CRM.Activities.DTOs.ActivityDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.CRM;
 
@@ -34,7 +34,7 @@ public class ActivitiesController : BaseController
     /// <response code="200">لیست فعالیت‌ها با موفقیت بازگردانده شد</response>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<ActivityDto>), 200)]
-    public async Task<ActionResult<List<ActivityDto>>> GetAllActivities([FromQuery] GetAllActivitiesQuery query)
+    public async Task<object> GetAllActivities([FromQuery] GetAllActivitiesQuery query)
     {
         try
         {
@@ -142,7 +142,7 @@ public class ActivitiesController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<IActionResult> DeleteActivity(Guid id)
+    public async Task<object> DeleteActivity(Guid id)
     {
         try
         {

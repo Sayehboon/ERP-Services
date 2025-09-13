@@ -69,6 +69,18 @@ public class ChartOfAccount : BaseEntity
     public Guid CreatedByUserId { get; set; }
     public string NormalBalance { get; set; }
     public bool IsPostable { get; set; }
+
+    /// <summary>
+    /// حساب والد
+    /// Parent account
+    /// </summary>
+    public ChartOfAccount? ParentAccount { get; set; }
+
+    /// <summary>
+    /// حساب‌های فرزند
+    /// Child accounts
+    /// </summary>
+    public ICollection<ChartOfAccount> ChildAccounts { get; set; } = new List<ChartOfAccount>();
 }
 
 /// <summary>
@@ -93,6 +105,11 @@ public class ChartOfAccountConfiguration : IEntityTypeConfiguration<ChartOfAccou
         builder.Property(e => e.NormalBalance).HasMaxLength(50);
 
         builder.Property(e => e.ExchangeRate).HasPrecision(18, 6);
+
+        builder.HasOne(e => e.ParentAccount)
+            .WithMany(c => c.ChildAccounts)
+            .HasForeignKey(e => e.ParentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(e => e.AccountCode).IsUnique(false);
         builder.HasIndex(e => e.AccountName);

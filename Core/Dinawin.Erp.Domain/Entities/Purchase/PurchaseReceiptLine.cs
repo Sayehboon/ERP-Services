@@ -27,6 +27,12 @@ public class PurchaseReceiptLine : BaseEntity
     public Guid ProductId { get; set; }
 
     /// <summary>
+    /// شناسه آیتم سفارش خرید
+    /// Purchase order item ID
+    /// </summary>
+    public Guid? PurchaseOrderItemId { get; set; }
+
+    /// <summary>
     /// تعداد سفارش داده شده
     /// Ordered quantity
     /// </summary>

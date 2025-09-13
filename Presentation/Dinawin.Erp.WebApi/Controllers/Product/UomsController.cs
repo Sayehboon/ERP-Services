@@ -6,6 +6,7 @@ using Dinawin.Erp.Application.Features.Products.Uoms.Commands.DeleteUom;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using UomDto = Dinawin.Erp.Application.Features.Uoms.Queries.GetUomById.UomDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -31,7 +32,7 @@ public class UomsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllUoms([FromQuery] string? type = null)
+    public async Task<object> GetAllUoms([FromQuery] string? type = null)
     {
         try
         {
@@ -52,7 +53,7 @@ public class UomsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetUom(Guid id)
+    public async Task<ActionResult<UomDto>> GetUom(Guid id)
     {
         try
         {
@@ -79,7 +80,7 @@ public class UomsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveUoms()
+    public async Task<object> GetActiveUoms()
     {
         try
         {
@@ -101,7 +102,7 @@ public class UomsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateUom([FromBody] UpsertUomCommand command)
+    public async Task<ActionResult<Guid>> CreateUom([FromBody] UpsertUomCommand command)
     {
         try
         {

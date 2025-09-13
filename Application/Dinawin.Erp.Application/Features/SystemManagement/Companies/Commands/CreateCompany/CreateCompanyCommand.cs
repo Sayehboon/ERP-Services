@@ -23,6 +23,12 @@ public sealed class CreateCompanyCommand : IRequest<Guid>
     public string Code { get; set; } = string.Empty;
 
     /// <summary>
+    /// نام تجاری
+    /// </summary>
+    [StringLength(200, ErrorMessage = "نام تجاری نمی‌تواند بیش از 200 کاراکتر باشد")]
+    public string? TradeName { get; set; }
+
+    /// <summary>
     /// نوع شرکت
     /// </summary>
     [StringLength(50, ErrorMessage = "نوع شرکت نمی‌تواند بیش از 50 کاراکتر باشد")]

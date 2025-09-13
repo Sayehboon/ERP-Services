@@ -41,6 +41,24 @@ public class Model : BaseEntity
     public bool IsActive { get; set; } = true;
     public Guid CategoryId { get; set; }
     public string YearRange { get; set; }
+
+    /// <summary>
+    /// ترتیب نمایش
+    /// Sort order
+    /// </summary>
+    public int SortOrder { get; set; } = 0;
+
+    /// <summary>
+    /// برند مرتبط
+    /// Related brand
+    /// </summary>
+    public Brand Brand { get; set; } = null!;
+
+    /// <summary>
+    /// محصولات این مدل
+    /// Products of this model
+    /// </summary>
+    public ICollection<Product> Products { get; set; } = new List<Product>();
 }
 
 /// <summary>
@@ -57,6 +75,11 @@ public class ModelConfiguration : IEntityTypeConfiguration<Model>
         builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
         builder.Property(e => e.Description).HasMaxLength(1000);
         builder.Property(e => e.YearRange).HasMaxLength(50);
+
+        builder.HasOne(e => e.Brand)
+            .WithMany(b => b.Models)
+            .HasForeignKey(e => e.BrandId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(e => e.Code).IsUnique(false);
         builder.HasIndex(e => e.Name);

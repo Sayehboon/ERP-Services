@@ -2,7 +2,7 @@ using Dinawin.Erp.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dinawin.Erp.Domain.Entities.AfterSales;
+namespace Dinawin.Erp.Domain.Entities.Crm;
 
 /// <summary>
 /// سوالات نظرسنجی
@@ -81,6 +81,37 @@ public class SurveyQuestion : BaseEntity, IAggregateRoot
     /// Question Weight
     /// </summary>
     public decimal? Weight { get; set; }
+
+
+    /// <summary>
+    /// شناسه نظرسنجی
+    /// Survey ID
+    /// </summary>
+    public Guid SurveyId { get; set; }
+
+    /// <summary>
+    /// گزینه‌های سوال
+    /// Question options
+    /// </summary>
+    public string? Options { get; set; } // JSON string for multiple choice options
+
+    /// <summary>
+    /// ترتیب سوال
+    /// Question order
+    /// </summary>
+    public int Order { get; set; }
+
+    /// <summary>
+    /// نظرسنجی
+    /// Survey
+    /// </summary>
+    public Survey? Survey { get; set; }
+
+    /// <summary>
+    /// پاسخ‌های سوال
+    /// Question responses
+    /// </summary>
+    public ICollection<SurveyQuestionResponse> QuestionResponses { get; set; } = new List<SurveyQuestionResponse>();
 }
 
 /// <summary>

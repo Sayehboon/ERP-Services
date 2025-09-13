@@ -29,37 +29,22 @@ public class CreateCashBoxCommandHandler : IRequestHandler<CreateCashBoxCommand,
     /// <returns>شناسه صندوق نقدی ایجاد شده</returns>
     public async Task<Guid> Handle(CreateCashBoxCommand request, CancellationToken cancellationToken)
     {
-        // بررسی تکراری نبودن کد صندوق
+        // بررسی تکراری نبودن نام صندوق
         var existingCashBox = await _context.CashBoxes
-            .FirstOrDefaultAsync(cb => cb.Code == request.Code, cancellationToken);
+            .FirstOrDefaultAsync(cb => cb.Name == request.Name, cancellationToken);
 
         if (existingCashBox != null)
         {
-            throw new InvalidOperationException($"صندوق نقدی با کد {request.Code} قبلاً وجود دارد");
-        }
-
-        // بررسی وجود مسئول صندوق
-        if (request.ResponsiblePersonId.HasValue)
-        {
-            var personExists = await _context.Employees
-                .AnyAsync(e => e.Id == request.ResponsiblePersonId.Value, cancellationToken);
-
-            if (!personExists)
-            {
-                throw new InvalidOperationException($"کارمند با شناسه {request.ResponsiblePersonId} یافت نشد");
-            }
+            throw new InvalidOperationException($"صندوق نقدی با نام {request.Name} قبلاً وجود دارد");
         }
 
         var cashBox = new CashBox
         {
             Id = Guid.NewGuid(),
+            BusinessId = request.BusinessId, // Assuming this comes from the request or context
             Name = request.Name,
-            Code = request.Code,
             Location = request.Location,
-            ResponsiblePersonId = request.ResponsiblePersonId,
-            CurrentBalance = request.InitialBalance,
-            Currency = request.Currency,
-            IsActive = request.IsActive,
+            ControlAccountId = request.ControlAccountId, // Assuming this comes from the request
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };

@@ -34,7 +34,7 @@ public sealed class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQ
             .Include(p => p.Trim)
             .Include(p => p.Year)
             .Include(p => p.Unit)
-            .Include(p => p.Uom)
+            // .Include(p => p.Uom) // Uom is an alias for BaseUom, already included above
             .AsQueryable();
 
         // فیلتر بر اساس عبارت جستجو
@@ -130,12 +130,12 @@ public sealed class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQ
         // فیلتر بر اساس قیمت خرید
         if (request.MinPurchasePrice.HasValue)
         {
-            query = query.Where(p => p.PurchasePrice >= request.MinPurchasePrice.Value);
+            query = query.Where(p => p.PurchasePrice != null && p.PurchasePrice.Amount >= request.MinPurchasePrice.Value);
         }
 
         if (request.MaxPurchasePrice.HasValue)
         {
-            query = query.Where(p => p.PurchasePrice <= request.MaxPurchasePrice.Value);
+            query = query.Where(p => p.PurchasePrice != null && p.PurchasePrice.Amount <= request.MaxPurchasePrice.Value);
         }
 
         // فیلتر بر اساس قیمت فروش
@@ -193,20 +193,20 @@ public sealed class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQ
             TrimId = p.TrimId,
             TrimName = p.Trim?.Name,
             YearId = p.YearId,
-            Year = p.Year?.Year,
+            Year = p.Year?.YearValue,
             UnitId = p.UnitId,
             UnitName = p.Unit?.Name,
             UomId = p.UomId,
-            UomName = p.Uom?.Name,
+            UomName = p.Unit?.Name,
             Description = p.Description,
-            PurchasePrice = p.PurchasePrice,
+            PurchasePrice = p.PurchasePrice?.Amount ?? 0,
             SalePrice = p.SalePrice,
             WholesalePrice = p.WholesalePrice,
             MinStock = p.MinStock,
             MaxStock = p.MaxStock,
             CurrentStock = p.CurrentStock,
-            Weight = p.Weight,
-            Dimensions = p.Dimensions,
+            Weight = p.Weight?.Value,
+            Dimensions = p.Dimensions?.ToString(),
             Color = p.Color,
             ProductType = p.ProductType,
             Status = p.Status,

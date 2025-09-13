@@ -17,6 +17,12 @@ public class Role : BaseEntity, IAggregateRoot
     public required string Name { get; set; }
 
     /// <summary>
+    /// کد نقش
+    /// Role code
+    /// </summary>
+    public string? Code { get; set; }
+
+    /// <summary>
     /// نام نمایشی نقش
     /// Role display name
     /// </summary>
@@ -39,6 +45,12 @@ public class Role : BaseEntity, IAggregateRoot
     /// Is system role
     /// </summary>
     public bool IsSystemRole { get; set; }
+
+    /// <summary>
+    /// آیا نقش سیستمی است (نام مستعار)
+    /// Is system role (alias)
+    /// </summary>
+    public bool IsSystem => IsSystemRole;
 
     /// <summary>
     /// اولویت نقش
@@ -81,6 +93,12 @@ public class Role : BaseEntity, IAggregateRoot
     /// Role permissions
     /// </summary>
     public ICollection<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
+
+    /// <summary>
+    /// مجوزهای این نقش (نام مستعار)
+    /// Role permissions (alias)
+    /// </summary>
+    public ICollection<RolePermission> Permissions => RolePermissions;
 }
 
 /// <summary>
@@ -94,6 +112,7 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Name).IsRequired().HasMaxLength(100);
+        builder.Property(e => e.Code).HasMaxLength(50);
         builder.Property(e => e.DisplayName).IsRequired().HasMaxLength(150);
         builder.Property(e => e.Description).HasMaxLength(500);
         builder.Property(e => e.Color).HasMaxLength(20);

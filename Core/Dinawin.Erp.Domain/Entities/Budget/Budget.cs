@@ -4,7 +4,7 @@ using Dinawin.Erp.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dinawin.Erp.Domain.Entities.Treasury;
+namespace Dinawin.Erp.Domain.Entities.Budget;
 
 /// <summary>
 /// بودجه
@@ -322,6 +322,6 @@ public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
 
         builder.HasIndex(e => e.FiscalYearId);
         builder.HasIndex(e => e.FiscalPeriodId);
-        builder.HasIndex(e => e.Status);
+        //builder.HasIndex(e => e.Status);
     }
 }

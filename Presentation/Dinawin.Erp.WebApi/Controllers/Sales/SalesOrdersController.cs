@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.Application.Features.SalesOrders.Commands.CreateSalesOrder;
+using Dinawin.Erp.Application.Features.Sales.SalesOrders.Commands.UpdateSalesOrder;
 using Dinawin.Erp.Application.Features.SalesOrders.Queries.GetAllSalesOrders;
 using Dinawin.Erp.Application.Features.SalesOrders.DTOs;
 

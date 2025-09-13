@@ -28,7 +28,7 @@ public sealed class GetTaskByIdQueryHandler : IRequestHandler<GetTaskByIdQuery, 
         var task = await _context.Tasks
             .Include(t => t.Project)
             .Include(t => t.AssignedToUser)
-            .Include(t => t.CreatedByUser)
+            // CreatedByUser property does not exist in WorkTask entity
             .FirstOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
 
         if (task == null)
@@ -46,7 +46,7 @@ public sealed class GetTaskByIdQueryHandler : IRequestHandler<GetTaskByIdQuery, 
             AssignedToUserId = task.AssignedToUserId,
             AssignedToUserName = task.AssignedToUser?.FirstName + " " + task.AssignedToUser?.LastName,
             CreatedByUserId = task.CreatedByUserId,
-            CreatedByUserName = task.CreatedByUser?.FirstName + " " + task.CreatedByUser?.LastName,
+            // CreatedByUser property does not exist in WorkTask entity
             Priority = task.Priority,
             Status = task.Status,
             TaskType = task.TaskType,

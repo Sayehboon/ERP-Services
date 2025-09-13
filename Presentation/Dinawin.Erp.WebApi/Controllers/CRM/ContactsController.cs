@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.Application.Features.CRM.Contacts.Commands.CreateContact;
+using Dinawin.Erp.Application.Features.CRM.Contacts.Commands.UpdateContact;
 using Dinawin.Erp.Application.Features.CRM.Contacts.Queries.GetAllContacts;
 using Dinawin.Erp.Application.Features.CRM.Contacts.DTOs;
 
@@ -31,7 +32,7 @@ public class ContactsController : BaseController
     /// <response code="200">لیست مخاطبین با موفقیت بازگردانده شد</response>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<ContactDto>), 200)]
-    public async Task<ActionResult<List<ContactDto>>> GetAllContacts([FromQuery] GetAllContactsQuery query)
+    public async Task<ActionResult<IEnumerable<ContactDto>>> GetAllContacts([FromQuery] GetAllContactsQuery query)
     {
         try
         {

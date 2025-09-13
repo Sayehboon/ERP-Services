@@ -97,6 +97,18 @@ public class Opportunity : BaseEntity
     public Guid? AssignedTo { get; set; }
 
     /// <summary>
+    /// شناسه کاربر مسئول (نام مستعار)
+    /// Assigned to user ID (alias)
+    /// </summary>
+    public Guid? AssignedToUserId => AssignedTo;
+
+    /// <summary>
+    /// شناسه کاربر ایجادکننده (نام مستعار)
+    /// Created by user ID (alias)
+    /// </summary>
+    public Guid? CreatedByUserId => CreatedBy;
+
+    /// <summary>
     /// یادداشت‌های فرصت
     /// Opportunity notes
     /// </summary>

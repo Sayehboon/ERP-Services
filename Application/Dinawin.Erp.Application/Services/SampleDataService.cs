@@ -569,10 +569,9 @@ public class SampleDataService
             new Ticket
             {
                 Id = Guid.NewGuid(),
-                Number = "TIC-001",
+                TicketNumber = "TIC-001",
                 Subject = "مشکل در تحویل قطعات",
                 CustomerName = "شرکت پارس خودرو",
-                ContactName = "محمد احمدی",
                 Category = "شکایت",
                 Priority = "بالا",
                 Status = "باز",
@@ -585,10 +584,9 @@ public class SampleDataService
             new Ticket
             {
                 Id = Guid.NewGuid(),
-                Number = "TIC-002",
+                TicketNumber = "TIC-002",
                 Subject = "درخواست اطلاعات محصول",
                 CustomerName = "گاراژ مهر",
-                ContactName = "فاطمه صادقی",
                 Category = "سوال",
                 Priority = "متوسط",
                 Status = "در حال بررسی",

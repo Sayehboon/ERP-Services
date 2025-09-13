@@ -21,7 +21,7 @@ public class UpdateStockAlertCommandHandler : IRequestHandler<UpdateStockAlertCo
 
     public async Task<bool> Handle(UpdateStockAlertCommand request, CancellationToken cancellationToken)
     {
-        var inventory = await _db.Inventory.FirstOrDefaultAsync(i => i.Id == request.InventoryId, cancellationToken);
+        var inventory = await _db.Inventories.FirstOrDefaultAsync(i => i.Id == request.InventoryId, cancellationToken);
         if (inventory == null) return false;
 
         inventory.MinStockAlert = request.MinStockAlert;

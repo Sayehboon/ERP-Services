@@ -52,7 +52,7 @@ public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumer
                 u.FirstName.ToLower().Contains(searchLower) ||
                 u.LastName.ToLower().Contains(searchLower) ||
                 u.Username.ToLower().Contains(searchLower) ||
-                u.Email.Value.ToLower().Contains(searchLower));
+                (u.Email != null && u.Email.ToLower().Contains(searchLower)));
         }
 
         // فیلتر بر اساس شرکت

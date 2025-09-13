@@ -1,5 +1,4 @@
 using MediatR;
-using Dinawin.Erp.Application.Features.Products.Queries.Dtos;
 
 namespace Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands;
 

@@ -8,6 +8,7 @@ using Dinawin.Erp.Application.Features.Customers.Queries.GetActiveCustomers;
 using Dinawin.Erp.Application.Features.Customers.Queries.GetCustomerOrders;
 using Dinawin.Erp.Application.Features.Customers.Queries.GetCustomerTransactions;
 using Dinawin.Erp.Application.Features.Customers.Commands.CreateCustomer;
+using CustomerDto = Dinawin.Erp.Application.Features.Customers.Queries.GetAllCustomers.CustomerDto;
 using Dinawin.Erp.Application.Features.Customers.Commands.UpdateCustomer;
 using Dinawin.Erp.Application.Features.Customers.Commands.DeleteCustomer;
 using Dinawin.Erp.Application.Features.Customers.Commands.ToggleCustomerStatus;
@@ -45,7 +46,7 @@ public class CustomersController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<CustomerDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllCustomers(
+    public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAllCustomers(
         [FromQuery] string? searchTerm = null,
         [FromQuery] string? customerType = null,
         [FromQuery] string? city = null,
@@ -90,7 +91,7 @@ public class CustomersController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(CustomerDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCustomer(Guid id)
+    public async Task<object> GetCustomer(Guid id)
     {
         try
         {
@@ -118,7 +119,7 @@ public class CustomersController : BaseController
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<CustomerSearchDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> SearchCustomers(
+    public async Task<ActionResult<IEnumerable<CustomerSearchDto>>> SearchCustomers(
         [FromQuery] string searchTerm,
         [FromQuery] string? customerType = null,
         [FromQuery] string? city = null,
@@ -156,7 +157,7 @@ public class CustomersController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveCustomers()
+    public async Task<object> GetActiveCustomers()
     {
         try
         {
@@ -178,7 +179,7 @@ public class CustomersController : BaseController
     [HttpGet("{id}/orders")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCustomerOrders(Guid id)
+    public async Task<object> GetCustomerOrders(Guid id)
     {
         try
         {
@@ -206,7 +207,7 @@ public class CustomersController : BaseController
     [HttpGet("{id}/transactions")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCustomerTransactions(
+    public async Task<object> GetCustomerTransactions(
         Guid id,
         [FromQuery] string? transactionType = null,
         [FromQuery] DateTime? fromDate = null,
@@ -245,7 +246,7 @@ public class CustomersController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateCustomer([FromBody] CreateCustomerCommand command)
+    public async Task<object> CreateCustomer([FromBody] CreateCustomerCommand command)
     {
         try
         {
@@ -268,7 +269,7 @@ public class CustomersController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateCustomer(Guid id, [FromBody] UpdateCustomerCommand command)
+    public async Task<object> UpdateCustomer(Guid id, [FromBody] UpdateCustomerCommand command)
     {
         try
         {
@@ -292,7 +293,7 @@ public class CustomersController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> ToggleCustomerStatus(Guid id, [FromBody] ToggleCustomerStatusCommand command)
+    public async Task<object> ToggleCustomerStatus(Guid id, [FromBody] ToggleCustomerStatusCommand command)
     {
         try
         {
@@ -314,7 +315,7 @@ public class CustomersController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteCustomer(Guid id)
+    public async Task<object> DeleteCustomer(Guid id)
     {
         try
         {

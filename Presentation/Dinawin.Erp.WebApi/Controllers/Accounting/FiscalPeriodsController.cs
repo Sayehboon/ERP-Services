@@ -32,7 +32,7 @@ public class FiscalPeriodsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllFiscalPeriods()
+    public async Task<ActionResult<IReadOnlyList<FiscalPeriodDto>>> GetAllFiscalPeriods()
     {
         try
         {
@@ -53,7 +53,7 @@ public class FiscalPeriodsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetFiscalPeriod(Guid id)
+    public async Task<ActionResult<FiscalPeriodDto>> GetFiscalPeriod(Guid id)
     {
         try
         {
@@ -75,7 +75,7 @@ public class FiscalPeriodsController : BaseController
     [HttpGet("by-year/{fiscalYearId}")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetByYear(Guid fiscalYearId)
+    public async Task<ActionResult<IReadOnlyList<FiscalPeriodDto>>> GetByYear(Guid fiscalYearId)
     {
         try
         {
@@ -95,7 +95,7 @@ public class FiscalPeriodsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetActiveFiscalPeriod([FromQuery] Guid fiscalYearId)
+    public async Task<ActionResult<FiscalPeriodDto>> GetActiveFiscalPeriod([FromQuery] Guid fiscalYearId)
     {
         try
         {
@@ -117,7 +117,7 @@ public class FiscalPeriodsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateFiscalPeriod([FromBody] CreateFiscalPeriodCommand command)
+    public async Task<ActionResult<Guid>> CreateFiscalPeriod([FromBody] CreateFiscalPeriodCommand command)
     {
         try
         {

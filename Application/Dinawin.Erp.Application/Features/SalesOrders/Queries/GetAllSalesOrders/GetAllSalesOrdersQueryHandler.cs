@@ -27,8 +27,8 @@ public class GetAllSalesOrdersQueryHandler : IRequestHandler<GetAllSalesOrdersQu
         if (!string.IsNullOrEmpty(request.SearchTerm))
         {
             query = query.Where(so => 
-                so.Number.Contains(request.SearchTerm) ||
-                so.CustomerName.Contains(request.SearchTerm) ||
+                (so.Number != null && so.Number.Contains(request.SearchTerm)) ||
+                (so.CustomerName != null && so.CustomerName.Contains(request.SearchTerm)) ||
                 (so.CustomerEmail != null && so.CustomerEmail.Contains(request.SearchTerm)));
         }
 
@@ -82,12 +82,12 @@ public class GetAllSalesOrdersQueryHandler : IRequestHandler<GetAllSalesOrdersQu
                 {
                     Id = item.Id,
                     SalesOrderId = item.SalesOrderId,
-                    ProductName = item.ProductName,
-                    ProductCode = item.ProductCode,
+                    ProductName = item.ProductName ?? string.Empty,
+                    ProductCode = item.ProductCode ?? string.Empty,
                     Quantity = item.Quantity,
                     UnitPrice = item.UnitPrice,
                     TotalAmount = item.TotalAmount,
-                    Description = item.Description,
+                    Description = item.Description ?? string.Empty,
                     CreatedAt = item.CreatedAt,
                     UpdatedAt = item.UpdatedAt,
                     CreatedBy = item.CreatedBy,

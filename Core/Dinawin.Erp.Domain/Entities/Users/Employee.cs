@@ -88,12 +88,48 @@ public class Employee : BaseEntity
     /// </summary>
     public bool IsActive { get; set; } = true;
 
+    /// <summary>
+    /// کد کارمند (alias for PersonnelNumber)
+    /// Employee code alias
+    /// </summary>
+    public string? EmployeeCode => PersonnelNumber;
+
+    /// <summary>
+    /// نام (alias for Name)
+    /// First name alias
+    /// </summary>
+    public string? FirstName => Name;
+
+    /// <summary>
+    /// تاریخ استخدام (alias for EmploymentDate)
+    /// Hire date alias
+    /// </summary>
+    public DateTime? HireDate => EmploymentDate;
+
+    /// <summary>
+    /// حقوق
+    /// Salary
+    /// </summary>
+    public decimal Salary { get; set; } = 0;
+
+    /// <summary>
+    /// آیا قفل شده است
+    /// Is locked
+    /// </summary>
+    public bool IsLocked { get; set; } = false;
+
     // Navigation properties
     /// <summary>
     /// بخش
     /// Department
     /// </summary>
     public Department? Department { get; set; }
+
+    /// <summary>
+    /// شرکت
+    /// Company
+    /// </summary>
+    public Company? Company { get; set; }
 
     /// <summary>
     /// حقوق‌ها
@@ -133,6 +169,7 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder.Property(e => e.Phone).HasMaxLength(20);
         builder.Property(e => e.Email).HasMaxLength(100);
         builder.Property(e => e.Address).HasMaxLength(500);
+        builder.Property(e => e.Salary).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Department)
             .WithMany()

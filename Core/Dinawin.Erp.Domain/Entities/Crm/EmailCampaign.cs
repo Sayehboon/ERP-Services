@@ -1,4 +1,5 @@
 using Dinawin.Erp.Domain.Common;
+using Dinawin.Erp.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -75,12 +76,6 @@ public class EmailCampaign : BaseEntity, IAggregateRoot
     /// Email template
     /// </summary>
     public string? Template { get; set; }
-
-    /// <summary>
-    /// شناسه کاربر ایجادکننده
-    /// Created by user ID
-    /// </summary>
-    public Guid? CreatedBy { get; set; }
 
     /// <summary>
     /// کاربر ایجادکننده

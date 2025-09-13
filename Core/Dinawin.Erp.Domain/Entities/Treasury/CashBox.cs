@@ -34,6 +34,12 @@ public class CashBox : BaseEntity, IAggregateRoot
     /// </summary>
     public Guid? ControlAccountId { get; set; }
 
+    /// <summary>
+    /// وضعیت فعال بودن صندوق
+    /// Cash box active status
+    /// </summary>
+    public bool IsActive { get; set; } = true;
+
     // Navigation Properties
     /// <summary>
     /// کسب‌وکار مرتبط
@@ -82,11 +88,6 @@ public class CashBox : BaseEntity, IAggregateRoot
     /// Purchase payments from this cash box
     /// </summary>
     public ICollection<Dinawin.Erp.Domain.Entities.Accounting.PurchasePayment> PurchasePayments { get; set; } = new List<Dinawin.Erp.Domain.Entities.Accounting.PurchasePayment>();
-    public string Code { get; set; }
-    public bool IsActive { get; set; }
-    public Guid ResponsiblePersonId { get; set; }
-    public decimal CurrentBalance { get; set; }
-    public string Currency { get; set; }
 }
 
 /// <summary>
@@ -101,10 +102,6 @@ public class CashBoxConfiguration : IEntityTypeConfiguration<CashBox>
 
         builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
         builder.Property(e => e.Location).HasMaxLength(200);
-        builder.Property(e => e.Code).HasMaxLength(50);
-        builder.Property(e => e.Currency).HasMaxLength(10);
-
-        builder.Property(e => e.CurrentBalance).HasPrecision(18, 2);
 
         builder.HasOne(e => e.Business)
             .WithMany()
@@ -116,7 +113,6 @@ public class CashBoxConfiguration : IEntityTypeConfiguration<CashBox>
             .HasForeignKey(e => e.ControlAccountId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        builder.HasIndex(e => e.Code).IsUnique(false);
         builder.HasIndex(e => e.BusinessId);
     }
 }

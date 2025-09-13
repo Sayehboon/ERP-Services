@@ -32,7 +32,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     /// <returns>شناسه کالای ایجاد شده</returns>
     public async Task<Guid> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = new Product
+        var product = new Dinawin.Erp.Domain.Entities.Products.Product
         {
             Sku = request.Sku,
             Name = request.Name,

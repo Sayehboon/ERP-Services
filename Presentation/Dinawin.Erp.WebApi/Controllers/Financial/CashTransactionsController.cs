@@ -30,7 +30,7 @@ public class CashTransactionsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<CashTransactionDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllCashTransactions([FromQuery] Guid[] cashBoxIds)
+    public async Task<object> GetAllCashTransactions([FromQuery] Guid[] cashBoxIds)
     {
         try
         {
@@ -51,7 +51,7 @@ public class CashTransactionsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(CashTransactionDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetCashTransaction(Guid id)
+    public async Task<object> GetCashTransaction(Guid id)
     {
         try
         {
@@ -78,7 +78,7 @@ public class CashTransactionsController : BaseController
     [HttpGet("by-cashbox/{cashBoxId}")]
     [ProducesResponseType(typeof(IEnumerable<CashTransactionDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetCashTransactionsByCashBox(Guid cashBoxId)
+    public async Task<object> GetCashTransactionsByCashBox(Guid cashBoxId)
     {
         try
         {
@@ -99,7 +99,7 @@ public class CashTransactionsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateCashTransaction([FromBody] CreateCashTransactionCommand command)
+    public async Task<object> CreateCashTransaction([FromBody] CreateCashTransactionCommand command)
     {
         try
         {

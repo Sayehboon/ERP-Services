@@ -13,6 +13,7 @@ using Dinawin.Erp.Domain.Entities.Maintenance;
 using Dinawin.Erp.Domain.Entities.FixedAssets;
 using TaskEntity = Dinawin.Erp.Domain.Entities.Users.WorkTask;
 using Console = Dinawin.Erp.Domain.Entities.Systems.Console;
+using Dinawin.Erp.Domain.Entities.Budget;
 
 namespace Dinawin.Erp.Application.Common.Interfaces;
 
@@ -41,6 +42,7 @@ public interface IApplicationDbContext
     DbSet<Trim> Trims { get; }
     DbSet<Year> Years { get; }
     DbSet<UnitOfMeasure> UnitsOfMeasures { get; }
+    DbSet<UnitOfMeasure> Units { get; }
     DbSet<UomConversion> UomConversions { get; }
     DbSet<ProductCategory> ProductCategories { get; }
     DbSet<ProductAttribute> ProductAttributes { get; }
@@ -49,7 +51,7 @@ public interface IApplicationDbContext
     DbSet<VehicleCompatibility> VehicleCompatibilities { get; }
 
     // Inventory Management
-    DbSet<Inventory> Inventory { get; }
+    DbSet<Inventory> Inventories { get; }
     DbSet<InventoryLevel> InventoryLevels { get; }
     DbSet<InventoryMovement> InventoryMovements { get; }
     DbSet<Warehouse> Warehouses { get; }
@@ -113,7 +115,9 @@ public interface IApplicationDbContext
 
     // Sales & Purchase Orders
     DbSet<SalesOrder> SalesOrders { get; }
+    DbSet<SalesOrderItem> SalesOrderItems { get; }
     DbSet<PurchaseOrder> PurchaseOrders { get; }
+    DbSet<PurchaseOrderItem> PurchaseOrderItems { get; }
     DbSet<SalesReturn> SalesReturns { get; }
     DbSet<SalesReturnLine> SalesReturnLines { get; }
     DbSet<PurchaseReceipt> PurchaseReceipts { get; }
@@ -135,6 +139,8 @@ public interface IApplicationDbContext
     DbSet<ArInvoiceLine> ArInvoiceLines { get; }
     DbSet<ArReceipt> ArReceipts { get; }
     DbSet<ArSettlement> ArSettlements { get; }
+    DbSet<SalesInvoice> SalesInvoices { get; }
+    DbSet<SalesInvoiceLine> SalesInvoiceLines { get; }
     
     // Accounts Payable
     DbSet<ApVendor> ApVendors { get; }
@@ -147,7 +153,9 @@ public interface IApplicationDbContext
     DbSet<Department> Departments { get; }
     DbSet<Employee> Employees { get; }
     DbSet<EmployeeAttendance> EmployeeAttendance { get; }
+    DbSet<EmployeeAttendance> EmployeeAttendances { get; }
     DbSet<EmployeeSalary> EmployeeSalaries { get; }
+    DbSet<EmployeeSalary> EmployeeSalaryDetails { get; }
     DbSet<Leave> Leaves { get; }
 
     // Task Management
@@ -204,7 +212,6 @@ public interface IApplicationDbContext
     DbSet<RepairPart> RepairParts { get; }
     DbSet<Warranty> Warranties { get; }
     DbSet<WarrantyClaim> WarrantyClaims { get; }
-    DbSet<SurveyQuestion> SurveyQuestions { get; }
     DbSet<Technician> Technicians { get; }
 
     // Maintenance

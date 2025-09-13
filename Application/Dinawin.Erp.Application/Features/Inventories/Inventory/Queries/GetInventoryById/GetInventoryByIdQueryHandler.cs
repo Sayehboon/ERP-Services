@@ -27,7 +27,7 @@ public sealed class GetInventoryByIdQueryHandler : IRequestHandler<GetInventoryB
     /// </summary>
     public async Task<InventoryDto?> Handle(GetInventoryByIdQuery request, CancellationToken cancellationToken)
     {
-        var inventory = await _context.Inventory
+        var inventory = await _context.Inventories
             .Include(i => i.Product)
             .Include(i => i.Warehouse)
             .Include(i => i.Bin)

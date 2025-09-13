@@ -41,10 +41,10 @@ public sealed class GetInventoryMovementByIdQueryHandler : IRequestHandler<GetIn
         {
             Id = movement.Id,
             ProductId = movement.ProductId,
-            ProductName = movement.Product.Name,
-            ProductCode = movement.Product.Code,
+            ProductName = movement.Product?.Name ?? string.Empty,
+            ProductCode = movement.Product?.Code ?? string.Empty,
             WarehouseId = movement.WarehouseId,
-            WarehouseName = movement.Warehouse.Name,
+            WarehouseName = movement.Warehouse?.Name ?? string.Empty,
             BinId = movement.BinId,
             BinName = movement.Bin?.Name,
             MovementType = movement.MovementType,

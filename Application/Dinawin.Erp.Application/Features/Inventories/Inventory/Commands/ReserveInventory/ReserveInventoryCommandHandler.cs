@@ -32,7 +32,7 @@ public sealed class ReserveInventoryCommandHandler : IRequestHandler<ReserveInve
         }
 
         // دریافت موجودی
-        var inventory = await _context.Inventory
+        var inventory = await _context.Inventories
             .FirstOrDefaultAsync(i => i.ProductId == request.ProductId && 
                                     i.WarehouseId == request.WarehouseId && 
                                     i.BinId == request.BinId, cancellationToken);

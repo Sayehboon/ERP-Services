@@ -1,12 +1,14 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetAllBankAccounts;
-using Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetBankAccountById;
+using GetAllBankAccounts = Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetAllBankAccounts;
+using GetBankAccountById = Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetBankAccountById;
 using Dinawin.Erp.Application.Features.Financial.BankAccounts.Commands.CreateBankAccount;
 using Dinawin.Erp.Application.Features.Financial.BankAccounts.Commands.UpdateBankAccount;
 using Dinawin.Erp.Application.Features.Financial.BankAccounts.Commands.UpdateBankAccountBalance;
 using Dinawin.Erp.Application.Features.Financial.BankAccounts.Commands.DeleteBankAccount;
+using Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetBankAccountById;
+using Dinawin.Erp.Application.Features.Financial.BankAccounts.Queries.GetAllBankAccounts;
 
 namespace Dinawin.Erp.WebApi.Controllers.Financial;
 
@@ -36,9 +38,9 @@ public class BankAccountsController : BaseController
     /// <param name="pageSize">تعداد آیتم در هر صفحه</param>
     /// <returns>لیست تمام حساب‌های بانکی</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<BankAccountDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<GetAllBankAccounts.BankAccountDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllBankAccounts(
+    public async Task<object> GetAllBankAccounts(
         [FromQuery] string? searchTerm = null,
         [FromQuery] string? bankName = null,
         [FromQuery] string? accountType = null,
@@ -75,9 +77,9 @@ public class BankAccountsController : BaseController
     /// <param name="id">شناسه حساب بانکی</param>
     /// <returns>اطلاعات حساب بانکی</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(BankAccountDto), 200)]
+    [ProducesResponseType(typeof(GetBankAccountById.BankAccountDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetBankAccount(Guid id)
+    public async Task<object> GetBankAccount(Guid id)
     {
         try
         {
@@ -102,9 +104,9 @@ public class BankAccountsController : BaseController
     /// </summary>
     /// <returns>لیست حساب‌های بانکی فعال</returns>
     [HttpGet("active")]
-    [ProducesResponseType(typeof(IEnumerable<BankAccountDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<GetAllBankAccounts.BankAccountDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveBankAccounts()
+    public async Task<object> GetActiveBankAccounts()
     {
         try
         {
@@ -126,7 +128,7 @@ public class BankAccountsController : BaseController
     [HttpGet("{id}/transactions")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetBankAccountTransactions(Guid id)
+    public async Task<object> GetBankAccountTransactions(Guid id)
     {
         try
         {
@@ -158,7 +160,7 @@ public class BankAccountsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateBankAccount([FromBody] CreateBankAccountCommand command)
+    public async Task<object> CreateBankAccount([FromBody] CreateBankAccountCommand command)
     {
         try
         {
@@ -181,7 +183,7 @@ public class BankAccountsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateBankAccount(Guid id, [FromBody] UpdateBankAccountCommand command)
+    public async Task<object> UpdateBankAccount(Guid id, [FromBody] UpdateBankAccountCommand command)
     {
         try
         {
@@ -205,7 +207,7 @@ public class BankAccountsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateBankAccountBalance(Guid id, [FromBody] UpdateBankAccountBalanceCommand command)
+    public async Task<ActionResult<bool>> UpdateBankAccountBalance(Guid id, [FromBody] UpdateBankAccountBalanceCommand command)
     {
         try
         {
@@ -227,7 +229,7 @@ public class BankAccountsController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteBankAccount(Guid id)
+    public async Task<object> DeleteBankAccount(Guid id)
     {
         try
         {

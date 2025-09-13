@@ -34,7 +34,7 @@ public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQ
             .Include(p => p.Trim)
             .Include(p => p.Year)
             .Include(p => p.Unit)
-            .Include(p => p.Uom)
+            // .Include(p => p.Uom) // Uom is an alias for BaseUom, already included above
             .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
 
         if (product == null)
@@ -47,9 +47,9 @@ public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQ
         dto.CategoryName = product.Category?.Name;
         dto.ModelName = product.Model?.Name;
         dto.TrimName = product.Trim?.Name;
-        dto.Year = product.Year?.Year;
+        dto.Year = product.Year?.YearValue;
         dto.UnitName = product.Unit?.Name;
-        dto.UomName = product.Uom?.Name;
+        dto.UomName = product.Unit?.Name;
         return dto;
     }
 }

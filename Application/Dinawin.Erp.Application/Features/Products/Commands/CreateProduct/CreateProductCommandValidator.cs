@@ -107,7 +107,7 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
     {
         if (!uomId.HasValue) return true;
 
-        return await _context.UnitsOfMeasure
+        return await _context.UnitsOfMeasures
             .AnyAsync(u => u.Id == uomId.Value && u.IsActive && !u.IsDeleted, cancellationToken);
     }
 }

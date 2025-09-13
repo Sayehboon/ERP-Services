@@ -7,6 +7,7 @@ using Dinawin.Erp.Application.Features.Accounting.JournalEntries.Commands.Update
 using Dinawin.Erp.Application.Features.Accounting.JournalEntries.Commands.DeleteJournalEntry;
 using Dinawin.Erp.Application.Features.Accounting.JournalVouchers.Commands.CreateJournalVoucher;
 using Dinawin.Erp.Application.Features.Accounting.JournalVouchers.Commands.PostJournalVoucher;
+using JournalEntryDto = Dinawin.Erp.Application.Features.Accounting.JournalEntries.Queries.GetAllJournalEntries.JournalEntryDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Accounting;
 
@@ -40,7 +41,7 @@ public class JournalEntriesController : BaseController
 	[HttpGet]
 	[ProducesResponseType(typeof(IEnumerable<JournalEntryDto>), 200)]
 	[ProducesResponseType(400)]
-	public async Task<ActionResult> GetAllJournalEntries(
+	public async Task<ActionResult<IEnumerable<JournalEntryDto>>> GetAllJournalEntries(
 		[FromQuery] string? searchTerm = null,
 		[FromQuery] Guid? accountId = null,
 		[FromQuery] string? entryType = null,
@@ -83,7 +84,7 @@ public class JournalEntriesController : BaseController
 	[HttpGet("{id}")]
 	[ProducesResponseType(typeof(JournalEntryDto), 200)]
 	[ProducesResponseType(404)]
-	public async Task<ActionResult> GetJournalEntry(Guid id)
+	public async Task<object> GetJournalEntry(Guid id)
 	{
 		try
 		{
@@ -112,7 +113,7 @@ public class JournalEntriesController : BaseController
 	[HttpGet("by-date-range")]
 	[ProducesResponseType(typeof(IEnumerable<JournalEntryDto>), 200)]
 	[ProducesResponseType(400)]
-	public async Task<ActionResult> GetJournalEntriesByDateRange([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate)
+	public async Task<ActionResult<IEnumerable<JournalEntryDto>>> GetJournalEntriesByDateRange([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate)
 	{
 		try
 		{
@@ -136,7 +137,7 @@ public class JournalEntriesController : BaseController
 	[HttpPost]
 	[ProducesResponseType(typeof(Guid), 201)]
 	[ProducesResponseType(400)]
-	public async Task<ActionResult> CreateJournalEntry([FromBody] CreateJournalVoucherCommand command)
+	public async Task<ActionResult<Guid>> CreateJournalEntry([FromBody] CreateJournalVoucherCommand command)
 	{
 		try
 		{

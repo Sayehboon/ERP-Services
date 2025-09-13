@@ -26,7 +26,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.BaseUomName, opt => opt.MapFrom(src => src.BaseUom != null ? src.BaseUom.Name : null))
             .ForMember(dest => dest.PriceBuy, opt => opt.MapFrom(src => src.PurchasePrice != null ? src.PurchasePrice.Amount : (decimal?)null))
             .ForMember(dest => dest.PriceSell, opt => opt.MapFrom(src => src.SellingPrice != null ? src.SellingPrice.Amount : (decimal?)null))
-            .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src => 
+            .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src =>
                 src.Inventories.Sum(i => i.AvailableQuantity)));
 
         CreateMap<Brand, BrandDto>()
@@ -38,11 +38,11 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.SubcategoryCount, opt => opt.MapFrom(src => src.SubCategories.Count));
 
         CreateMap<User, UserProfileDto>()
-            .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email != null ? src.Email.Value : string.Empty))
-            .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber != null ? src.PhoneNumber.Value : null))
+            .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email != null ? src.Email : string.Empty))
+            .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber != null ? src.PhoneNumber : null))
             .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.Company != null ? src.Company.Name : null))
             .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department != null ? src.Department.Name : null))
-            .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => 
+            .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src =>
                 src.UserRoles.Where(ur => ur.IsActive && !ur.IsExpired)
                            .Select(ur => ur.Role.DisplayName)
                            .FirstOrDefault()));
@@ -53,7 +53,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
             .ForMember(dest => dest.ProductSku, opt => opt.MapFrom(src => src.Product.Sku))
             .ForMember(dest => dest.WarehouseName, opt => opt.MapFrom(src => src.Warehouse.Name))
-            .ForMember(dest => dest.AvgCost, opt => opt.MapFrom(src => src.AverageCost != null ? src.AverageCost.Amount : (decimal?)null));
+            .ForMember(dest => dest.AvgCost, opt => opt.MapFrom(src => src.AverageCost));
 
         CreateMap<Warehouse, WarehouseDto>();
         CreateMap<InventoryMovement, InventoryMovementDto>()

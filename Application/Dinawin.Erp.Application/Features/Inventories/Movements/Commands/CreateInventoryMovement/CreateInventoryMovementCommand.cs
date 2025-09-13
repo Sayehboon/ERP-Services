@@ -2,6 +2,7 @@ namespace Dinawin.Erp.Application.Features.Inventories.Movements.Commands.Create
 
 using Dinawin.Erp.Application.Common.Interfaces;
 using Dinawin.Erp.Domain.Entities.Inventories;
+using Dinawin.Erp.Domain.Enums;
 using Dinawin.Erp.Domain.ValueObjects;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -46,10 +47,10 @@ public class CreateInventoryMovementCommandHandler : IRequestHandler<CreateInven
             Id = Guid.NewGuid(),
             ProductId = request.ProductId,
             WarehouseId = request.WarehouseId,
-            Type = Enum.Parse<InventoryMovementType>(request.Type),
+            Type = request.Type,
             Quantity = request.Quantity,
-            UnitCost = request.UnitCost.HasValue ? new Money(request.UnitCost.Value, "IRR") : null,
-            TotalValue = request.UnitCost.HasValue ? new Money(request.UnitCost.Value * request.Quantity, "IRR") : null,
+            UnitCost = request.UnitCost,
+            TotalValue = request.UnitCost.HasValue ? request.UnitCost.Value * request.Quantity : null,
             BalanceBefore = balanceBefore,
             BalanceAfter = balanceAfter,
             ReferenceNumber = request.ReferenceNumber,

@@ -3,6 +3,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
 using Dinawin.Erp.Application.Features.Product.Products.Queries.GetAllProducts;
+using Dinawin.Erp.Domain.Enums;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.Product.Products.Queries.GetProductsByCategory;
 
@@ -34,8 +36,7 @@ public sealed class GetProductsByCategoryQueryHandler : IRequestHandler<GetProdu
             .Include(p => p.Model)
             .Include(p => p.Trim)
             .Include(p => p.Year)
-            .Include(p => p.Unit)
-            .Include(p => p.Uom)
+            .Include(p => p.BaseUom)
             .Where(p => p.CategoryId == request.CategoryId)
             .AsQueryable();
 
@@ -66,7 +67,7 @@ public sealed class GetProductsByCategoryQueryHandler : IRequestHandler<GetProdu
         // فیلتر بر اساس نوع محصول
         if (!string.IsNullOrWhiteSpace(request.ProductType))
         {
-            if (Enum.TryParse<ProductType>(request.ProductType, out var productType))
+            if (Enum.TryParse<Dinawin.Erp.Domain.Entities.Products.ProductType>(request.ProductType, out var productType))
             {
                 query = query.Where(p => p.Type == productType);
             }

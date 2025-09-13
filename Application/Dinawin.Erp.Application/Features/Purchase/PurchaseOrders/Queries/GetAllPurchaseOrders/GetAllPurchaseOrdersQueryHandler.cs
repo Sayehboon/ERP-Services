@@ -162,9 +162,9 @@ public sealed class GetAllPurchaseOrdersQueryHandler : IRequestHandler<GetAllPur
             WarehouseId = po.WarehouseId,
             WarehouseName = po.Warehouse?.Name,
             AssignedToId = po.AssignedToId,
-            AssignedToName = po.AssignedTo != null ? $"{po.AssignedTo.FirstName} {po.AssignedTo.LastName}" : null,
+            // AssignedTo is a Guid?, not a User object
             CreatedById = po.CreatedById,
-            CreatedByName = po.CreatedByUser != null ? $"{po.CreatedByUser.FirstName} {po.CreatedByUser.LastName}" : null,
+            // CreatedByUser property does not exist in PurchaseOrder entity
             TotalAmount = po.TotalAmount,
             DiscountAmount = po.DiscountAmount,
             TaxAmount = po.TaxAmount,

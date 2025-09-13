@@ -29,9 +29,6 @@ public sealed class GetVendorOrdersQueryHandler : IRequestHandler<GetVendorOrder
     {
         var query = _context.PurchaseOrders
             .Include(po => po.Vendor)
-            .Include(po => po.Warehouse)
-            .Include(po => po.CreatedByUser)
-            .Include(po => po.ApprovedByUser)
             .Include(po => po.Items)
                 .ThenInclude(item => item.Product)
             .Include(po => po.Items)
@@ -76,11 +73,11 @@ public sealed class GetVendorOrdersQueryHandler : IRequestHandler<GetVendorOrder
                 .SumAsync(pp => pp.Amount, cancellationToken);
 
             // محاسبه مقدار تحویل شده برای هر آیتم
-            var deliveredQuantities = await _context.PurchaseReceiptItems
+            var deliveredQuantities = await _context.PurchaseReceiptLines
                 .Where(pri => pri.PurchaseOrderItemId != null && 
                              order.Items.Select(oi => oi.Id).Contains(pri.PurchaseOrderItemId.Value))
                 .GroupBy(pri => pri.PurchaseOrderItemId)
-                .ToDictionaryAsync(g => g.Key!.Value, g => g.Sum(pri => pri.Quantity), cancellationToken);
+                .ToDictionaryAsync(g => g.Key!.Value, g => g.Sum(pri => pri.ReceivedQuantity), cancellationToken);
 
             var orderDto = new VendorOrderDto
             {
@@ -93,7 +90,7 @@ public sealed class GetVendorOrdersQueryHandler : IRequestHandler<GetVendorOrder
                 ActualDeliveryDate = order.ActualDeliveryDate,
                 Status = order.Status,
                 StatusPersian = GetStatusPersian(order.Status),
-                OrderType = order.OrderType,
+                OrderType = order.OrderType ?? string.Empty,
                 TotalAmount = order.TotalAmount,
                 PaidAmount = paidAmount,
                 Currency = order.Currency,

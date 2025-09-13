@@ -63,9 +63,7 @@ public sealed class GetAllRolesQueryHandler : IRequestHandler<GetAllRolesQuery, 
             Name = r.Name,
             Description = r.Description,
             IsActive = r.IsActive,
-            Permissions = string.IsNullOrEmpty(r.Permissions) 
-                ? new List<string>() 
-                : r.Permissions.Split(',').ToList(),
+            Permissions = r.Permissions?.Select(p => p.Permission.Name).ToList() ?? new List<string>(),
             UsersCount = _context.Users.Count(u => u.RoleId == r.Id),
             CreatedAt = r.CreatedAt,
             UpdatedAt = r.UpdatedAt,

@@ -13,16 +13,6 @@ public class AccDimension : BaseEntity, IAggregateRoot
     public bool IsActive { get; set; } = true;
 }
 
-public class AccDimensionValue : BaseEntity
-{
-    public Guid DimensionId { get; set; }
-    public string Code { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-    public string? Description { get; set; }
-    public bool IsActive { get; set; } = true;
-
-    public AccDimension Dimension { get; set; } = null!;
-}
 
 /// <summary>
 /// پیکربندی موجودیت ابعاد حسابداری
@@ -44,26 +34,5 @@ public class AccDimensionConfiguration : IEntityTypeConfiguration<AccDimension>
     }
 }
 
-/// <summary>
-/// پیکربندی موجودیت مقادیر ابعاد حسابداری
-/// Accounting Dimension Value entity configuration
-/// </summary>
-public class AccDimensionValueConfiguration : IEntityTypeConfiguration<AccDimensionValue>
-{
-    public void Configure(EntityTypeBuilder<AccDimensionValue> builder)
-    {
-        builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
-        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
-        builder.Property(e => e.Description).HasMaxLength(1000);
-
-        builder.HasOne(e => e.Dimension)
-            .WithMany()
-            .HasForeignKey(e => e.DimensionId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasIndex(e => new { e.DimensionId, e.Code }).IsUnique();
-    }
-}
 

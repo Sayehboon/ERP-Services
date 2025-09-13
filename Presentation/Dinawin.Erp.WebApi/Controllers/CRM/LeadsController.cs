@@ -31,7 +31,7 @@ public class LeadsController : BaseController
     /// <response code="200">لیست سرنخ‌ها با موفقیت بازگردانده شد</response>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<LeadDto>), 200)]
-    public async Task<ActionResult<List<LeadDto>>> GetAllLeads([FromQuery] GetAllLeadsQuery query)
+    public async Task<ActionResult<IEnumerable<LeadDto>>> GetAllLeads([FromQuery] GetAllLeadsQuery query)
     {
         try
         {

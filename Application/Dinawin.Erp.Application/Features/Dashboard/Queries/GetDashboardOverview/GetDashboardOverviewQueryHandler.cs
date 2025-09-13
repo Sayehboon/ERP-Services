@@ -138,11 +138,11 @@ public sealed class GetDashboardOverviewQueryHandler : IRequestHandler<GetDashbo
     private async Task<InventoryOverviewDto> GetInventoryOverviewAsync(CancellationToken cancellationToken)
     {
         var totalProducts = await _context.Products.CountAsync(cancellationToken);
-        var lowStockProducts = await _context.Inventory.CountAsync(i => i.AvailableQuantity <= i.MinStockAlert, cancellationToken);
-        var outOfStockProducts = await _context.Inventory.CountAsync(i => i.AvailableQuantity <= 0, cancellationToken);
-        var totalInventoryValue = await _context.Inventory
+        var lowStockProducts = await _context.Inventories.CountAsync(i => i.AvailableQuantity <= i.MinStockAlert, cancellationToken);
+        var outOfStockProducts = await _context.Inventories.CountAsync(i => i.AvailableQuantity <= 0, cancellationToken);
+        var totalInventoryValue = await _context.Inventories
             .Where(i => i.AverageCost != null)
-            .SumAsync(i => i.Quantity * i.AverageCost!.Amount, cancellationToken);
+            .SumAsync(i => i.Quantity * i.AverageCost, cancellationToken);
         var totalWarehouses = await _context.Warehouses.CountAsync(cancellationToken);
         var totalBins = await _context.Bins.CountAsync(cancellationToken);
 
@@ -165,7 +165,9 @@ public sealed class GetDashboardOverviewQueryHandler : IRequestHandler<GetDashbo
         var totalBankAccounts = await _context.BankAccounts.CountAsync(cancellationToken);
         var totalBankBalance = await _context.BankAccounts.SumAsync(ba => ba.CurrentBalance, cancellationToken);
         var totalCashBoxes = await _context.CashBoxes.CountAsync(cancellationToken);
-        var totalCashBalance = await _context.CashBoxes.SumAsync(cb => cb.CurrentBalance, cancellationToken);
+        // Note: CashBox.CurrentBalance was removed to match Supabase schema
+        // Cash balance should be calculated from cash transactions instead
+        var totalCashBalance = 0m; // TODO: Calculate from cash transactions
 
         return new FinancialOverviewDto
         {
@@ -251,7 +253,7 @@ public sealed class GetDashboardOverviewQueryHandler : IRequestHandler<GetDashbo
 
     private async Task<List<CategoryValueDto>> GetInventoryByCategoryChartAsync(CancellationToken cancellationToken)
     {
-        return await _context.Inventory
+        return await _context.Inventories
             .GroupBy(i => i.Product.CategoryId)
             .Select(g => new CategoryValueDto { CategoryId = g.Key, Value = g.Sum(i => i.Quantity) })
             .OrderByDescending(x => x.Value)

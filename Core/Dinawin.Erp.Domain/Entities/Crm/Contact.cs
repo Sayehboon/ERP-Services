@@ -77,6 +77,12 @@ public class Contact : BaseEntity
     public string? CompanyName { get; set; }
 
     /// <summary>
+    /// شناسه تامین‌کننده
+    /// Vendor ID
+    /// </summary>
+    public Guid? VendorId { get; set; }
+
+    /// <summary>
     /// سمت مخاطب
     /// Contact position
     /// </summary>

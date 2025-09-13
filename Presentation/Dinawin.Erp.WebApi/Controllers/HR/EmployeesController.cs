@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetAllEmployees;
-using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeeById;
+using GetAllEmployees = Dinawin.Erp.Application.Features.HR.Employees.Queries.GetAllEmployees;
+using GetEmployeeById = Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeeById;
 using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeesByDepartment;
 using Dinawin.Erp.Application.Features.HR.Employees.Queries.SearchEmployees;
 using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeeAttendance;
@@ -10,6 +10,8 @@ using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeeSalary;
 using Dinawin.Erp.Application.Features.HR.Employees.Commands.CreateEmployee;
 using Dinawin.Erp.Application.Features.HR.Employees.Commands.UpdateEmployee;
 using Dinawin.Erp.Application.Features.HR.Employees.Commands.DeleteEmployee;
+using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetEmployeeById;
+using Dinawin.Erp.Application.Features.HR.Employees.Queries.GetAllEmployees;
 
 namespace Dinawin.Erp.WebApi.Controllers.HR;
 
@@ -32,9 +34,9 @@ public class EmployeesController : BaseController
     /// </summary>
     /// <returns>لیست تمام کارمندان</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<EmployeeDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<GetAllEmployees.EmployeeDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllEmployees(
+    public async Task<object> GetAllEmployees(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? departmentId = null,
         [FromQuery] Guid? roleId = null,
@@ -73,9 +75,9 @@ public class EmployeesController : BaseController
     /// <param name="id">شناسه کارمند</param>
     /// <returns>اطلاعات کارمند</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(EmployeeDto), 200)]
+    [ProducesResponseType(typeof(GetEmployeeById.EmployeeDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetEmployee(Guid id)
+    public async Task<object> GetEmployee(Guid id)
     {
         try
         {
@@ -103,9 +105,9 @@ public class EmployeesController : BaseController
     /// <param name="maxResults">حداکثر تعداد نتایج</param>
     /// <returns>لیست کارمندان بخش</returns>
     [HttpGet("by-department/{departmentId}")]
-    [ProducesResponseType(typeof(IEnumerable<EmployeeDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<GetAllEmployees.EmployeeDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetEmployeesByDepartment(
+    public async Task<object> GetEmployeesByDepartment(
         Guid departmentId,
         [FromQuery] bool? isActive = null,
         [FromQuery] int? maxResults = null)
@@ -140,7 +142,7 @@ public class EmployeesController : BaseController
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<EmployeeSearchDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> SearchEmployees(
+    public async Task<object> SearchEmployees(
         [FromQuery] string searchTerm,
         [FromQuery] Guid? departmentId = null,
         [FromQuery] Guid? companyId = null,
@@ -175,7 +177,7 @@ public class EmployeesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateEmployee([FromBody] CreateEmployeeCommand command)
+    public async Task<object> CreateEmployee([FromBody] CreateEmployeeCommand command)
     {
         try
         {
@@ -198,7 +200,7 @@ public class EmployeesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateEmployee(Guid id, [FromBody] UpdateEmployeeCommand command)
+    public async Task<object> UpdateEmployee(Guid id, [FromBody] UpdateEmployeeCommand command)
     {
         try
         {
@@ -220,7 +222,7 @@ public class EmployeesController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteEmployee(Guid id)
+    public async Task<object> DeleteEmployee(Guid id)
     {
         try
         {
@@ -247,7 +249,7 @@ public class EmployeesController : BaseController
     [HttpGet("{id}/attendance")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetEmployeeAttendance(
+    public async Task<object> GetEmployeeAttendance(
         Guid id,
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
@@ -287,7 +289,7 @@ public class EmployeesController : BaseController
     [HttpGet("{id}/salary")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetEmployeeSalary(
+    public async Task<object> GetEmployeeSalary(
         Guid id,
         [FromQuery] int? year = null,
         [FromQuery] int? month = null,

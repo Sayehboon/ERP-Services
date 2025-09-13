@@ -23,6 +23,12 @@ public class Ticket : BaseEntity
     public string? TicketNumber { get; set; }
 
     /// <summary>
+    /// شماره تیکت (alias for TicketNumber)
+    /// Ticket number alias
+    /// </summary>
+    public string? Number => TicketNumber;
+
+    /// <summary>
     /// توضیحات تیکت
     /// Ticket description
     /// </summary>
@@ -61,10 +67,10 @@ public class Ticket : BaseEntity
     public Guid? AssignedTo { get; set; }
 
     /// <summary>
-    /// ایجاد شده توسط (Supabase: created_by)
-    /// Created by user id
+    /// شناسه کاربر مسئول (نام مستعار)
+    /// Assigned to user ID (alias)
     /// </summary>
-    public Guid? CreatedBy { get; set; }
+    public Guid? AssignedToUserId => AssignedTo;
 
     /// <summary>
     /// شناسه بیزینس (Supabase: business_id)
@@ -123,6 +129,18 @@ public class Ticket : BaseEntity
     public string? CustomerPhone { get; set; }
 
     /// <summary>
+    /// نام مخاطب (alias for CustomerName)
+    /// Contact name alias
+    /// </summary>
+    public string? ContactName => CustomerName;
+
+    /// <summary>
+    /// تعداد پاسخ‌ها
+    /// Response count
+    /// </summary>
+    public int ResponseCount { get; set; } = 0;
+
+    /// <summary>
     /// موضوع (Supabase: subject)
     /// Subject
     /// </summary>
@@ -133,6 +151,23 @@ public class Ticket : BaseEntity
     /// Closed at
     /// </summary>
     public DateTime? ClosedAt { get; set; }
+    public Guid? CustomerId { get; set; }
+    public Guid? CreatedById { get; set; }
+
+    /// <summary>
+    /// شناسه کاربر ایجادکننده (نام مستعار)
+    /// Created by user ID (alias)
+    /// </summary>
+    public Guid? CreatedByUserId => CreatedById;
+    public Guid? AssignedToId { get; set; }
+    public Guid? ProductId { get; set; }
+    public Guid? SalesOrderId { get; set; }
+    public Guid? OpportunityId { get; set; }
+    public DateTime? DueDate { get; set; }
+    public DateTime? ClosedDate { get; set; }
+    public string? CloseReason { get; set; }
+    public string? Tags { get; set; }
+    public string TicketType { get; set; }
 }
 
 /// <summary>

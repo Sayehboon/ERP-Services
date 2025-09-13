@@ -22,7 +22,7 @@ public class CreateCashBoxCommandHandler : IRequestHandler<CreateCashBoxCommand,
             Id = Guid.NewGuid(),
             Name = request.Name,
             Location = request.Location,
-            BusinessId = request.BusinessId,
+            BusinessId = Guid.Parse(request.BusinessId),
             IsActive = true
         };
 

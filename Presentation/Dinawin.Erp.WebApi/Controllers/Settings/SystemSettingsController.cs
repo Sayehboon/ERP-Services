@@ -8,6 +8,7 @@ using Dinawin.Erp.Application.Features.SystemSettings.Queries.GetSystemSettingCa
 using Dinawin.Erp.Application.Features.SystemSettings.Commands.UpdateSystemSettingByKey;
 using Dinawin.Erp.Application.Features.SystemSettings.Commands.UpdateSystemSettingsBatch;
 using Dinawin.Erp.Application.Features.SystemSettings.Commands.ResetSystemSettings;
+using SystemSettingDto = Dinawin.Erp.Application.Features.SystemSettings.Queries.GetAllSystemSettings.SystemSettingDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Settings;
 
@@ -39,7 +40,7 @@ public class SystemSettingsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<SystemSettingDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllSettings(
+    public async Task<ActionResult<IEnumerable<SystemSettingDto>>> GetAllSettings(
         [FromQuery] string? searchTerm = null,
         [FromQuery] string? category = null,
         [FromQuery] string? dataType = null,
@@ -78,7 +79,7 @@ public class SystemSettingsController : BaseController
     [HttpGet("{key}")]
     [ProducesResponseType(typeof(SystemSettingDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetSetting(string key)
+    public async Task<object> GetSetting(string key)
     {
         try
         {
@@ -109,7 +110,7 @@ public class SystemSettingsController : BaseController
     [HttpGet("category/{category}")]
     [ProducesResponseType(typeof(IEnumerable<SystemSettingDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetSettingsByCategory(
+    public async Task<object> GetSettingsByCategory(
         string category,
         [FromQuery] string? searchTerm = null,
         [FromQuery] int page = 1,
@@ -212,7 +213,7 @@ public class SystemSettingsController : BaseController
     [HttpGet("categories")]
     [ProducesResponseType(typeof(IEnumerable<SystemSettingCategoryDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetSettingCategories()
+    public async Task<ActionResult<IEnumerable<SystemSettingCategoryDto>>> GetSettingCategories()
     {
         try
         {

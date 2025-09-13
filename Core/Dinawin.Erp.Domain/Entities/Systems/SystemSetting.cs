@@ -33,6 +33,11 @@ public class SystemSetting : BaseEntity, IAggregateRoot
     /// Business ID
     /// </summary>
     public string BusinessId { get; set; } = "default";
+    public string Description { get; set; }
+    public string DataType { get; set; }
+    public bool IsActive { get; set; }
+    public bool IsEditable { get; set; }
+    public string DefaultValue { get; set; }
 
     ///// <summary>
     ///// شناسه کاربر به‌روزرسانی‌کننده

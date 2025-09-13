@@ -1,4 +1,5 @@
 using Dinawin.Erp.Domain.Common;
+using Dinawin.Erp.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

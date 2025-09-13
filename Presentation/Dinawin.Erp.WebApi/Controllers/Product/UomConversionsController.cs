@@ -28,7 +28,7 @@ public class UomConversionsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllUomConversions()
+    public async Task<object> GetAllUomConversions()
     {
         try
         {
@@ -49,7 +49,7 @@ public class UomConversionsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetUomConversion(Guid id)
+    public async Task<ActionResult<object>> GetUomConversion(Guid id)
     {
         try
         {
@@ -78,7 +78,7 @@ public class UomConversionsController : BaseController
     [HttpGet("by-uom/{uomId}")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetConversionsByUom(Guid uomId)
+    public async Task<ActionResult<List<object>>> GetConversionsByUom(Guid uomId)
     {
         try
         {
@@ -110,7 +110,7 @@ public class UomConversionsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateUomConversion([FromBody] UpsertUomConversionCommand command)
+    public async Task<ActionResult<Guid>> CreateUomConversion([FromBody] UpsertUomConversionCommand command)
     {
         try
         {

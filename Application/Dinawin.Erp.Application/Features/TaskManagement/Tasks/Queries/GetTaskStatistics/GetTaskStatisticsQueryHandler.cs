@@ -106,10 +106,10 @@ public sealed class GetTaskStatisticsQueryHandler : IRequestHandler<GetTaskStati
     /// <summary>
     /// محاسبه آمار بر اساس وضعیت
     /// </summary>
-    private async Task<List<TaskStatusStatisticsDto>> CalculateStatusStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks)
+    private Task<List<TaskStatusStatisticsDto>> CalculateStatusStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks)
     {
         var totalTasks = tasks.Count;
-        if (totalTasks == 0) return new List<TaskStatusStatisticsDto>();
+        if (totalTasks == 0) return Task.FromResult(new List<TaskStatusStatisticsDto>());
 
         var statusGroups = tasks.GroupBy(t => t.Status)
             .Select(g => new TaskStatusStatisticsDto
@@ -123,16 +123,16 @@ public sealed class GetTaskStatisticsQueryHandler : IRequestHandler<GetTaskStati
             .OrderByDescending(s => s.Count)
             .ToList();
 
-        return statusGroups;
+        return Task.FromResult(statusGroups);
     }
 
     /// <summary>
     /// محاسبه آمار بر اساس اولویت
     /// </summary>
-    private async Task<List<TaskPriorityStatisticsDto>> CalculatePriorityStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks)
+    private Task<List<TaskPriorityStatisticsDto>> CalculatePriorityStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks)
     {
         var totalTasks = tasks.Count;
-        if (totalTasks == 0) return new List<TaskPriorityStatisticsDto>();
+        if (totalTasks == 0) return Task.FromResult(new List<TaskPriorityStatisticsDto>());
 
         var priorityGroups = tasks.GroupBy(t => t.Priority)
             .Select(g => new TaskPriorityStatisticsDto
@@ -146,22 +146,22 @@ public sealed class GetTaskStatisticsQueryHandler : IRequestHandler<GetTaskStati
             .OrderByDescending(p => p.Count)
             .ToList();
 
-        return priorityGroups;
+        return Task.FromResult(priorityGroups);
     }
 
     /// <summary>
     /// محاسبه آمار بر اساس نوع وظیفه
     /// </summary>
-    private async Task<List<TaskTypeStatisticsDto>> CalculateTypeStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks)
+    private Task<List<TaskTypeStatisticsDto>> CalculateTypeStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks)
     {
         var totalTasks = tasks.Count;
-        if (totalTasks == 0) return new List<TaskTypeStatisticsDto>();
+        if (totalTasks == 0) return Task.FromResult(new List<TaskTypeStatisticsDto>());
 
         var typeGroups = tasks.GroupBy(t => t.TaskType)
             .Select(g => new TaskTypeStatisticsDto
             {
-                TaskType = g.Key,
-                TaskTypePersian = GetTaskTypePersian(g.Key),
+                TaskType = g.Key ?? string.Empty,
+                TaskTypePersian = GetTaskTypePersian(g.Key ?? string.Empty),
                 Count = g.Count(),
                 Percentage = (decimal)g.Count() / totalTasks * 100m,
                 AverageProgress = (decimal)g.Average(t => (double)t.ProgressPercentage)
@@ -169,13 +169,13 @@ public sealed class GetTaskStatisticsQueryHandler : IRequestHandler<GetTaskStati
             .OrderByDescending(t => t.Count)
             .ToList();
 
-        return typeGroups;
+        return Task.FromResult(typeGroups);
     }
 
     /// <summary>
     /// محاسبه آمار بر اساس کاربر
     /// </summary>
-    private async Task<List<TaskUserStatisticsDto>> CalculateUserStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks, CancellationToken cancellationToken)
+    private Task<List<TaskUserStatisticsDto>> CalculateUserStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks, CancellationToken cancellationToken)
     {
         var userGroups = tasks.Where(t => t.AssignedTo.HasValue)
             .GroupBy(t => t.AssignedTo.Value)
@@ -195,13 +195,13 @@ public sealed class GetTaskStatisticsQueryHandler : IRequestHandler<GetTaskStati
             .OrderByDescending(u => u.TotalTasks)
             .ToList();
 
-        return userGroups;
+        return Task.FromResult(userGroups);
     }
 
     /// <summary>
     /// محاسبه آمار بر اساس پروژه
     /// </summary>
-    private async Task<List<TaskProjectStatisticsDto>> CalculateProjectStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks, CancellationToken cancellationToken)
+    private Task<List<TaskProjectStatisticsDto>> CalculateProjectStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks, CancellationToken cancellationToken)
     {
         var projectGroups = tasks.Where(t => t.ProjectId.HasValue)
             .GroupBy(t => t.ProjectId.Value)
@@ -221,13 +221,13 @@ public sealed class GetTaskStatisticsQueryHandler : IRequestHandler<GetTaskStati
             .OrderByDescending(p => p.TotalTasks)
             .ToList();
 
-        return projectGroups;
+        return Task.FromResult(projectGroups);
     }
 
     /// <summary>
     /// محاسبه آمار بر اساس تاریخ
     /// </summary>
-    private async Task<List<TaskDateStatisticsDto>> CalculateDateStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks, DateTime? fromDate, DateTime? toDate)
+    private Task<List<TaskDateStatisticsDto>> CalculateDateStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks, DateTime? fromDate, DateTime? toDate)
     {
         var startDate = fromDate ?? tasks.Min(t => t.CreatedAt).Date;
         var endDate = toDate ?? DateTime.UtcNow.Date;
@@ -244,19 +244,19 @@ public sealed class GetTaskStatisticsQueryHandler : IRequestHandler<GetTaskStati
                 Date = currentDate,
                 CreatedTasks = dayTasks.Count,
                 CompletedTasks = dayTasks.Count(t => t.Status == "Completed"),
-                UpdatedTasks = dayTasks.Count(t => t.UpdatedAt.HasValue && t.UpdatedAt.Value.Date == currentDate)
+                UpdatedTasks = dayTasks.Count(t => t.UpdatedAt.Date == currentDate)
             });
 
             currentDate = currentDate.AddDays(1);
         }
 
-        return dateStatistics;
+        return Task.FromResult(dateStatistics);
     }
 
     /// <summary>
     /// محاسبه آمار عملکرد
     /// </summary>
-    private async Task<TaskPerformanceStatisticsDto> CalculatePerformanceStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks)
+    private Task<TaskPerformanceStatisticsDto> CalculatePerformanceStatistics(List<Dinawin.Erp.Domain.Entities.Users.WorkTask> tasks)
     {
         var completedTasks = tasks.Where(t => t.Status == "Completed" && 
                                             t.StartDate.HasValue && 
@@ -282,17 +282,17 @@ public sealed class GetTaskStatisticsQueryHandler : IRequestHandler<GetTaskStati
         var lastWeek = DateTime.UtcNow.AddDays(-7);
         var lastMonth = DateTime.UtcNow.AddDays(-30);
 
-        return new TaskPerformanceStatisticsDto
+        return Task.FromResult(new TaskPerformanceStatisticsDto
         {
             AverageCompletionTime = averageCompletionTime,
             AverageDelay = averageDelay,
             OnTimeCompletionPercentage = onTimeCompletionPercentage,
             OverduePercentage = overduePercentage,
-            CompletedLastWeek = tasks.Count(t => t.Status == "Completed" && t.EndDate >= lastWeek),
-            CompletedLastMonth = tasks.Count(t => t.Status == "Completed" && t.EndDate >= lastMonth),
+            CompletedLastWeek = tasks.Count(t => t.Status == "Completed" && t.EndDate.HasValue && t.EndDate.Value >= lastWeek),
+            CompletedLastMonth = tasks.Count(t => t.Status == "Completed" && t.EndDate.HasValue && t.EndDate.Value >= lastMonth),
             CreatedLastWeek = tasks.Count(t => t.CreatedAt >= lastWeek),
             CreatedLastMonth = tasks.Count(t => t.CreatedAt >= lastMonth)
-        };
+        });
     }
 
     /// <summary>

@@ -51,6 +51,13 @@ public class Brand : BaseEntity, IAggregateRoot
     /// Products of this brand
     /// </summary>
     public ICollection<Product> Products { get; set; } = new List<Product>();
+
+    /// <summary>
+    /// مدل‌های این برند
+    /// Models of this brand
+    /// </summary>
+    public ICollection<Model> Models { get; set; } = new List<Model>();
+
     public string Code { get; set; }
     public string? Country { get; set; }
     public Guid? CategoryId { get; set; }

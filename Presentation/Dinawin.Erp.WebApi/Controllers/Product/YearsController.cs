@@ -1,11 +1,13 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Product.Years.Queries.GetAllYears;
-using Dinawin.Erp.Application.Features.Product.Years.Queries.GetYearById;
-using Dinawin.Erp.Application.Features.Product.Years.Commands.CreateYear;
-using Dinawin.Erp.Application.Features.Product.Years.Commands.UpdateYear;
-using Dinawin.Erp.Application.Features.Product.Years.Commands.DeleteYear;
+using Dinawin.Erp.Application.Features.Years.Queries.GetAllYears;
+using Dinawin.Erp.Application.Features.Years.Queries.GetYearById;
+using Dinawin.Erp.Application.Features.Years.Commands.CreateYear;
+using Dinawin.Erp.Application.Features.Years.Commands.UpdateYear;
+using Dinawin.Erp.Application.Features.Years.Commands.DeleteYear;
+using YearDto = Dinawin.Erp.Application.Features.Years.Queries.GetAllYears.YearDto;
+using GetYearByIdDto = Dinawin.Erp.Application.Features.Years.Queries.GetYearById.YearDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -34,7 +36,7 @@ public class YearsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<YearDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllYears(
+    public async Task<ActionResult<IEnumerable<YearDto>>> GetAllYears(
         [FromQuery] string? searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
@@ -65,9 +67,9 @@ public class YearsController : BaseController
     /// <param name="id">شناسه سال</param>
     /// <returns>اطلاعات سال</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(YearDto), 200)]
+    [ProducesResponseType(typeof(GetYearByIdDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetYear(Guid id)
+    public async Task<ActionResult<GetYearByIdDto>> GetYear(Guid id)
     {
         try
         {
@@ -94,7 +96,7 @@ public class YearsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<YearDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveYears()
+    public async Task<ActionResult<IEnumerable<YearDto>>> GetActiveYears()
     {
         try
         {
@@ -116,7 +118,7 @@ public class YearsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateYear([FromBody] CreateYearCommand command)
+    public async Task<ActionResult<Guid>> CreateYear([FromBody] CreateYearCommand command)
     {
         try
         {

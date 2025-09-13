@@ -61,8 +61,8 @@ public sealed class UpdateUomConversionCommandHandler : IRequestHandler<UpdateUo
             throw new ArgumentException($"تبدیل از واحد مبدا به واحد مقصد قبلاً وجود دارد");
         }
 
-        uomConversion.FromUomId = request.FromUomId;
-        uomConversion.ToUomId = request.ToUomId;
+        uomConversion.FromUnitId = request.FromUomId;
+        uomConversion.ToUnitId = request.ToUomId;
         uomConversion.ConversionFactor = request.ConversionFactor;
         uomConversion.Name = request.Name;
         uomConversion.Description = request.Description;

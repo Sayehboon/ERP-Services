@@ -8,6 +8,7 @@ using Dinawin.Erp.Application.Features.SystemManagement.Roles.Commands.CreateRol
 using Dinawin.Erp.Application.Features.SystemManagement.Roles.Commands.UpdateRole;
 using Dinawin.Erp.Application.Features.SystemManagement.Roles.Commands.DeleteRole;
 using Dinawin.Erp.Application.Features.SystemManagement.Roles.Commands.AssignPermission;
+using RoleDto = Dinawin.Erp.Application.Features.SystemManagement.Roles.Queries.GetAllRoles.RoleDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.SystemManagement;
 
@@ -36,7 +37,7 @@ public class RolesController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<RoleDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllRoles(
+    public async Task<ActionResult<IEnumerable<RoleDto>>> GetAllRoles(
         [FromQuery] string? searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
@@ -69,7 +70,7 @@ public class RolesController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(RoleDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetRole(Guid id)
+    public async Task<object> GetRole(Guid id)
     {
         try
         {
@@ -96,7 +97,7 @@ public class RolesController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<RoleDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveRoles()
+    public async Task<ActionResult<IEnumerable<RoleDto>>> GetActiveRoles()
     {
         try
         {
@@ -118,7 +119,7 @@ public class RolesController : BaseController
     [HttpGet("{id}/permissions")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetRolePermissions(Guid id)
+    public async Task<ActionResult<IEnumerable<PermissionDto>>> GetRolePermissions(Guid id)
     {
         try
         {
@@ -140,7 +141,7 @@ public class RolesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateRole([FromBody] CreateRoleCommand command)
+    public async Task<ActionResult<Guid>> CreateRole([FromBody] CreateRoleCommand command)
     {
         try
         {
@@ -214,8 +215,8 @@ public class RolesController : BaseController
     {
         try
         {
-            command.RoleId = id;
-            var result = await _mediator.Send(command);
+            var assignCommand = new AssignPermissionCommand { RoleId = id, PermissionId = command.PermissionId };
+            var result = await _mediator.Send(assignCommand);
             
             if (result)
             {

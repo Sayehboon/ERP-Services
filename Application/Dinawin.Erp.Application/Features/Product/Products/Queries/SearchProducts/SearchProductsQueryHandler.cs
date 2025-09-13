@@ -3,6 +3,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
 using Dinawin.Erp.Application.Features.Product.Products.Queries.GetAllProducts;
+using Dinawin.Erp.Domain.Enums;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.Product.Products.Queries.SearchProducts;
 
@@ -34,8 +36,7 @@ public sealed class SearchProductsQueryHandler : IRequestHandler<SearchProductsQ
             .Include(p => p.Model)
             .Include(p => p.Trim)
             .Include(p => p.Year)
-            .Include(p => p.Unit)
-            .Include(p => p.Uom)
+            .Include(p => p.BaseUom)
             .AsQueryable();
 
         // جستجو در نام، کد، برند، دسته‌بندی و مدل
@@ -49,7 +50,7 @@ public sealed class SearchProductsQueryHandler : IRequestHandler<SearchProductsQ
                 (p.Category != null && p.Category.Name.ToLower().Contains(searchLower)) ||
                 (p.Model != null && p.Model.Name.ToLower().Contains(searchLower)) ||
                 (p.Trim != null && p.Trim.Name.ToLower().Contains(searchLower)) ||
-                (p.Year != null && p.Year.Name.ToLower().Contains(searchLower)));
+                (p.Year != null && p.Year.YearValue.ToString().Contains(searchLower)));
         }
 
         // فیلتر بر اساس برند
@@ -85,7 +86,7 @@ public sealed class SearchProductsQueryHandler : IRequestHandler<SearchProductsQ
         // فیلتر بر اساس نوع محصول
         if (!string.IsNullOrWhiteSpace(request.ProductType))
         {
-            if (Enum.TryParse<ProductType>(request.ProductType, out var productType))
+            if (Enum.TryParse<Dinawin.Erp.Domain.Entities.Products.ProductType>(request.ProductType, out var productType))
             {
                 query = query.Where(p => p.Type == productType);
             }

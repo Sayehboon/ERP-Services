@@ -41,7 +41,7 @@ public sealed class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, 
                 u.Email.ToLower().Contains(searchLower) ||
                 u.FirstName.ToLower().Contains(searchLower) ||
                 u.LastName.ToLower().Contains(searchLower) ||
-                (u.PhoneNumber != null && u.PhoneNumber.Contains(searchTerm)));
+                (u.PhoneNumber != null && u.PhoneNumber.Contains(searchLower)));
         }
 
         // فیلتر بر اساس نقش
@@ -83,7 +83,7 @@ public sealed class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, 
             FirstName = u.FirstName,
             LastName = u.LastName,
             PhoneNumber = u.PhoneNumber,
-            RoleId = u.RoleId,
+            RoleId = u.RoleId ?? Guid.Empty,
             RoleName = u.Role?.Name ?? string.Empty,
             CompanyId = u.CompanyId,
             CompanyName = u.Company?.Name,

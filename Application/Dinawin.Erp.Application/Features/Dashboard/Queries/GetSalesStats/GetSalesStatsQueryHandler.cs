@@ -86,11 +86,11 @@ public sealed class GetSalesStatsQueryHandler : IRequestHandler<GetSalesStatsQue
         // آمار بر اساس مشتری (Top 10)
         var customerStats = await query
             .Include(so => so.Customer)
-            .GroupBy(so => new { so.CustomerId, so.Customer.Name })
+            .GroupBy(so => new { so.CustomerId, CustomerName = so.Customer != null ? so.Customer.Name : "نامشخص" })
             .Select(g => new CustomerSalesStatsDto
             {
                 CustomerId = g.Key.CustomerId,
-                CustomerName = g.Key.Name,
+                CustomerName = g.Key.CustomerName,
                 OrderCount = g.Count(),
                 TotalAmount = g.Sum(so => so.TotalAmount),
                 AverageOrderValue = g.Average(so => so.TotalAmount)

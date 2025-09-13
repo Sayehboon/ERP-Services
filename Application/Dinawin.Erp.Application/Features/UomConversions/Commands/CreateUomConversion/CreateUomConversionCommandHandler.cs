@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.UomConversions.Commands.CreateUomConversion;
 
@@ -59,8 +59,8 @@ public sealed class CreateUomConversionCommandHandler : IRequestHandler<CreateUo
         var uomConversion = new UomConversion
         {
             Id = Guid.NewGuid(),
-            FromUomId = request.FromUomId,
-            ToUomId = request.ToUomId,
+            FromUnitId = request.FromUomId,
+            ToUnitId = request.ToUomId,
             ConversionFactor = request.ConversionFactor,
             Name = request.Name,
             Description = request.Description,

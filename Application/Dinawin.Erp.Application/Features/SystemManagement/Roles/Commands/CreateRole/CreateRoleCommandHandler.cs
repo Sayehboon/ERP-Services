@@ -46,10 +46,11 @@ public sealed class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
+            DisplayName = request.DisplayName,
             Code = request.Code,
             Description = request.Description,
             IsActive = request.IsActive,
-            IsSystem = request.IsSystem,
+            IsSystemRole = request.IsSystem,
             CreatedBy = request.CreatedBy,
             CreatedAt = DateTime.UtcNow
         };

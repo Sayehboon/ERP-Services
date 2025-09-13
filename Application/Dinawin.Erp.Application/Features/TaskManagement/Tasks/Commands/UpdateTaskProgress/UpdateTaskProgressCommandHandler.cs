@@ -37,7 +37,7 @@ public class UpdateTaskProgressCommandHandler : IRequestHandler<UpdateTaskProgre
         }
 
         // به‌روزرسانی پیشرفت
-        task.Progress = request.Progress;
+        task.ProgressPercentage = request.Progress;
 
         // به‌روزرسانی زمان صرف شده
         if (request.ActualHours.HasValue)

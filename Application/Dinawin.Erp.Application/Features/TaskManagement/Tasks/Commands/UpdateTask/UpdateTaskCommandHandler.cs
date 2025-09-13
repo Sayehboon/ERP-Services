@@ -56,18 +56,18 @@ public sealed class UpdateTaskCommandHandler : IRequestHandler<UpdateTaskCommand
         task.Title = request.Title;
         task.Description = request.Description;
         task.ProjectId = request.ProjectId;
-        task.AssignedToUserId = request.AssignedToUserId;
-        task.CreatedByUserId = request.CreatedByUserId;
+        task.AssignedTo = request.AssignedToUserId;
+        // CreatedBy is an init-only property and cannot be modified
         task.Priority = request.Priority;
         task.Status = request.Status;
         task.TaskType = request.TaskType;
-        task.PlannedStartDate = request.PlannedStartDate;
-        task.PlannedEndDate = request.PlannedEndDate;
+        task.StartDate = request.PlannedStartDate;
+        task.EndDate = request.PlannedEndDate;
         task.ActualStartDate = request.ActualStartDate;
         task.ActualEndDate = request.ActualEndDate;
         task.ProgressPercentage = request.ProgressPercentage;
-        task.EstimatedHours = request.EstimatedHours;
-        task.ActualHours = request.ActualHours;
+        task.EstimatedHours = request.EstimatedHours ?? 0;
+        task.ActualHours = request.ActualHours ?? 0;
         task.Tags = request.Tags;
         task.IsActive = request.IsActive;
         task.UpdatedBy = request.UpdatedBy;

@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Systems;
 
 namespace Dinawin.Erp.Application.Features.SystemSettings.Commands.CreateSystemSetting;
 

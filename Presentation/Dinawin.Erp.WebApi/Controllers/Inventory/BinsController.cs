@@ -1,10 +1,13 @@
 using Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetAllBins;
 using Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetBinById;
+using Dinawin.Erp.Application.Features.Inventories.Bins.Commands.CreateBin;
 using Dinawin.Erp.Application.Features.Inventories.Bins.Commands.UpdateBin;
 using Dinawin.Erp.Application.Features.Inventories.Bins.Commands.DeleteBin;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
+using BinDto = Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetAllBins.BinDto;
+using GetBinByIdDto = Dinawin.Erp.Application.Features.Inventories.Bins.Queries.GetBinById.BinDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Inventory;
 
@@ -35,7 +38,7 @@ public class BinsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<BinDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllBins(
+    public async Task<object> GetAllBins(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? warehouseId = null,
         [FromQuery] string? binType = null,
@@ -70,9 +73,9 @@ public class BinsController : BaseController
     /// <param name="id">شناسه مکان انبار</param>
     /// <returns>اطلاعات مکان انبار</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(BinDto), 200)]
+    [ProducesResponseType(typeof(GetBinByIdDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetBin(Guid id)
+    public async Task<object> GetBin(Guid id)
     {
         try
         {
@@ -100,7 +103,7 @@ public class BinsController : BaseController
     [HttpGet("by-warehouse/{warehouseId}")]
     [ProducesResponseType(typeof(IEnumerable<BinDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetBinsByWarehouse(Guid warehouseId)
+    public async Task<object> GetBinsByWarehouse(Guid warehouseId)
     {
         try
         {
@@ -122,7 +125,7 @@ public class BinsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateBin([FromBody] CreateBinCommand command)
+    public async Task<object> CreateBin([FromBody] CreateBinCommand command)
     {
         try
         {

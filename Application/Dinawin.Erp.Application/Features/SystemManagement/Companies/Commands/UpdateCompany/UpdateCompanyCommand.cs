@@ -52,6 +52,30 @@ public sealed class UpdateCompanyCommand : IRequest<Guid>
     public string? Address { get; set; }
 
     /// <summary>
+    /// شهر
+    /// </summary>
+    [StringLength(100, ErrorMessage = "نام شهر نمی‌تواند بیش از 100 کاراکتر باشد")]
+    public string? City { get; set; }
+
+    /// <summary>
+    /// استان
+    /// </summary>
+    [StringLength(100, ErrorMessage = "نام استان نمی‌تواند بیش از 100 کاراکتر باشد")]
+    public string? Province { get; set; }
+
+    /// <summary>
+    /// کد پستی
+    /// </summary>
+    [StringLength(20, ErrorMessage = "کد پستی نمی‌تواند بیش از 20 کاراکتر باشد")]
+    public string? PostalCode { get; set; }
+
+    /// <summary>
+    /// کشور
+    /// </summary>
+    [StringLength(100, ErrorMessage = "نام کشور نمی‌تواند بیش از 100 کاراکتر باشد")]
+    public string? Country { get; set; }
+
+    /// <summary>
     /// شماره تلفن
     /// </summary>
     [StringLength(20, ErrorMessage = "شماره تلفن نمی‌تواند بیش از 20 کاراکتر باشد")]

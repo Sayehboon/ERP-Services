@@ -1,7 +1,8 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Products;
+using Dinawin.Erp.Domain.ValueObjects;
 
 namespace Dinawin.Erp.Application.Features.Product.Products.Commands.CreateProduct;
 
@@ -114,6 +115,7 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
         var product = new Domain.Entities.Products.Product
         {
             Id = Guid.NewGuid(),
+            Sku = request.Sku ?? Guid.NewGuid().ToString("N")[..8].ToUpper(),
             Name = request.Name,
             Code = request.Code,
             BrandId = request.BrandId,
@@ -124,14 +126,14 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
             UnitId = request.UnitId,
             BaseUomId = request.UomId,
             Description = request.Description,
-            PurchasePrice = request.PurchasePrice,
-            SalePrice = request.SalePrice,
-            WholesalePrice = request.WholesalePrice,
+            PurchasePrice = request.PurchasePrice > 0 ? Money.Rial(request.PurchasePrice) : null,
+            SellingPrice = request.SalePrice > 0 ? Money.Rial(request.SalePrice) : null,
+            WholesalePrice = request.WholesalePrice > 0 ? request.WholesalePrice : 0,
             MinStockLevel = request.MinStock,
             MaxStockLevel = request.MaxStock,
             CurrentStock = request.CurrentStock,
-            Weight = request.Weight,
-            Dimensions = request.Dimensions,
+            Weight = request.Weight.HasValue ? Weight.Kilograms(request.Weight.Value) : null,
+            Dimensions = !string.IsNullOrEmpty(request.Dimensions) ? Dimensions.Centimeters(0, 0, 0) : null, // TODO: Parse dimensions string
             Color = request.Color,
             ProductType = request.ProductType,
             Status = request.Status,

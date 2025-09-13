@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
 using Dinawin.Erp.Domain.Entities.Users;
+using Dinawin.Erp.Domain.ValueObjects;
 
 namespace Dinawin.Erp.Application.Features.SystemManagement.Companies.Commands.CreateCompany;
 
@@ -34,14 +35,6 @@ public sealed class CreateCompanyCommandHandler : IRequestHandler<CreateCompanyC
             throw new ArgumentException($"شرکت با نام {request.Name} قبلاً وجود دارد");
         }
 
-        // بررسی یکتایی کد شرکت
-        var codeExists = await _context.Companies
-            .AnyAsync(c => c.Code == request.Code, cancellationToken);
-        if (codeExists)
-        {
-            throw new ArgumentException($"شرکت با کد {request.Code} قبلاً وجود دارد");
-        }
-
         // بررسی یکتایی شماره ملی در صورت ارسال
         if (!string.IsNullOrWhiteSpace(request.NationalId))
         {
@@ -68,21 +61,21 @@ public sealed class CreateCompanyCommandHandler : IRequestHandler<CreateCompanyC
         {
             Id = Guid.NewGuid(),
             Name = request.Name,
-            Code = request.Code,
-            CompanyType = request.CompanyType,
-            Address = request.Address,
-            City = request.City,
-            Province = request.Province,
-            Country = request.Country,
-            PostalCode = request.PostalCode,
-            Phone = request.Phone,
-            Email = request.Email,
+            TradeName = request.TradeName,
+            Type = Enum.TryParse<CompanyType>(request.CompanyType, out var companyType) ? companyType : CompanyType.Private,
+            Address = !string.IsNullOrEmpty(request.Address) ? new Address(
+                request.Address, 
+                request.City ?? "نامشخص", 
+                request.Province ?? "نامشخص", 
+                request.PostalCode ?? "0000000000", 
+                request.Country ?? "Iran") : null,
+            PhoneNumber = !string.IsNullOrEmpty(request.Phone) ? new PhoneNumber(request.Phone) : null,
+            Email = !string.IsNullOrEmpty(request.Email) ? new Email(request.Email) : null,
             NationalId = request.NationalId,
             EconomicCode = request.EconomicCode,
             RegistrationNumber = request.RegistrationNumber,
             Website = request.Website,
             IsActive = request.IsActive,
-            Notes = request.Notes,
             CreatedBy = request.CreatedBy,
             CreatedAt = DateTime.UtcNow
         };

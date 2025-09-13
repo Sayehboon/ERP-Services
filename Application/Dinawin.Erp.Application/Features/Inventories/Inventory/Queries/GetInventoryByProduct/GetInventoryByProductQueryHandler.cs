@@ -71,7 +71,8 @@ public sealed class GetInventoryByProductQueryHandler : IRequestHandler<GetInven
         var totalQuantity = inventories.Sum(i => i.Quantity);
         var reservedQuantity = inventories.Sum(i => i.ReservedQuantity);
         var availableQuantity = totalQuantity - reservedQuantity;
-        var inTransitQuantity = inventories.Sum(i => i.InTransitQuantity);
+        // InTransitQuantity property does not exist in Inventory entity
+        var inTransitQuantity = 0m;
 
         var result = new ProductInventoryDto
         {

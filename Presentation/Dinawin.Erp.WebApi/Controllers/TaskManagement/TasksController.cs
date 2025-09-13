@@ -8,6 +8,7 @@ using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetTaskProgr
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetTaskStatistics;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.CreateTask;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTask;
+using TaskDto = Dinawin.Erp.Application.Features.TaskManagement.Tasks.Queries.GetAllTasks.TaskDto;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTaskProgress;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.UpdateTaskStatus;
 using Dinawin.Erp.Application.Features.TaskManagement.Tasks.Commands.DeleteTask;
@@ -47,7 +48,7 @@ public class TasksController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<TaskDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllTasks(
+    public async Task<object> GetAllTasks(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? projectId = null,
         [FromQuery] Guid? assignedToUserId = null,
@@ -96,7 +97,7 @@ public class TasksController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(TaskDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetTask(Guid id)
+    public async Task<object> GetTask(Guid id)
     {
         try
         {
@@ -124,7 +125,7 @@ public class TasksController : BaseController
     [HttpGet("by-project/{projectId}")]
     [ProducesResponseType(typeof(IEnumerable<TaskDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetTasksByProject(Guid projectId)
+    public async Task<object> GetTasksByProject(Guid projectId)
     {
         try
         {
@@ -146,7 +147,7 @@ public class TasksController : BaseController
     [HttpGet("by-user/{userId}")]
     [ProducesResponseType(typeof(IEnumerable<TaskDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetTasksByUser(Guid userId)
+    public async Task<ActionResult<IEnumerable<TaskDto>>> GetTasksByUser(Guid userId)
     {
         try
         {
@@ -174,7 +175,7 @@ public class TasksController : BaseController
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<TaskSearchDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> SearchTasks(
+    public async Task<ActionResult<IEnumerable<TaskSearchDto>>> SearchTasks(
         [FromQuery] string searchTerm,
         [FromQuery] Guid? projectId = null,
         [FromQuery] Guid? assignedToUserId = null,
@@ -213,7 +214,7 @@ public class TasksController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateTask([FromBody] CreateTaskCommand command)
+    public async Task<ActionResult<Guid>> CreateTask([FromBody] CreateTaskCommand command)
     {
         try
         {
@@ -329,7 +330,7 @@ public class TasksController : BaseController
     [HttpGet("{id}/progress")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetTaskProgress(Guid id, [FromQuery] bool includeDetails = true)
+    public async Task<ActionResult<TaskProgressDto>> GetTaskProgress(Guid id, [FromQuery] bool includeDetails = true)
     {
         try
         {
@@ -366,7 +367,7 @@ public class TasksController : BaseController
     [HttpGet("statistics")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetTaskStatistics(
+    public async Task<ActionResult<TaskStatisticsDto>> GetTaskStatistics(
         [FromQuery] Guid? projectId = null,
         [FromQuery] Guid? userId = null,
         [FromQuery] DateTime? fromDate = null,

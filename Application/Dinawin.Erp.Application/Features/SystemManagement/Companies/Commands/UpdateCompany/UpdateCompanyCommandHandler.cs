@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
+using Dinawin.Erp.Domain.ValueObjects;
 
 namespace Dinawin.Erp.Application.Features.SystemManagement.Companies.Commands.UpdateCompany;
 
@@ -66,12 +67,17 @@ public sealed class UpdateCompanyCommandHandler : IRequestHandler<UpdateCompanyC
         company.RegistrationNumber = request.RegistrationNumber;
         company.NationalId = request.NationalId;
         company.EconomicCode = request.EconomicCode;
-        company.Address = request.Address;
-        company.PhoneNumber = request.PhoneNumber;
-        company.FaxNumber = request.FaxNumber;
-        company.Email = request.Email;
+        company.Address = !string.IsNullOrEmpty(request.Address) ? new Address(
+            request.Address, 
+            request.City ?? "نامشخص", 
+            request.Province ?? "نامشخص", 
+            request.PostalCode ?? "0000000000", 
+            request.Country ?? "Iran") : null;
+        company.PhoneNumber = !string.IsNullOrEmpty(request.PhoneNumber) ? new PhoneNumber(request.PhoneNumber) : null;
+        // FaxNumber property does not exist in Company entity
+        company.Email = !string.IsNullOrEmpty(request.Email) ? new Email(request.Email) : null;
         company.Website = request.Website;
-        company.Description = request.Description;
+        // Description property does not exist in Company entity
         company.IsActive = request.IsActive;
         company.UpdatedBy = request.UpdatedBy;
         company.UpdatedAt = DateTime.UtcNow;

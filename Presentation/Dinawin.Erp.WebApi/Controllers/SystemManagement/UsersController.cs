@@ -7,6 +7,7 @@ using Dinawin.Erp.Application.Features.SystemManagement.Users.Commands.CreateUse
 using Dinawin.Erp.Application.Features.SystemManagement.Users.Commands.UpdateUser;
 using Dinawin.Erp.Application.Features.SystemManagement.Users.Commands.DeleteUser;
 using Dinawin.Erp.Application.Features.SystemManagement.Users.Commands.ToggleUserStatus;
+using UserDto = Dinawin.Erp.Application.Features.SystemManagement.Users.Queries.GetAllUsers.UserDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.SystemManagement;
 
@@ -37,7 +38,7 @@ public class UsersController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllUsers(
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? roleId = null,
         [FromQuery] Guid? companyId = null,
@@ -74,7 +75,7 @@ public class UsersController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(UserDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetUser(Guid id)
+    public async Task<object> GetUser(Guid id)
     {
         try
         {
@@ -101,7 +102,7 @@ public class UsersController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveUsers()
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetActiveUsers()
     {
         try
         {
@@ -123,7 +124,7 @@ public class UsersController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateUser([FromBody] CreateUserCommand command)
+    public async Task<ActionResult<Guid>> CreateUser([FromBody] CreateUserCommand command)
     {
         try
         {
@@ -170,7 +171,7 @@ public class UsersController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> ToggleUserStatus(Guid id, [FromBody] ToggleUserStatusCommand command)
+    public async Task<ActionResult<bool>> ToggleUserStatus(Guid id, [FromBody] ToggleUserStatusCommand command)
     {
         try
         {

@@ -5,6 +5,7 @@ using Dinawin.Erp.Application.Features.Inventories.Warehouses.Queries.GetAllWare
 using Dinawin.Erp.Application.Features.Inventories.Warehouses.Queries.GetWarehouseById;
 using Dinawin.Erp.Application.Features.Inventories.Warehouses.Commands.UpdateWarehouse;
 using Dinawin.Erp.Application.Features.Inventories.Warehouses.Commands.DeleteWarehouse;
+using WarehouseDto = Dinawin.Erp.Application.Features.Inventories.Warehouses.Queries.GetAllWarehouses.WarehouseDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Inventory;
 
@@ -34,7 +35,7 @@ public class WarehousesController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<WarehouseDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllWarehouses(
+    public async Task<object> GetAllWarehouses(
         [FromQuery] string? searchTerm = null,
         [FromQuery] string? warehouseType = null,
         [FromQuery] bool? isActive = null,
@@ -69,7 +70,7 @@ public class WarehousesController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(WarehouseDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetWarehouse(Guid id)
+    public async Task<object> GetWarehouse(Guid id)
     {
         try
         {
@@ -96,7 +97,7 @@ public class WarehousesController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<WarehouseDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveWarehouses()
+    public async Task<object> GetActiveWarehouses()
     {
         try
         {
@@ -118,7 +119,7 @@ public class WarehousesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateWarehouse([FromBody] object command)
+    public async Task<object> CreateWarehouse([FromBody] object command)
     {
         try
         {
@@ -142,7 +143,7 @@ public class WarehousesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateWarehouse(Guid id, [FromBody] UpdateWarehouseCommand command)
+    public async Task<object> UpdateWarehouse(Guid id, [FromBody] UpdateWarehouseCommand command)
     {
         try
         {
@@ -164,7 +165,7 @@ public class WarehousesController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteWarehouse(Guid id)
+    public async Task<object> DeleteWarehouse(Guid id)
     {
         try
         {

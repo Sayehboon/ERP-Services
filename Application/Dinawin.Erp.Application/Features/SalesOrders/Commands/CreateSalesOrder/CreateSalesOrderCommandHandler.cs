@@ -21,7 +21,7 @@ public class CreateSalesOrderCommandHandler : IRequestHandler<CreateSalesOrderCo
         var salesOrder = new SalesOrder
         {
             Id = Guid.NewGuid(),
-            Number = request.Number,
+            OrderNumber = request.Number,
             CustomerName = request.CustomerName,
             CustomerEmail = request.CustomerEmail,
             CustomerPhone = request.CustomerPhone,

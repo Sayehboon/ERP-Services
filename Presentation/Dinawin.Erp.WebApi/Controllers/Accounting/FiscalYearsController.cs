@@ -32,7 +32,7 @@ public class FiscalYearsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllFiscalYears()
+    public async Task<ActionResult<IReadOnlyList<FiscalYearDto>>> GetAllFiscalYears()
     {
         try
         {
@@ -53,7 +53,7 @@ public class FiscalYearsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetFiscalYear(Guid id)
+    public async Task<ActionResult<FiscalYearDto>> GetFiscalYear(Guid id)
     {
         try
         {
@@ -74,7 +74,7 @@ public class FiscalYearsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetActiveFiscalYear()
+    public async Task<ActionResult<FiscalYearDto>> GetActiveFiscalYear()
     {
         try
         {
@@ -96,7 +96,7 @@ public class FiscalYearsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateFiscalYear([FromBody] CreateFiscalYearCommand command)
+    public async Task<ActionResult<Guid>> CreateFiscalYear([FromBody] CreateFiscalYearCommand command)
     {
         try
         {

@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
-using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Products;
 
 namespace Dinawin.Erp.Application.Features.Models.Commands.CreateModel;
 
@@ -50,7 +50,7 @@ public sealed class CreateModelCommandHandler : IRequestHandler<CreateModelComma
             Id = Guid.NewGuid(),
             Name = request.Name,
             Description = request.Description,
-            BrandId = request.BrandId,
+            BrandId = request.BrandId ?? Guid.Empty,
             IsActive = request.IsActive,
             SortOrder = request.SortOrder,
             CreatedBy = request.CreatedBy,

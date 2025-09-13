@@ -1,11 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Dinawin.Erp.WebApi.Controllers;
-using Dinawin.Erp.Application.Features.Product.Trims.Queries.GetAllTrims;
-using Dinawin.Erp.Application.Features.Product.Trims.Queries.GetTrimById;
-using Dinawin.Erp.Application.Features.Product.Trims.Commands.CreateTrim;
-using Dinawin.Erp.Application.Features.Product.Trims.Commands.UpdateTrim;
-using Dinawin.Erp.Application.Features.Product.Trims.Commands.DeleteTrim;
+using Dinawin.Erp.Application.Features.Trims.Queries.GetAllTrims;
+using Dinawin.Erp.Application.Features.Trims.Queries.GetTrimById;
+using Dinawin.Erp.Application.Features.Trims.Commands.CreateTrim;
+using Dinawin.Erp.Application.Features.Trims.Commands.UpdateTrim;
+using Dinawin.Erp.Application.Features.Trims.Commands.DeleteTrim;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -33,9 +33,9 @@ public class TrimsController : BaseController
     /// <param name="pageSize">اندازه صفحه</param>
     /// <returns>لیست تمام تریم‌ها</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<TrimDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<Application.Features.Trims.Queries.GetAllTrims.TrimDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllTrims(
+    public async Task<object> GetAllTrims(
         [FromQuery] string? searchTerm = null,
         [FromQuery] Guid? modelId = null,
         [FromQuery] bool? isActive = null,
@@ -68,9 +68,9 @@ public class TrimsController : BaseController
     /// <param name="id">شناسه تریم</param>
     /// <returns>اطلاعات تریم</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(TrimDto), 200)]
+    [ProducesResponseType(typeof(Application.Features.Trims.Queries.GetTrimById.TrimDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetTrim(Guid id)
+    public async Task<object> GetTrim(Guid id)
     {
         try
         {
@@ -96,9 +96,9 @@ public class TrimsController : BaseController
     /// <param name="modelId">شناسه مدل</param>
     /// <returns>لیست تریم‌های مدل</returns>
     [HttpGet("by-model/{modelId}")]
-    [ProducesResponseType(typeof(IEnumerable<TrimDto>), 200)]
+    [ProducesResponseType(typeof(IEnumerable<Application.Features.Trims.Queries.GetAllTrims.TrimDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetTrimsByModel(Guid modelId)
+    public async Task<object> GetTrimsByModel(Guid modelId)
     {
         try
         {
@@ -120,7 +120,7 @@ public class TrimsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateTrim([FromBody] CreateTrimCommand command)
+    public async Task<ActionResult<Guid>> CreateTrim([FromBody] CreateTrimCommand command)
     {
         try
         {

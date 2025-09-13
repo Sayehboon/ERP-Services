@@ -48,6 +48,30 @@ public class User : BaseEntity, IAggregateRoot
     public string? PhoneNumber { get; set; }
 
     /// <summary>
+    /// شماره تلفن (نام مستعار)
+    /// Phone number (alias)
+    /// </summary>
+    public string? Phone => PhoneNumber;
+
+    /// <summary>
+    /// شماره تلفن داخلی
+    /// Internal phone number
+    /// </summary>
+    public string? InternalPhone { get; set; }
+
+    /// <summary>
+    /// کد ملی
+    /// National ID
+    /// </summary>
+    public string? NationalId { get; set; }
+
+    /// <summary>
+    /// تاریخ تولد
+    /// Birth date
+    /// </summary>
+    public DateTime? BirthDate { get; set; }
+
+    /// <summary>
     /// هش رمز عبور
     /// Password hash
     /// </summary>
@@ -82,6 +106,12 @@ public class User : BaseEntity, IAggregateRoot
     /// Last login date
     /// </summary>
     public DateTime? LastLoginAt { get; set; }
+
+    /// <summary>
+    /// تاریخ آخرین ورود (alias for LastLoginAt)
+    /// Last login date alias
+    /// </summary>
+    public DateTime? LastLoginDate => LastLoginAt;
 
     /// <summary>
     /// تعداد تلاش‌های ناموفق ورود
@@ -126,6 +156,36 @@ public class User : BaseEntity, IAggregateRoot
     public Department? Department { get; set; }
 
     /// <summary>
+    /// شناسه نقش
+    /// Role ID
+    /// </summary>
+    public Guid? RoleId { get; set; }
+
+    /// <summary>
+    /// تاریخ انقضا
+    /// Expiry date
+    /// </summary>
+    public DateTime? ExpiryDate { get; set; }
+
+    /// <summary>
+    /// شناسه کسب‌وکار
+    /// Business ID
+    /// </summary>
+    public Guid? BusinessId { get; set; }
+
+    /// <summary>
+    /// کسب‌وکار
+    /// Business
+    /// </summary>
+    public Business? Business { get; set; }
+
+    /// <summary>
+    /// نقش
+    /// Role
+    /// </summary>
+    public Role? Role { get; set; }
+
+    /// <summary>
     /// نقش‌های کاربر
     /// User roles
     /// </summary>
@@ -142,6 +202,12 @@ public class User : BaseEntity, IAggregateRoot
     /// User settings
     /// </summary>
     public UserSettings? Settings { get; set; }
+
+    /// <summary>
+    /// پروفایل کاربر
+    /// User profile
+    /// </summary>
+    public UserProfile? UserProfile { get; set; }
 }
 
 /// <summary>

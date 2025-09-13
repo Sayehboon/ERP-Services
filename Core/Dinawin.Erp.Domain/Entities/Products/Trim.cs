@@ -37,6 +37,24 @@ public class Trim : BaseEntity
     /// Trim active status
     /// </summary>
     public bool IsActive { get; set; } = true;
+
+    /// <summary>
+    /// مدل مرتبط
+    /// Related model
+    /// </summary>
+    public Model? Model { get; set; }
+
+    /// <summary>
+    /// ترتیب نمایش
+    /// Sort order
+    /// </summary>
+    public int SortOrder { get; set; } = 0;
+
+    /// <summary>
+    /// محصولات این تریم
+    /// Products of this trim
+    /// </summary>
+    public ICollection<Product> Products { get; set; } = new List<Product>();
     public string Engine { get; set; }
     public string Transmission { get; set; }
     public string Drivetrain { get; set; }

@@ -107,27 +107,50 @@ public class AccDimensionValueConfiguration : IEntityTypeConfiguration<AccDimens
             .IsRequired()
             .HasMaxLength(200);
 
-        builder.Property(e => e.Description)
-            .HasMaxLength(1000);
+        //builder.Property(e => e.Description)
+        //    .HasMaxLength(1000);
 
         builder.Property(e => e.HierarchyPath)
             .HasMaxLength(500);
 
-        builder.HasOne(e => e.Dimension)
-            .WithMany()
-            .HasForeignKey(e => e.DimensionId)
-            .OnDelete(DeleteBehavior.Cascade);
+        //builder.HasOne(e => e.Dimension)
+        //    .WithMany()
+        //    .HasForeignKey(e => e.DimensionId)
+        //    .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(e => e.ParentValue)
             .WithMany(e => e.Children)
             .HasForeignKey(e => e.ParentValueId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasIndex(e => new { e.DimensionId, e.ValueCode })
-            .IsUnique();
+        //builder.HasIndex(e => new { e.DimensionId, e.ValueCode })
+        //    .IsUnique();
 
-        builder.HasIndex(e => e.DimensionId);
+        //builder.HasIndex(e => e.DimensionId);
         builder.HasIndex(e => e.ParentValueId);
         builder.HasIndex(e => e.DisplayOrder);
     }
 }
+
+///// <summary>
+///// پیکربندی موجودیت مقادیر ابعاد حسابداری
+///// Accounting Dimension Value entity configuration
+///// </summary>
+//public class AccDimensionValueConfiguration : IEntityTypeConfiguration<AccDimensionValue>
+//{
+//    public void Configure(EntityTypeBuilder<AccDimensionValue> builder)
+//    {
+//        builder.HasKey(e => e.Id);
+
+//        builder.Property(e => e.Code).IsRequired().HasMaxLength(50);
+//        builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
+//        builder.Property(e => e.Description).HasMaxLength(1000);
+
+//        builder.HasOne(e => e.Dimension)
+//            .WithMany()
+//            .HasForeignKey(e => e.DimensionId)
+//            .OnDelete(DeleteBehavior.Cascade);
+
+//        builder.HasIndex(e => new { e.DimensionId, e.Code }).IsUnique();
+//    }
+//}

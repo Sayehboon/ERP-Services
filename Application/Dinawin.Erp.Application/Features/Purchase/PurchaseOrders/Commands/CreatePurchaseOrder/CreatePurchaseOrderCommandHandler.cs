@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Dinawin.Erp.Application.Common.Interfaces;
 using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Purchase;
 
 namespace Dinawin.Erp.Application.Features.Purchase.PurchaseOrders.Commands.CreatePurchaseOrder;
 
@@ -84,10 +85,10 @@ public sealed class CreatePurchaseOrderCommandHandler : IRequestHandler<CreatePu
             ExpectedDeliveryDate = request.ExpectedDeliveryDate,
             ActualDeliveryDate = request.ActualDeliveryDate,
             Status = request.Status,
-            OrderType = request.OrderType,
+            Type = request.OrderType,
             WarehouseId = request.WarehouseId,
-            AssignedToId = request.AssignedToId,
-            CreatedById = request.CreatedById,
+            // AssignedToId property does not exist in PurchaseOrder entity
+            // CreatedById property does not exist in PurchaseOrder entity
             TotalAmount = request.TotalAmount,
             DiscountAmount = request.DiscountAmount,
             TaxAmount = request.TaxAmount,

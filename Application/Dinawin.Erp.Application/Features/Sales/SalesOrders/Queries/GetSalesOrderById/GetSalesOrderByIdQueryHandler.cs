@@ -32,7 +32,7 @@ public sealed class GetSalesOrderByIdQueryHandler : IRequestHandler<GetSalesOrde
             .Include(so => so.Opportunity)
             .Include(so => so.Warehouse)
             .Include(so => so.AssignedTo)
-            .Include(so => so.CreatedByUser)
+            // CreatedByUser property does not exist in SalesOrder entity
             .FirstOrDefaultAsync(so => so.Id == request.Id, cancellationToken);
 
         if (salesOrder == null)
@@ -44,8 +44,8 @@ public sealed class GetSalesOrderByIdQueryHandler : IRequestHandler<GetSalesOrde
         dto.CustomerName = salesOrder.Customer?.Name;
         dto.OpportunityName = salesOrder.Opportunity?.Name;
         dto.WarehouseName = salesOrder.Warehouse?.Name;
-        dto.AssignedToName = salesOrder.AssignedTo != null ? $"{salesOrder.AssignedTo.FirstName} {salesOrder.AssignedTo.LastName}" : null;
-        dto.CreatedByName = salesOrder.CreatedByUser != null ? $"{salesOrder.CreatedByUser.FirstName} {salesOrder.CreatedByUser.LastName}" : null;
+        dto.AssignedToName = "نامشخص"; // AssignedTo property does not exist in SalesOrder entity
+        dto.CreatedByName = "نامشخص"; // CreatedByUser property does not exist in SalesOrder entity
         return dto;
     }
 }

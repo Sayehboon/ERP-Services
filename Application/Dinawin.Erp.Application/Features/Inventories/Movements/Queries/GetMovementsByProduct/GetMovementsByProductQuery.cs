@@ -45,8 +45,8 @@ public class GetMovementsByProductQueryHandler : IRequestHandler<GetMovementsByP
                 MovementDate = m.MovementDate,
                 Type = m.Type.ToString(),
                 Quantity = m.Quantity,
-                UnitCost = m.UnitCost.Amount,
-                TotalValue = m.TotalValue.Amount,
+                UnitCost = m.UnitCost ?? 0,
+                TotalValue = m.TotalValue ?? 0,
                 WarehouseId = m.WarehouseId
             })
             .ToListAsync(cancellationToken);

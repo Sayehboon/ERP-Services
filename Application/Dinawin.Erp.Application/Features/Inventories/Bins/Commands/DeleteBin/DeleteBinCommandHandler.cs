@@ -32,7 +32,7 @@ public sealed class DeleteBinCommandHandler : IRequestHandler<DeleteBinCommand, 
         }
 
         // بررسی وابستگی‌ها قبل از حذف
-        var hasInventory = await _context.Inventory
+        var hasInventory = await _context.Inventories
             .AnyAsync(i => i.BinId == request.Id, cancellationToken);
         
         var hasMovements = await _context.InventoryMovements

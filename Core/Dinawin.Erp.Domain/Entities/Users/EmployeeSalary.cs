@@ -93,6 +93,24 @@ public class EmployeeSalary : BaseEntity
     /// Salary notes
     /// </summary>
     public string? Notes { get; set; }
+
+    /// <summary>
+    /// کارمند مرتبط
+    /// Related employee
+    /// </summary>
+    public Employee Employee { get; set; } = null!;
+
+    /// <summary>
+    /// کاربر ایجادکننده
+    /// Created by user
+    /// </summary>
+    public User? CreatedByUser { get; set; }
+
+    /// <summary>
+    /// شناسه حقوق کارمند (alias for Id)
+    /// Employee salary ID alias
+    /// </summary>
+    public Guid EmployeeSalaryId => Id;
 }
 
 /// <summary>
@@ -116,6 +134,16 @@ public class EmployeeSalaryConfiguration : IEntityTypeConfiguration<EmployeeSala
         builder.Property(e => e.Bonus).HasPrecision(18, 2);
         builder.Property(e => e.Deductions).HasPrecision(18, 2);
         builder.Property(e => e.FinalSalary).HasPrecision(18, 2);
+
+        builder.HasOne(e => e.Employee)
+            .WithMany(emp => emp.Salaries)
+            .HasForeignKey(e => e.EmployeeId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(e => e.CreatedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.CreatedBy)
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasIndex(e => e.EmployeeId);
         builder.HasIndex(e => e.PeriodStartDate);

@@ -52,7 +52,7 @@ public sealed class UpdateModelCommandHandler : IRequestHandler<UpdateModelComma
 
         model.Name = request.Name;
         model.Description = request.Description;
-        model.BrandId = request.BrandId;
+        model.BrandId = request.BrandId ?? Guid.Empty;
         model.IsActive = request.IsActive;
         model.SortOrder = request.SortOrder;
         model.UpdatedBy = request.UpdatedBy;

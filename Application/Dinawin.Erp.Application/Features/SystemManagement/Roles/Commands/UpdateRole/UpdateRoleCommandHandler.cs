@@ -42,7 +42,7 @@ public sealed class UpdateRoleCommandHandler : IRequestHandler<UpdateRoleCommand
         role.Name = request.Name;
         role.Description = request.Description;
         role.IsActive = request.IsActive;
-        role.Permissions = string.Join(",", request.Permissions);
+        // Note: Permissions are managed through RolePermissions collection, not directly assignable
         role.UpdatedBy = request.UpdatedBy;
         role.UpdatedAt = DateTime.UtcNow;
 

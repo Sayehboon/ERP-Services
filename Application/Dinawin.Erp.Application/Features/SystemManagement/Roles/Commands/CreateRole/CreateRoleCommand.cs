@@ -16,6 +16,13 @@ public sealed class CreateRoleCommand : IRequest<Guid>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
+    /// نام نمایشی نقش
+    /// </summary>
+    [Required(ErrorMessage = "نام نمایشی نقش الزامی است")]
+    [StringLength(100, ErrorMessage = "نام نمایشی نقش نمی‌تواند بیش از 100 کاراکتر باشد")]
+    public string DisplayName { get; set; } = string.Empty;
+
+    /// <summary>
     /// کد نقش
     /// </summary>
     [Required(ErrorMessage = "کد نقش الزامی است")]

@@ -1,5 +1,5 @@
 using MediatR;
-using Dinawin.Erp.Domain.Entities;
+using Dinawin.Erp.Domain.Entities.Users;
 using Dinawin.Erp.Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,10 +36,12 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
         var user = new User
         {
             Id = Guid.NewGuid(),
+            Username = request.Username,
+            PasswordHash = request.PasswordHash,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
-            Phone = request.Phone,
+            PhoneNumber = request.Phone,
             InternalPhone = request.InternalPhone,
             NationalId = request.NationalId,
             BirthDate = request.BirthDate,

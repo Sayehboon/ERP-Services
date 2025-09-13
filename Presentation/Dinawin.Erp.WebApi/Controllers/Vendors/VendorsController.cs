@@ -8,6 +8,7 @@ using Dinawin.Erp.Application.Features.Vendors.Queries.GetActiveVendors;
 using Dinawin.Erp.Application.Features.Vendors.Queries.GetVendorProducts;
 using Dinawin.Erp.Application.Features.Vendors.Queries.GetVendorOrders;
 using Dinawin.Erp.Application.Features.Vendors.Commands.CreateVendor;
+using VendorDto = Dinawin.Erp.Application.Features.Vendors.Queries.GetAllVendors.VendorDto;
 using Dinawin.Erp.Application.Features.Vendors.Commands.UpdateVendor;
 using Dinawin.Erp.Application.Features.Vendors.Commands.DeleteVendor;
 using Dinawin.Erp.Application.Features.Vendors.Commands.ToggleVendorStatus;
@@ -46,7 +47,7 @@ public class VendorsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<VendorDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetAllVendors(
+    public async Task<ActionResult<IEnumerable<VendorDto>>> GetAllVendors(
         [FromQuery] string? searchTerm = null,
         [FromQuery] string? vendorType = null,
         [FromQuery] string? city = null,
@@ -93,7 +94,7 @@ public class VendorsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(VendorDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetVendor(Guid id)
+    public async Task<object> GetVendor(Guid id)
     {
         try
         {
@@ -121,7 +122,7 @@ public class VendorsController : BaseController
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<VendorSearchDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> SearchVendors(
+    public async Task<ActionResult<IEnumerable<VendorSearchDto>>> SearchVendors(
         [FromQuery] string searchTerm,
         [FromQuery] string? vendorType = null,
         [FromQuery] string? city = null,
@@ -159,7 +160,7 @@ public class VendorsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> GetActiveVendors()
+    public async Task<object> GetActiveVendors()
     {
         try
         {
@@ -181,7 +182,7 @@ public class VendorsController : BaseController
     [HttpGet("{id}/orders")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetVendorOrders(Guid id)
+    public async Task<ActionResult<IEnumerable<VendorOrderDto>>> GetVendorOrders(Guid id)
     {
         try
         {
@@ -203,7 +204,7 @@ public class VendorsController : BaseController
     [HttpGet("{id}/products")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> GetVendorProducts(Guid id)
+    public async Task<ActionResult<IEnumerable<VendorProductDto>>> GetVendorProducts(Guid id)
     {
         try
         {
@@ -225,7 +226,7 @@ public class VendorsController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> CreateVendor([FromBody] CreateVendorCommand command)
+    public async Task<object> CreateVendor([FromBody] CreateVendorCommand command)
     {
         try
         {
@@ -248,7 +249,7 @@ public class VendorsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> UpdateVendor(Guid id, [FromBody] UpdateVendorCommand command)
+    public async Task<object> UpdateVendor(Guid id, [FromBody] UpdateVendorCommand command)
     {
         try
         {
@@ -272,7 +273,7 @@ public class VendorsController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> ToggleVendorStatus(Guid id, [FromBody] ToggleVendorStatusCommand command)
+    public async Task<object> ToggleVendorStatus(Guid id, [FromBody] ToggleVendorStatusCommand command)
     {
         try
         {
@@ -294,7 +295,7 @@ public class VendorsController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteVendor(Guid id)
+    public async Task<object> DeleteVendor(Guid id)
     {
         try
         {

@@ -61,7 +61,7 @@ public sealed class GetVendorProductsQueryHandler : IRequestHandler<GetVendorPro
         foreach (var product in products)
         {
             // محاسبه موجودی فعلی بر اساس موجودی‌های ثبت‌شده
-            var currentStock = await _context.Inventory
+            var currentStock = await _context.Inventories
                 .Where(i => i.ProductId == product.Id)
                 .SumAsync(i => i.AvailableQuantity, cancellationToken);
 

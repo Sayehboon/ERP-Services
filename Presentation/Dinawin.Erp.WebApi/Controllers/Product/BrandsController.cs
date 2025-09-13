@@ -6,6 +6,8 @@ using Dinawin.Erp.Application.Features.Brands.Queries.GetBrandById;
 using Dinawin.Erp.WebApi.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using BrandDto = Dinawin.Erp.Application.Features.Brands.Queries.GetAllBrands.BrandDto;
+using GetBrandByIdDto = Dinawin.Erp.Application.Features.Brands.Queries.GetBrandById.BrandDto;
 
 namespace Dinawin.Erp.WebApi.Controllers.Product;
 
@@ -65,9 +67,9 @@ public class BrandsController : BaseController
     /// <param name="id">شناسه برند</param>
     /// <returns>اطلاعات برند</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(BrandDto), 200)]
+    [ProducesResponseType(typeof(GetBrandByIdDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult<BrandDto>> GetBrand(Guid id)
+    public async Task<ActionResult<GetBrandByIdDto>> GetBrand(Guid id)
     {
         try
         {
