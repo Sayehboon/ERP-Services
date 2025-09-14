@@ -1,30 +1,37 @@
 @echo off
+setlocal enabledelayedexpansion
+
 echo ========================================
 echo    Dinawin ERP Deployment Script
 echo ========================================
 echo.
 
-echo Step 0: Pulling latest changes from Git...
-echo ========================================
-cd /d "%~dp0.."
-git pull
-
-if %ERRORLEVEL% neq 0 (
-    echo WARNING: Git pull failed or no changes to pull!
-    echo Continuing with deployment...
-)
-
-echo.
-echo Returning to BackEnd directory...
-cd /d "%~dp0"
-
-REM Set variables
+REM ========================================
+REM Configuration Variables
+REM ========================================
 set SOLUTION_PATH=%~dp0
 set PUBLISH_PATH=C:\inetpub\wwwroot\ERP\SourceCode\BackEnd\Publish
 set IIS_PATH=C:\inetpub\wwwroot\ERP\BackEnd
 set APP_NAME=ERPServices
 set POOL_NAME=ERPServices
 
+REM ========================================
+REM Step 0: Git Pull
+REM ========================================
+echo Step 0: Pulling latest changes from Git...
+echo ========================================
+cd /d "%~dp0.."
+git pull
+if %ERRORLEVEL% neq 0 (
+    echo WARNING: Git pull failed or no changes to pull!
+    echo Continuing with deployment...
+)
+cd /d "%~dp0"
+
+REM ========================================
+REM Step 1: Build and Publish
+REM ========================================
+echo.
 echo Step 1: Compiling and Publishing Solution...
 echo ========================================
 cd /d "%SOLUTION_PATH%"
@@ -36,32 +43,30 @@ if %ERRORLEVEL% neq 0 (
     exit /b 1
 )
 
+REM Verify XML documentation
 echo.
 echo Step 1.1: Verifying XML documentation files...
 echo ========================================
-if exist "%PUBLISH_PATH%\Dinawin.Erp.WebApi.xml" (
-    echo ✓ WebApi XML documentation found
-) else (
-    echo ✗ WARNING: WebApi XML documentation not found
-)
+call :CheckFile "%PUBLISH_PATH%\Dinawin.Erp.WebApi.xml" "WebApi XML documentation"
+call :CheckFile "%PUBLISH_PATH%\Dinawin.Erp.Application.xml" "Application XML documentation"
 
-if exist "%PUBLISH_PATH%\Dinawin.Erp.Application.xml" (
-    echo ✓ Application XML documentation found
-) else (
-    echo ✗ WARNING: Application XML documentation not found
-)
-
+REM ========================================
+REM Step 2: Stop IIS Services
+REM ========================================
 echo.
 echo Step 2: Stopping IIS Application and Application Pool...
 echo ========================================
-echo Stopping application: %APP_NAME%
-appcmd stop app "%APP_NAME%"
-
 echo Stopping application pool: %POOL_NAME%
 appcmd stop apppool "%POOL_NAME%"
 
+echo Stopping application: %APP_NAME%
+appcmd stop app /app.name:"%APP_NAME%"
+
+REM ========================================
+REM Step 3: Deploy Files
+REM ========================================
 echo.
-echo Step 3: Copying files to IIS folder...
+echo Step 3: Deploying Application Files...
 echo ========================================
 echo Copying from: %PUBLISH_PATH%
 echo Copying to: %IIS_PATH%
@@ -72,97 +77,54 @@ if not exist "%IIS_PATH%" (
     mkdir "%IIS_PATH%"
 )
 
-REM Copy all application files (excluding config files that will be handled separately)
+REM Copy application files
 echo Copying application files...
-robocopy "%PUBLISH_PATH%" "%IIS_PATH%" /E /XD bin obj /XF *.pdb /R:3 /W:1
-echo ✓ Application files copied successfully
-
-REM Keep existing config files in deploy folder - they are customized
-echo ✓ Preserving existing config files in deploy folder (if any)
-
-echo.
-echo Step 3.1: Verifying Swagger custom files...
-echo ========================================
-if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.css" (
-    echo ✓ Swagger custom CSS found in production
-) else (
-    echo ✗ WARNING: Swagger custom CSS not found in production
-)
-
-if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.js" (
-    echo ✓ Swagger custom JS found in production
-) else (
-    echo ✗ WARNING: Swagger custom JS not found in production
-)
-
-echo.
-echo Step 3.2: Configuring web.config for Production...
-echo ========================================
-REM Copy web.config from deploy folder (publish path) to production
-REM Only copy if web.config doesn't already exist in production
-if exist "%PUBLISH_PATH%\web.config" (
-    if not exist "%IIS_PATH%\web.config" (
-        copy "%PUBLISH_PATH%\web.config" "%IIS_PATH%\web.config"
-        echo ✓ web.config copied from deploy folder to production
-    ) else (
-        echo ⚠ web.config already exists in production - skipping override
-    )
-) else (
-    echo ⚠ web.config not found in deploy folder - using default
-)
-
-echo.
-echo Step 3.3: Configuring appsettings for Production...
-echo ========================================
-REM Copy appsettings.Production.json from deploy folder (publish path) to production
-REM Only copy if appsettings.Production.json doesn't already exist in production
-if exist "%PUBLISH_PATH%\appsettings.Production.json" (
-    if not exist "%IIS_PATH%\appsettings.Production.json" (
-        copy "%PUBLISH_PATH%\appsettings.Production.json" "%IIS_PATH%\appsettings.Production.json"
-        echo ✓ appsettings.Production.json copied from deploy folder to production
-    ) else (
-        echo ⚠ appsettings.Production.json already exists in production - skipping override
-    )
-) else (
-    echo ⚠ appsettings.Production.json not found in deploy folder - using default
-)
-
+robocopy "%PUBLISH_PATH%" "%IIS_PATH%" /E /XD bin obj /XF *.pdb /R:3 /W:1 /NFL /NDL
 if %ERRORLEVEL% geq 8 (
     echo ERROR: Copy operation failed!
     pause
     exit /b 1
 )
+echo ✓ Application files copied successfully
 
+REM ========================================
+REM Step 4: Configure Production Settings
+REM ========================================
 echo.
-echo Step 3.4: Verifying static files accessibility...
+echo Step 4: Configuring Production Settings...
 echo ========================================
-echo Checking if custom files are accessible:
-echo - Custom CSS: %IIS_PATH%\wwwroot\swagger-ui\custom.css
-echo - Custom JS: %IIS_PATH%\wwwroot\swagger-ui\custom.js
 
-if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.css" (
-    echo ✓ Custom CSS file exists in production
-) else (
-    echo ✗ Custom CSS file missing in production
-)
+REM Configure web.config
+call :CopyConfigFile "%PUBLISH_PATH%\web.config" "%IIS_PATH%\web.config" "web.config"
 
-if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.js" (
-    echo ✓ Custom JS file exists in production
-) else (
-    echo ✗ Custom JS file missing in production
-)
+REM Configure appsettings
+call :CopyConfigFile "%PUBLISH_PATH%\appsettings.Production.json" "%IIS_PATH%\appsettings.Production.json" "appsettings.Production.json"
 
+REM ========================================
+REM Step 5: Verify Deployment
+REM ========================================
 echo.
-echo Step 4: Fixing permissions and starting IIS Application...
+echo Step 5: Verifying Deployment...
 echo ========================================
+
+REM Verify Swagger custom files
+call :CheckFile "%IIS_PATH%\wwwroot\swagger-ui\custom.css" "Swagger custom CSS"
+call :CheckFile "%IIS_PATH%\wwwroot\swagger-ui\custom.js" "Swagger custom JS"
+
+REM ========================================
+REM Step 6: Start IIS Services
+REM ========================================
+echo.
+echo Step 6: Starting IIS Application...
+echo ========================================
+
+REM Set permissions
 echo Setting permissions for IIS_IUSRS on application folder...
-icacls "%IIS_PATH%" /grant "IIS_IUSRS:(OI)(CI)F" /T /Q
+icacls "%IIS_PATH%" /grant "IIS_IUSRS:(OI)(CI)F" /T /Q >nul 2>&1
 
-echo.
-echo Starting IIS services...
+REM Start application pool
 echo Starting application pool: %POOL_NAME%
 appcmd start apppool "%POOL_NAME%"
-
 if %ERRORLEVEL% neq 0 (
     echo WARNING: Failed to start application pool, trying to restart...
     appcmd stop apppool "%POOL_NAME%"
@@ -170,15 +132,17 @@ if %ERRORLEVEL% neq 0 (
     appcmd start apppool "%POOL_NAME%"
 )
 
+REM Start application
 echo Starting application: %APP_NAME%
 appcmd start app /app.name:"%APP_NAME%"
-
 if %ERRORLEVEL% neq 0 (
-    echo WARNING: Failed to start application, checking if it's already running...
+    echo WARNING: Failed to start application, checking status...
     appcmd list app "%APP_NAME%"
 )
 
-
+REM ========================================
+REM Deployment Complete
+REM ========================================
 echo.
 echo ========================================
 echo    Deployment Completed Successfully!
@@ -188,4 +152,38 @@ echo Application: %APP_NAME%
 echo Pool: %POOL_NAME%
 echo Published to: %IIS_PATH%
 echo.
+echo You can now access your application at:
+echo https://ErpServices.baaz.ir/swagger
+echo.
 pause
+exit /b 0
+
+REM ========================================
+REM Helper Functions
+REM ========================================
+
+:CheckFile
+set "file_path=%~1"
+set "file_desc=%~2"
+if exist "%file_path%" (
+    echo ✓ %file_desc% found
+) else (
+    echo ✗ WARNING: %file_desc% not found
+)
+goto :eof
+
+:CopyConfigFile
+set "source_file=%~1"
+set "dest_file=%~2"
+set "file_desc=%~3"
+if exist "%source_file%" (
+    if not exist "%dest_file%" (
+        copy "%source_file%" "%dest_file%" >nul 2>&1
+        echo ✓ %file_desc% copied to production
+    ) else (
+        echo ⚠ %file_desc% already exists in production - skipping override
+    )
+) else (
+    echo ⚠ %file_desc% not found in source - using default
+)
+goto :eof
