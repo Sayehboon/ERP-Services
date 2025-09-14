@@ -52,41 +52,54 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 // Add sample data service
 builder.Services.AddScoped<Dinawin.Erp.Application.Services.SampleDataService>();
 
-// Add CORS - Environment specific configuration
+// Add CORS - Read from configuration
 builder.Services.AddCors(options =>
 {
-    if (builder.Environment.IsDevelopment())
+    var corsSettings = builder.Configuration.GetSection("Cors");
+    var enableCors = corsSettings.GetValue<bool>("Enabled", true);
+    var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>() ?? new string[0];
+    var allowAnyOrigin = corsSettings.GetValue<bool>("AllowAnyOrigin", false);
+    var allowCredentials = corsSettings.GetValue<bool>("AllowCredentials", true);
+
+    if (enableCors)
     {
-        // Development CORS - More permissive
         options.AddPolicy("AllowFrontend", policy =>
         {
-            policy.WithOrigins(
-                    "http://localhost:3000", 
-                    "http://localhost:5173", 
-                    "http://localhost:8080",
-                    "https://localhost:3000",
-                    "https://localhost:5173")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials();
-        });
-    }
-    else if (builder.Environment.IsProduction())
-    {
-        // Production CORS - Restrictive
-        var enableCors = builder.Configuration.GetValue<bool>("Security:EnableCors", false);
-        if (enableCors)
-        {
-            options.AddPolicy("AllowFrontend", policy =>
+            if (allowAnyOrigin)
             {
-                policy.WithOrigins(
-                        "https://yourdomain.com",
-                        "https://www.yourdomain.com")
-                      .AllowAnyHeader()
-                      .AllowAnyMethod()
-                      .AllowCredentials();
-            });
-        }
+                policy.AllowAnyOrigin();
+            }
+            else if (allowedOrigins.Length > 0)
+            {
+                policy.WithOrigins(allowedOrigins);
+            }
+            else
+            {
+                // Fallback to default origins based on environment
+                if (builder.Environment.IsDevelopment())
+                {
+                    policy.WithOrigins(
+                        "http://localhost:3000", 
+                        "http://localhost:5173", 
+                        "http://localhost:8080",
+                        "https://localhost:3000",
+                        "https://localhost:5173");
+                }
+                else
+                {
+                    // Production fallback - no origins allowed
+                    return;
+                }
+            }
+
+            policy.AllowAnyHeader()
+                  .AllowAnyMethod();
+
+            if (allowCredentials && !allowAnyOrigin)
+            {
+                policy.AllowCredentials();
+            }
+        });
     }
 });
 
