@@ -81,16 +81,8 @@ if exist "%PUBLISH_PATH%\wwwroot" (
     echo ✗ WARNING: wwwroot folder not found in publish directory
 )
 
-REM Remove production config files from deploy folder if they exist
-if exist "%IIS_PATH%\appsettings.Production.json" (
-    del "%IIS_PATH%\appsettings.Production.json"
-    echo ✓ Removed appsettings.Production.json from deploy folder
-)
-
-if exist "%IIS_PATH%\web.config" (
-    del "%IIS_PATH%\web.config"
-    echo ✓ Removed web.config from deploy folder
-)
+REM Keep existing config files in deploy folder - they are customized
+echo ✓ Preserving existing config files in deploy folder (if any)
 
 echo.
 echo Step 3.1: Verifying Swagger custom files...
@@ -110,33 +102,33 @@ if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.js" (
 echo.
 echo Step 3.2: Configuring web.config for Production...
 echo ========================================
-REM Copy production web.config from BackEnd directory (not from deploy folder)
+REM Copy web.config from deploy folder (publish path) to production
 REM Only copy if web.config doesn't already exist in production
-if exist "web.Production.config" (
+if exist "%PUBLISH_PATH%\web.config" (
     if not exist "%IIS_PATH%\web.config" (
-        copy "web.Production.config" "%IIS_PATH%\web.config"
-        echo ✓ Production web.config applied successfully
+        copy "%PUBLISH_PATH%\web.config" "%IIS_PATH%\web.config"
+        echo ✓ web.config copied from deploy folder to production
     ) else (
         echo ⚠ web.config already exists in production - skipping override
     )
 ) else (
-    echo ✗ WARNING: web.Production.config not found in BackEnd directory
+    echo ⚠ web.config not found in deploy folder - using default
 )
 
 echo.
-echo Step 3.3: Configuring appsettings for Production (Optional)...
+echo Step 3.3: Configuring appsettings for Production...
 echo ========================================
-REM Copy production appsettings from BackEnd directory (not from deploy folder)
+REM Copy appsettings.Production.json from deploy folder (publish path) to production
 REM Only copy if appsettings.Production.json doesn't already exist in production
-if exist "appsettings.Production.json" (
+if exist "%PUBLISH_PATH%\appsettings.Production.json" (
     if not exist "%IIS_PATH%\appsettings.Production.json" (
-        copy "appsettings.Production.json" "%IIS_PATH%\appsettings.Production.json"
-        echo ✓ Production appsettings.Production.json applied successfully
+        copy "%PUBLISH_PATH%\appsettings.Production.json" "%IIS_PATH%\appsettings.Production.json"
+        echo ✓ appsettings.Production.json copied from deploy folder to production
     ) else (
         echo ⚠ appsettings.Production.json already exists in production - skipping override
     )
 ) else (
-    echo ⚠ appsettings.Production.json not found in BackEnd directory - using default
+    echo ⚠ appsettings.Production.json not found in deploy folder - using default
 )
 
 if %ERRORLEVEL% geq 8 (
