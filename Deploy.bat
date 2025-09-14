@@ -72,14 +72,10 @@ if not exist "%IIS_PATH%" (
     mkdir "%IIS_PATH%"
 )
 
-REM Copy only wwwroot folder for static files (excluding config files)
-if exist "%PUBLISH_PATH%\wwwroot" (
-    echo Copying wwwroot folder...
-    robocopy "%PUBLISH_PATH%\wwwroot" "%IIS_PATH%\wwwroot" /E /R:3 /W:1
-    echo ✓ wwwroot folder copied successfully
-) else (
-    echo ✗ WARNING: wwwroot folder not found in publish directory
-)
+REM Copy all application files (excluding config files that will be handled separately)
+echo Copying application files...
+robocopy "%PUBLISH_PATH%" "%IIS_PATH%" /E /XD bin obj /XF *.pdb /R:3 /W:1
+echo ✓ Application files copied successfully
 
 REM Keep existing config files in deploy folder - they are customized
 echo ✓ Preserving existing config files in deploy folder (if any)
@@ -135,6 +131,25 @@ if %ERRORLEVEL% geq 8 (
     echo ERROR: Copy operation failed!
     pause
     exit /b 1
+)
+
+echo.
+echo Step 3.4: Verifying static files accessibility...
+echo ========================================
+echo Checking if custom files are accessible:
+echo - Custom CSS: %IIS_PATH%\wwwroot\swagger-ui\custom.css
+echo - Custom JS: %IIS_PATH%\wwwroot\swagger-ui\custom.js
+
+if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.css" (
+    echo ✓ Custom CSS file exists in production
+) else (
+    echo ✗ Custom CSS file missing in production
+)
+
+if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.js" (
+    echo ✓ Custom JS file exists in production
+) else (
+    echo ✗ Custom JS file missing in production
 )
 
 echo.
