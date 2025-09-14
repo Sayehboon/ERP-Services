@@ -147,6 +147,8 @@ else if (app.Environment.IsProduction())
             options.DefaultModelsExpandDepth(-1);
             options.DefaultModelExpandDepth(0);
             options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+            options.InjectStylesheet("/swagger-ui/custom.css");
+            options.InjectJavascript("/swagger-ui/custom.js");
         });
     }
 }

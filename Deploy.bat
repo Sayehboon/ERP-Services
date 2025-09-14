@@ -72,13 +72,24 @@ if not exist "%IIS_PATH%" (
     mkdir "%IIS_PATH%"
 )
 
-REM Copy only wwwroot folder for static files
+REM Copy only wwwroot folder for static files (excluding config files)
 if exist "%PUBLISH_PATH%\wwwroot" (
     echo Copying wwwroot folder...
     robocopy "%PUBLISH_PATH%\wwwroot" "%IIS_PATH%\wwwroot" /E /R:3 /W:1
     echo ✓ wwwroot folder copied successfully
 ) else (
     echo ✗ WARNING: wwwroot folder not found in publish directory
+)
+
+REM Remove production config files from deploy folder if they exist
+if exist "%IIS_PATH%\appsettings.Production.json" (
+    del "%IIS_PATH%\appsettings.Production.json"
+    echo ✓ Removed appsettings.Production.json from deploy folder
+)
+
+if exist "%IIS_PATH%\web.config" (
+    del "%IIS_PATH%\web.config"
+    echo ✓ Removed web.config from deploy folder
 )
 
 echo.
@@ -99,12 +110,33 @@ if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.js" (
 echo.
 echo Step 3.2: Configuring web.config for Production...
 echo ========================================
-REM Copy production web.config
+REM Copy production web.config from BackEnd directory (not from deploy folder)
+REM Only copy if web.config doesn't already exist in production
 if exist "web.Production.config" (
-    copy "web.Production.config" "%IIS_PATH%\web.config" /Y
-    echo Production web.config applied successfully
+    if not exist "%IIS_PATH%\web.config" (
+        copy "web.Production.config" "%IIS_PATH%\web.config"
+        echo ✓ Production web.config applied successfully
+    ) else (
+        echo ⚠ web.config already exists in production - skipping override
+    )
 ) else (
-    echo WARNING: web.Production.config not found, using default web.config
+    echo ✗ WARNING: web.Production.config not found in BackEnd directory
+)
+
+echo.
+echo Step 3.3: Configuring appsettings for Production (Optional)...
+echo ========================================
+REM Copy production appsettings from BackEnd directory (not from deploy folder)
+REM Only copy if appsettings.Production.json doesn't already exist in production
+if exist "appsettings.Production.json" (
+    if not exist "%IIS_PATH%\appsettings.Production.json" (
+        copy "appsettings.Production.json" "%IIS_PATH%\appsettings.Production.json"
+        echo ✓ Production appsettings.Production.json applied successfully
+    ) else (
+        echo ⚠ appsettings.Production.json already exists in production - skipping override
+    )
+) else (
+    echo ⚠ appsettings.Production.json not found in BackEnd directory - using default
 )
 
 if %ERRORLEVEL% geq 8 (
