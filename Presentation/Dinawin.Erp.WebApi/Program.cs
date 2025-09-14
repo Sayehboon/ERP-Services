@@ -159,6 +159,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Set default route to Swagger
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 //app.MapHealthChecks("/health");
 
 // Apply EF Core migrations on startup to ensure database schema is up to date
