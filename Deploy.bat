@@ -153,13 +153,30 @@ if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.js" (
 )
 
 echo.
-echo Step 4: Starting IIS Application...
+echo Step 4: Fixing permissions and starting IIS Application...
 echo ========================================
+echo Setting permissions for IIS_IUSRS on application folder...
+icacls "%IIS_PATH%" /grant "IIS_IUSRS:(OI)(CI)F" /T /Q
+
+echo.
+echo Starting IIS services...
 echo Starting application pool: %POOL_NAME%
 appcmd start apppool "%POOL_NAME%"
 
+if %ERRORLEVEL% neq 0 (
+    echo WARNING: Failed to start application pool, trying to restart...
+    appcmd stop apppool "%POOL_NAME%"
+    timeout /t 2 /nobreak >nul
+    appcmd start apppool "%POOL_NAME%"
+)
+
 echo Starting application: %APP_NAME%
-appcmd start app "%APP_NAME%"
+appcmd start app /app.name:"%APP_NAME%"
+
+if %ERRORLEVEL% neq 0 (
+    echo WARNING: Failed to start application, checking if it's already running...
+    appcmd list app "%APP_NAME%"
+)
 
 
 echo.
