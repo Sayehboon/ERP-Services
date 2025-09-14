@@ -85,13 +85,21 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = "swagger";
         options.DocumentTitle = "Dinawin ERP API Documentation";
         options.DefaultModelsExpandDepth(-1);
+        options.DefaultModelExpandDepth(0);
+        options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
         options.DisplayRequestDuration();
         options.EnableFilter();
         options.EnableDeepLinking();
+        options.EnableTryItOutByDefault();
+        options.ShowExtensions();
+        options.ShowCommonExtensions();
+        options.InjectStylesheet("/swagger-ui/custom.css");
+        options.InjectJavascript("/swagger-ui/custom.js");
     });
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
