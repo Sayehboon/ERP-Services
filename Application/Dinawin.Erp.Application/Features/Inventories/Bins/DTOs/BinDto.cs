@@ -95,3 +95,4 @@ public sealed class BinDto
     /// </summary>
     public Guid? UpdatedBy { get; set; }
 }
+

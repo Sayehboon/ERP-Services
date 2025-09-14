@@ -28,6 +28,13 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
     
+    // Configure custom schema ID generator to avoid conflicts with same class names in different namespaces
+    options.CustomSchemaIds(type =>
+    {
+        // Use full namespace to create unique schema IDs
+        return type.FullName?.Replace("+", ".") ?? type.Name;
+    });
+    
     // Include XML comments for better documentation
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

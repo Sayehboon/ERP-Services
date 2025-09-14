@@ -96,3 +96,4 @@ public sealed class BankAccountDto
     public Guid? UpdatedBy { get; set; }
 }
 
+
