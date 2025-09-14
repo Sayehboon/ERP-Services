@@ -28,12 +28,27 @@ set POOL_NAME=ERPServices
 echo Step 1: Compiling and Publishing Solution...
 echo ========================================
 cd /d "%SOLUTION_PATH%"
-dotnet publish Presentation\Dinawin.Erp.WebApi\Dinawin.Erp.WebApi.csproj -c Release -o "%PUBLISH_PATH%" --self-contained false
+dotnet publish Presentation\Dinawin.Erp.WebApi\Dinawin.Erp.WebApi.csproj -c Release -o "%PUBLISH_PATH%" --self-contained false -p:GenerateDocumentationFile=true
 
 if %ERRORLEVEL% neq 0 (
     echo ERROR: Build failed!
     pause
     exit /b 1
+)
+
+echo.
+echo Step 1.1: Verifying XML documentation files...
+echo ========================================
+if exist "%PUBLISH_PATH%\Dinawin.Erp.WebApi.xml" (
+    echo ✓ WebApi XML documentation found
+) else (
+    echo ✗ WARNING: WebApi XML documentation not found
+)
+
+if exist "%PUBLISH_PATH%\Dinawin.Erp.Application.xml" (
+    echo ✓ Application XML documentation found
+) else (
+    echo ✗ WARNING: Application XML documentation not found
 )
 
 echo.
@@ -57,8 +72,8 @@ if not exist "%IIS_PATH%" (
     mkdir "%IIS_PATH%"
 )
 
-REM Copy files (excluding some unnecessary files)
-robocopy "%PUBLISH_PATH%" "%IIS_PATH%" /E /XD bin obj /XF *.pdb *.xml /R:3 /W:1
+REM Copy files (excluding some unnecessary files but keeping XML documentation)
+robocopy "%PUBLISH_PATH%" "%IIS_PATH%" /E /XD bin obj /XF *.pdb /R:3 /W:1
 
 echo.
 echo Step 3.1: Configuring web.config for Production...
