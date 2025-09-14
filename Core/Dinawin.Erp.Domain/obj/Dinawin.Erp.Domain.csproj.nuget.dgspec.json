@@ -29,13 +29,7 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files\\DevExpress 24.2\\Components\\System\\Components\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
@@ -61,11 +55,11 @@
           "dependencies": {
             "MediatR": {
               "target": "Package",
-              "version": "[12.2.0, )"
+              "version": "[13.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             }
           },
           "imports": [

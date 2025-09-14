@@ -36,7 +36,7 @@ public class TrimsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<Application.Features.Trims.Queries.GetAllTrims.TrimDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllTrims(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? modelId = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,

@@ -35,7 +35,7 @@ public class UnitsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<Application.Features.Units.Queries.GetAllUnits.UnitDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllUnits(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)

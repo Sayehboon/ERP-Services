@@ -41,7 +41,7 @@ public class InventoryController : BaseController
     [ProducesResponseType(typeof(IEnumerable<InventoryDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<InventoryDto>>> GetAllInventory(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? productId = null,
         [FromQuery] Guid? warehouseId = null,
         [FromQuery] Guid? binId = null,
@@ -154,7 +154,7 @@ public class InventoryController : BaseController
     [HttpPost("reserve")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> ReserveInventory([FromBody] object command)
+    public ActionResult ReserveInventory([FromBody] object command)
     {
         try
         {
@@ -175,7 +175,7 @@ public class InventoryController : BaseController
     [HttpPost("release")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> ReleaseInventory([FromBody] object command)
+    public ActionResult ReleaseInventory([FromBody] object command)
     {
         try
         {

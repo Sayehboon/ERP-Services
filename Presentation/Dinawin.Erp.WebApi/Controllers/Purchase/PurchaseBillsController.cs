@@ -37,7 +37,7 @@ public class PurchaseBillsController : BaseController
     [ProducesResponseType(400)]
     public async Task<object> GetAllPurchaseBills(
         [FromQuery] Guid? vendorId = null, 
-        [FromQuery] string? status = null, 
+        [FromQuery] string status = null, 
         [FromQuery] DateTime? fromDate = null, 
         [FromQuery] DateTime? toDate = null)
     {
@@ -60,7 +60,7 @@ public class PurchaseBillsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(PurchaseBillDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<object> GetPurchaseBill(Guid id)
+    public object GetPurchaseBill(Guid id)
     {
         try
         {

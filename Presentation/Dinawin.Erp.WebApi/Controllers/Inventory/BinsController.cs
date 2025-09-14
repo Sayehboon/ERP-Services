@@ -38,9 +38,9 @@ public class BinsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<BinDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllBins(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? warehouseId = null,
-        [FromQuery] string? binType = null,
+        [FromQuery] string binType = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)

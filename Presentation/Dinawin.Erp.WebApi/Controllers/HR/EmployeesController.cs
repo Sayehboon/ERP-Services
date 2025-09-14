@@ -37,7 +37,7 @@ public class EmployeesController : BaseController
     [ProducesResponseType(typeof(IEnumerable<GetAllEmployees.EmployeeDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllEmployees(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? departmentId = null,
         [FromQuery] Guid? roleId = null,
         [FromQuery] Guid? companyId = null,
@@ -253,8 +253,8 @@ public class EmployeesController : BaseController
         Guid id,
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
-        [FromQuery] string? attendanceType = null,
-        [FromQuery] string? status = null,
+        [FromQuery] string attendanceType = null,
+        [FromQuery] string status = null,
         [FromQuery] int maxResults = 100)
     {
         try

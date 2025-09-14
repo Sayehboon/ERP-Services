@@ -42,10 +42,10 @@ public class BankAccountsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<BankAccountDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllBankAccounts(
-        [FromQuery] string? searchTerm = null,
-        [FromQuery] string? bankName = null,
-        [FromQuery] string? accountType = null,
-        [FromQuery] string? currency = null,
+        [FromQuery] string searchTerm = null,
+        [FromQuery] string bankName = null,
+        [FromQuery] string accountType = null,
+        [FromQuery] string currency = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)
@@ -129,7 +129,7 @@ public class BankAccountsController : BaseController
     [HttpGet("{id}/transactions")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(404)]
-    public async Task<object> GetBankAccountTransactions(Guid id)
+    public object GetBankAccountTransactions(Guid id)
     {
         try
         {

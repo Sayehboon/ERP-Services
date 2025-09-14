@@ -107,7 +107,7 @@ public class UserProfilesController : BaseController
     [HttpPut("current")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> UpdateCurrentUserProfile([FromBody] object command)
+    public ActionResult UpdateCurrentUserProfile([FromBody] object command)
     {
         try
         {

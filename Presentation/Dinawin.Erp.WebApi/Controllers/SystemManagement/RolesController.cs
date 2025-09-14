@@ -38,7 +38,7 @@ public class RolesController : BaseController
     [ProducesResponseType(typeof(IEnumerable<RoleDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<RoleDto>>> GetAllRoles(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)
@@ -188,7 +188,7 @@ public class RolesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> AssignPermission(Guid id, [FromBody] object command)
+    public ActionResult AssignPermission(Guid id, [FromBody] object command)
     {
         try
         {

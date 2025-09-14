@@ -51,7 +51,7 @@ public class CashTransactionsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(CashTransactionDto), 200)]
     [ProducesResponseType(404)]
-    public async Task<object> GetCashTransaction(Guid id)
+    public object GetCashTransaction(Guid id)
     {
         try
         {
@@ -143,7 +143,7 @@ public class CashTransactionsController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult> DeleteCashTransaction(Guid id)
+    public ActionResult DeleteCashTransaction(Guid id)
     {
         try
         {

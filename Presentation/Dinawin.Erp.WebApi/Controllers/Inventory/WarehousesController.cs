@@ -36,8 +36,8 @@ public class WarehousesController : BaseController
     [ProducesResponseType(typeof(IEnumerable<WarehouseDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllWarehouses(
-        [FromQuery] string? searchTerm = null,
-        [FromQuery] string? warehouseType = null,
+        [FromQuery] string searchTerm = null,
+        [FromQuery] string warehouseType = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)
@@ -119,7 +119,7 @@ public class WarehousesController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(Guid), 201)]
     [ProducesResponseType(400)]
-    public async Task<object> CreateWarehouse([FromBody] object command)
+    public object CreateWarehouse([FromBody] object command)
     {
         try
         {

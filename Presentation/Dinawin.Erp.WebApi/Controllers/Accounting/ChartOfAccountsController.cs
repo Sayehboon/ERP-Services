@@ -8,6 +8,9 @@ using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Queries.GetTri
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.CreateChartOfAccount;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.UpdateChartOfAccount;
 using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Commands.DeleteChartOfAccount;
+using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.DTOs;
+using Dinawin.Erp.Application.Features.Accounting.ChartOfAccounts.Services;
+using Dinawin.Erp.Domain.Enums;
 
 namespace Dinawin.Erp.WebApi.Controllers.Accounting;
 
@@ -41,10 +44,10 @@ public class ChartOfAccountsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<ChartOfAccountDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<ChartOfAccountDto>>> GetAllAccounts(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? parentAccountId = null,
-        [FromQuery] string? accountType = null,
-        [FromQuery] string? accountCategory = null,
+        [FromQuery] AccountTypeEnum? accountType = null,
+        [FromQuery] string accountCategory = null,
         [FromQuery] int? level = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
@@ -109,11 +112,14 @@ public class ChartOfAccountsController : BaseController
     [HttpGet("by-type/{accountType}")]
     [ProducesResponseType(typeof(IEnumerable<ChartOfAccountDto>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<IEnumerable<ChartOfAccountDto>>> GetAccountsByType(string accountType)
+    public async Task<ActionResult<IEnumerable<ChartOfAccountDto>>> GetAccountsByType(AccountTypeEnum accountType)
     {
         try
         {
-            var query = new GetAllChartOfAccountsQuery { AccountType = accountType };
+            var query = new GetAllChartOfAccountsQuery 
+            { 
+                AccountType = accountType 
+            };
             var accounts = await _mediator.Send(query);
             return Success(accounts);
         }
@@ -271,8 +277,8 @@ public class ChartOfAccountsController : BaseController
     public async Task<ActionResult<TrialBalanceDto>> GetTrialBalance(
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
-        [FromQuery] string? accountType = null,
-        [FromQuery] string? accountCategory = null,
+        [FromQuery] AccountTypeEnum? accountType = null,
+        [FromQuery] string accountCategory = null,
         [FromQuery] int? level = null,
         [FromQuery] bool onlyNonZeroBalances = false,
         [FromQuery] bool includeInactiveAccounts = false)
@@ -296,6 +302,46 @@ public class ChartOfAccountsController : BaseController
         catch (Exception ex)
         {
             return HandleError(ex, "خطا در دریافت تراز آزمایشی");
+        }
+    }
+
+    /// <summary>
+    /// دریافت انواع حساب
+    /// </summary>
+    /// <returns>لیست انواع حساب</returns>
+    [HttpGet("account-types")]
+    [ProducesResponseType(typeof(IEnumerable<EnumItemDto>), 200)]
+    [ProducesResponseType(400)]
+    public ActionResult<IEnumerable<EnumItemDto>> GetAccountTypes()
+    {
+        try
+        {
+            var accountTypes = EnumService.GetAccountTypeEnumItems();
+            return Success(accountTypes);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت انواع حساب");
+        }
+    }
+
+    /// <summary>
+    /// دریافت ترازهای طبیعی
+    /// </summary>
+    /// <returns>لیست ترازهای طبیعی</returns>
+    [HttpGet("normal-balances")]
+    [ProducesResponseType(typeof(IEnumerable<EnumItemDto>), 200)]
+    [ProducesResponseType(400)]
+    public ActionResult<IEnumerable<EnumItemDto>> GetNormalBalances()
+    {
+        try
+        {
+            var normalBalances = EnumService.GetNormalBalanceEnumItems();
+            return Success(normalBalances);
+        }
+        catch (Exception ex)
+        {
+            return HandleError(ex, "خطا در دریافت ترازهای طبیعی");
         }
     }
 }

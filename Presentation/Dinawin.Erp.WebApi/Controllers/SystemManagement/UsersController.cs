@@ -39,7 +39,7 @@ public class UsersController : BaseController
     [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? roleId = null,
         [FromQuery] Guid? companyId = null,
         [FromQuery] bool? isActive = null,
@@ -165,7 +165,7 @@ public class UsersController : BaseController
     /// تغییر وضعیت کاربر
     /// </summary>
     /// <param name="id">شناسه کاربر</param>
-    /// <param name="isActive">وضعیت فعال/غیرفعال</param>
+    /// <param name="command"></param>
     /// <returns>نتیجه تغییر وضعیت</returns>
     [HttpPatch("{id}/toggle-status")]
     [ProducesResponseType(200)]

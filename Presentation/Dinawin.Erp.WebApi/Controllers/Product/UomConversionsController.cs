@@ -49,7 +49,7 @@ public class UomConversionsController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(object), 200)]
     [ProducesResponseType(404)]
-    public async Task<ActionResult<object>> GetUomConversion(Guid id)
+    public ActionResult<object> GetUomConversion(Guid id)
     {
         try
         {
@@ -78,7 +78,7 @@ public class UomConversionsController : BaseController
     [HttpGet("by-uom/{uomId}")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<List<object>>> GetConversionsByUom(Guid uomId)
+    public ActionResult<List<object>> GetConversionsByUom(Guid uomId)
     {
         try
         {

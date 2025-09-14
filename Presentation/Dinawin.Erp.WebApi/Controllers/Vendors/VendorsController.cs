@@ -48,15 +48,15 @@ public class VendorsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<VendorDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<VendorDto>>> GetAllVendors(
-        [FromQuery] string? searchTerm = null,
-        [FromQuery] string? vendorType = null,
-        [FromQuery] string? city = null,
-        [FromQuery] string? province = null,
-        [FromQuery] string? country = null,
+        [FromQuery] string searchTerm = null,
+        [FromQuery] string vendorType = null,
+        [FromQuery] string city = null,
+        [FromQuery] string province = null,
+        [FromQuery] string country = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] decimal? minCreditLimit = null,
         [FromQuery] decimal? maxCreditLimit = null,
-        [FromQuery] string? preferredCurrency = null,
+        [FromQuery] string preferredCurrency = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)
     {
@@ -118,16 +118,22 @@ public class VendorsController : BaseController
     /// جستجوی تامین‌کنندگان
     /// </summary>
     /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="vendorType"></param>
+    /// <param name="city"></param>
+    /// <param name="province"></param>
+    /// <param name="country"></param>
+    /// <param name="isActive"></param>
+    /// <param name="maxResults"></param>
     /// <returns>لیست تامین‌کنندگان مطابق جستجو</returns>
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<VendorSearchDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<VendorSearchDto>>> SearchVendors(
         [FromQuery] string searchTerm,
-        [FromQuery] string? vendorType = null,
-        [FromQuery] string? city = null,
-        [FromQuery] string? province = null,
-        [FromQuery] string? country = null,
+        [FromQuery] string vendorType = null,
+        [FromQuery] string city = null,
+        [FromQuery] string province = null,
+        [FromQuery] string country = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int maxResults = 20)
     {

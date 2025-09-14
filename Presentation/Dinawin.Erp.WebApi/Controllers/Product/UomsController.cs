@@ -32,7 +32,7 @@ public class UomsController : BaseController
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<object> GetAllUoms([FromQuery] string? type = null)
+    public async Task<object> GetAllUoms([FromQuery] string type = null)
     {
         try
         {

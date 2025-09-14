@@ -42,13 +42,13 @@ public class JournalEntriesController : BaseController
 	[ProducesResponseType(typeof(IEnumerable<JournalEntryDto>), 200)]
 	[ProducesResponseType(400)]
 	public async Task<ActionResult<IEnumerable<JournalEntryDto>>> GetAllJournalEntries(
-		[FromQuery] string? searchTerm = null,
+		[FromQuery] string searchTerm = null,
 		[FromQuery] Guid? accountId = null,
-		[FromQuery] string? entryType = null,
+		[FromQuery] string entryType = null,
 		[FromQuery] DateTime? fromDate = null,
 		[FromQuery] DateTime? toDate = null,
 		[FromQuery] bool? isApproved = null,
-		[FromQuery] string? referenceType = null,
+		[FromQuery] string referenceType = null,
 		[FromQuery] int page = 1,
 		[FromQuery] int pageSize = 25)
 	{

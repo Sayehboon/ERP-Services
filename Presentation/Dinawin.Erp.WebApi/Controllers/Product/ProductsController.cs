@@ -42,7 +42,7 @@ public class ProductsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<ProductDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? categoryId = null,
         [FromQuery] Guid? brandId = null,
         [FromQuery] Guid? modelId = null,

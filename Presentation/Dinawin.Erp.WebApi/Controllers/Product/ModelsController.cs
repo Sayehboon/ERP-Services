@@ -38,7 +38,7 @@ public class ModelsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<ModelDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllModels(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? brandId = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,

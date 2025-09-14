@@ -41,9 +41,9 @@ public class SystemSettingsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<SystemSettingDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<SystemSettingDto>>> GetAllSettings(
-        [FromQuery] string? searchTerm = null,
-        [FromQuery] string? category = null,
-        [FromQuery] string? dataType = null,
+        [FromQuery] string searchTerm = null,
+        [FromQuery] string category = null,
+        [FromQuery] string dataType = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] bool? isEditable = null,
         [FromQuery] int page = 1,
@@ -112,7 +112,7 @@ public class SystemSettingsController : BaseController
     [ProducesResponseType(400)]
     public async Task<object> GetSettingsByCategory(
         string category,
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)
     {
@@ -188,7 +188,7 @@ public class SystemSettingsController : BaseController
     [HttpPost("reset")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult> ResetSettings([FromQuery] string? category = null)
+    public async Task<ActionResult> ResetSettings([FromQuery] string category = null)
     {
         try
         {

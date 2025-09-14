@@ -40,7 +40,7 @@ public class SalesInvoicesController : BaseController
     [ProducesResponseType(400)]
     public async Task<ActionResult<IReadOnlyList<SalesInvoiceDto>>> GetAllSalesInvoices(
         [FromQuery] Guid? customerId = null,
-        [FromQuery] string? status = null,
+        [FromQuery] string status = null,
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
         [FromQuery] int page = 1,

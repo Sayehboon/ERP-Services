@@ -61,6 +61,10 @@ public class DashboardController : BaseController
     /// دریافت آمار فروش
     /// </summary>
     /// <param name="period">دوره زمانی (daily, weekly, monthly, yearly)</param>
+    /// <param name="fromDate"></param>
+    /// <param name="toDate"></param>
+    /// <param name="userId"></param>
+    /// <param name="customerId"></param>
     /// <returns>آمار فروش</returns>
     [HttpGet("sales-stats")]
     [ProducesResponseType(typeof(SalesStatsDto), 200)]

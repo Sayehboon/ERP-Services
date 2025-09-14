@@ -37,7 +37,7 @@ public class YearsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<YearDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<YearDto>>> GetAllYears(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)

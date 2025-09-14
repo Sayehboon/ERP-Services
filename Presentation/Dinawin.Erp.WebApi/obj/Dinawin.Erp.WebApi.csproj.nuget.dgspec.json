@@ -4,14 +4,14 @@
     "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj": {}
   },
   "projects": {
-    "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj": {
+    "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj",
+        "projectUniqueName": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj",
         "projectName": "Dinawin.Erp.Application",
-        "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj",
+        "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj",
         "packagesPath": "C:\\Users\\Mahdi Nazari\\.nuget\\packages\\",
-        "outputPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\obj\\",
+        "outputPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
@@ -29,20 +29,14 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files\\DevExpress 24.2\\Components\\System\\Components\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj": {
-                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj"
+              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj": {
+                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj"
               }
             }
           }
@@ -65,11 +59,7 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[12.0.1, )"
-            },
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[12.0.1, )"
+              "version": "[15.0.1, )"
             },
             "BCrypt.Net-Next": {
               "target": "Package",
@@ -85,19 +75,15 @@
             },
             "MediatR": {
               "target": "Package",
-              "version": "[12.2.0, )"
-            },
-            "MediatR.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[11.1.0, )"
+              "version": "[13.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Logging.Abstractions": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             }
           },
           "imports": [
@@ -120,14 +106,14 @@
         }
       }
     },
-    "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj": {
+    "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj",
+        "projectUniqueName": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj",
         "projectName": "Dinawin.Erp.Domain",
-        "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj",
+        "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj",
         "packagesPath": "C:\\Users\\Mahdi Nazari\\.nuget\\packages\\",
-        "outputPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\obj\\",
+        "outputPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
@@ -145,13 +131,7 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files\\DevExpress 24.2\\Components\\System\\Components\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
@@ -177,11 +157,11 @@
           "dependencies": {
             "MediatR": {
               "target": "Package",
-              "version": "[12.2.0, )"
+              "version": "[13.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             }
           },
           "imports": [
@@ -204,14 +184,14 @@
         }
       }
     },
-    "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure\\Dinawin.Erp.Infrastructure.csproj": {
+    "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure\\Dinawin.Erp.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure.csproj",
         "projectName": "Dinawin.Erp.Infrastructure",
-        "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure\\Dinawin.Erp.Infrastructure.csproj",
+        "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Mahdi Nazari\\.nuget\\packages\\",
-        "outputPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure\\obj\\",
+        "outputPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
@@ -229,20 +209,14 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files\\DevExpress 24.2\\Components\\System\\Components\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj": {
-                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj"
+              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj": {
+                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj"
               }
             }
           }
@@ -265,19 +239,19 @@
           "dependencies": {
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Options": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Options.ConfigurationExtensions": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             }
           },
           "imports": [
@@ -300,14 +274,14 @@
         }
       }
     },
-    "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj": {
+    "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Persistence\\Dinawin.Erp.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj",
+        "projectUniqueName": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Persistence\\Dinawin.Erp.Persistence.csproj",
         "projectName": "Dinawin.Erp.Persistence",
-        "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj",
+        "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Persistence\\Dinawin.Erp.Persistence.csproj",
         "packagesPath": "C:\\Users\\Mahdi Nazari\\.nuget\\packages\\",
-        "outputPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\obj\\",
+        "outputPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 23.1\\Components\\Offline Packages",
@@ -325,23 +299,17 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files\\DevExpress 24.2\\Components\\System\\Components\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj": {
-                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj"
+              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj": {
+                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj"
               },
-              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj": {
-                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj"
+              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj": {
+                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Domain\\Dinawin.Erp.Domain.csproj"
               }
             }
           }
@@ -364,31 +332,31 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
-            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+            "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             }
           },
           "imports": [
@@ -436,26 +404,20 @@
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 23.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files\\DevExpress 24.2\\Components\\System\\Components\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
-          "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj": {
-                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj"
+              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj": {
+                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj"
               },
-              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure\\Dinawin.Erp.Infrastructure.csproj": {
-                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure\\Dinawin.Erp.Infrastructure.csproj"
+              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure.csproj": {
+                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Infrastructure.csproj"
               },
-              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj": {
-                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj"
+              "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Persistence\\Dinawin.Erp.Persistence.csproj": {
+                "projectPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Persistence\\Dinawin.Erp.Persistence.csproj"
               }
             }
           }
@@ -478,31 +440,27 @@
           "dependencies": {
             "Azure.Identity": {
               "target": "Package",
-              "version": "[1.15.0, )"
-            },
-            "FluentValidation.AspNetCore": {
-              "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[1.16.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[9.0.0, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[9.0.3, )"
+              "version": "[9.0.4, )"
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
@@ -510,7 +468,7 @@
             },
             "System.Text.Json": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.9, )"
             }
           },
           "imports": [

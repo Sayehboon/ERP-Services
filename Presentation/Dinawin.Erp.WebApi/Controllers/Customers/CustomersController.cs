@@ -47,11 +47,11 @@ public class CustomersController : BaseController
     [ProducesResponseType(typeof(IEnumerable<CustomerDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<CustomerDto>>> GetAllCustomers(
-        [FromQuery] string? searchTerm = null,
-        [FromQuery] string? customerType = null,
-        [FromQuery] string? city = null,
-        [FromQuery] string? province = null,
-        [FromQuery] string? country = null,
+        [FromQuery] string searchTerm = null,
+        [FromQuery] string customerType = null,
+        [FromQuery] string city = null,
+        [FromQuery] string province = null,
+        [FromQuery] string country = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] decimal? minCreditLimit = null,
         [FromQuery] decimal? maxCreditLimit = null,
@@ -115,16 +115,22 @@ public class CustomersController : BaseController
     /// جستجوی مشتریان
     /// </summary>
     /// <param name="searchTerm">عبارت جستجو</param>
+    /// <param name="customerType"></param>
+    /// <param name="city"></param>
+    /// <param name="province"></param>
+    /// <param name="country"></param>
+    /// <param name="isActive"></param>
+    /// <param name="maxResults"></param>
     /// <returns>لیست مشتریان مطابق جستجو</returns>
     [HttpGet("search")]
     [ProducesResponseType(typeof(IEnumerable<CustomerSearchDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<CustomerSearchDto>>> SearchCustomers(
         [FromQuery] string searchTerm,
-        [FromQuery] string? customerType = null,
-        [FromQuery] string? city = null,
-        [FromQuery] string? province = null,
-        [FromQuery] string? country = null,
+        [FromQuery] string customerType = null,
+        [FromQuery] string city = null,
+        [FromQuery] string province = null,
+        [FromQuery] string country = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int maxResults = 20)
     {
@@ -209,7 +215,7 @@ public class CustomersController : BaseController
     [ProducesResponseType(404)]
     public async Task<object> GetCustomerTransactions(
         Guid id,
-        [FromQuery] string? transactionType = null,
+        [FromQuery] string transactionType = null,
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
         [FromQuery] decimal? minAmount = null,

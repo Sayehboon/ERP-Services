@@ -42,11 +42,11 @@ public class DepartmentsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<GetAllDepartments.DepartmentDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllDepartments(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? parentDepartmentId = null,
         [FromQuery] Guid? managerId = null,
         [FromQuery] Guid? companyId = null,
-        [FromQuery] string? departmentType = null,
+        [FromQuery] string departmentType = null,
         [FromQuery] int? level = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
@@ -112,7 +112,7 @@ public class DepartmentsController : BaseController
     [HttpGet("children/{parentId}")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<ActionResult<List<object>>> GetChildDepartments(Guid parentId)
+    public ActionResult<List<object>> GetChildDepartments(Guid parentId)
     {
         try
         {
@@ -141,7 +141,7 @@ public class DepartmentsController : BaseController
     [HttpGet("active")]
     [ProducesResponseType(typeof(IEnumerable<object>), 200)]
     [ProducesResponseType(400)]
-    public async Task<object> GetActiveDepartments()
+    public object GetActiveDepartments()
     {
         try
         {

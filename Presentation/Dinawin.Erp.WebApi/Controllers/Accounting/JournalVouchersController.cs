@@ -39,12 +39,12 @@ public class JournalVouchersController : BaseController
     [ProducesResponseType(typeof(IEnumerable<JournalVoucherDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IReadOnlyList<JournalVoucherDto>>> GetAllJournalVouchers(
-        [FromQuery] string? status = null,
-        [FromQuery] string? type = null,
-        [FromQuery] string? number = null,
+        [FromQuery] string status = null,
+        [FromQuery] string type = null,
+        [FromQuery] string number = null,
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
-        [FromQuery] string? sortBy = "seq_no")
+        [FromQuery] string sortBy = "seq_no")
     {
         try
         {

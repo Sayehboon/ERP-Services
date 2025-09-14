@@ -49,13 +49,13 @@ public class TasksController : BaseController
     [ProducesResponseType(typeof(IEnumerable<TaskDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllTasks(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? projectId = null,
         [FromQuery] Guid? assignedToUserId = null,
         [FromQuery] Guid? createdByUserId = null,
-        [FromQuery] string? priority = null,
-        [FromQuery] string? status = null,
-        [FromQuery] string? taskType = null,
+        [FromQuery] string priority = null,
+        [FromQuery] string status = null,
+        [FromQuery] string taskType = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
@@ -179,9 +179,9 @@ public class TasksController : BaseController
         [FromQuery] string searchTerm,
         [FromQuery] Guid? projectId = null,
         [FromQuery] Guid? assignedToUserId = null,
-        [FromQuery] string? priority = null,
-        [FromQuery] string? status = null,
-        [FromQuery] string? taskType = null,
+        [FromQuery] string priority = null,
+        [FromQuery] string status = null,
+        [FromQuery] string taskType = null,
         [FromQuery] int maxResults = 20)
     {
         try

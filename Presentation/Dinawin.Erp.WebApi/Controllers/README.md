@@ -28,19 +28,19 @@
 
 ```csharp
 // پاسخ موفقیت‌آمیز با داده
-protected ActionResult<T> Success<T>(T data, string? message = null)
+protected ActionResult<T> Success<T>(T data, string message = null)
 
 // پاسخ موفقیت‌آمیز بدون داده
-protected ActionResult Success(string? message = null)
+protected ActionResult Success(string message = null)
 
 // پاسخ ایجاد شده
 protected ActionResult<T> Created<T>(Guid id, T data, string actionName = "Get")
 
 // پاسخ به‌روزرسانی شده
-protected ActionResult Updated(string? message = null)
+protected ActionResult Updated(string message = null)
 
 // پاسخ حذف شده
-protected ActionResult Deleted(string? message = null)
+protected ActionResult Deleted(string message = null)
 ```
 
 #### 2. **متدهای پاسخ خطا**

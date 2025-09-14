@@ -43,14 +43,14 @@ public class InventoryMovementsController : BaseController
     [ProducesResponseType(typeof(IEnumerable<InventoryMovementDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<InventoryMovementDto>>> GetAllInventoryMovements(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? productId = null,
         [FromQuery] Guid? warehouseId = null,
         [FromQuery] Guid? binId = null,
-        [FromQuery] string? movementType = null,
+        [FromQuery] string movementType = null,
         [FromQuery] DateTime? fromDate = null,
         [FromQuery] DateTime? toDate = null,
-        [FromQuery] string? referenceType = null,
+        [FromQuery] string referenceType = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)
     {

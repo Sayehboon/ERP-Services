@@ -31,7 +31,7 @@ public abstract class BaseController : ControllerBase
     /// <param name="data">داده‌ها</param>
     /// <param name="message">پیام</param>
     /// <returns>پاسخ موفقیت‌آمیز</returns>
-    protected ActionResult<T> Success<T>(T data, string? message = null)
+    protected ActionResult<T> Success<T>(T data, string message = null)
     {
         var response = new
         {
@@ -49,7 +49,7 @@ public abstract class BaseController : ControllerBase
     /// </summary>
     /// <param name="message">پیام</param>
     /// <returns>پاسخ موفقیت‌آمیز</returns>
-    protected ActionResult Success(string? message = null)
+    protected ActionResult Success(string message = null)
     {
         var response = new
         {
@@ -195,7 +195,7 @@ public abstract class BaseController : ControllerBase
     /// </summary>
     /// <param name="message">پیام</param>
     /// <returns>پاسخ حذف شده</returns>
-    protected ActionResult Deleted(string? message = null)
+    protected ActionResult Deleted(string message = null)
     {
         var response = new
         {
@@ -213,7 +213,7 @@ public abstract class BaseController : ControllerBase
     /// </summary>
     /// <param name="message">پیام</param>
     /// <returns>پاسخ به‌روزرسانی شده</returns>
-    protected ActionResult Updated(string? message = null)
+    protected ActionResult Updated(string message = null)
     {
         var response = new
         {
@@ -268,7 +268,7 @@ public abstract class BaseController : ControllerBase
     /// </summary>
     /// <param name="id">شناسه</param>
     /// <returns>نتیجه اعتبارسنجی</returns>
-    protected ActionResult? ValidateId(Guid id)
+    protected ActionResult ValidateId(Guid id)
     {
         if (!IsValidId(id))
         {

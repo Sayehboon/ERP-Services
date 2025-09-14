@@ -39,7 +39,7 @@ public class CashBoxesController : BaseController
     [ProducesResponseType(typeof(IEnumerable<GetAllCashBoxes.CashBoxDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<object> GetAllCashBoxes(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] Guid? responsiblePersonId = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
@@ -200,7 +200,7 @@ public class CashBoxesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<object> UpdateCashBox(Guid id, [FromBody] object command)
+    public object UpdateCashBox(Guid id, [FromBody] object command)
     {
         try
         {
@@ -223,7 +223,7 @@ public class CashBoxesController : BaseController
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
-    public async Task<object> UpdateCashBoxBalance(Guid id, [FromBody] object command)
+    public object UpdateCashBoxBalance(Guid id, [FromBody] object command)
     {
         try
         {
@@ -244,7 +244,7 @@ public class CashBoxesController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
-    public async Task<object> DeleteCashBox(Guid id)
+    public object DeleteCashBox(Guid id)
     {
         try
         {

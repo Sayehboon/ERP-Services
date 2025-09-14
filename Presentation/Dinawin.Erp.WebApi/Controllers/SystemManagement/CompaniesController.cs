@@ -36,7 +36,7 @@ public class CompaniesController : BaseController
     [ProducesResponseType(typeof(IEnumerable<CompanyDto>), 200)]
     [ProducesResponseType(400)]
     public async Task<ActionResult<IEnumerable<CompanyDto>>> GetAllCompanies(
-        [FromQuery] string? searchTerm = null,
+        [FromQuery] string searchTerm = null,
         [FromQuery] bool? isActive = null,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 25)
