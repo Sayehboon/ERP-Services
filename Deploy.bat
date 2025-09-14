@@ -60,6 +60,17 @@ if not exist "%IIS_PATH%" (
 REM Copy files (excluding some unnecessary files)
 robocopy "%PUBLISH_PATH%" "%IIS_PATH%" /E /XD bin obj /XF *.pdb *.xml /R:3 /W:1
 
+echo.
+echo Step 3.1: Configuring web.config for Production...
+echo ========================================
+REM Copy production web.config
+if exist "web.Production.config" (
+    copy "web.Production.config" "%IIS_PATH%\web.config" /Y
+    echo Production web.config applied successfully
+) else (
+    echo WARNING: web.Production.config not found, using default web.config
+)
+
 if %ERRORLEVEL% geq 8 (
     echo ERROR: Copy operation failed!
     pause
