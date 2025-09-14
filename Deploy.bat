@@ -72,11 +72,32 @@ if not exist "%IIS_PATH%" (
     mkdir "%IIS_PATH%"
 )
 
-REM Copy files (excluding some unnecessary files but keeping XML documentation)
-robocopy "%PUBLISH_PATH%" "%IIS_PATH%" /E /XD bin obj /XF *.pdb /R:3 /W:1
+REM Copy only wwwroot folder for static files
+if exist "%PUBLISH_PATH%\wwwroot" (
+    echo Copying wwwroot folder...
+    robocopy "%PUBLISH_PATH%\wwwroot" "%IIS_PATH%\wwwroot" /E /R:3 /W:1
+    echo ✓ wwwroot folder copied successfully
+) else (
+    echo ✗ WARNING: wwwroot folder not found in publish directory
+)
 
 echo.
-echo Step 3.1: Configuring web.config for Production...
+echo Step 3.1: Verifying Swagger custom files...
+echo ========================================
+if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.css" (
+    echo ✓ Swagger custom CSS found in production
+) else (
+    echo ✗ WARNING: Swagger custom CSS not found in production
+)
+
+if exist "%IIS_PATH%\wwwroot\swagger-ui\custom.js" (
+    echo ✓ Swagger custom JS found in production
+) else (
+    echo ✗ WARNING: Swagger custom JS not found in production
+)
+
+echo.
+echo Step 3.2: Configuring web.config for Production...
 echo ========================================
 REM Copy production web.config
 if exist "web.Production.config" (
@@ -100,6 +121,7 @@ appcmd start apppool "%POOL_NAME%"
 
 echo Starting application: %APP_NAME%
 appcmd start app "%APP_NAME%"
+
 
 echo.
 echo ========================================

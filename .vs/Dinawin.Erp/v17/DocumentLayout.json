@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -15,12 +19,12 @@
       "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\web.production.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\web.production.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\web.production.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\web.production.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 21,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Bookmark",
@@ -115,12 +119,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\appsettings.Development.json",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.Development.json",
+              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-14T09:57:16.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.json",
               "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\appsettings.json",
               "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.json",
               "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\appsettings.json",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACYAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACEAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-09-14T09:54:49.164Z",
               "EditorCaption": ""
@@ -133,27 +150,27 @@
               "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\appsettings.Production.json",
               "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.Production.json",
               "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\appsettings.Production.json",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACwAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACYAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-09-14T09:54:00.033Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Properties\\launchSettings.json",
               "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Properties\\launchSettings.json",
               "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-09-14T09:49:58.649Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "web.Production.config",
               "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\web.Production.config",
               "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\web.Production.config",

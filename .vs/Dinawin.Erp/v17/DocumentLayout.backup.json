@@ -3,160 +3,24 @@
   "WorkspaceRootPath": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\wwwroot\\swagger-ui\\custom.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\wwwroot\\swagger-ui\\custom.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\appsettings.production.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\web.production.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\web.production.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\financial\\bankaccountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\financial\\bankaccountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4567890-1234-5678-9ABC-DEF123456789}|Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj|d:\\dinawin\\dinawin-erp\\backend\\infrastructure\\dinawin.erp.persistence\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4567890-1234-5678-9ABC-DEF123456789}|Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj|solutionrelative:infrastructure\\dinawin.erp.persistence\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4567890-1234-5678-9ABC-DEF123456789}|Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj|d:\\dinawin\\dinawin-erp\\backend\\infrastructure\\dinawin.erp.persistence\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4567890-1234-5678-9ABC-DEF123456789}|Infrastructure\\Dinawin.Erp.Persistence\\Dinawin.Erp.Persistence.csproj|solutionrelative:infrastructure\\dinawin.erp.persistence\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1234567-8901-2345-6789-ABCDEF123456}|Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj|d:\\dinawin\\dinawin-erp\\backend\\core\\dinawin.erp.domain\\entities\\crm\\contact.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1234567-8901-2345-6789-ABCDEF123456}|Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj|solutionrelative:core\\dinawin.erp.domain\\entities\\crm\\contact.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1234567-8901-2345-6789-ABCDEF123456}|Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj|d:\\dinawin\\dinawin-erp\\backend\\core\\dinawin.erp.domain\\entities\\users\\rolepermission.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1234567-8901-2345-6789-ABCDEF123456}|Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj|solutionrelative:core\\dinawin.erp.domain\\entities\\users\\rolepermission.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1234567-8901-2345-6789-ABCDEF123456}|Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj|d:\\dinawin\\dinawin-erp\\backend\\core\\dinawin.erp.domain\\entities\\accounting\\purchasepayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1234567-8901-2345-6789-ABCDEF123456}|Core\\Dinawin.Erp.Domain\\Dinawin.Erp.Domain.csproj|solutionrelative:core\\dinawin.erp.domain\\entities\\accounting\\purchasepayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\systemmanagement\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\systemmanagement\\rolescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\settings\\systemsettingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\settings\\systemsettingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\product\\uomconversionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\product\\uomconversionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\product\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\product\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\product\\unitscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\product\\unitscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\crm\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\crm\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\crm\\activitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\crm\\activitiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\crm\\activities\\commands\\deleteactivity\\deleteactivitycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\crm\\activities\\commands\\deleteactivity\\deleteactivitycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\accounting\\journalentriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\accounting\\journalentriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\inventory\\warehousescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\inventory\\warehousescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\customers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\customers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\financial\\cashboxescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\financial\\cashboxescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\hr\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\hr\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\hr\\departmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\hr\\departmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\financial\\cashtransactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\financial\\cashtransactionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\inventory\\binscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\inventory\\binscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\product\\modelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\product\\modelscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\product\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\product\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\product\\trimscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\product\\trimscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\vendors\\vendorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\vendors\\vendorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\systemmanagement\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\systemmanagement\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\purchase\\purchasebillscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\purchase\\purchasebillscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\product\\uomscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\product\\uomscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\taskmanagement\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\taskmanagement\\taskscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\systemmanagement\\userprofilescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\systemmanagement\\userprofilescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\systemmanagement\\companiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\systemmanagement\\companiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\dashboard\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\dashboard\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\controllers\\accounting\\fiscalyearscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\controllers\\accounting\\fiscalyearscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|d:\\dinawin\\dinawin-erp\\backend\\presentation\\dinawin.erp.webapi\\dinawin.erp.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{F5678901-2345-6789-ABCD-EF1234567890}|Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj|solutionrelative:presentation\\dinawin.erp.webapi\\dinawin.erp.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\hr\\employees\\queries\\getemployeeattendance\\getemployeeattendancequeryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\hr\\employees\\queries\\getemployeeattendance\\getemployeeattendancequeryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|d:\\dinawin\\dinawin-erp\\backend\\application\\dinawin.erp.application\\features\\sales\\salesorders\\queries\\getsalesorderbyid\\getsalesorderbyidqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F2345678-9012-3456-789A-BCDEF1234567}|Application\\Dinawin.Erp.Application\\Dinawin.Erp.Application.csproj|solutionrelative:application\\dinawin.erp.application\\features\\sales\\salesorders\\queries\\getsalesorderbyid\\getsalesorderbyidqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -166,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 20,
+          "SelectedChildIndex": 21,
           "Children": [
             {
               "$type": "Bookmark",
@@ -250,474 +114,68 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.json",
+              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\appsettings.json",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.json",
+              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\appsettings.json",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACYAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-14T09:54:49.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "custom.js",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\wwwroot\\swagger-ui\\custom.js",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\wwwroot\\swagger-ui\\custom.js",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\wwwroot\\swagger-ui\\custom.js",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\wwwroot\\swagger-ui\\custom.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-09-14T06:12:35.615Z",
+              "Title": "appsettings.Production.json",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.Production.json",
+              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\appsettings.Production.json",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\appsettings.Production.json",
+              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\appsettings.Production.json",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-14T09:54:00.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-14T09:49:58.649Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "DependencyInjection.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\DependencyInjection.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Dinawin.Erp.Persistence\\DependencyInjection.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\DependencyInjection.cs",
-              "RelativeToolTip": "Infrastructure\\Dinawin.Erp.Persistence\\DependencyInjection.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAowBQAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T13:22:13.017Z"
+              "Title": "web.Production.config",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\web.Production.config",
+              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\web.Production.config",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\web.Production.config",
+              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\web.Production.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-09-14T09:49:48.487Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Program.cs",
               "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Program.cs",
               "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Program.cs",
               "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Program.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAwwEoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T13:21:37.284Z",
+              "WhenOpened": "2025-09-14T09:47:44.705Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Contact.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Entities\\Crm\\Contact.cs",
-              "RelativeDocumentMoniker": "Core\\Dinawin.Erp.Domain\\Entities\\Crm\\Contact.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Entities\\Crm\\Contact.cs",
-              "RelativeToolTip": "Core\\Dinawin.Erp.Domain\\Entities\\Crm\\Contact.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAwwHEAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T12:50:38.33Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "RolePermission.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Entities\\Users\\RolePermission.cs",
-              "RelativeDocumentMoniker": "Core\\Dinawin.Erp.Domain\\Entities\\Users\\RolePermission.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Entities\\Users\\RolePermission.cs",
-              "RelativeToolTip": "Core\\Dinawin.Erp.Domain\\Entities\\Users\\RolePermission.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAewD4AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T12:46:25.739Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PurchasePayment.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Entities\\Accounting\\PurchasePayment.cs",
-              "RelativeDocumentMoniker": "Core\\Dinawin.Erp.Domain\\Entities\\Accounting\\PurchasePayment.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Core\\Dinawin.Erp.Domain\\Entities\\Accounting\\PurchasePayment.cs",
-              "RelativeToolTip": "Core\\Dinawin.Erp.Domain\\Entities\\Accounting\\PurchasePayment.cs",
-              "ViewState": "AgIAAHsAAAAAAAAAAAAewI0AAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T12:45:06.587Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "RolesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\RolesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\RolesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\RolesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\RolesController.cs",
-              "ViewState": "AgIAALEAAAAAAAAAAAAlwLkAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T10:02:48.464Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SystemSettingsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Settings\\SystemSettingsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Settings\\SystemSettingsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Settings\\SystemSettingsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Settings\\SystemSettingsController.cs",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAnwHUAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T10:02:31.86Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "UomConversionsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UomConversionsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UomConversionsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UomConversionsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UomConversionsController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAewB4AAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T10:02:22.347Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ProductsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\ProductsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\ProductsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\ProductsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\ProductsController.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAAwFIAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T10:02:14.461Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "DeleteActivityCommand.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\CRM\\Activities\\Commands\\DeleteActivity\\DeleteActivityCommand.cs",
-              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\CRM\\Activities\\Commands\\DeleteActivity\\DeleteActivityCommand.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\CRM\\Activities\\Commands\\DeleteActivity\\DeleteActivityCommand.cs",
-              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\CRM\\Activities\\Commands\\DeleteActivity\\DeleteActivityCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T10:01:25.587Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "JournalEntriesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Accounting\\JournalEntriesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Accounting\\JournalEntriesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Accounting\\JournalEntriesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Accounting\\JournalEntriesController.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAAAAwFYAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T10:00:59.225Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "WarehousesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Inventory\\WarehousesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Inventory\\WarehousesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Inventory\\WarehousesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Inventory\\WarehousesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAwCUAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T10:00:40.071Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "CashBoxesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\CashBoxesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\CashBoxesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\CashBoxesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\CashBoxesController.cs",
-              "ViewState": "AgIAAI0AAAAAAAAAAAAEwKEAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:59:13.782Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "EmployeesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\HR\\EmployeesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\HR\\EmployeesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\HR\\EmployeesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\HR\\EmployeesController.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAmwDIAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:58:37.574Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "CashTransactionsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\CashTransactionsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\CashTransactionsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\CashTransactionsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\CashTransactionsController.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAkwGUAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:57:49.781Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "BinsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Inventory\\BinsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Inventory\\BinsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Inventory\\BinsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Inventory\\BinsController.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAmwGgAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:57:13.709Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "CategoriesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\CategoriesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\CategoriesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\CategoriesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\CategoriesController.cs",
-              "ViewState": "AgIAAK4AAAAAAAAAAAAswMgAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:56:29.282Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "ModelsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\ModelsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\ModelsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\ModelsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\ModelsController.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAmwE0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:56:14.741Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "VendorsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Vendors\\VendorsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Vendors\\VendorsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Vendors\\VendorsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Vendors\\VendorsController.cs",
-              "ViewState": "AgIAABYBAAAAAAAAAAAhwCoBAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:55:38.882Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\UsersController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\UsersController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\UsersController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\UsersController.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAWwE0AAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:55:31.343Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "PurchaseBillsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Purchase\\PurchaseBillsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Purchase\\PurchaseBillsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Purchase\\PurchaseBillsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Purchase\\PurchaseBillsController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAtwCUAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:54:58.764Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "UomsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UomsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UomsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UomsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UomsController.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAADgv1IAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:54:41.159Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "TasksController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\TaskManagement\\TasksController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\TaskManagement\\TasksController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\TaskManagement\\TasksController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\TaskManagement\\TasksController.cs",
-              "ViewState": "AgIAAIEAAAAAAAAAAAArwH8AAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:54:15.639Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "UserProfilesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\UserProfilesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\UserProfilesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\UserProfilesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\UserProfilesController.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAWwDYAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:54:07.549Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "CompaniesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\CompaniesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\CompaniesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\CompaniesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\SystemManagement\\CompaniesController.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAjwEYAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:53:55.532Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "CustomersController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Customers\\CustomersController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Customers\\CustomersController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Customers\\CustomersController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Customers\\CustomersController.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAuwF0AAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:52:54.269Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BankAccountsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\BankAccountsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\BankAccountsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\BankAccountsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Financial\\BankAccountsController.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAnwGsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:52:17.227Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "DepartmentsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\HR\\DepartmentsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\HR\\DepartmentsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\HR\\DepartmentsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\HR\\DepartmentsController.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAcwFQAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:50:14.362Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "FiscalYearsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Accounting\\FiscalYearsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Accounting\\FiscalYearsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Accounting\\FiscalYearsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Accounting\\FiscalYearsController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAASwCcAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:50:02.614Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "Dinawin.Erp.WebApi.csproj",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Dinawin.Erp.WebApi.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-13T09:50:01.602Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "DashboardController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Dashboard\\DashboardController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Dashboard\\DashboardController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Dashboard\\DashboardController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Dashboard\\DashboardController.cs",
-              "ViewState": "AgIAAKcAAAAAAAAAAADgv7UAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:37:00.768Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "UnitsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UnitsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UnitsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UnitsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\UnitsController.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAAwGIAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:31:40.638Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "TrimsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\TrimsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\TrimsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\TrimsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\Product\\TrimsController.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAAwGQAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:30:22.273Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "TicketsController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\CRM\\TicketsController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\CRM\\TicketsController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\CRM\\TicketsController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\CRM\\TicketsController.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAmwFcAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:27:35.499Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ActivitiesController.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\CRM\\ActivitiesController.cs",
-              "RelativeDocumentMoniker": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\CRM\\ActivitiesController.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Presentation\\Dinawin.Erp.WebApi\\Controllers\\CRM\\ActivitiesController.cs",
-              "RelativeToolTip": "Presentation\\Dinawin.Erp.WebApi\\Controllers\\CRM\\ActivitiesController.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAkwJcAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:10:57.125Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Dinawin.Erp.Persistence\\ApplicationDbContext.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Infrastructure\\Dinawin.Erp.Persistence\\ApplicationDbContext.cs",
-              "RelativeToolTip": "Infrastructure\\Dinawin.Erp.Persistence\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAOEAAAAAAAAAAAAlwDYAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:08:08.958Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "GetSalesOrderByIdQueryHandler.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Sales\\SalesOrders\\Queries\\GetSalesOrderById\\GetSalesOrderByIdQueryHandler.cs",
-              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\Sales\\SalesOrders\\Queries\\GetSalesOrderById\\GetSalesOrderByIdQueryHandler.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\Sales\\SalesOrders\\Queries\\GetSalesOrderById\\GetSalesOrderByIdQueryHandler.cs",
-              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\Sales\\SalesOrders\\Queries\\GetSalesOrderById\\GetSalesOrderByIdQueryHandler.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAqwCkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:02:46.322Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "GetEmployeeAttendanceQueryHandler.cs",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\HR\\Employees\\Queries\\GetEmployeeAttendance\\GetEmployeeAttendanceQueryHandler.cs",
-              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application\\Features\\HR\\Employees\\Queries\\GetEmployeeAttendance\\GetEmployeeAttendanceQueryHandler.cs",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application\\Features\\HR\\Employees\\Queries\\GetEmployeeAttendance\\GetEmployeeAttendanceQueryHandler.cs",
-              "RelativeToolTip": "Application\\Dinawin.Erp.Application\\Features\\HR\\Employees\\Queries\\GetEmployeeAttendance\\GetEmployeeAttendanceQueryHandler.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAqwGgAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-13T09:01:32.241Z"
             }
           ]
         }
