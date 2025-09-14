@@ -99,7 +99,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Dinawin.Erp.Application",
+              "Title": "Dinawin.Erp.Application.csproj",
               "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj",
               "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application.csproj",
               "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj",

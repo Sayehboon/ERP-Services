@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.Infrastructure"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.Persistence", "Persistence\Dinawin.Erp.Persistence.csproj", "{F4567890-1234-5678-9ABC-DEF123456789}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.WebApi", "Presentation\Dinawin.Erp.WebApi\Dinawin.Erp.WebApi.csproj", "{F5678901-2345-6789-ABCD-EF1234567890}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dinawin.Erp.WebApi", "WebApi\Dinawin.Erp.WebApi.csproj", "{F5678901-2345-6789-ABCD-EF1234567890}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

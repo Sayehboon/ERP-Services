@@ -14,21 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 20,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Dinawin.Erp.Application",
-              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj",
-              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application.csproj",
-              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj",
-              "RelativeToolTip": "Application\\Dinawin.Erp.Application.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-14T14:44:34.25Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -108,6 +95,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Dinawin.Erp.Application.csproj",
+              "DocumentMoniker": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj",
+              "RelativeDocumentMoniker": "Application\\Dinawin.Erp.Application.csproj",
+              "ToolTip": "D:\\Dinawin\\Dinawin-Erp\\BackEnd\\Application\\Dinawin.Erp.Application.csproj",
+              "RelativeToolTip": "Application\\Dinawin.Erp.Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-14T14:44:34.25Z",
+              "EditorCaption": ""
             }
           ]
         }
