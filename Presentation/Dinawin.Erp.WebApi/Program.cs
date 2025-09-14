@@ -52,21 +52,42 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 // Add sample data service
 builder.Services.AddScoped<Dinawin.Erp.Application.Services.SampleDataService>();
 
-// Add CORS
+// Add CORS - Environment specific configuration
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+    if (builder.Environment.IsDevelopment())
     {
-        policy.WithOrigins(
-                "http://localhost:3000", 
-                "http://localhost:5173", 
-                "http://localhost:8080",
-                "https://localhost:3000",
-                "https://localhost:5173")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
-    });
+        // Development CORS - More permissive
+        options.AddPolicy("AllowFrontend", policy =>
+        {
+            policy.WithOrigins(
+                    "http://localhost:3000", 
+                    "http://localhost:5173", 
+                    "http://localhost:8080",
+                    "https://localhost:3000",
+                    "https://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
+    }
+    else if (builder.Environment.IsProduction())
+    {
+        // Production CORS - Restrictive
+        var enableCors = builder.Configuration.GetValue<bool>("Security:EnableCors", false);
+        if (enableCors)
+        {
+            options.AddPolicy("AllowFrontend", policy =>
+            {
+                policy.WithOrigins(
+                        "https://yourdomain.com",
+                        "https://www.yourdomain.com")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+                      .AllowCredentials();
+            });
+        }
+    }
 });
 
 // Add health checks
@@ -96,6 +117,25 @@ if (app.Environment.IsDevelopment())
         options.InjectStylesheet("/swagger-ui/custom.css");
         options.InjectJavascript("/swagger-ui/custom.js");
     });
+}
+else if (app.Environment.IsProduction())
+{
+    // Production environment - Swagger disabled for security
+    // Only enable if explicitly configured in appsettings.Production.json
+    var enableSwagger = app.Configuration.GetValue<bool>("ApplicationSettings:EnableSwagger", false);
+    if (enableSwagger)
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Dinawin ERP API v1");
+            options.RoutePrefix = "swagger";
+            options.DocumentTitle = "Dinawin ERP API Documentation";
+            options.DefaultModelsExpandDepth(-1);
+            options.DefaultModelExpandDepth(0);
+            options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+        });
+    }
 }
 
 app.UseHttpsRedirection();
